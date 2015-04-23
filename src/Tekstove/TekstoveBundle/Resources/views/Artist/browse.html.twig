@@ -1,0 +1,11 @@
+{% extends 'TekstoveBundle::main.html.twig' %}
+{% block content %}
+    
+    @TODO albums
+    <br/> <br/>
+    
+    {% for lyric in lyrics %}
+        <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
+        <br/>
+    {% endfor %}
+{% endblock %}

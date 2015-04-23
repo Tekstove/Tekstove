@@ -1,0 +1,28 @@
+{% extends 'TekstoveBundle::main.html.twig' %}
+{% block content %}
+
+    {{ user.username|e }}
+    
+    {% if (user.avatar) %}
+        <br/>
+        <br/>
+        <img src="{{ user.avatar|e }}" />
+    {% endif %}
+    
+    <br/>
+    <br/>
+    {{ user.about|e|nl2br }}
+    
+    {% if user.roles %}
+        <br/>
+        Групи:
+        {% for role in user.roles %}
+            <img 
+                src="{{ asset(role.image) }}" 
+                alt="{{ role.name|e }}"
+                title="{{ role.name|e }}"
+            />
+        {% endfor %}
+    {% endif %}
+     
+{% endblock %}

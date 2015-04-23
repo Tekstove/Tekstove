@@ -1,0 +1,125 @@
+{% extends 'TekstoveBundle::main.html.twig' %}
+
+{% block content %}
+
+    <table class="pesni">
+        <tr>
+            <td class="pesni">
+                <div class="top100_index">най-нови текстове</div>
+
+
+                {% for lyric in lastlyrics %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.getNameShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+
+
+
+            </td>
+            <td class="pesni">
+                <div class="top100_index">най-нови преводи</div>
+                {% for lyric in lastTranslated %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.getNameShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+
+            </td>
+        </tr>
+        <tr>
+            <td class="pesni">
+
+                <div class="top100_index">
+                    <a href="#">
+                        текстове популярни напоследък  -- Топ 100
+                    </a>
+                </div>
+                {% for lyric in popular %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.getNameShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+
+
+            </td>
+            <td class="pesni">
+
+                <div class="top100_index"><a href="#"><b>най-преглеждани текстове</b>&nbsp;&nbsp;--&nbsp;&nbsp;Топ 100</a></div>
+                {% for lyric in mostViewed %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.getNameShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+
+
+            </td>
+        </tr>
+        <tr>
+            <td class="pesni">
+
+                <div class="top100_index"><a href="#">последно гласувани&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;100 последни</a></div>
+
+                {% for lyric in lastVoted %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.getNameShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+
+            </td>
+            <td class="pesni">
+
+                <div class="top100_index">произволни текстове от любими</div>
+                @Todo
+
+
+
+            </td>
+        </tr>
+        <tr>
+            <td class="pesni" colspan=2>
+
+                <i><b>@най-нови албуми</b></i><br>
+
+
+                <table class="albums" style="text-align: center;">
+                    <tr>
+                        
+                        {% for album in albums %}
+                        
+                            <td class="albumstd" style="text-align: center;">
+
+                                <a href="#{{ album.id|e }}">
+
+                                    <b>
+                                        {% if album.artist1 is not empty %}
+                                            {{ album.artist1.name|e }}
+                                            <br>
+                                        {% endif %}
+                                        
+                                        @{{ album.title|e }}
+                                        <br />
+                                        <i>({{ album.year|e }})</i>
+                                        <br />
+                                        <img src="{{ album.image|e }}" style="width: 130px; height: 130px;" alt="Обложка" />
+                                        <br/>
+                                    </b>
+                                </a>
+
+
+                            </td>
+                            
+                        {% endfor %}
+                        
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+{% endblock %}

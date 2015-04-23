@@ -3,6 +3,7 @@ composer.lock
 vendor/
 app/cache/*
 app/logs/*
+app/config/parameters.yml
 app/bootstrap.php.cache
 web/bundles
 web/js/fos_js_routes.js

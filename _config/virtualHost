@@ -1,0 +1,67 @@
+<VirtualHost *:80>
+  ServerName tekstove.info
+  ServerAlias www.tekstove.info
+  DocumentRoot /var/www/tekstove/www/
+
+
+        RewriteEngine on
+        Options +FollowSymlinks
+
+        RewriteCond %{HTTP_HOST} ^www\.tekstove\.info$ [NC]
+        RewriteRule (.*) http://tekstove.info$1 [L,R=301]
+
+        RewriteCond %{HTTP_HOST} ^tekstove\.info$ [NC]
+        RewriteRule (.*)index\.php$ http://tekstove.info [R=301,L]
+
+        <filesmatch "\.(ico|css|gif|jpg|png)$">
+                Header set Cache-Control "max-age=34560000, public"
+        </filesmatch>
+
+        RewriteCond %{QUERY_STRING} artistb=([0-9]*)/?$
+        RewriteRule ^/browsepoartist\.php /browsepoartist.php\?id=%1 [R=301,L]
+
+        #RewriteCond %{REMOTE_HOST} !^(127\.0\.0\.1)$
+        RewriteRule ^/blog/?(.*)$ http://blog.tekstove.info/$1 [R=301]
+                                                                                                                                                                 
+    SuexecUserGroup site_tekstove site_tekstove                                                                                                                  
+                                                                                                                                                                 
+                                                                                                                                                                 
+    <Directory /var/www/tekstove/_data>                                                                                                                          
+      Order allow,deny                                                                                                                                           
+      Deny from all                                                                                                                                              
+    </Directory>                                                                                                                                                 
+                                                                                                                                                                 
+                                                                                                                                                                 
+    <Directory /var/www/tekstove>                                                                                                                                
+      Options +ExecCGI                                                                                                                                           
+      AllowOverride None                                                                                                                                         
+      AddHandler fcgid-script .php
+      FCGIWrapper /var/www/php-fcgi-scripts/tekstove/php-fcg-starter .php
+      Order allow,deny
+        Allow from all
+        #deny from 127.0
+        #deny from 95.70
+
+
+        <Limit POST>
+                order allow,deny
+                allow from all
+                deny from 65.49.0.0/17
+
+                # btk
+                #deny from 87.126.128.0/18
+                #deny from 90.154.128.0/17
+                #deny from 83.228.0.0/17
+
+        </Limit>
+    </Directory>
+
+
+        SetEnvIf Request_URI "\.(gif|css|jpg|png|js|ico|js)$" dontlog
+
+
+  ErrorLog /var/log/apache2/tekstove/error.log
+  CustomLog /var/log/apache2/tekstove/access.log combined env=!dontlog
+  ServerSignature Off
+
+</VirtualHost>

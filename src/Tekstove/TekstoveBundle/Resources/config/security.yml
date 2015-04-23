@@ -1,0 +1,20 @@
+security:
+    encoders:
+        Tekstove\TekstoveBundle\Model\User:
+            class: Tekstove\TekstoveBundle\Model\User
+            algorithm: md5
+            encode_as_base64: false
+            iterations: 1
+    providers:
+        webservice:
+            id: tekstoveBundleUserProvider
+    firewalls:
+        secured_area:
+            pattern:   ^/
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: loginCheck
+            logout:
+                path:   logout
+                target: /

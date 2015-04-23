@@ -1,0 +1,169 @@
+{% extends 'TekstoveBundle::main.html.twig' %}
+{% block content %}
+    разработва се
+    <table width="100%" style="background-color:#EEEEEE;">
+        <tr>
+            <td style="background-color:#EEEEEE;">
+                гледания: {{ lyric.getViews }}, популярност: {{ lyric.getPopularity }}
+            </td>
+            <td style="background-color:#EEEEEE;">
+                <div style="text-align:right;">
+                    <div id="liubimi" style="display:inline;">
+                        <a href="#" title="Добави песента към Любими">@TODO</a>                 
+                    </div>
+                    {% if (is_granted('edit', lyric)) %}
+                        &nbsp;&nbsp;<a href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
+                    {% endif %}
+                    
+                    {% if (is_granted('edit_video', lyric)) %}
+                        &nbsp;&nbsp;<a href="#">@Смени клипа</a>
+                    {% endif %}
+                    
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="koi_e_glasuval_div_ajax"></div>
+            </td>
+        </tr>
+    </table>
+
+    <div id="syob6tenie"></div>
+    <table width=100%>
+        <tr>
+            <td align="left">
+                <h1>
+                    {% if (lyric.getArtist1) %}
+                        <a href="{{ path('artistBrowse', {id:lyric.getArtist1.getId}) }}">
+                            {{ lyric.getArtist1.getName|e }}
+                        </a>
+                    {% endif %}
+                    {% if (lyric.getArtist2) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist2.getId}) }}" title="">
+                            {{ lyric.getArtist2.getName|e }}
+                        </a>
+                    {% endif %}
+                    {% if (lyric.getArtist3) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist3.getId}) }}}">
+                            {{ lyric.getArtist3.getName|e }}
+                        </a>
+                    {% endif %}
+                    {% if (lyric.getArtist4) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist4.getId}) }}" title="">
+                            {{ lyric.getArtist4.getName|e }}
+                        </a>
+                    {% endif %}
+                    {% if (lyric.getArtist5) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist5.getId}) }}" title="">
+                            {{ lyric.getArtist5.getName|e }}
+                        </a>
+                    {% endif %}
+                    - {{ lyric.title|e }}
+                </h1>
+            </td>
+            <td align="right">
+                <div class="browse_glasuvai_buton">
+                    <div id="glasuvane" style="padding-top:12px">
+                        {{ lyric.getVotes }}
+                        <br/>
+                        {% if app.user %}
+                            <a href="#" title="Гласувай">@Гласувай</a>
+                        {% else %}
+                            Гласа
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="browse_koi_e_glasuval">
+                    <a href="#">@кой е гласувал</a>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <br>
+    <table>
+        <tr>
+            <td>
+                <div id="video"></div>
+                <div id="video_butoni"></div>
+            </td>
+            <td>
+                <div id="browse_problemi"></div>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div style="width:100%">
+
+        {% if (lyric.uploader) %}
+            <div style="float:left;">
+                изпратено от:
+                <b>
+                    <a href="{{ path('userView', {id:lyric.uploader.id}) }}">
+                        {{ lyric.uploader.username|e }}
+                    </a>
+                </b> 
+            </div>
+        {% endif %}
+
+    </div>
+
+    <br/>
+    <br/>
+    Маркирана като:
+    @TODO
+
+    {% if (lyric.language) %}
+        на {{ lyric.language.name|e }}
+    {% endif %}
+
+    <br>
+    <a name="prevod" id="prevod"></a>
+
+
+    <table style="border-spacing: 15px;">
+        <tr>
+            <td style="background-color : #f5f5ff;padding:4px;" Valign="top">
+                <span id="text_glaven">
+                    {{ lyric.text|e|nl2br }}
+                </span>
+            </td>
+
+            {% if (lyric.getTextBg) %}
+                <td style="background-color : #f5f5ff;padding:4px;" Valign="top">
+                    <span id="text_glaven">
+                        {{ lyric.textBg|e|nl2br }}
+                    </span>
+                </td>
+            {% endif %}
+
+
+        </tr>
+    </table>
+
+
+
+    <table class="komentari">
+        <tr>
+            <td>
+                <a href="#">@Добави Коментар</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table class="komentari2">
+                </table>
+            </td>
+        </tr>
+
+
+
+    </table>
+{% endblock %}

@@ -1,0 +1,13 @@
+<phpunit bootstrap="bootstrap.php" colors="true">
+
+	<testsuite name="My Test Suite">
+		<directory>tekstove/</directory>
+	</testsuite>
+
+	<logging>
+		<log type="coverage-html" target="log/" charset="utf8"/>
+	</logging>
+
+
+</phpunit>
+

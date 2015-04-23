@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+Options +Indexes
+RewriteEngine On
+
+<FilesMatch "\.(gz|gzip)$">
+Header set Content-Encoding: gzip
+</FilesMatch>
+
+ForceType text/javascript
+Header set Cache-Control "max-age=34560000, public"
