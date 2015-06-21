@@ -9,3 +9,4 @@ web/bundles
 web/js/fos_js_routes.js
 
 /app/scripts/migrations/vendor
+/app/scripts/migrations/phinx.yml
