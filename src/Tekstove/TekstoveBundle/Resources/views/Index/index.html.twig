@@ -10,7 +10,7 @@
 
                 {% for lyric in lastlyrics %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getNameShort }}
+                        {{ lyric.getFullTitleShort }}
                     </a>
                     <br />
                 {% endfor %}
@@ -22,7 +22,7 @@
                 <div class="top100_index">най-нови преводи</div>
                 {% for lyric in lastTranslated %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getNameShort }}
+                        {{ lyric.getFullTitleShort }}
                     </a>
                     <br />
                 {% endfor %}

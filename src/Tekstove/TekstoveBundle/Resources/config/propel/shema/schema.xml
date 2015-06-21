@@ -320,7 +320,7 @@
   <table name="lyric" idMethod="native" phpName="Lyric">
     <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="zaglavie_palno" phpName="ZaglaviePalno" type="LONGVARCHAR" required="true"/>
-    <column name="zaglavie_sakrateno" phpName="ZaglavieSakrateno" type="VARCHAR" size="280" required="true"/>
+    <column name="zaglavie_sakrateno" phpName="FullTitleShort" type="VARCHAR" size="280" required="true"/>
     <column name="up_id" phpName="UpId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
     <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
     <column name="text_bg" phpName="TextBg" type="LONGVARCHAR"/>

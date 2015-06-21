@@ -22,7 +22,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  * @method     ChildLyricQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildLyricQuery orderByZaglaviePalno($order = Criteria::ASC) Order by the zaglavie_palno column
- * @method     ChildLyricQuery orderByZaglavieSakrateno($order = Criteria::ASC) Order by the zaglavie_sakrateno column
+ * @method     ChildLyricQuery orderByFullTitleShort($order = Criteria::ASC) Order by the zaglavie_sakrateno column
  * @method     ChildLyricQuery orderByUpId($order = Criteria::ASC) Order by the up_id column
  * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
  * @method     ChildLyricQuery orderByTextBg($order = Criteria::ASC) Order by the text_bg column
@@ -96,7 +96,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  * @method     ChildLyricQuery groupById() Group by the id column
  * @method     ChildLyricQuery groupByZaglaviePalno() Group by the zaglavie_palno column
- * @method     ChildLyricQuery groupByZaglavieSakrateno() Group by the zaglavie_sakrateno column
+ * @method     ChildLyricQuery groupByFullTitleShort() Group by the zaglavie_sakrateno column
  * @method     ChildLyricQuery groupByUpId() Group by the up_id column
  * @method     ChildLyricQuery groupByText() Group by the text column
  * @method     ChildLyricQuery groupByTextBg() Group by the text_bg column
@@ -203,7 +203,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  * @method     ChildLyric findOneById(int $id) Return the first ChildLyric filtered by the id column
  * @method     ChildLyric findOneByZaglaviePalno(string $zaglavie_palno) Return the first ChildLyric filtered by the zaglavie_palno column
- * @method     ChildLyric findOneByZaglavieSakrateno(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column
+ * @method     ChildLyric findOneByFullTitleShort(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column
  * @method     ChildLyric findOneByUpId(int $up_id) Return the first ChildLyric filtered by the up_id column
  * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
  * @method     ChildLyric findOneByTextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
@@ -280,7 +280,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  * @method     ChildLyric requireOneById(int $id) Return the first ChildLyric filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByZaglaviePalno(string $zaglavie_palno) Return the first ChildLyric filtered by the zaglavie_palno column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByZaglavieSakrateno(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByFullTitleShort(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByUpId(int $up_id) Return the first ChildLyric filtered by the up_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByTextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -355,7 +355,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildLyric objects based on current ModelCriteria
  * @method     ChildLyric[]|ObjectCollection findById(int $id) Return ChildLyric objects filtered by the id column
  * @method     ChildLyric[]|ObjectCollection findByZaglaviePalno(string $zaglavie_palno) Return ChildLyric objects filtered by the zaglavie_palno column
- * @method     ChildLyric[]|ObjectCollection findByZaglavieSakrateno(string $zaglavie_sakrateno) Return ChildLyric objects filtered by the zaglavie_sakrateno column
+ * @method     ChildLyric[]|ObjectCollection findByFullTitleShort(string $zaglavie_sakrateno) Return ChildLyric objects filtered by the zaglavie_sakrateno column
  * @method     ChildLyric[]|ObjectCollection findByUpId(int $up_id) Return ChildLyric objects filtered by the up_id column
  * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
  * @method     ChildLyric[]|ObjectCollection findByTextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
@@ -683,28 +683,28 @@ abstract class LyricQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByZaglavieSakrateno('fooValue');   // WHERE zaglavie_sakrateno = 'fooValue'
-     * $query->filterByZaglavieSakrateno('%fooValue%'); // WHERE zaglavie_sakrateno LIKE '%fooValue%'
+     * $query->filterByFullTitleShort('fooValue');   // WHERE zaglavie_sakrateno = 'fooValue'
+     * $query->filterByFullTitleShort('%fooValue%'); // WHERE zaglavie_sakrateno LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $zaglavieSakrateno The value to use as filter.
+     * @param     string $fullTitleShort The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByZaglavieSakrateno($zaglavieSakrateno = null, $comparison = null)
+    public function filterByFullTitleShort($fullTitleShort = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($zaglavieSakrateno)) {
+            if (is_array($fullTitleShort)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $zaglavieSakrateno)) {
-                $zaglavieSakrateno = str_replace('*', '%', $zaglavieSakrateno);
+            } elseif (preg_match('/[\%\*]/', $fullTitleShort)) {
+                $fullTitleShort = str_replace('*', '%', $fullTitleShort);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_ZAGLAVIE_SAKRATENO, $zaglavieSakrateno, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_ZAGLAVIE_SAKRATENO, $fullTitleShort, $comparison);
     }
 
     /**

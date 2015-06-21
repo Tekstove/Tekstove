@@ -20,16 +20,21 @@ class IndexController extends Controller
         $voteManager = $this->get('tekstoveVoteManager');
         /* @var $voteManager \Tekstove\TekstoveBundle\Model\Lyric\Vote\Manager */
         
-        $lastLyrics = $lyricManager->getBy([
-            'order' => 'id',
-            'orderType' => 'DESC',
-        ]);
+        $lastLyricQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
+        $lastLyricQuery->orderBy('id', \Propel\Runtime\ActiveQuery\Criteria::DESC);
+        $lastLyricQuery->limit(10);
+        $lastLyrics = $lastLyricQuery->find();
         
         $lastTranslated = $lyricManager->getBy([
             'onlyTranslated' => true,
             'order' => 'id',
             'orderType' => 'DESC',
         ]);
+        
+        $lastTranslatedQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
+        $lastTranslatedQuery->where("text_bg IS NOT NULL");
+        $lastTranslatedQuery->addDescendingOrderByColumn('id');
+        $lastTranslatedQuery->limit(10);
         
         $popular = $lyricManager->getBy([
             'order' => 'populqrnost',

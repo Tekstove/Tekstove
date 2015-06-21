@@ -841,7 +841,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @return string
      */
-    public function getZaglavieSakrateno()
+    public function getFullTitleShort()
     {
         return $this->zaglavie_sakrateno;
     }
@@ -2032,7 +2032,7 @@ abstract class Lyric implements ActiveRecordInterface
      * @param string $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
-    public function setZaglavieSakrateno($v)
+    public function setFullTitleShort($v)
     {
         if ($v !== null) {
             $v = (string) $v;
@@ -2044,7 +2044,7 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         return $this;
-    } // setZaglavieSakrateno()
+    } // setFullTitleShort()
 
     /**
      * Set the value of [up_id] column.
@@ -3832,7 +3832,7 @@ abstract class Lyric implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LyricTableMap::translateFieldName('ZaglaviePalno', TableMap::TYPE_PHPNAME, $indexType)];
             $this->zaglavie_palno = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricTableMap::translateFieldName('ZaglavieSakrateno', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricTableMap::translateFieldName('FullTitleShort', TableMap::TYPE_PHPNAME, $indexType)];
             $this->zaglavie_sakrateno = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LyricTableMap::translateFieldName('UpId', TableMap::TYPE_PHPNAME, $indexType)];
@@ -4873,7 +4873,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return $this->getZaglaviePalno();
                 break;
             case 2:
-                return $this->getZaglavieSakrateno();
+                return $this->getFullTitleShort();
                 break;
             case 3:
                 return $this->getUpId();
@@ -5117,7 +5117,7 @@ abstract class Lyric implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getZaglaviePalno(),
-            $keys[2] => $this->getZaglavieSakrateno(),
+            $keys[2] => $this->getFullTitleShort(),
             $keys[3] => $this->getUpId(),
             $keys[4] => $this->getText(),
             $keys[5] => $this->getTextBg(),
@@ -5334,7 +5334,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->setZaglaviePalno($value);
                 break;
             case 2:
-                $this->setZaglavieSakrateno($value);
+                $this->setFullTitleShort($value);
                 break;
             case 3:
                 $this->setUpId($value);
@@ -5579,7 +5579,7 @@ abstract class Lyric implements ActiveRecordInterface
             $this->setZaglaviePalno($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setZaglavieSakrateno($arr[$keys[2]]);
+            $this->setFullTitleShort($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setUpId($arr[$keys[3]]);
@@ -6138,7 +6138,7 @@ abstract class Lyric implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setZaglaviePalno($this->getZaglaviePalno());
-        $copyObj->setZaglavieSakrateno($this->getZaglavieSakrateno());
+        $copyObj->setFullTitleShort($this->getFullTitleShort());
         $copyObj->setUpId($this->getUpId());
         $copyObj->setText($this->getText());
         $copyObj->setTextBg($this->getTextBg());

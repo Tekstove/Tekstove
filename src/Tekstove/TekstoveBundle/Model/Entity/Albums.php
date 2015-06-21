@@ -16,5 +16,15 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\Albums as BaseAlbums;
  */
 class Albums extends BaseAlbums
 {
-
+    public function getArtist1()
+    {
+        if (empty($this->artist1id)) {
+            return null;
+        }
+        
+        $artistManager = new ArtistsQuery();
+        $artist = $artistManager->findById($this->artist1id);
+        
+        return $artist;
+    }
 }
