@@ -263,7 +263,7 @@
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
   </table>
-  <table name="glasuvane" idMethod="native" phpName="Glasuvane">
+  <table name="lyric_votes" idMethod="native" phpName="Votes" namespace="Lyric">
     <column name="za" phpName="Za" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
     <column name="ot" phpName="Ot" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
     <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
@@ -346,8 +346,8 @@
     <column name="ip_upload" phpName="IpUpload" type="VARCHAR" size="30" required="true"/>
     <column name="dopylnitelnoinfo" phpName="Dopylnitelnoinfo" type="LONGVARCHAR" required="true"/>
     <column name="glasa" phpName="Glasa" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-    <column name="vidqna" phpName="Vidqna" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-    <column name="populqrnost" phpName="Populqrnost" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="views" phpName="Views" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="popularity" phpName="Popularity" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
     <column name="stilraphiphop" phpName="Stilraphiphop" type="BOOLEAN" size="1" required="true"/>
     <column name="stilhiphop" phpName="Stilhiphop" type="BOOLEAN" size="1" required="true"/>
     <column name="stileastcoast" phpName="Stileastcoast" type="BOOLEAN" size="1" required="true"/>

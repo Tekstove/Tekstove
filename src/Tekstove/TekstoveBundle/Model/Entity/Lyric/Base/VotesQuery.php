@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Entity\Base;
+namespace Tekstove\TekstoveBundle\Model\Entity\Lyric\Base;
 
 use \Exception;
 use \PDO;
@@ -11,84 +11,85 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\Entity\Glasuvane as ChildGlasuvane;
-use Tekstove\TekstoveBundle\Model\Entity\GlasuvaneQuery as ChildGlasuvaneQuery;
-use Tekstove\TekstoveBundle\Model\Entity\Map\GlasuvaneTableMap;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes as ChildVotes;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery as ChildVotesQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\Map\VotesTableMap;
 
 /**
- * Base class that represents a query for the 'glasuvane' table.
+ * Base class that represents a query for the 'lyric_votes' table.
  *
  *
  *
- * @method     ChildGlasuvaneQuery orderByZa($order = Criteria::ASC) Order by the za column
- * @method     ChildGlasuvaneQuery orderByOt($order = Criteria::ASC) Order by the ot column
- * @method     ChildGlasuvaneQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildVotesQuery orderByZa($order = Criteria::ASC) Order by the za column
+ * @method     ChildVotesQuery orderByOt($order = Criteria::ASC) Order by the ot column
+ * @method     ChildVotesQuery orderById($order = Criteria::ASC) Order by the id column
  *
- * @method     ChildGlasuvaneQuery groupByZa() Group by the za column
- * @method     ChildGlasuvaneQuery groupByOt() Group by the ot column
- * @method     ChildGlasuvaneQuery groupById() Group by the id column
+ * @method     ChildVotesQuery groupByZa() Group by the za column
+ * @method     ChildVotesQuery groupByOt() Group by the ot column
+ * @method     ChildVotesQuery groupById() Group by the id column
  *
- * @method     ChildGlasuvaneQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     ChildGlasuvaneQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     ChildGlasuvaneQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     ChildVotesQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     ChildVotesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     ChildVotesQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildGlasuvaneQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
- * @method     ChildGlasuvaneQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
- * @method     ChildGlasuvaneQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ * @method     ChildVotesQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
+ * @method     ChildVotesQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
+ * @method     ChildVotesQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
- * @method     ChildGlasuvane findOne(ConnectionInterface $con = null) Return the first ChildGlasuvane matching the query
- * @method     ChildGlasuvane findOneOrCreate(ConnectionInterface $con = null) Return the first ChildGlasuvane matching the query, or a new ChildGlasuvane object populated from the query conditions when no match is found
+ * @method     ChildVotes findOne(ConnectionInterface $con = null) Return the first ChildVotes matching the query
+ * @method     ChildVotes findOneOrCreate(ConnectionInterface $con = null) Return the first ChildVotes matching the query, or a new ChildVotes object populated from the query conditions when no match is found
  *
- * @method     ChildGlasuvane findOneByZa(int $za) Return the first ChildGlasuvane filtered by the za column
- * @method     ChildGlasuvane findOneByOt(int $ot) Return the first ChildGlasuvane filtered by the ot column
- * @method     ChildGlasuvane findOneById(int $id) Return the first ChildGlasuvane filtered by the id column *
+ * @method     ChildVotes findOneByZa(int $za) Return the first ChildVotes filtered by the za column
+ * @method     ChildVotes findOneByOt(int $ot) Return the first ChildVotes filtered by the ot column
+ * @method     ChildVotes findOneById(int $id) Return the first ChildVotes filtered by the id column *
 
- * @method     ChildGlasuvane requirePk($key, ConnectionInterface $con = null) Return the ChildGlasuvane by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildGlasuvane requireOne(ConnectionInterface $con = null) Return the first ChildGlasuvane matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVotes requirePk($key, ConnectionInterface $con = null) Return the ChildVotes by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVotes requireOne(ConnectionInterface $con = null) Return the first ChildVotes matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildGlasuvane requireOneByZa(int $za) Return the first ChildGlasuvane filtered by the za column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildGlasuvane requireOneByOt(int $ot) Return the first ChildGlasuvane filtered by the ot column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildGlasuvane requireOneById(int $id) Return the first ChildGlasuvane filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVotes requireOneByZa(int $za) Return the first ChildVotes filtered by the za column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVotes requireOneByOt(int $ot) Return the first ChildVotes filtered by the ot column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVotes requireOneById(int $id) Return the first ChildVotes filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildGlasuvane[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildGlasuvane objects based on current ModelCriteria
- * @method     ChildGlasuvane[]|ObjectCollection findByZa(int $za) Return ChildGlasuvane objects filtered by the za column
- * @method     ChildGlasuvane[]|ObjectCollection findByOt(int $ot) Return ChildGlasuvane objects filtered by the ot column
- * @method     ChildGlasuvane[]|ObjectCollection findById(int $id) Return ChildGlasuvane objects filtered by the id column
- * @method     ChildGlasuvane[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
+ * @method     ChildVotes[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildVotes objects based on current ModelCriteria
+ * @method     ChildVotes[]|ObjectCollection findByZa(int $za) Return ChildVotes objects filtered by the za column
+ * @method     ChildVotes[]|ObjectCollection findByOt(int $ot) Return ChildVotes objects filtered by the ot column
+ * @method     ChildVotes[]|ObjectCollection findById(int $id) Return ChildVotes objects filtered by the id column
+ * @method     ChildVotes[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
-abstract class GlasuvaneQuery extends ModelCriteria
+abstract class VotesQuery extends ModelCriteria
 {
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Entity\Base\GlasuvaneQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Entity\Lyric\Base\VotesQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Glasuvane', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric\\Votes', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new ChildGlasuvaneQuery object.
+     * Returns a new ChildVotesQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
      * @param     Criteria $criteria Optional Criteria to build the query from
      *
-     * @return ChildGlasuvaneQuery
+     * @return ChildVotesQuery
      */
     public static function create($modelAlias = null, Criteria $criteria = null)
     {
-        if ($criteria instanceof ChildGlasuvaneQuery) {
+        if ($criteria instanceof ChildVotesQuery) {
             return $criteria;
         }
-        $query = new ChildGlasuvaneQuery();
+        $query = new ChildVotesQuery();
         if (null !== $modelAlias) {
             $query->setModelAlias($modelAlias);
         }
@@ -111,19 +112,19 @@ abstract class GlasuvaneQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
-     * @return ChildGlasuvane|array|mixed the result, formatted by the current formatter
+     * @return ChildVotes|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, ConnectionInterface $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = GlasuvaneTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = VotesTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(GlasuvaneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(VotesTableMap::DATABASE_NAME);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -144,11 +145,11 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildGlasuvane A model object, or null if the key is not found
+     * @return ChildVotes A model object, or null if the key is not found
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT za, ot, id FROM glasuvane WHERE id = :p0';
+        $sql = 'SELECT za, ot, id FROM lyric_votes WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -159,10 +160,10 @@ abstract class GlasuvaneQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-            /** @var ChildGlasuvane $obj */
-            $obj = new ChildGlasuvane();
+            /** @var ChildVotes $obj */
+            $obj = new ChildVotes();
             $obj->hydrate($row);
-            GlasuvaneTableMap::addInstanceToPool($obj, (string) $key);
+            VotesTableMap::addInstanceToPool($obj, (string) $key);
         }
         $stmt->closeCursor();
 
@@ -175,7 +176,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return ChildGlasuvane|array|mixed the result, formatted by the current formatter
+     * @return ChildVotes|array|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, ConnectionInterface $con)
     {
@@ -217,12 +218,12 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(VotesTableMap::COL_ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -230,12 +231,12 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(VotesTableMap::COL_ID, $keys, Criteria::IN);
     }
 
     /**
@@ -256,18 +257,18 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function filterByZa($za = null, $comparison = null)
     {
         if (is_array($za)) {
             $useMinMax = false;
             if (isset($za['min'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_ZA, $za['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_ZA, $za['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($za['max'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_ZA, $za['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_ZA, $za['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -278,7 +279,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(GlasuvaneTableMap::COL_ZA, $za, $comparison);
+        return $this->addUsingAlias(VotesTableMap::COL_ZA, $za, $comparison);
     }
 
     /**
@@ -297,18 +298,18 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function filterByOt($ot = null, $comparison = null)
     {
         if (is_array($ot)) {
             $useMinMax = false;
             if (isset($ot['min'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_OT, $ot['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_OT, $ot['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($ot['max'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_OT, $ot['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_OT, $ot['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -319,7 +320,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(GlasuvaneTableMap::COL_OT, $ot, $comparison);
+        return $this->addUsingAlias(VotesTableMap::COL_OT, $ot, $comparison);
     }
 
     /**
@@ -338,18 +339,18 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(VotesTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -360,7 +361,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $id, $comparison);
+        return $this->addUsingAlias(VotesTableMap::COL_ID, $id, $comparison);
     }
 
     /**
@@ -371,20 +372,20 @@ abstract class GlasuvaneQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildGlasuvaneQuery The current query, for fluid interface
+     * @return ChildVotesQuery The current query, for fluid interface
      */
     public function filterByLyric($lyric, $comparison = null)
     {
         if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
             return $this
-                ->addUsingAlias(GlasuvaneTableMap::COL_ZA, $lyric->getId(), $comparison);
+                ->addUsingAlias(VotesTableMap::COL_ZA, $lyric->getId(), $comparison);
         } elseif ($lyric instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(GlasuvaneTableMap::COL_ZA, $lyric->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(VotesTableMap::COL_ZA, $lyric->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByLyric() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
         }
@@ -396,7 +397,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
     public function joinLyric($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
@@ -443,21 +444,21 @@ abstract class GlasuvaneQuery extends ModelCriteria
     /**
      * Exclude object from result
      *
-     * @param   ChildGlasuvane $glasuvane Object to remove from the list of results
+     * @param   ChildVotes $votes Object to remove from the list of results
      *
-     * @return $this|ChildGlasuvaneQuery The current query, for fluid interface
+     * @return $this|ChildVotesQuery The current query, for fluid interface
      */
-    public function prune($glasuvane = null)
+    public function prune($votes = null)
     {
-        if ($glasuvane) {
-            $this->addUsingAlias(GlasuvaneTableMap::COL_ID, $glasuvane->getId(), Criteria::NOT_EQUAL);
+        if ($votes) {
+            $this->addUsingAlias(VotesTableMap::COL_ID, $votes->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;
     }
 
     /**
-     * Deletes all rows from the glasuvane table.
+     * Deletes all rows from the lyric_votes table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
@@ -465,7 +466,7 @@ abstract class GlasuvaneQuery extends ModelCriteria
     public function doDeleteAll(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(GlasuvaneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(VotesTableMap::DATABASE_NAME);
         }
 
         // use transaction because $criteria could contain info
@@ -476,8 +477,8 @@ abstract class GlasuvaneQuery extends ModelCriteria
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            GlasuvaneTableMap::clearInstancePool();
-            GlasuvaneTableMap::clearRelatedInstancePool();
+            VotesTableMap::clearInstancePool();
+            VotesTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
@@ -495,26 +496,26 @@ abstract class GlasuvaneQuery extends ModelCriteria
     public function delete(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(GlasuvaneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(VotesTableMap::DATABASE_NAME);
         }
 
         $criteria = $this;
 
         // Set the correct dbName
-        $criteria->setDbName(GlasuvaneTableMap::DATABASE_NAME);
+        $criteria->setDbName(VotesTableMap::DATABASE_NAME);
 
         // use transaction because $criteria could contain info
         // for more than one table or we could emulating ON DELETE CASCADE, etc.
         return $con->transaction(function () use ($con, $criteria) {
             $affectedRows = 0; // initialize var to track total num of affected rows
 
-            GlasuvaneTableMap::removeInstanceFromPool($criteria);
+            VotesTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
-            GlasuvaneTableMap::clearRelatedInstancePool();
+            VotesTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
     }
 
-} // GlasuvaneQuery
+} // VotesQuery

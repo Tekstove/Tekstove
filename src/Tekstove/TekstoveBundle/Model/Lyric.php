@@ -90,8 +90,8 @@ class Lyric extends Entity
             $this->languageId = (int) $a['pee_se_na'];
 
             $this->podnovena = $a['podnovena'];
-            $this->popularity = $a['populqrnost'];
-            $this->views = $a['vidqna'];
+            $this->popularity = $a['popularity'];
+            $this->views = $a['views'];
 
             $this->upId = (int) $a['up_id'];
 

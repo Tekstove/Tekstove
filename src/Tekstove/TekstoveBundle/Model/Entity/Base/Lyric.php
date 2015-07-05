@@ -22,8 +22,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Comments as ChildComments;
 use Tekstove\TekstoveBundle\Model\Entity\CommentsQuery as ChildCommentsQuery;
 use Tekstove\TekstoveBundle\Model\Entity\EditAddPrevod as ChildEditAddPrevod;
 use Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery as ChildEditAddPrevodQuery;
-use Tekstove\TekstoveBundle\Model\Entity\Glasuvane as ChildGlasuvane;
-use Tekstove\TekstoveBundle\Model\Entity\GlasuvaneQuery as ChildGlasuvaneQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Liubimi as ChildLiubimi;
 use Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery as ChildLiubimiQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Lyric as ChildLyric;
@@ -32,6 +30,9 @@ use Tekstove\TekstoveBundle\Model\Entity\Lyric18Query as ChildLyric18Query;
 use Tekstove\TekstoveBundle\Model\Entity\LyricQuery as ChildLyricQuery;
 use Tekstove\TekstoveBundle\Model\Entity\LyricRedirect as ChildLyricRedirect;
 use Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery as ChildLyricRedirectQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric\Base\Votes as BaseVotes;
 use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
 
 /**
@@ -245,16 +246,16 @@ abstract class Lyric implements ActiveRecordInterface
     protected $glasa;
 
     /**
-     * The value for the vidqna field.
+     * The value for the views field.
      * @var        int
      */
-    protected $vidqna;
+    protected $views;
 
     /**
-     * The value for the populqrnost field.
+     * The value for the popularity field.
      * @var        int
      */
-    protected $populqrnost;
+    protected $popularity;
 
     /**
      * The value for the stilraphiphop field.
@@ -527,10 +528,10 @@ abstract class Lyric implements ActiveRecordInterface
     protected $collEditAddPrevodsPartial;
 
     /**
-     * @var        ObjectCollection|ChildGlasuvane[] Collection to store aggregation of ChildGlasuvane objects.
+     * @var        ObjectCollection|Votes[] Collection to store aggregation of Votes objects.
      */
-    protected $collGlasuvanes;
-    protected $collGlasuvanesPartial;
+    protected $collVotess;
+    protected $collVotessPartial;
 
     /**
      * @var        ObjectCollection|ChildLiubimi[] Collection to store aggregation of ChildLiubimi objects.
@@ -571,9 +572,9 @@ abstract class Lyric implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildGlasuvane[]
+     * @var ObjectCollection|Votes[]
      */
-    protected $glasuvanesScheduledForDeletion = null;
+    protected $votessScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -1107,23 +1108,23 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Get the [vidqna] column value.
+     * Get the [views] column value.
      *
      * @return int
      */
-    public function getVidqna()
+    public function getViews()
     {
-        return $this->vidqna;
+        return $this->views;
     }
 
     /**
-     * Get the [populqrnost] column value.
+     * Get the [popularity] column value.
      *
      * @return int
      */
-    public function getPopulqrnost()
+    public function getPopularity()
     {
-        return $this->populqrnost;
+        return $this->popularity;
     }
 
     /**
@@ -2547,44 +2548,44 @@ abstract class Lyric implements ActiveRecordInterface
     } // setGlasa()
 
     /**
-     * Set the value of [vidqna] column.
+     * Set the value of [views] column.
      *
      * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
-    public function setVidqna($v)
+    public function setViews($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->vidqna !== $v) {
-            $this->vidqna = $v;
-            $this->modifiedColumns[LyricTableMap::COL_VIDQNA] = true;
+        if ($this->views !== $v) {
+            $this->views = $v;
+            $this->modifiedColumns[LyricTableMap::COL_VIEWS] = true;
         }
 
         return $this;
-    } // setVidqna()
+    } // setViews()
 
     /**
-     * Set the value of [populqrnost] column.
+     * Set the value of [popularity] column.
      *
      * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
-    public function setPopulqrnost($v)
+    public function setPopularity($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->populqrnost !== $v) {
-            $this->populqrnost = $v;
-            $this->modifiedColumns[LyricTableMap::COL_POPULQRNOST] = true;
+        if ($this->popularity !== $v) {
+            $this->popularity = $v;
+            $this->modifiedColumns[LyricTableMap::COL_POPULARITY] = true;
         }
 
         return $this;
-    } // setPopulqrnost()
+    } // setPopularity()
 
     /**
      * Sets the value of the [stilraphiphop] column.
@@ -3913,11 +3914,11 @@ abstract class Lyric implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 27 + $startcol : LyricTableMap::translateFieldName('Glasa', TableMap::TYPE_PHPNAME, $indexType)];
             $this->glasa = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 28 + $startcol : LyricTableMap::translateFieldName('Vidqna', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->vidqna = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 28 + $startcol : LyricTableMap::translateFieldName('Views', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->views = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 29 + $startcol : LyricTableMap::translateFieldName('Populqrnost', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->populqrnost = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 29 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->popularity = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 30 + $startcol : LyricTableMap::translateFieldName('Stilraphiphop', TableMap::TYPE_PHPNAME, $indexType)];
             $this->stilraphiphop = (null !== $col) ? (boolean) $col : null;
@@ -4120,7 +4121,7 @@ abstract class Lyric implements ActiveRecordInterface
 
             $this->collEditAddPrevods = null;
 
-            $this->collGlasuvanes = null;
+            $this->collVotess = null;
 
             $this->collLiubimis = null;
 
@@ -4272,17 +4273,17 @@ abstract class Lyric implements ActiveRecordInterface
                 }
             }
 
-            if ($this->glasuvanesScheduledForDeletion !== null) {
-                if (!$this->glasuvanesScheduledForDeletion->isEmpty()) {
-                    \Tekstove\TekstoveBundle\Model\Entity\GlasuvaneQuery::create()
-                        ->filterByPrimaryKeys($this->glasuvanesScheduledForDeletion->getPrimaryKeys(false))
+            if ($this->votessScheduledForDeletion !== null) {
+                if (!$this->votessScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery::create()
+                        ->filterByPrimaryKeys($this->votessScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->glasuvanesScheduledForDeletion = null;
+                    $this->votessScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collGlasuvanes !== null) {
-                foreach ($this->collGlasuvanes as $referrerFK) {
+            if ($this->collVotess !== null) {
+                foreach ($this->collVotess as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -4439,11 +4440,11 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_GLASA)) {
             $modifiedColumns[':p' . $index++]  = 'glasa';
         }
-        if ($this->isColumnModified(LyricTableMap::COL_VIDQNA)) {
-            $modifiedColumns[':p' . $index++]  = 'vidqna';
+        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
+            $modifiedColumns[':p' . $index++]  = 'views';
         }
-        if ($this->isColumnModified(LyricTableMap::COL_POPULQRNOST)) {
-            $modifiedColumns[':p' . $index++]  = 'populqrnost';
+        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
+            $modifiedColumns[':p' . $index++]  = 'popularity';
         }
         if ($this->isColumnModified(LyricTableMap::COL_STILRAPHIPHOP)) {
             $modifiedColumns[':p' . $index++]  = 'stilraphiphop';
@@ -4669,11 +4670,11 @@ abstract class Lyric implements ActiveRecordInterface
                     case 'glasa':
                         $stmt->bindValue($identifier, $this->glasa, PDO::PARAM_INT);
                         break;
-                    case 'vidqna':
-                        $stmt->bindValue($identifier, $this->vidqna, PDO::PARAM_INT);
+                    case 'views':
+                        $stmt->bindValue($identifier, $this->views, PDO::PARAM_INT);
                         break;
-                    case 'populqrnost':
-                        $stmt->bindValue($identifier, $this->populqrnost, PDO::PARAM_INT);
+                    case 'popularity':
+                        $stmt->bindValue($identifier, $this->popularity, PDO::PARAM_INT);
                         break;
                     case 'stilraphiphop':
                         $stmt->bindValue($identifier, (int) $this->stilraphiphop, PDO::PARAM_INT);
@@ -4951,10 +4952,10 @@ abstract class Lyric implements ActiveRecordInterface
                 return $this->getGlasa();
                 break;
             case 28:
-                return $this->getVidqna();
+                return $this->getViews();
                 break;
             case 29:
-                return $this->getPopulqrnost();
+                return $this->getPopularity();
                 break;
             case 30:
                 return $this->getStilraphiphop();
@@ -5143,8 +5144,8 @@ abstract class Lyric implements ActiveRecordInterface
             $keys[25] => $this->getIpUpload(),
             $keys[26] => $this->getDopylnitelnoinfo(),
             $keys[27] => $this->getGlasa(),
-            $keys[28] => $this->getVidqna(),
-            $keys[29] => $this->getPopulqrnost(),
+            $keys[28] => $this->getViews(),
+            $keys[29] => $this->getPopularity(),
             $keys[30] => $this->getStilraphiphop(),
             $keys[31] => $this->getStilhiphop(),
             $keys[32] => $this->getStileastcoast(),
@@ -5233,20 +5234,20 @@ abstract class Lyric implements ActiveRecordInterface
 
                 $result[$key] = $this->collEditAddPrevods->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
-            if (null !== $this->collGlasuvanes) {
+            if (null !== $this->collVotess) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'glasuvanes';
+                        $key = 'votess';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'glasuvanes';
+                        $key = 'lyric_votess';
                         break;
                     default:
-                        $key = 'Glasuvanes';
+                        $key = 'Votess';
                 }
 
-                $result[$key] = $this->collGlasuvanes->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->collVotess->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collLiubimis) {
 
@@ -5412,10 +5413,10 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->setGlasa($value);
                 break;
             case 28:
-                $this->setVidqna($value);
+                $this->setViews($value);
                 break;
             case 29:
-                $this->setPopulqrnost($value);
+                $this->setPopularity($value);
                 break;
             case 30:
                 $this->setStilraphiphop($value);
@@ -5657,10 +5658,10 @@ abstract class Lyric implements ActiveRecordInterface
             $this->setGlasa($arr[$keys[27]]);
         }
         if (array_key_exists($keys[28], $arr)) {
-            $this->setVidqna($arr[$keys[28]]);
+            $this->setViews($arr[$keys[28]]);
         }
         if (array_key_exists($keys[29], $arr)) {
-            $this->setPopulqrnost($arr[$keys[29]]);
+            $this->setPopularity($arr[$keys[29]]);
         }
         if (array_key_exists($keys[30], $arr)) {
             $this->setStilraphiphop($arr[$keys[30]]);
@@ -5916,11 +5917,11 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_GLASA)) {
             $criteria->add(LyricTableMap::COL_GLASA, $this->glasa);
         }
-        if ($this->isColumnModified(LyricTableMap::COL_VIDQNA)) {
-            $criteria->add(LyricTableMap::COL_VIDQNA, $this->vidqna);
+        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
+            $criteria->add(LyricTableMap::COL_VIEWS, $this->views);
         }
-        if ($this->isColumnModified(LyricTableMap::COL_POPULQRNOST)) {
-            $criteria->add(LyricTableMap::COL_POPULQRNOST, $this->populqrnost);
+        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
+            $criteria->add(LyricTableMap::COL_POPULARITY, $this->popularity);
         }
         if ($this->isColumnModified(LyricTableMap::COL_STILRAPHIPHOP)) {
             $criteria->add(LyricTableMap::COL_STILRAPHIPHOP, $this->stilraphiphop);
@@ -6164,8 +6165,8 @@ abstract class Lyric implements ActiveRecordInterface
         $copyObj->setIpUpload($this->getIpUpload());
         $copyObj->setDopylnitelnoinfo($this->getDopylnitelnoinfo());
         $copyObj->setGlasa($this->getGlasa());
-        $copyObj->setVidqna($this->getVidqna());
-        $copyObj->setPopulqrnost($this->getPopulqrnost());
+        $copyObj->setViews($this->getViews());
+        $copyObj->setPopularity($this->getPopularity());
         $copyObj->setStilraphiphop($this->getStilraphiphop());
         $copyObj->setStilhiphop($this->getStilhiphop());
         $copyObj->setStileastcoast($this->getStileastcoast());
@@ -6227,9 +6228,9 @@ abstract class Lyric implements ActiveRecordInterface
                 }
             }
 
-            foreach ($this->getGlasuvanes() as $relObj) {
+            foreach ($this->getVotess() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addGlasuvane($relObj->copy($deepCopy));
+                    $copyObj->addVotes($relObj->copy($deepCopy));
                 }
             }
 
@@ -6297,8 +6298,8 @@ abstract class Lyric implements ActiveRecordInterface
         if ('EditAddPrevod' == $relationName) {
             return $this->initEditAddPrevods();
         }
-        if ('Glasuvane' == $relationName) {
-            return $this->initGlasuvanes();
+        if ('Votes' == $relationName) {
+            return $this->initVotess();
         }
         if ('Liubimi' == $relationName) {
             return $this->initLiubimis();
@@ -6745,31 +6746,31 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Clears out the collGlasuvanes collection
+     * Clears out the collVotess collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addGlasuvanes()
+     * @see        addVotess()
      */
-    public function clearGlasuvanes()
+    public function clearVotess()
     {
-        $this->collGlasuvanes = null; // important to set this to NULL since that means it is uninitialized
+        $this->collVotess = null; // important to set this to NULL since that means it is uninitialized
     }
 
     /**
-     * Reset is the collGlasuvanes collection loaded partially.
+     * Reset is the collVotess collection loaded partially.
      */
-    public function resetPartialGlasuvanes($v = true)
+    public function resetPartialVotess($v = true)
     {
-        $this->collGlasuvanesPartial = $v;
+        $this->collVotessPartial = $v;
     }
 
     /**
-     * Initializes the collGlasuvanes collection.
+     * Initializes the collVotess collection.
      *
-     * By default this just sets the collGlasuvanes collection to an empty array (like clearcollGlasuvanes());
+     * By default this just sets the collVotess collection to an empty array (like clearcollVotess());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -6778,17 +6779,17 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @return void
      */
-    public function initGlasuvanes($overrideExisting = true)
+    public function initVotess($overrideExisting = true)
     {
-        if (null !== $this->collGlasuvanes && !$overrideExisting) {
+        if (null !== $this->collVotess && !$overrideExisting) {
             return;
         }
-        $this->collGlasuvanes = new ObjectCollection();
-        $this->collGlasuvanes->setModel('\Tekstove\TekstoveBundle\Model\Entity\Glasuvane');
+        $this->collVotess = new ObjectCollection();
+        $this->collVotess->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes');
     }
 
     /**
-     * Gets an array of ChildGlasuvane objects which contain a foreign key that references this object.
+     * Gets an array of Votes objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -6798,108 +6799,108 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildGlasuvane[] List of ChildGlasuvane objects
+     * @return ObjectCollection|Votes[] List of Votes objects
      * @throws PropelException
      */
-    public function getGlasuvanes(Criteria $criteria = null, ConnectionInterface $con = null)
+    public function getVotess(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        $partial = $this->collGlasuvanesPartial && !$this->isNew();
-        if (null === $this->collGlasuvanes || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collGlasuvanes) {
+        $partial = $this->collVotessPartial && !$this->isNew();
+        if (null === $this->collVotess || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collVotess) {
                 // return empty collection
-                $this->initGlasuvanes();
+                $this->initVotess();
             } else {
-                $collGlasuvanes = ChildGlasuvaneQuery::create(null, $criteria)
+                $collVotess = VotesQuery::create(null, $criteria)
                     ->filterByLyric($this)
                     ->find($con);
 
                 if (null !== $criteria) {
-                    if (false !== $this->collGlasuvanesPartial && count($collGlasuvanes)) {
-                        $this->initGlasuvanes(false);
+                    if (false !== $this->collVotessPartial && count($collVotess)) {
+                        $this->initVotess(false);
 
-                        foreach ($collGlasuvanes as $obj) {
-                            if (false == $this->collGlasuvanes->contains($obj)) {
-                                $this->collGlasuvanes->append($obj);
+                        foreach ($collVotess as $obj) {
+                            if (false == $this->collVotess->contains($obj)) {
+                                $this->collVotess->append($obj);
                             }
                         }
 
-                        $this->collGlasuvanesPartial = true;
+                        $this->collVotessPartial = true;
                     }
 
-                    return $collGlasuvanes;
+                    return $collVotess;
                 }
 
-                if ($partial && $this->collGlasuvanes) {
-                    foreach ($this->collGlasuvanes as $obj) {
+                if ($partial && $this->collVotess) {
+                    foreach ($this->collVotess as $obj) {
                         if ($obj->isNew()) {
-                            $collGlasuvanes[] = $obj;
+                            $collVotess[] = $obj;
                         }
                     }
                 }
 
-                $this->collGlasuvanes = $collGlasuvanes;
-                $this->collGlasuvanesPartial = false;
+                $this->collVotess = $collVotess;
+                $this->collVotessPartial = false;
             }
         }
 
-        return $this->collGlasuvanes;
+        return $this->collVotess;
     }
 
     /**
-     * Sets a collection of ChildGlasuvane objects related by a one-to-many relationship
+     * Sets a collection of Votes objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $glasuvanes A Propel collection.
+     * @param      Collection $votess A Propel collection.
      * @param      ConnectionInterface $con Optional connection object
      * @return $this|ChildLyric The current object (for fluent API support)
      */
-    public function setGlasuvanes(Collection $glasuvanes, ConnectionInterface $con = null)
+    public function setVotess(Collection $votess, ConnectionInterface $con = null)
     {
-        /** @var ChildGlasuvane[] $glasuvanesToDelete */
-        $glasuvanesToDelete = $this->getGlasuvanes(new Criteria(), $con)->diff($glasuvanes);
+        /** @var Votes[] $votessToDelete */
+        $votessToDelete = $this->getVotess(new Criteria(), $con)->diff($votess);
 
 
-        $this->glasuvanesScheduledForDeletion = $glasuvanesToDelete;
+        $this->votessScheduledForDeletion = $votessToDelete;
 
-        foreach ($glasuvanesToDelete as $glasuvaneRemoved) {
-            $glasuvaneRemoved->setLyric(null);
+        foreach ($votessToDelete as $votesRemoved) {
+            $votesRemoved->setLyric(null);
         }
 
-        $this->collGlasuvanes = null;
-        foreach ($glasuvanes as $glasuvane) {
-            $this->addGlasuvane($glasuvane);
+        $this->collVotess = null;
+        foreach ($votess as $votes) {
+            $this->addVotes($votes);
         }
 
-        $this->collGlasuvanes = $glasuvanes;
-        $this->collGlasuvanesPartial = false;
+        $this->collVotess = $votess;
+        $this->collVotessPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related Glasuvane objects.
+     * Returns the number of related BaseVotes objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related Glasuvane objects.
+     * @return int             Count of related BaseVotes objects.
      * @throws PropelException
      */
-    public function countGlasuvanes(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    public function countVotess(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        $partial = $this->collGlasuvanesPartial && !$this->isNew();
-        if (null === $this->collGlasuvanes || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collGlasuvanes) {
+        $partial = $this->collVotessPartial && !$this->isNew();
+        if (null === $this->collVotess || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collVotess) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getGlasuvanes());
+                return count($this->getVotess());
             }
 
-            $query = ChildGlasuvaneQuery::create(null, $criteria);
+            $query = VotesQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -6909,54 +6910,54 @@ abstract class Lyric implements ActiveRecordInterface
                 ->count($con);
         }
 
-        return count($this->collGlasuvanes);
+        return count($this->collVotess);
     }
 
     /**
-     * Method called to associate a ChildGlasuvane object to this object
-     * through the ChildGlasuvane foreign key attribute.
+     * Method called to associate a Votes object to this object
+     * through the Votes foreign key attribute.
      *
-     * @param  ChildGlasuvane $l ChildGlasuvane
+     * @param  Votes $l Votes
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
-    public function addGlasuvane(ChildGlasuvane $l)
+    public function addVotes(Votes $l)
     {
-        if ($this->collGlasuvanes === null) {
-            $this->initGlasuvanes();
-            $this->collGlasuvanesPartial = true;
+        if ($this->collVotess === null) {
+            $this->initVotess();
+            $this->collVotessPartial = true;
         }
 
-        if (!$this->collGlasuvanes->contains($l)) {
-            $this->doAddGlasuvane($l);
+        if (!$this->collVotess->contains($l)) {
+            $this->doAddVotes($l);
         }
 
         return $this;
     }
 
     /**
-     * @param ChildGlasuvane $glasuvane The ChildGlasuvane object to add.
+     * @param Votes $votes The Votes object to add.
      */
-    protected function doAddGlasuvane(ChildGlasuvane $glasuvane)
+    protected function doAddVotes(Votes $votes)
     {
-        $this->collGlasuvanes[]= $glasuvane;
-        $glasuvane->setLyric($this);
+        $this->collVotess[]= $votes;
+        $votes->setLyric($this);
     }
 
     /**
-     * @param  ChildGlasuvane $glasuvane The ChildGlasuvane object to remove.
+     * @param  Votes $votes The Votes object to remove.
      * @return $this|ChildLyric The current object (for fluent API support)
      */
-    public function removeGlasuvane(ChildGlasuvane $glasuvane)
+    public function removeVotes(Votes $votes)
     {
-        if ($this->getGlasuvanes()->contains($glasuvane)) {
-            $pos = $this->collGlasuvanes->search($glasuvane);
-            $this->collGlasuvanes->remove($pos);
-            if (null === $this->glasuvanesScheduledForDeletion) {
-                $this->glasuvanesScheduledForDeletion = clone $this->collGlasuvanes;
-                $this->glasuvanesScheduledForDeletion->clear();
+        if ($this->getVotess()->contains($votes)) {
+            $pos = $this->collVotess->search($votes);
+            $this->collVotess->remove($pos);
+            if (null === $this->votessScheduledForDeletion) {
+                $this->votessScheduledForDeletion = clone $this->collVotess;
+                $this->votessScheduledForDeletion->clear();
             }
-            $this->glasuvanesScheduledForDeletion[]= clone $glasuvane;
-            $glasuvane->setLyric(null);
+            $this->votessScheduledForDeletion[]= clone $votes;
+            $votes->setLyric(null);
         }
 
         return $this;
@@ -7472,8 +7473,8 @@ abstract class Lyric implements ActiveRecordInterface
         $this->ip_upload = null;
         $this->dopylnitelnoinfo = null;
         $this->glasa = null;
-        $this->vidqna = null;
-        $this->populqrnost = null;
+        $this->views = null;
+        $this->popularity = null;
         $this->stilraphiphop = null;
         $this->stilhiphop = null;
         $this->stileastcoast = null;
@@ -7546,8 +7547,8 @@ abstract class Lyric implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collGlasuvanes) {
-                foreach ($this->collGlasuvanes as $o) {
+            if ($this->collVotess) {
+                foreach ($this->collVotess as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -7568,7 +7569,7 @@ abstract class Lyric implements ActiveRecordInterface
 
         $this->collCommentss = null;
         $this->collEditAddPrevods = null;
-        $this->collGlasuvanes = null;
+        $this->collVotess = null;
         $this->collLiubimis = null;
         $this->singleLyric18 = null;
         $this->collLyricRedirects = null;
