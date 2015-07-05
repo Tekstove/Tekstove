@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore" namespace="Tekstove\TekstoveBundle\Model\Entity">
-  <table name="albums" idMethod="native" phpName="Albums">
+  <table name="albums" idMethod="native" phpName="Album">
     <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="name" phpName="Name" type="VARCHAR" size="40" required="true"/>
     <column name="artist1id" phpName="Artist1id" type="INTEGER" sqlType="int(11) unsigned" required="true"/>

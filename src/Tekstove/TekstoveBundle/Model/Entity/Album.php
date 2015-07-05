@@ -2,7 +2,7 @@
 
 namespace Tekstove\TekstoveBundle\Model\Entity;
 
-use Tekstove\TekstoveBundle\Model\Entity\Base\Albums as BaseAlbums;
+use Tekstove\TekstoveBundle\Model\Entity\Base\Album as BaseAlbum;
 
 /**
  * Skeleton subclass for representing a row from the 'albums' table.
@@ -14,7 +14,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\Albums as BaseAlbums;
  * long as it does not already exist in the output directory.
  *
  */
-class Albums extends BaseAlbums
+class Album extends BaseAlbum
 {
     public function getArtist1()
     {
@@ -23,7 +23,7 @@ class Albums extends BaseAlbums
         }
         
         $artistManager = new ArtistsQuery();
-        $artist = $artistManager->findById($this->artist1id);
+        $artist = $artistManager->findOneById($this->artist1id);
         
         return $artist;
     }

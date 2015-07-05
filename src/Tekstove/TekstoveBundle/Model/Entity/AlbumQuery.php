@@ -2,7 +2,7 @@
 
 namespace Tekstove\TekstoveBundle\Model\Entity;
 
-use Tekstove\TekstoveBundle\Model\Entity\Base\AlbumsQuery as BaseAlbumsQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Base\AlbumQuery as BaseAlbumsQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'albums' table.
@@ -14,7 +14,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\AlbumsQuery as BaseAlbumsQuery;
  * long as it does not already exist in the output directory.
  *
  */
-class AlbumsQuery extends BaseAlbumsQuery
+class AlbumQuery extends BaseAlbumsQuery
 {
 
 }

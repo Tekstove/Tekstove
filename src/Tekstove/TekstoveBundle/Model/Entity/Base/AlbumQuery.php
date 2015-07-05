@@ -10,463 +10,463 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\Entity\Albums as ChildAlbums;
-use Tekstove\TekstoveBundle\Model\Entity\AlbumsQuery as ChildAlbumsQuery;
-use Tekstove\TekstoveBundle\Model\Entity\Map\AlbumsTableMap;
+use Tekstove\TekstoveBundle\Model\Entity\Album as ChildAlbum;
+use Tekstove\TekstoveBundle\Model\Entity\AlbumQuery as ChildAlbumQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Map\AlbumTableMap;
 
 /**
  * Base class that represents a query for the 'albums' table.
  *
  *
  *
- * @method     ChildAlbumsQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     ChildAlbumsQuery orderByName($order = Criteria::ASC) Order by the name column
- * @method     ChildAlbumsQuery orderByArtist1id($order = Criteria::ASC) Order by the artist1id column
- * @method     ChildAlbumsQuery orderByArtist2id($order = Criteria::ASC) Order by the artist2id column
- * @method     ChildAlbumsQuery orderByDopylnitelnoinfo($order = Criteria::ASC) Order by the dopylnitelnoinfo column
- * @method     ChildAlbumsQuery orderByYear($order = Criteria::ASC) Order by the year column
- * @method     ChildAlbumsQuery orderByImage($order = Criteria::ASC) Order by the image column
- * @method     ChildAlbumsQuery orderByVid($order = Criteria::ASC) Order by the vid column
- * @method     ChildAlbumsQuery orderByUpId($order = Criteria::ASC) Order by the up_id column
- * @method     ChildAlbumsQuery orderByVa($order = Criteria::ASC) Order by the va column
- * @method     ChildAlbumsQuery orderByP1($order = Criteria::ASC) Order by the p1 column
- * @method     ChildAlbumsQuery orderByP2($order = Criteria::ASC) Order by the p2 column
- * @method     ChildAlbumsQuery orderByP3($order = Criteria::ASC) Order by the p3 column
- * @method     ChildAlbumsQuery orderByP4($order = Criteria::ASC) Order by the p4 column
- * @method     ChildAlbumsQuery orderByP5($order = Criteria::ASC) Order by the p5 column
- * @method     ChildAlbumsQuery orderByP6($order = Criteria::ASC) Order by the p6 column
- * @method     ChildAlbumsQuery orderByP7($order = Criteria::ASC) Order by the p7 column
- * @method     ChildAlbumsQuery orderByP8($order = Criteria::ASC) Order by the p8 column
- * @method     ChildAlbumsQuery orderByP9($order = Criteria::ASC) Order by the p9 column
- * @method     ChildAlbumsQuery orderByP10($order = Criteria::ASC) Order by the p10 column
- * @method     ChildAlbumsQuery orderByP11($order = Criteria::ASC) Order by the p11 column
- * @method     ChildAlbumsQuery orderByP12($order = Criteria::ASC) Order by the p12 column
- * @method     ChildAlbumsQuery orderByP13($order = Criteria::ASC) Order by the p13 column
- * @method     ChildAlbumsQuery orderByP14($order = Criteria::ASC) Order by the p14 column
- * @method     ChildAlbumsQuery orderByP15($order = Criteria::ASC) Order by the p15 column
- * @method     ChildAlbumsQuery orderByP16($order = Criteria::ASC) Order by the p16 column
- * @method     ChildAlbumsQuery orderByP17($order = Criteria::ASC) Order by the p17 column
- * @method     ChildAlbumsQuery orderByP18($order = Criteria::ASC) Order by the p18 column
- * @method     ChildAlbumsQuery orderByP19($order = Criteria::ASC) Order by the p19 column
- * @method     ChildAlbumsQuery orderByP20($order = Criteria::ASC) Order by the p20 column
- * @method     ChildAlbumsQuery orderByP21($order = Criteria::ASC) Order by the p21 column
- * @method     ChildAlbumsQuery orderByP22($order = Criteria::ASC) Order by the p22 column
- * @method     ChildAlbumsQuery orderByP23($order = Criteria::ASC) Order by the p23 column
- * @method     ChildAlbumsQuery orderByP24($order = Criteria::ASC) Order by the p24 column
- * @method     ChildAlbumsQuery orderByP25($order = Criteria::ASC) Order by the p25 column
- * @method     ChildAlbumsQuery orderByP26($order = Criteria::ASC) Order by the p26 column
- * @method     ChildAlbumsQuery orderByP27($order = Criteria::ASC) Order by the p27 column
- * @method     ChildAlbumsQuery orderByP28($order = Criteria::ASC) Order by the p28 column
- * @method     ChildAlbumsQuery orderByP29($order = Criteria::ASC) Order by the p29 column
- * @method     ChildAlbumsQuery orderByP30($order = Criteria::ASC) Order by the p30 column
- * @method     ChildAlbumsQuery orderByP31($order = Criteria::ASC) Order by the p31 column
- * @method     ChildAlbumsQuery orderByP32($order = Criteria::ASC) Order by the p32 column
- * @method     ChildAlbumsQuery orderByP33($order = Criteria::ASC) Order by the p33 column
- * @method     ChildAlbumsQuery orderByP34($order = Criteria::ASC) Order by the p34 column
- * @method     ChildAlbumsQuery orderByP35($order = Criteria::ASC) Order by the p35 column
- * @method     ChildAlbumsQuery orderByP1n($order = Criteria::ASC) Order by the p1n column
- * @method     ChildAlbumsQuery orderByP2n($order = Criteria::ASC) Order by the p2n column
- * @method     ChildAlbumsQuery orderByP3n($order = Criteria::ASC) Order by the p3n column
- * @method     ChildAlbumsQuery orderByP4n($order = Criteria::ASC) Order by the p4n column
- * @method     ChildAlbumsQuery orderByP5n($order = Criteria::ASC) Order by the p5n column
- * @method     ChildAlbumsQuery orderByP6n($order = Criteria::ASC) Order by the p6n column
- * @method     ChildAlbumsQuery orderByP7n($order = Criteria::ASC) Order by the p7n column
- * @method     ChildAlbumsQuery orderByP8n($order = Criteria::ASC) Order by the p8n column
- * @method     ChildAlbumsQuery orderByP9n($order = Criteria::ASC) Order by the p9n column
- * @method     ChildAlbumsQuery orderByP10n($order = Criteria::ASC) Order by the p10n column
- * @method     ChildAlbumsQuery orderByP11n($order = Criteria::ASC) Order by the p11n column
- * @method     ChildAlbumsQuery orderByP12n($order = Criteria::ASC) Order by the p12n column
- * @method     ChildAlbumsQuery orderByP13n($order = Criteria::ASC) Order by the p13n column
- * @method     ChildAlbumsQuery orderByP14n($order = Criteria::ASC) Order by the p14n column
- * @method     ChildAlbumsQuery orderByP15n($order = Criteria::ASC) Order by the p15n column
- * @method     ChildAlbumsQuery orderByP16n($order = Criteria::ASC) Order by the p16n column
- * @method     ChildAlbumsQuery orderByP17n($order = Criteria::ASC) Order by the p17n column
- * @method     ChildAlbumsQuery orderByP18n($order = Criteria::ASC) Order by the p18n column
- * @method     ChildAlbumsQuery orderByP19n($order = Criteria::ASC) Order by the p19n column
- * @method     ChildAlbumsQuery orderByP20n($order = Criteria::ASC) Order by the p20n column
- * @method     ChildAlbumsQuery orderByP21n($order = Criteria::ASC) Order by the p21n column
- * @method     ChildAlbumsQuery orderByP22n($order = Criteria::ASC) Order by the p22n column
- * @method     ChildAlbumsQuery orderByP23n($order = Criteria::ASC) Order by the p23n column
- * @method     ChildAlbumsQuery orderByP24n($order = Criteria::ASC) Order by the p24n column
- * @method     ChildAlbumsQuery orderByP25n($order = Criteria::ASC) Order by the p25n column
- * @method     ChildAlbumsQuery orderByP26n($order = Criteria::ASC) Order by the p26n column
- * @method     ChildAlbumsQuery orderByP27n($order = Criteria::ASC) Order by the p27n column
- * @method     ChildAlbumsQuery orderByP28n($order = Criteria::ASC) Order by the p28n column
- * @method     ChildAlbumsQuery orderByP29n($order = Criteria::ASC) Order by the p29n column
- * @method     ChildAlbumsQuery orderByP30n($order = Criteria::ASC) Order by the p30n column
- * @method     ChildAlbumsQuery orderByP31n($order = Criteria::ASC) Order by the p31n column
- * @method     ChildAlbumsQuery orderByP32n($order = Criteria::ASC) Order by the p32n column
- * @method     ChildAlbumsQuery orderByP33n($order = Criteria::ASC) Order by the p33n column
- * @method     ChildAlbumsQuery orderByP34n($order = Criteria::ASC) Order by the p34n column
- * @method     ChildAlbumsQuery orderByP35n($order = Criteria::ASC) Order by the p35n column
+ * @method     ChildAlbumQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildAlbumQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     ChildAlbumQuery orderByArtist1id($order = Criteria::ASC) Order by the artist1id column
+ * @method     ChildAlbumQuery orderByArtist2id($order = Criteria::ASC) Order by the artist2id column
+ * @method     ChildAlbumQuery orderByDopylnitelnoinfo($order = Criteria::ASC) Order by the dopylnitelnoinfo column
+ * @method     ChildAlbumQuery orderByYear($order = Criteria::ASC) Order by the year column
+ * @method     ChildAlbumQuery orderByImage($order = Criteria::ASC) Order by the image column
+ * @method     ChildAlbumQuery orderByVid($order = Criteria::ASC) Order by the vid column
+ * @method     ChildAlbumQuery orderByUpId($order = Criteria::ASC) Order by the up_id column
+ * @method     ChildAlbumQuery orderByVa($order = Criteria::ASC) Order by the va column
+ * @method     ChildAlbumQuery orderByP1($order = Criteria::ASC) Order by the p1 column
+ * @method     ChildAlbumQuery orderByP2($order = Criteria::ASC) Order by the p2 column
+ * @method     ChildAlbumQuery orderByP3($order = Criteria::ASC) Order by the p3 column
+ * @method     ChildAlbumQuery orderByP4($order = Criteria::ASC) Order by the p4 column
+ * @method     ChildAlbumQuery orderByP5($order = Criteria::ASC) Order by the p5 column
+ * @method     ChildAlbumQuery orderByP6($order = Criteria::ASC) Order by the p6 column
+ * @method     ChildAlbumQuery orderByP7($order = Criteria::ASC) Order by the p7 column
+ * @method     ChildAlbumQuery orderByP8($order = Criteria::ASC) Order by the p8 column
+ * @method     ChildAlbumQuery orderByP9($order = Criteria::ASC) Order by the p9 column
+ * @method     ChildAlbumQuery orderByP10($order = Criteria::ASC) Order by the p10 column
+ * @method     ChildAlbumQuery orderByP11($order = Criteria::ASC) Order by the p11 column
+ * @method     ChildAlbumQuery orderByP12($order = Criteria::ASC) Order by the p12 column
+ * @method     ChildAlbumQuery orderByP13($order = Criteria::ASC) Order by the p13 column
+ * @method     ChildAlbumQuery orderByP14($order = Criteria::ASC) Order by the p14 column
+ * @method     ChildAlbumQuery orderByP15($order = Criteria::ASC) Order by the p15 column
+ * @method     ChildAlbumQuery orderByP16($order = Criteria::ASC) Order by the p16 column
+ * @method     ChildAlbumQuery orderByP17($order = Criteria::ASC) Order by the p17 column
+ * @method     ChildAlbumQuery orderByP18($order = Criteria::ASC) Order by the p18 column
+ * @method     ChildAlbumQuery orderByP19($order = Criteria::ASC) Order by the p19 column
+ * @method     ChildAlbumQuery orderByP20($order = Criteria::ASC) Order by the p20 column
+ * @method     ChildAlbumQuery orderByP21($order = Criteria::ASC) Order by the p21 column
+ * @method     ChildAlbumQuery orderByP22($order = Criteria::ASC) Order by the p22 column
+ * @method     ChildAlbumQuery orderByP23($order = Criteria::ASC) Order by the p23 column
+ * @method     ChildAlbumQuery orderByP24($order = Criteria::ASC) Order by the p24 column
+ * @method     ChildAlbumQuery orderByP25($order = Criteria::ASC) Order by the p25 column
+ * @method     ChildAlbumQuery orderByP26($order = Criteria::ASC) Order by the p26 column
+ * @method     ChildAlbumQuery orderByP27($order = Criteria::ASC) Order by the p27 column
+ * @method     ChildAlbumQuery orderByP28($order = Criteria::ASC) Order by the p28 column
+ * @method     ChildAlbumQuery orderByP29($order = Criteria::ASC) Order by the p29 column
+ * @method     ChildAlbumQuery orderByP30($order = Criteria::ASC) Order by the p30 column
+ * @method     ChildAlbumQuery orderByP31($order = Criteria::ASC) Order by the p31 column
+ * @method     ChildAlbumQuery orderByP32($order = Criteria::ASC) Order by the p32 column
+ * @method     ChildAlbumQuery orderByP33($order = Criteria::ASC) Order by the p33 column
+ * @method     ChildAlbumQuery orderByP34($order = Criteria::ASC) Order by the p34 column
+ * @method     ChildAlbumQuery orderByP35($order = Criteria::ASC) Order by the p35 column
+ * @method     ChildAlbumQuery orderByP1n($order = Criteria::ASC) Order by the p1n column
+ * @method     ChildAlbumQuery orderByP2n($order = Criteria::ASC) Order by the p2n column
+ * @method     ChildAlbumQuery orderByP3n($order = Criteria::ASC) Order by the p3n column
+ * @method     ChildAlbumQuery orderByP4n($order = Criteria::ASC) Order by the p4n column
+ * @method     ChildAlbumQuery orderByP5n($order = Criteria::ASC) Order by the p5n column
+ * @method     ChildAlbumQuery orderByP6n($order = Criteria::ASC) Order by the p6n column
+ * @method     ChildAlbumQuery orderByP7n($order = Criteria::ASC) Order by the p7n column
+ * @method     ChildAlbumQuery orderByP8n($order = Criteria::ASC) Order by the p8n column
+ * @method     ChildAlbumQuery orderByP9n($order = Criteria::ASC) Order by the p9n column
+ * @method     ChildAlbumQuery orderByP10n($order = Criteria::ASC) Order by the p10n column
+ * @method     ChildAlbumQuery orderByP11n($order = Criteria::ASC) Order by the p11n column
+ * @method     ChildAlbumQuery orderByP12n($order = Criteria::ASC) Order by the p12n column
+ * @method     ChildAlbumQuery orderByP13n($order = Criteria::ASC) Order by the p13n column
+ * @method     ChildAlbumQuery orderByP14n($order = Criteria::ASC) Order by the p14n column
+ * @method     ChildAlbumQuery orderByP15n($order = Criteria::ASC) Order by the p15n column
+ * @method     ChildAlbumQuery orderByP16n($order = Criteria::ASC) Order by the p16n column
+ * @method     ChildAlbumQuery orderByP17n($order = Criteria::ASC) Order by the p17n column
+ * @method     ChildAlbumQuery orderByP18n($order = Criteria::ASC) Order by the p18n column
+ * @method     ChildAlbumQuery orderByP19n($order = Criteria::ASC) Order by the p19n column
+ * @method     ChildAlbumQuery orderByP20n($order = Criteria::ASC) Order by the p20n column
+ * @method     ChildAlbumQuery orderByP21n($order = Criteria::ASC) Order by the p21n column
+ * @method     ChildAlbumQuery orderByP22n($order = Criteria::ASC) Order by the p22n column
+ * @method     ChildAlbumQuery orderByP23n($order = Criteria::ASC) Order by the p23n column
+ * @method     ChildAlbumQuery orderByP24n($order = Criteria::ASC) Order by the p24n column
+ * @method     ChildAlbumQuery orderByP25n($order = Criteria::ASC) Order by the p25n column
+ * @method     ChildAlbumQuery orderByP26n($order = Criteria::ASC) Order by the p26n column
+ * @method     ChildAlbumQuery orderByP27n($order = Criteria::ASC) Order by the p27n column
+ * @method     ChildAlbumQuery orderByP28n($order = Criteria::ASC) Order by the p28n column
+ * @method     ChildAlbumQuery orderByP29n($order = Criteria::ASC) Order by the p29n column
+ * @method     ChildAlbumQuery orderByP30n($order = Criteria::ASC) Order by the p30n column
+ * @method     ChildAlbumQuery orderByP31n($order = Criteria::ASC) Order by the p31n column
+ * @method     ChildAlbumQuery orderByP32n($order = Criteria::ASC) Order by the p32n column
+ * @method     ChildAlbumQuery orderByP33n($order = Criteria::ASC) Order by the p33n column
+ * @method     ChildAlbumQuery orderByP34n($order = Criteria::ASC) Order by the p34n column
+ * @method     ChildAlbumQuery orderByP35n($order = Criteria::ASC) Order by the p35n column
  *
- * @method     ChildAlbumsQuery groupById() Group by the id column
- * @method     ChildAlbumsQuery groupByName() Group by the name column
- * @method     ChildAlbumsQuery groupByArtist1id() Group by the artist1id column
- * @method     ChildAlbumsQuery groupByArtist2id() Group by the artist2id column
- * @method     ChildAlbumsQuery groupByDopylnitelnoinfo() Group by the dopylnitelnoinfo column
- * @method     ChildAlbumsQuery groupByYear() Group by the year column
- * @method     ChildAlbumsQuery groupByImage() Group by the image column
- * @method     ChildAlbumsQuery groupByVid() Group by the vid column
- * @method     ChildAlbumsQuery groupByUpId() Group by the up_id column
- * @method     ChildAlbumsQuery groupByVa() Group by the va column
- * @method     ChildAlbumsQuery groupByP1() Group by the p1 column
- * @method     ChildAlbumsQuery groupByP2() Group by the p2 column
- * @method     ChildAlbumsQuery groupByP3() Group by the p3 column
- * @method     ChildAlbumsQuery groupByP4() Group by the p4 column
- * @method     ChildAlbumsQuery groupByP5() Group by the p5 column
- * @method     ChildAlbumsQuery groupByP6() Group by the p6 column
- * @method     ChildAlbumsQuery groupByP7() Group by the p7 column
- * @method     ChildAlbumsQuery groupByP8() Group by the p8 column
- * @method     ChildAlbumsQuery groupByP9() Group by the p9 column
- * @method     ChildAlbumsQuery groupByP10() Group by the p10 column
- * @method     ChildAlbumsQuery groupByP11() Group by the p11 column
- * @method     ChildAlbumsQuery groupByP12() Group by the p12 column
- * @method     ChildAlbumsQuery groupByP13() Group by the p13 column
- * @method     ChildAlbumsQuery groupByP14() Group by the p14 column
- * @method     ChildAlbumsQuery groupByP15() Group by the p15 column
- * @method     ChildAlbumsQuery groupByP16() Group by the p16 column
- * @method     ChildAlbumsQuery groupByP17() Group by the p17 column
- * @method     ChildAlbumsQuery groupByP18() Group by the p18 column
- * @method     ChildAlbumsQuery groupByP19() Group by the p19 column
- * @method     ChildAlbumsQuery groupByP20() Group by the p20 column
- * @method     ChildAlbumsQuery groupByP21() Group by the p21 column
- * @method     ChildAlbumsQuery groupByP22() Group by the p22 column
- * @method     ChildAlbumsQuery groupByP23() Group by the p23 column
- * @method     ChildAlbumsQuery groupByP24() Group by the p24 column
- * @method     ChildAlbumsQuery groupByP25() Group by the p25 column
- * @method     ChildAlbumsQuery groupByP26() Group by the p26 column
- * @method     ChildAlbumsQuery groupByP27() Group by the p27 column
- * @method     ChildAlbumsQuery groupByP28() Group by the p28 column
- * @method     ChildAlbumsQuery groupByP29() Group by the p29 column
- * @method     ChildAlbumsQuery groupByP30() Group by the p30 column
- * @method     ChildAlbumsQuery groupByP31() Group by the p31 column
- * @method     ChildAlbumsQuery groupByP32() Group by the p32 column
- * @method     ChildAlbumsQuery groupByP33() Group by the p33 column
- * @method     ChildAlbumsQuery groupByP34() Group by the p34 column
- * @method     ChildAlbumsQuery groupByP35() Group by the p35 column
- * @method     ChildAlbumsQuery groupByP1n() Group by the p1n column
- * @method     ChildAlbumsQuery groupByP2n() Group by the p2n column
- * @method     ChildAlbumsQuery groupByP3n() Group by the p3n column
- * @method     ChildAlbumsQuery groupByP4n() Group by the p4n column
- * @method     ChildAlbumsQuery groupByP5n() Group by the p5n column
- * @method     ChildAlbumsQuery groupByP6n() Group by the p6n column
- * @method     ChildAlbumsQuery groupByP7n() Group by the p7n column
- * @method     ChildAlbumsQuery groupByP8n() Group by the p8n column
- * @method     ChildAlbumsQuery groupByP9n() Group by the p9n column
- * @method     ChildAlbumsQuery groupByP10n() Group by the p10n column
- * @method     ChildAlbumsQuery groupByP11n() Group by the p11n column
- * @method     ChildAlbumsQuery groupByP12n() Group by the p12n column
- * @method     ChildAlbumsQuery groupByP13n() Group by the p13n column
- * @method     ChildAlbumsQuery groupByP14n() Group by the p14n column
- * @method     ChildAlbumsQuery groupByP15n() Group by the p15n column
- * @method     ChildAlbumsQuery groupByP16n() Group by the p16n column
- * @method     ChildAlbumsQuery groupByP17n() Group by the p17n column
- * @method     ChildAlbumsQuery groupByP18n() Group by the p18n column
- * @method     ChildAlbumsQuery groupByP19n() Group by the p19n column
- * @method     ChildAlbumsQuery groupByP20n() Group by the p20n column
- * @method     ChildAlbumsQuery groupByP21n() Group by the p21n column
- * @method     ChildAlbumsQuery groupByP22n() Group by the p22n column
- * @method     ChildAlbumsQuery groupByP23n() Group by the p23n column
- * @method     ChildAlbumsQuery groupByP24n() Group by the p24n column
- * @method     ChildAlbumsQuery groupByP25n() Group by the p25n column
- * @method     ChildAlbumsQuery groupByP26n() Group by the p26n column
- * @method     ChildAlbumsQuery groupByP27n() Group by the p27n column
- * @method     ChildAlbumsQuery groupByP28n() Group by the p28n column
- * @method     ChildAlbumsQuery groupByP29n() Group by the p29n column
- * @method     ChildAlbumsQuery groupByP30n() Group by the p30n column
- * @method     ChildAlbumsQuery groupByP31n() Group by the p31n column
- * @method     ChildAlbumsQuery groupByP32n() Group by the p32n column
- * @method     ChildAlbumsQuery groupByP33n() Group by the p33n column
- * @method     ChildAlbumsQuery groupByP34n() Group by the p34n column
- * @method     ChildAlbumsQuery groupByP35n() Group by the p35n column
+ * @method     ChildAlbumQuery groupById() Group by the id column
+ * @method     ChildAlbumQuery groupByName() Group by the name column
+ * @method     ChildAlbumQuery groupByArtist1id() Group by the artist1id column
+ * @method     ChildAlbumQuery groupByArtist2id() Group by the artist2id column
+ * @method     ChildAlbumQuery groupByDopylnitelnoinfo() Group by the dopylnitelnoinfo column
+ * @method     ChildAlbumQuery groupByYear() Group by the year column
+ * @method     ChildAlbumQuery groupByImage() Group by the image column
+ * @method     ChildAlbumQuery groupByVid() Group by the vid column
+ * @method     ChildAlbumQuery groupByUpId() Group by the up_id column
+ * @method     ChildAlbumQuery groupByVa() Group by the va column
+ * @method     ChildAlbumQuery groupByP1() Group by the p1 column
+ * @method     ChildAlbumQuery groupByP2() Group by the p2 column
+ * @method     ChildAlbumQuery groupByP3() Group by the p3 column
+ * @method     ChildAlbumQuery groupByP4() Group by the p4 column
+ * @method     ChildAlbumQuery groupByP5() Group by the p5 column
+ * @method     ChildAlbumQuery groupByP6() Group by the p6 column
+ * @method     ChildAlbumQuery groupByP7() Group by the p7 column
+ * @method     ChildAlbumQuery groupByP8() Group by the p8 column
+ * @method     ChildAlbumQuery groupByP9() Group by the p9 column
+ * @method     ChildAlbumQuery groupByP10() Group by the p10 column
+ * @method     ChildAlbumQuery groupByP11() Group by the p11 column
+ * @method     ChildAlbumQuery groupByP12() Group by the p12 column
+ * @method     ChildAlbumQuery groupByP13() Group by the p13 column
+ * @method     ChildAlbumQuery groupByP14() Group by the p14 column
+ * @method     ChildAlbumQuery groupByP15() Group by the p15 column
+ * @method     ChildAlbumQuery groupByP16() Group by the p16 column
+ * @method     ChildAlbumQuery groupByP17() Group by the p17 column
+ * @method     ChildAlbumQuery groupByP18() Group by the p18 column
+ * @method     ChildAlbumQuery groupByP19() Group by the p19 column
+ * @method     ChildAlbumQuery groupByP20() Group by the p20 column
+ * @method     ChildAlbumQuery groupByP21() Group by the p21 column
+ * @method     ChildAlbumQuery groupByP22() Group by the p22 column
+ * @method     ChildAlbumQuery groupByP23() Group by the p23 column
+ * @method     ChildAlbumQuery groupByP24() Group by the p24 column
+ * @method     ChildAlbumQuery groupByP25() Group by the p25 column
+ * @method     ChildAlbumQuery groupByP26() Group by the p26 column
+ * @method     ChildAlbumQuery groupByP27() Group by the p27 column
+ * @method     ChildAlbumQuery groupByP28() Group by the p28 column
+ * @method     ChildAlbumQuery groupByP29() Group by the p29 column
+ * @method     ChildAlbumQuery groupByP30() Group by the p30 column
+ * @method     ChildAlbumQuery groupByP31() Group by the p31 column
+ * @method     ChildAlbumQuery groupByP32() Group by the p32 column
+ * @method     ChildAlbumQuery groupByP33() Group by the p33 column
+ * @method     ChildAlbumQuery groupByP34() Group by the p34 column
+ * @method     ChildAlbumQuery groupByP35() Group by the p35 column
+ * @method     ChildAlbumQuery groupByP1n() Group by the p1n column
+ * @method     ChildAlbumQuery groupByP2n() Group by the p2n column
+ * @method     ChildAlbumQuery groupByP3n() Group by the p3n column
+ * @method     ChildAlbumQuery groupByP4n() Group by the p4n column
+ * @method     ChildAlbumQuery groupByP5n() Group by the p5n column
+ * @method     ChildAlbumQuery groupByP6n() Group by the p6n column
+ * @method     ChildAlbumQuery groupByP7n() Group by the p7n column
+ * @method     ChildAlbumQuery groupByP8n() Group by the p8n column
+ * @method     ChildAlbumQuery groupByP9n() Group by the p9n column
+ * @method     ChildAlbumQuery groupByP10n() Group by the p10n column
+ * @method     ChildAlbumQuery groupByP11n() Group by the p11n column
+ * @method     ChildAlbumQuery groupByP12n() Group by the p12n column
+ * @method     ChildAlbumQuery groupByP13n() Group by the p13n column
+ * @method     ChildAlbumQuery groupByP14n() Group by the p14n column
+ * @method     ChildAlbumQuery groupByP15n() Group by the p15n column
+ * @method     ChildAlbumQuery groupByP16n() Group by the p16n column
+ * @method     ChildAlbumQuery groupByP17n() Group by the p17n column
+ * @method     ChildAlbumQuery groupByP18n() Group by the p18n column
+ * @method     ChildAlbumQuery groupByP19n() Group by the p19n column
+ * @method     ChildAlbumQuery groupByP20n() Group by the p20n column
+ * @method     ChildAlbumQuery groupByP21n() Group by the p21n column
+ * @method     ChildAlbumQuery groupByP22n() Group by the p22n column
+ * @method     ChildAlbumQuery groupByP23n() Group by the p23n column
+ * @method     ChildAlbumQuery groupByP24n() Group by the p24n column
+ * @method     ChildAlbumQuery groupByP25n() Group by the p25n column
+ * @method     ChildAlbumQuery groupByP26n() Group by the p26n column
+ * @method     ChildAlbumQuery groupByP27n() Group by the p27n column
+ * @method     ChildAlbumQuery groupByP28n() Group by the p28n column
+ * @method     ChildAlbumQuery groupByP29n() Group by the p29n column
+ * @method     ChildAlbumQuery groupByP30n() Group by the p30n column
+ * @method     ChildAlbumQuery groupByP31n() Group by the p31n column
+ * @method     ChildAlbumQuery groupByP32n() Group by the p32n column
+ * @method     ChildAlbumQuery groupByP33n() Group by the p33n column
+ * @method     ChildAlbumQuery groupByP34n() Group by the p34n column
+ * @method     ChildAlbumQuery groupByP35n() Group by the p35n column
  *
- * @method     ChildAlbumsQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     ChildAlbumsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     ChildAlbumsQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     ChildAlbumQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     ChildAlbumQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     ChildAlbumQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildAlbums findOne(ConnectionInterface $con = null) Return the first ChildAlbums matching the query
- * @method     ChildAlbums findOneOrCreate(ConnectionInterface $con = null) Return the first ChildAlbums matching the query, or a new ChildAlbums object populated from the query conditions when no match is found
+ * @method     ChildAlbum findOne(ConnectionInterface $con = null) Return the first ChildAlbum matching the query
+ * @method     ChildAlbum findOneOrCreate(ConnectionInterface $con = null) Return the first ChildAlbum matching the query, or a new ChildAlbum object populated from the query conditions when no match is found
  *
- * @method     ChildAlbums findOneById(int $id) Return the first ChildAlbums filtered by the id column
- * @method     ChildAlbums findOneByName(string $name) Return the first ChildAlbums filtered by the name column
- * @method     ChildAlbums findOneByArtist1id(int $artist1id) Return the first ChildAlbums filtered by the artist1id column
- * @method     ChildAlbums findOneByArtist2id(int $artist2id) Return the first ChildAlbums filtered by the artist2id column
- * @method     ChildAlbums findOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildAlbums filtered by the dopylnitelnoinfo column
- * @method     ChildAlbums findOneByYear(int $year) Return the first ChildAlbums filtered by the year column
- * @method     ChildAlbums findOneByImage(string $image) Return the first ChildAlbums filtered by the image column
- * @method     ChildAlbums findOneByVid(int $vid) Return the first ChildAlbums filtered by the vid column
- * @method     ChildAlbums findOneByUpId(int $up_id) Return the first ChildAlbums filtered by the up_id column
- * @method     ChildAlbums findOneByVa(boolean $va) Return the first ChildAlbums filtered by the va column
- * @method     ChildAlbums findOneByP1(int $p1) Return the first ChildAlbums filtered by the p1 column
- * @method     ChildAlbums findOneByP2(int $p2) Return the first ChildAlbums filtered by the p2 column
- * @method     ChildAlbums findOneByP3(int $p3) Return the first ChildAlbums filtered by the p3 column
- * @method     ChildAlbums findOneByP4(int $p4) Return the first ChildAlbums filtered by the p4 column
- * @method     ChildAlbums findOneByP5(int $p5) Return the first ChildAlbums filtered by the p5 column
- * @method     ChildAlbums findOneByP6(int $p6) Return the first ChildAlbums filtered by the p6 column
- * @method     ChildAlbums findOneByP7(int $p7) Return the first ChildAlbums filtered by the p7 column
- * @method     ChildAlbums findOneByP8(int $p8) Return the first ChildAlbums filtered by the p8 column
- * @method     ChildAlbums findOneByP9(int $p9) Return the first ChildAlbums filtered by the p9 column
- * @method     ChildAlbums findOneByP10(int $p10) Return the first ChildAlbums filtered by the p10 column
- * @method     ChildAlbums findOneByP11(int $p11) Return the first ChildAlbums filtered by the p11 column
- * @method     ChildAlbums findOneByP12(int $p12) Return the first ChildAlbums filtered by the p12 column
- * @method     ChildAlbums findOneByP13(int $p13) Return the first ChildAlbums filtered by the p13 column
- * @method     ChildAlbums findOneByP14(int $p14) Return the first ChildAlbums filtered by the p14 column
- * @method     ChildAlbums findOneByP15(int $p15) Return the first ChildAlbums filtered by the p15 column
- * @method     ChildAlbums findOneByP16(int $p16) Return the first ChildAlbums filtered by the p16 column
- * @method     ChildAlbums findOneByP17(int $p17) Return the first ChildAlbums filtered by the p17 column
- * @method     ChildAlbums findOneByP18(int $p18) Return the first ChildAlbums filtered by the p18 column
- * @method     ChildAlbums findOneByP19(int $p19) Return the first ChildAlbums filtered by the p19 column
- * @method     ChildAlbums findOneByP20(int $p20) Return the first ChildAlbums filtered by the p20 column
- * @method     ChildAlbums findOneByP21(int $p21) Return the first ChildAlbums filtered by the p21 column
- * @method     ChildAlbums findOneByP22(int $p22) Return the first ChildAlbums filtered by the p22 column
- * @method     ChildAlbums findOneByP23(int $p23) Return the first ChildAlbums filtered by the p23 column
- * @method     ChildAlbums findOneByP24(int $p24) Return the first ChildAlbums filtered by the p24 column
- * @method     ChildAlbums findOneByP25(int $p25) Return the first ChildAlbums filtered by the p25 column
- * @method     ChildAlbums findOneByP26(int $p26) Return the first ChildAlbums filtered by the p26 column
- * @method     ChildAlbums findOneByP27(int $p27) Return the first ChildAlbums filtered by the p27 column
- * @method     ChildAlbums findOneByP28(int $p28) Return the first ChildAlbums filtered by the p28 column
- * @method     ChildAlbums findOneByP29(int $p29) Return the first ChildAlbums filtered by the p29 column
- * @method     ChildAlbums findOneByP30(int $p30) Return the first ChildAlbums filtered by the p30 column
- * @method     ChildAlbums findOneByP31(int $p31) Return the first ChildAlbums filtered by the p31 column
- * @method     ChildAlbums findOneByP32(int $p32) Return the first ChildAlbums filtered by the p32 column
- * @method     ChildAlbums findOneByP33(int $p33) Return the first ChildAlbums filtered by the p33 column
- * @method     ChildAlbums findOneByP34(int $p34) Return the first ChildAlbums filtered by the p34 column
- * @method     ChildAlbums findOneByP35(int $p35) Return the first ChildAlbums filtered by the p35 column
- * @method     ChildAlbums findOneByP1n(string $p1n) Return the first ChildAlbums filtered by the p1n column
- * @method     ChildAlbums findOneByP2n(string $p2n) Return the first ChildAlbums filtered by the p2n column
- * @method     ChildAlbums findOneByP3n(string $p3n) Return the first ChildAlbums filtered by the p3n column
- * @method     ChildAlbums findOneByP4n(string $p4n) Return the first ChildAlbums filtered by the p4n column
- * @method     ChildAlbums findOneByP5n(string $p5n) Return the first ChildAlbums filtered by the p5n column
- * @method     ChildAlbums findOneByP6n(string $p6n) Return the first ChildAlbums filtered by the p6n column
- * @method     ChildAlbums findOneByP7n(string $p7n) Return the first ChildAlbums filtered by the p7n column
- * @method     ChildAlbums findOneByP8n(string $p8n) Return the first ChildAlbums filtered by the p8n column
- * @method     ChildAlbums findOneByP9n(string $p9n) Return the first ChildAlbums filtered by the p9n column
- * @method     ChildAlbums findOneByP10n(string $p10n) Return the first ChildAlbums filtered by the p10n column
- * @method     ChildAlbums findOneByP11n(string $p11n) Return the first ChildAlbums filtered by the p11n column
- * @method     ChildAlbums findOneByP12n(string $p12n) Return the first ChildAlbums filtered by the p12n column
- * @method     ChildAlbums findOneByP13n(string $p13n) Return the first ChildAlbums filtered by the p13n column
- * @method     ChildAlbums findOneByP14n(string $p14n) Return the first ChildAlbums filtered by the p14n column
- * @method     ChildAlbums findOneByP15n(string $p15n) Return the first ChildAlbums filtered by the p15n column
- * @method     ChildAlbums findOneByP16n(string $p16n) Return the first ChildAlbums filtered by the p16n column
- * @method     ChildAlbums findOneByP17n(string $p17n) Return the first ChildAlbums filtered by the p17n column
- * @method     ChildAlbums findOneByP18n(string $p18n) Return the first ChildAlbums filtered by the p18n column
- * @method     ChildAlbums findOneByP19n(string $p19n) Return the first ChildAlbums filtered by the p19n column
- * @method     ChildAlbums findOneByP20n(string $p20n) Return the first ChildAlbums filtered by the p20n column
- * @method     ChildAlbums findOneByP21n(string $p21n) Return the first ChildAlbums filtered by the p21n column
- * @method     ChildAlbums findOneByP22n(string $p22n) Return the first ChildAlbums filtered by the p22n column
- * @method     ChildAlbums findOneByP23n(string $p23n) Return the first ChildAlbums filtered by the p23n column
- * @method     ChildAlbums findOneByP24n(string $p24n) Return the first ChildAlbums filtered by the p24n column
- * @method     ChildAlbums findOneByP25n(string $p25n) Return the first ChildAlbums filtered by the p25n column
- * @method     ChildAlbums findOneByP26n(string $p26n) Return the first ChildAlbums filtered by the p26n column
- * @method     ChildAlbums findOneByP27n(string $p27n) Return the first ChildAlbums filtered by the p27n column
- * @method     ChildAlbums findOneByP28n(string $p28n) Return the first ChildAlbums filtered by the p28n column
- * @method     ChildAlbums findOneByP29n(string $p29n) Return the first ChildAlbums filtered by the p29n column
- * @method     ChildAlbums findOneByP30n(string $p30n) Return the first ChildAlbums filtered by the p30n column
- * @method     ChildAlbums findOneByP31n(string $p31n) Return the first ChildAlbums filtered by the p31n column
- * @method     ChildAlbums findOneByP32n(string $p32n) Return the first ChildAlbums filtered by the p32n column
- * @method     ChildAlbums findOneByP33n(string $p33n) Return the first ChildAlbums filtered by the p33n column
- * @method     ChildAlbums findOneByP34n(string $p34n) Return the first ChildAlbums filtered by the p34n column
- * @method     ChildAlbums findOneByP35n(string $p35n) Return the first ChildAlbums filtered by the p35n column *
+ * @method     ChildAlbum findOneById(int $id) Return the first ChildAlbum filtered by the id column
+ * @method     ChildAlbum findOneByName(string $name) Return the first ChildAlbum filtered by the name column
+ * @method     ChildAlbum findOneByArtist1id(int $artist1id) Return the first ChildAlbum filtered by the artist1id column
+ * @method     ChildAlbum findOneByArtist2id(int $artist2id) Return the first ChildAlbum filtered by the artist2id column
+ * @method     ChildAlbum findOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildAlbum filtered by the dopylnitelnoinfo column
+ * @method     ChildAlbum findOneByYear(int $year) Return the first ChildAlbum filtered by the year column
+ * @method     ChildAlbum findOneByImage(string $image) Return the first ChildAlbum filtered by the image column
+ * @method     ChildAlbum findOneByVid(int $vid) Return the first ChildAlbum filtered by the vid column
+ * @method     ChildAlbum findOneByUpId(int $up_id) Return the first ChildAlbum filtered by the up_id column
+ * @method     ChildAlbum findOneByVa(boolean $va) Return the first ChildAlbum filtered by the va column
+ * @method     ChildAlbum findOneByP1(int $p1) Return the first ChildAlbum filtered by the p1 column
+ * @method     ChildAlbum findOneByP2(int $p2) Return the first ChildAlbum filtered by the p2 column
+ * @method     ChildAlbum findOneByP3(int $p3) Return the first ChildAlbum filtered by the p3 column
+ * @method     ChildAlbum findOneByP4(int $p4) Return the first ChildAlbum filtered by the p4 column
+ * @method     ChildAlbum findOneByP5(int $p5) Return the first ChildAlbum filtered by the p5 column
+ * @method     ChildAlbum findOneByP6(int $p6) Return the first ChildAlbum filtered by the p6 column
+ * @method     ChildAlbum findOneByP7(int $p7) Return the first ChildAlbum filtered by the p7 column
+ * @method     ChildAlbum findOneByP8(int $p8) Return the first ChildAlbum filtered by the p8 column
+ * @method     ChildAlbum findOneByP9(int $p9) Return the first ChildAlbum filtered by the p9 column
+ * @method     ChildAlbum findOneByP10(int $p10) Return the first ChildAlbum filtered by the p10 column
+ * @method     ChildAlbum findOneByP11(int $p11) Return the first ChildAlbum filtered by the p11 column
+ * @method     ChildAlbum findOneByP12(int $p12) Return the first ChildAlbum filtered by the p12 column
+ * @method     ChildAlbum findOneByP13(int $p13) Return the first ChildAlbum filtered by the p13 column
+ * @method     ChildAlbum findOneByP14(int $p14) Return the first ChildAlbum filtered by the p14 column
+ * @method     ChildAlbum findOneByP15(int $p15) Return the first ChildAlbum filtered by the p15 column
+ * @method     ChildAlbum findOneByP16(int $p16) Return the first ChildAlbum filtered by the p16 column
+ * @method     ChildAlbum findOneByP17(int $p17) Return the first ChildAlbum filtered by the p17 column
+ * @method     ChildAlbum findOneByP18(int $p18) Return the first ChildAlbum filtered by the p18 column
+ * @method     ChildAlbum findOneByP19(int $p19) Return the first ChildAlbum filtered by the p19 column
+ * @method     ChildAlbum findOneByP20(int $p20) Return the first ChildAlbum filtered by the p20 column
+ * @method     ChildAlbum findOneByP21(int $p21) Return the first ChildAlbum filtered by the p21 column
+ * @method     ChildAlbum findOneByP22(int $p22) Return the first ChildAlbum filtered by the p22 column
+ * @method     ChildAlbum findOneByP23(int $p23) Return the first ChildAlbum filtered by the p23 column
+ * @method     ChildAlbum findOneByP24(int $p24) Return the first ChildAlbum filtered by the p24 column
+ * @method     ChildAlbum findOneByP25(int $p25) Return the first ChildAlbum filtered by the p25 column
+ * @method     ChildAlbum findOneByP26(int $p26) Return the first ChildAlbum filtered by the p26 column
+ * @method     ChildAlbum findOneByP27(int $p27) Return the first ChildAlbum filtered by the p27 column
+ * @method     ChildAlbum findOneByP28(int $p28) Return the first ChildAlbum filtered by the p28 column
+ * @method     ChildAlbum findOneByP29(int $p29) Return the first ChildAlbum filtered by the p29 column
+ * @method     ChildAlbum findOneByP30(int $p30) Return the first ChildAlbum filtered by the p30 column
+ * @method     ChildAlbum findOneByP31(int $p31) Return the first ChildAlbum filtered by the p31 column
+ * @method     ChildAlbum findOneByP32(int $p32) Return the first ChildAlbum filtered by the p32 column
+ * @method     ChildAlbum findOneByP33(int $p33) Return the first ChildAlbum filtered by the p33 column
+ * @method     ChildAlbum findOneByP34(int $p34) Return the first ChildAlbum filtered by the p34 column
+ * @method     ChildAlbum findOneByP35(int $p35) Return the first ChildAlbum filtered by the p35 column
+ * @method     ChildAlbum findOneByP1n(string $p1n) Return the first ChildAlbum filtered by the p1n column
+ * @method     ChildAlbum findOneByP2n(string $p2n) Return the first ChildAlbum filtered by the p2n column
+ * @method     ChildAlbum findOneByP3n(string $p3n) Return the first ChildAlbum filtered by the p3n column
+ * @method     ChildAlbum findOneByP4n(string $p4n) Return the first ChildAlbum filtered by the p4n column
+ * @method     ChildAlbum findOneByP5n(string $p5n) Return the first ChildAlbum filtered by the p5n column
+ * @method     ChildAlbum findOneByP6n(string $p6n) Return the first ChildAlbum filtered by the p6n column
+ * @method     ChildAlbum findOneByP7n(string $p7n) Return the first ChildAlbum filtered by the p7n column
+ * @method     ChildAlbum findOneByP8n(string $p8n) Return the first ChildAlbum filtered by the p8n column
+ * @method     ChildAlbum findOneByP9n(string $p9n) Return the first ChildAlbum filtered by the p9n column
+ * @method     ChildAlbum findOneByP10n(string $p10n) Return the first ChildAlbum filtered by the p10n column
+ * @method     ChildAlbum findOneByP11n(string $p11n) Return the first ChildAlbum filtered by the p11n column
+ * @method     ChildAlbum findOneByP12n(string $p12n) Return the first ChildAlbum filtered by the p12n column
+ * @method     ChildAlbum findOneByP13n(string $p13n) Return the first ChildAlbum filtered by the p13n column
+ * @method     ChildAlbum findOneByP14n(string $p14n) Return the first ChildAlbum filtered by the p14n column
+ * @method     ChildAlbum findOneByP15n(string $p15n) Return the first ChildAlbum filtered by the p15n column
+ * @method     ChildAlbum findOneByP16n(string $p16n) Return the first ChildAlbum filtered by the p16n column
+ * @method     ChildAlbum findOneByP17n(string $p17n) Return the first ChildAlbum filtered by the p17n column
+ * @method     ChildAlbum findOneByP18n(string $p18n) Return the first ChildAlbum filtered by the p18n column
+ * @method     ChildAlbum findOneByP19n(string $p19n) Return the first ChildAlbum filtered by the p19n column
+ * @method     ChildAlbum findOneByP20n(string $p20n) Return the first ChildAlbum filtered by the p20n column
+ * @method     ChildAlbum findOneByP21n(string $p21n) Return the first ChildAlbum filtered by the p21n column
+ * @method     ChildAlbum findOneByP22n(string $p22n) Return the first ChildAlbum filtered by the p22n column
+ * @method     ChildAlbum findOneByP23n(string $p23n) Return the first ChildAlbum filtered by the p23n column
+ * @method     ChildAlbum findOneByP24n(string $p24n) Return the first ChildAlbum filtered by the p24n column
+ * @method     ChildAlbum findOneByP25n(string $p25n) Return the first ChildAlbum filtered by the p25n column
+ * @method     ChildAlbum findOneByP26n(string $p26n) Return the first ChildAlbum filtered by the p26n column
+ * @method     ChildAlbum findOneByP27n(string $p27n) Return the first ChildAlbum filtered by the p27n column
+ * @method     ChildAlbum findOneByP28n(string $p28n) Return the first ChildAlbum filtered by the p28n column
+ * @method     ChildAlbum findOneByP29n(string $p29n) Return the first ChildAlbum filtered by the p29n column
+ * @method     ChildAlbum findOneByP30n(string $p30n) Return the first ChildAlbum filtered by the p30n column
+ * @method     ChildAlbum findOneByP31n(string $p31n) Return the first ChildAlbum filtered by the p31n column
+ * @method     ChildAlbum findOneByP32n(string $p32n) Return the first ChildAlbum filtered by the p32n column
+ * @method     ChildAlbum findOneByP33n(string $p33n) Return the first ChildAlbum filtered by the p33n column
+ * @method     ChildAlbum findOneByP34n(string $p34n) Return the first ChildAlbum filtered by the p34n column
+ * @method     ChildAlbum findOneByP35n(string $p35n) Return the first ChildAlbum filtered by the p35n column *
 
- * @method     ChildAlbums requirePk($key, ConnectionInterface $con = null) Return the ChildAlbums by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOne(ConnectionInterface $con = null) Return the first ChildAlbums matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requirePk($key, ConnectionInterface $con = null) Return the ChildAlbum by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOne(ConnectionInterface $con = null) Return the first ChildAlbum matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildAlbums requireOneById(int $id) Return the first ChildAlbums filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByName(string $name) Return the first ChildAlbums filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByArtist1id(int $artist1id) Return the first ChildAlbums filtered by the artist1id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByArtist2id(int $artist2id) Return the first ChildAlbums filtered by the artist2id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildAlbums filtered by the dopylnitelnoinfo column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByYear(int $year) Return the first ChildAlbums filtered by the year column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByImage(string $image) Return the first ChildAlbums filtered by the image column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByVid(int $vid) Return the first ChildAlbums filtered by the vid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByUpId(int $up_id) Return the first ChildAlbums filtered by the up_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByVa(boolean $va) Return the first ChildAlbums filtered by the va column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP1(int $p1) Return the first ChildAlbums filtered by the p1 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP2(int $p2) Return the first ChildAlbums filtered by the p2 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP3(int $p3) Return the first ChildAlbums filtered by the p3 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP4(int $p4) Return the first ChildAlbums filtered by the p4 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP5(int $p5) Return the first ChildAlbums filtered by the p5 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP6(int $p6) Return the first ChildAlbums filtered by the p6 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP7(int $p7) Return the first ChildAlbums filtered by the p7 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP8(int $p8) Return the first ChildAlbums filtered by the p8 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP9(int $p9) Return the first ChildAlbums filtered by the p9 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP10(int $p10) Return the first ChildAlbums filtered by the p10 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP11(int $p11) Return the first ChildAlbums filtered by the p11 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP12(int $p12) Return the first ChildAlbums filtered by the p12 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP13(int $p13) Return the first ChildAlbums filtered by the p13 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP14(int $p14) Return the first ChildAlbums filtered by the p14 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP15(int $p15) Return the first ChildAlbums filtered by the p15 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP16(int $p16) Return the first ChildAlbums filtered by the p16 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP17(int $p17) Return the first ChildAlbums filtered by the p17 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP18(int $p18) Return the first ChildAlbums filtered by the p18 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP19(int $p19) Return the first ChildAlbums filtered by the p19 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP20(int $p20) Return the first ChildAlbums filtered by the p20 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP21(int $p21) Return the first ChildAlbums filtered by the p21 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP22(int $p22) Return the first ChildAlbums filtered by the p22 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP23(int $p23) Return the first ChildAlbums filtered by the p23 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP24(int $p24) Return the first ChildAlbums filtered by the p24 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP25(int $p25) Return the first ChildAlbums filtered by the p25 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP26(int $p26) Return the first ChildAlbums filtered by the p26 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP27(int $p27) Return the first ChildAlbums filtered by the p27 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP28(int $p28) Return the first ChildAlbums filtered by the p28 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP29(int $p29) Return the first ChildAlbums filtered by the p29 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP30(int $p30) Return the first ChildAlbums filtered by the p30 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP31(int $p31) Return the first ChildAlbums filtered by the p31 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP32(int $p32) Return the first ChildAlbums filtered by the p32 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP33(int $p33) Return the first ChildAlbums filtered by the p33 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP34(int $p34) Return the first ChildAlbums filtered by the p34 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP35(int $p35) Return the first ChildAlbums filtered by the p35 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP1n(string $p1n) Return the first ChildAlbums filtered by the p1n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP2n(string $p2n) Return the first ChildAlbums filtered by the p2n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP3n(string $p3n) Return the first ChildAlbums filtered by the p3n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP4n(string $p4n) Return the first ChildAlbums filtered by the p4n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP5n(string $p5n) Return the first ChildAlbums filtered by the p5n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP6n(string $p6n) Return the first ChildAlbums filtered by the p6n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP7n(string $p7n) Return the first ChildAlbums filtered by the p7n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP8n(string $p8n) Return the first ChildAlbums filtered by the p8n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP9n(string $p9n) Return the first ChildAlbums filtered by the p9n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP10n(string $p10n) Return the first ChildAlbums filtered by the p10n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP11n(string $p11n) Return the first ChildAlbums filtered by the p11n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP12n(string $p12n) Return the first ChildAlbums filtered by the p12n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP13n(string $p13n) Return the first ChildAlbums filtered by the p13n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP14n(string $p14n) Return the first ChildAlbums filtered by the p14n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP15n(string $p15n) Return the first ChildAlbums filtered by the p15n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP16n(string $p16n) Return the first ChildAlbums filtered by the p16n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP17n(string $p17n) Return the first ChildAlbums filtered by the p17n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP18n(string $p18n) Return the first ChildAlbums filtered by the p18n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP19n(string $p19n) Return the first ChildAlbums filtered by the p19n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP20n(string $p20n) Return the first ChildAlbums filtered by the p20n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP21n(string $p21n) Return the first ChildAlbums filtered by the p21n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP22n(string $p22n) Return the first ChildAlbums filtered by the p22n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP23n(string $p23n) Return the first ChildAlbums filtered by the p23n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP24n(string $p24n) Return the first ChildAlbums filtered by the p24n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP25n(string $p25n) Return the first ChildAlbums filtered by the p25n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP26n(string $p26n) Return the first ChildAlbums filtered by the p26n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP27n(string $p27n) Return the first ChildAlbums filtered by the p27n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP28n(string $p28n) Return the first ChildAlbums filtered by the p28n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP29n(string $p29n) Return the first ChildAlbums filtered by the p29n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP30n(string $p30n) Return the first ChildAlbums filtered by the p30n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP31n(string $p31n) Return the first ChildAlbums filtered by the p31n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP32n(string $p32n) Return the first ChildAlbums filtered by the p32n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP33n(string $p33n) Return the first ChildAlbums filtered by the p33n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP34n(string $p34n) Return the first ChildAlbums filtered by the p34n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAlbums requireOneByP35n(string $p35n) Return the first ChildAlbums filtered by the p35n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneById(int $id) Return the first ChildAlbum filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByName(string $name) Return the first ChildAlbum filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByArtist1id(int $artist1id) Return the first ChildAlbum filtered by the artist1id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByArtist2id(int $artist2id) Return the first ChildAlbum filtered by the artist2id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildAlbum filtered by the dopylnitelnoinfo column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByYear(int $year) Return the first ChildAlbum filtered by the year column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByImage(string $image) Return the first ChildAlbum filtered by the image column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByVid(int $vid) Return the first ChildAlbum filtered by the vid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByUpId(int $up_id) Return the first ChildAlbum filtered by the up_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByVa(boolean $va) Return the first ChildAlbum filtered by the va column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP1(int $p1) Return the first ChildAlbum filtered by the p1 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP2(int $p2) Return the first ChildAlbum filtered by the p2 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP3(int $p3) Return the first ChildAlbum filtered by the p3 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP4(int $p4) Return the first ChildAlbum filtered by the p4 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP5(int $p5) Return the first ChildAlbum filtered by the p5 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP6(int $p6) Return the first ChildAlbum filtered by the p6 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP7(int $p7) Return the first ChildAlbum filtered by the p7 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP8(int $p8) Return the first ChildAlbum filtered by the p8 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP9(int $p9) Return the first ChildAlbum filtered by the p9 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP10(int $p10) Return the first ChildAlbum filtered by the p10 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP11(int $p11) Return the first ChildAlbum filtered by the p11 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP12(int $p12) Return the first ChildAlbum filtered by the p12 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP13(int $p13) Return the first ChildAlbum filtered by the p13 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP14(int $p14) Return the first ChildAlbum filtered by the p14 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP15(int $p15) Return the first ChildAlbum filtered by the p15 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP16(int $p16) Return the first ChildAlbum filtered by the p16 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP17(int $p17) Return the first ChildAlbum filtered by the p17 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP18(int $p18) Return the first ChildAlbum filtered by the p18 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP19(int $p19) Return the first ChildAlbum filtered by the p19 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP20(int $p20) Return the first ChildAlbum filtered by the p20 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP21(int $p21) Return the first ChildAlbum filtered by the p21 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP22(int $p22) Return the first ChildAlbum filtered by the p22 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP23(int $p23) Return the first ChildAlbum filtered by the p23 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP24(int $p24) Return the first ChildAlbum filtered by the p24 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP25(int $p25) Return the first ChildAlbum filtered by the p25 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP26(int $p26) Return the first ChildAlbum filtered by the p26 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP27(int $p27) Return the first ChildAlbum filtered by the p27 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP28(int $p28) Return the first ChildAlbum filtered by the p28 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP29(int $p29) Return the first ChildAlbum filtered by the p29 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP30(int $p30) Return the first ChildAlbum filtered by the p30 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP31(int $p31) Return the first ChildAlbum filtered by the p31 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP32(int $p32) Return the first ChildAlbum filtered by the p32 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP33(int $p33) Return the first ChildAlbum filtered by the p33 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP34(int $p34) Return the first ChildAlbum filtered by the p34 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP35(int $p35) Return the first ChildAlbum filtered by the p35 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP1n(string $p1n) Return the first ChildAlbum filtered by the p1n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP2n(string $p2n) Return the first ChildAlbum filtered by the p2n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP3n(string $p3n) Return the first ChildAlbum filtered by the p3n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP4n(string $p4n) Return the first ChildAlbum filtered by the p4n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP5n(string $p5n) Return the first ChildAlbum filtered by the p5n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP6n(string $p6n) Return the first ChildAlbum filtered by the p6n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP7n(string $p7n) Return the first ChildAlbum filtered by the p7n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP8n(string $p8n) Return the first ChildAlbum filtered by the p8n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP9n(string $p9n) Return the first ChildAlbum filtered by the p9n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP10n(string $p10n) Return the first ChildAlbum filtered by the p10n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP11n(string $p11n) Return the first ChildAlbum filtered by the p11n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP12n(string $p12n) Return the first ChildAlbum filtered by the p12n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP13n(string $p13n) Return the first ChildAlbum filtered by the p13n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP14n(string $p14n) Return the first ChildAlbum filtered by the p14n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP15n(string $p15n) Return the first ChildAlbum filtered by the p15n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP16n(string $p16n) Return the first ChildAlbum filtered by the p16n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP17n(string $p17n) Return the first ChildAlbum filtered by the p17n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP18n(string $p18n) Return the first ChildAlbum filtered by the p18n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP19n(string $p19n) Return the first ChildAlbum filtered by the p19n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP20n(string $p20n) Return the first ChildAlbum filtered by the p20n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP21n(string $p21n) Return the first ChildAlbum filtered by the p21n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP22n(string $p22n) Return the first ChildAlbum filtered by the p22n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP23n(string $p23n) Return the first ChildAlbum filtered by the p23n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP24n(string $p24n) Return the first ChildAlbum filtered by the p24n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP25n(string $p25n) Return the first ChildAlbum filtered by the p25n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP26n(string $p26n) Return the first ChildAlbum filtered by the p26n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP27n(string $p27n) Return the first ChildAlbum filtered by the p27n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP28n(string $p28n) Return the first ChildAlbum filtered by the p28n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP29n(string $p29n) Return the first ChildAlbum filtered by the p29n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP30n(string $p30n) Return the first ChildAlbum filtered by the p30n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP31n(string $p31n) Return the first ChildAlbum filtered by the p31n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP32n(string $p32n) Return the first ChildAlbum filtered by the p32n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP33n(string $p33n) Return the first ChildAlbum filtered by the p33n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP34n(string $p34n) Return the first ChildAlbum filtered by the p34n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAlbum requireOneByP35n(string $p35n) Return the first ChildAlbum filtered by the p35n column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildAlbums[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildAlbums objects based on current ModelCriteria
- * @method     ChildAlbums[]|ObjectCollection findById(int $id) Return ChildAlbums objects filtered by the id column
- * @method     ChildAlbums[]|ObjectCollection findByName(string $name) Return ChildAlbums objects filtered by the name column
- * @method     ChildAlbums[]|ObjectCollection findByArtist1id(int $artist1id) Return ChildAlbums objects filtered by the artist1id column
- * @method     ChildAlbums[]|ObjectCollection findByArtist2id(int $artist2id) Return ChildAlbums objects filtered by the artist2id column
- * @method     ChildAlbums[]|ObjectCollection findByDopylnitelnoinfo(string $dopylnitelnoinfo) Return ChildAlbums objects filtered by the dopylnitelnoinfo column
- * @method     ChildAlbums[]|ObjectCollection findByYear(int $year) Return ChildAlbums objects filtered by the year column
- * @method     ChildAlbums[]|ObjectCollection findByImage(string $image) Return ChildAlbums objects filtered by the image column
- * @method     ChildAlbums[]|ObjectCollection findByVid(int $vid) Return ChildAlbums objects filtered by the vid column
- * @method     ChildAlbums[]|ObjectCollection findByUpId(int $up_id) Return ChildAlbums objects filtered by the up_id column
- * @method     ChildAlbums[]|ObjectCollection findByVa(boolean $va) Return ChildAlbums objects filtered by the va column
- * @method     ChildAlbums[]|ObjectCollection findByP1(int $p1) Return ChildAlbums objects filtered by the p1 column
- * @method     ChildAlbums[]|ObjectCollection findByP2(int $p2) Return ChildAlbums objects filtered by the p2 column
- * @method     ChildAlbums[]|ObjectCollection findByP3(int $p3) Return ChildAlbums objects filtered by the p3 column
- * @method     ChildAlbums[]|ObjectCollection findByP4(int $p4) Return ChildAlbums objects filtered by the p4 column
- * @method     ChildAlbums[]|ObjectCollection findByP5(int $p5) Return ChildAlbums objects filtered by the p5 column
- * @method     ChildAlbums[]|ObjectCollection findByP6(int $p6) Return ChildAlbums objects filtered by the p6 column
- * @method     ChildAlbums[]|ObjectCollection findByP7(int $p7) Return ChildAlbums objects filtered by the p7 column
- * @method     ChildAlbums[]|ObjectCollection findByP8(int $p8) Return ChildAlbums objects filtered by the p8 column
- * @method     ChildAlbums[]|ObjectCollection findByP9(int $p9) Return ChildAlbums objects filtered by the p9 column
- * @method     ChildAlbums[]|ObjectCollection findByP10(int $p10) Return ChildAlbums objects filtered by the p10 column
- * @method     ChildAlbums[]|ObjectCollection findByP11(int $p11) Return ChildAlbums objects filtered by the p11 column
- * @method     ChildAlbums[]|ObjectCollection findByP12(int $p12) Return ChildAlbums objects filtered by the p12 column
- * @method     ChildAlbums[]|ObjectCollection findByP13(int $p13) Return ChildAlbums objects filtered by the p13 column
- * @method     ChildAlbums[]|ObjectCollection findByP14(int $p14) Return ChildAlbums objects filtered by the p14 column
- * @method     ChildAlbums[]|ObjectCollection findByP15(int $p15) Return ChildAlbums objects filtered by the p15 column
- * @method     ChildAlbums[]|ObjectCollection findByP16(int $p16) Return ChildAlbums objects filtered by the p16 column
- * @method     ChildAlbums[]|ObjectCollection findByP17(int $p17) Return ChildAlbums objects filtered by the p17 column
- * @method     ChildAlbums[]|ObjectCollection findByP18(int $p18) Return ChildAlbums objects filtered by the p18 column
- * @method     ChildAlbums[]|ObjectCollection findByP19(int $p19) Return ChildAlbums objects filtered by the p19 column
- * @method     ChildAlbums[]|ObjectCollection findByP20(int $p20) Return ChildAlbums objects filtered by the p20 column
- * @method     ChildAlbums[]|ObjectCollection findByP21(int $p21) Return ChildAlbums objects filtered by the p21 column
- * @method     ChildAlbums[]|ObjectCollection findByP22(int $p22) Return ChildAlbums objects filtered by the p22 column
- * @method     ChildAlbums[]|ObjectCollection findByP23(int $p23) Return ChildAlbums objects filtered by the p23 column
- * @method     ChildAlbums[]|ObjectCollection findByP24(int $p24) Return ChildAlbums objects filtered by the p24 column
- * @method     ChildAlbums[]|ObjectCollection findByP25(int $p25) Return ChildAlbums objects filtered by the p25 column
- * @method     ChildAlbums[]|ObjectCollection findByP26(int $p26) Return ChildAlbums objects filtered by the p26 column
- * @method     ChildAlbums[]|ObjectCollection findByP27(int $p27) Return ChildAlbums objects filtered by the p27 column
- * @method     ChildAlbums[]|ObjectCollection findByP28(int $p28) Return ChildAlbums objects filtered by the p28 column
- * @method     ChildAlbums[]|ObjectCollection findByP29(int $p29) Return ChildAlbums objects filtered by the p29 column
- * @method     ChildAlbums[]|ObjectCollection findByP30(int $p30) Return ChildAlbums objects filtered by the p30 column
- * @method     ChildAlbums[]|ObjectCollection findByP31(int $p31) Return ChildAlbums objects filtered by the p31 column
- * @method     ChildAlbums[]|ObjectCollection findByP32(int $p32) Return ChildAlbums objects filtered by the p32 column
- * @method     ChildAlbums[]|ObjectCollection findByP33(int $p33) Return ChildAlbums objects filtered by the p33 column
- * @method     ChildAlbums[]|ObjectCollection findByP34(int $p34) Return ChildAlbums objects filtered by the p34 column
- * @method     ChildAlbums[]|ObjectCollection findByP35(int $p35) Return ChildAlbums objects filtered by the p35 column
- * @method     ChildAlbums[]|ObjectCollection findByP1n(string $p1n) Return ChildAlbums objects filtered by the p1n column
- * @method     ChildAlbums[]|ObjectCollection findByP2n(string $p2n) Return ChildAlbums objects filtered by the p2n column
- * @method     ChildAlbums[]|ObjectCollection findByP3n(string $p3n) Return ChildAlbums objects filtered by the p3n column
- * @method     ChildAlbums[]|ObjectCollection findByP4n(string $p4n) Return ChildAlbums objects filtered by the p4n column
- * @method     ChildAlbums[]|ObjectCollection findByP5n(string $p5n) Return ChildAlbums objects filtered by the p5n column
- * @method     ChildAlbums[]|ObjectCollection findByP6n(string $p6n) Return ChildAlbums objects filtered by the p6n column
- * @method     ChildAlbums[]|ObjectCollection findByP7n(string $p7n) Return ChildAlbums objects filtered by the p7n column
- * @method     ChildAlbums[]|ObjectCollection findByP8n(string $p8n) Return ChildAlbums objects filtered by the p8n column
- * @method     ChildAlbums[]|ObjectCollection findByP9n(string $p9n) Return ChildAlbums objects filtered by the p9n column
- * @method     ChildAlbums[]|ObjectCollection findByP10n(string $p10n) Return ChildAlbums objects filtered by the p10n column
- * @method     ChildAlbums[]|ObjectCollection findByP11n(string $p11n) Return ChildAlbums objects filtered by the p11n column
- * @method     ChildAlbums[]|ObjectCollection findByP12n(string $p12n) Return ChildAlbums objects filtered by the p12n column
- * @method     ChildAlbums[]|ObjectCollection findByP13n(string $p13n) Return ChildAlbums objects filtered by the p13n column
- * @method     ChildAlbums[]|ObjectCollection findByP14n(string $p14n) Return ChildAlbums objects filtered by the p14n column
- * @method     ChildAlbums[]|ObjectCollection findByP15n(string $p15n) Return ChildAlbums objects filtered by the p15n column
- * @method     ChildAlbums[]|ObjectCollection findByP16n(string $p16n) Return ChildAlbums objects filtered by the p16n column
- * @method     ChildAlbums[]|ObjectCollection findByP17n(string $p17n) Return ChildAlbums objects filtered by the p17n column
- * @method     ChildAlbums[]|ObjectCollection findByP18n(string $p18n) Return ChildAlbums objects filtered by the p18n column
- * @method     ChildAlbums[]|ObjectCollection findByP19n(string $p19n) Return ChildAlbums objects filtered by the p19n column
- * @method     ChildAlbums[]|ObjectCollection findByP20n(string $p20n) Return ChildAlbums objects filtered by the p20n column
- * @method     ChildAlbums[]|ObjectCollection findByP21n(string $p21n) Return ChildAlbums objects filtered by the p21n column
- * @method     ChildAlbums[]|ObjectCollection findByP22n(string $p22n) Return ChildAlbums objects filtered by the p22n column
- * @method     ChildAlbums[]|ObjectCollection findByP23n(string $p23n) Return ChildAlbums objects filtered by the p23n column
- * @method     ChildAlbums[]|ObjectCollection findByP24n(string $p24n) Return ChildAlbums objects filtered by the p24n column
- * @method     ChildAlbums[]|ObjectCollection findByP25n(string $p25n) Return ChildAlbums objects filtered by the p25n column
- * @method     ChildAlbums[]|ObjectCollection findByP26n(string $p26n) Return ChildAlbums objects filtered by the p26n column
- * @method     ChildAlbums[]|ObjectCollection findByP27n(string $p27n) Return ChildAlbums objects filtered by the p27n column
- * @method     ChildAlbums[]|ObjectCollection findByP28n(string $p28n) Return ChildAlbums objects filtered by the p28n column
- * @method     ChildAlbums[]|ObjectCollection findByP29n(string $p29n) Return ChildAlbums objects filtered by the p29n column
- * @method     ChildAlbums[]|ObjectCollection findByP30n(string $p30n) Return ChildAlbums objects filtered by the p30n column
- * @method     ChildAlbums[]|ObjectCollection findByP31n(string $p31n) Return ChildAlbums objects filtered by the p31n column
- * @method     ChildAlbums[]|ObjectCollection findByP32n(string $p32n) Return ChildAlbums objects filtered by the p32n column
- * @method     ChildAlbums[]|ObjectCollection findByP33n(string $p33n) Return ChildAlbums objects filtered by the p33n column
- * @method     ChildAlbums[]|ObjectCollection findByP34n(string $p34n) Return ChildAlbums objects filtered by the p34n column
- * @method     ChildAlbums[]|ObjectCollection findByP35n(string $p35n) Return ChildAlbums objects filtered by the p35n column
- * @method     ChildAlbums[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
+ * @method     ChildAlbum[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildAlbum objects based on current ModelCriteria
+ * @method     ChildAlbum[]|ObjectCollection findById(int $id) Return ChildAlbum objects filtered by the id column
+ * @method     ChildAlbum[]|ObjectCollection findByName(string $name) Return ChildAlbum objects filtered by the name column
+ * @method     ChildAlbum[]|ObjectCollection findByArtist1id(int $artist1id) Return ChildAlbum objects filtered by the artist1id column
+ * @method     ChildAlbum[]|ObjectCollection findByArtist2id(int $artist2id) Return ChildAlbum objects filtered by the artist2id column
+ * @method     ChildAlbum[]|ObjectCollection findByDopylnitelnoinfo(string $dopylnitelnoinfo) Return ChildAlbum objects filtered by the dopylnitelnoinfo column
+ * @method     ChildAlbum[]|ObjectCollection findByYear(int $year) Return ChildAlbum objects filtered by the year column
+ * @method     ChildAlbum[]|ObjectCollection findByImage(string $image) Return ChildAlbum objects filtered by the image column
+ * @method     ChildAlbum[]|ObjectCollection findByVid(int $vid) Return ChildAlbum objects filtered by the vid column
+ * @method     ChildAlbum[]|ObjectCollection findByUpId(int $up_id) Return ChildAlbum objects filtered by the up_id column
+ * @method     ChildAlbum[]|ObjectCollection findByVa(boolean $va) Return ChildAlbum objects filtered by the va column
+ * @method     ChildAlbum[]|ObjectCollection findByP1(int $p1) Return ChildAlbum objects filtered by the p1 column
+ * @method     ChildAlbum[]|ObjectCollection findByP2(int $p2) Return ChildAlbum objects filtered by the p2 column
+ * @method     ChildAlbum[]|ObjectCollection findByP3(int $p3) Return ChildAlbum objects filtered by the p3 column
+ * @method     ChildAlbum[]|ObjectCollection findByP4(int $p4) Return ChildAlbum objects filtered by the p4 column
+ * @method     ChildAlbum[]|ObjectCollection findByP5(int $p5) Return ChildAlbum objects filtered by the p5 column
+ * @method     ChildAlbum[]|ObjectCollection findByP6(int $p6) Return ChildAlbum objects filtered by the p6 column
+ * @method     ChildAlbum[]|ObjectCollection findByP7(int $p7) Return ChildAlbum objects filtered by the p7 column
+ * @method     ChildAlbum[]|ObjectCollection findByP8(int $p8) Return ChildAlbum objects filtered by the p8 column
+ * @method     ChildAlbum[]|ObjectCollection findByP9(int $p9) Return ChildAlbum objects filtered by the p9 column
+ * @method     ChildAlbum[]|ObjectCollection findByP10(int $p10) Return ChildAlbum objects filtered by the p10 column
+ * @method     ChildAlbum[]|ObjectCollection findByP11(int $p11) Return ChildAlbum objects filtered by the p11 column
+ * @method     ChildAlbum[]|ObjectCollection findByP12(int $p12) Return ChildAlbum objects filtered by the p12 column
+ * @method     ChildAlbum[]|ObjectCollection findByP13(int $p13) Return ChildAlbum objects filtered by the p13 column
+ * @method     ChildAlbum[]|ObjectCollection findByP14(int $p14) Return ChildAlbum objects filtered by the p14 column
+ * @method     ChildAlbum[]|ObjectCollection findByP15(int $p15) Return ChildAlbum objects filtered by the p15 column
+ * @method     ChildAlbum[]|ObjectCollection findByP16(int $p16) Return ChildAlbum objects filtered by the p16 column
+ * @method     ChildAlbum[]|ObjectCollection findByP17(int $p17) Return ChildAlbum objects filtered by the p17 column
+ * @method     ChildAlbum[]|ObjectCollection findByP18(int $p18) Return ChildAlbum objects filtered by the p18 column
+ * @method     ChildAlbum[]|ObjectCollection findByP19(int $p19) Return ChildAlbum objects filtered by the p19 column
+ * @method     ChildAlbum[]|ObjectCollection findByP20(int $p20) Return ChildAlbum objects filtered by the p20 column
+ * @method     ChildAlbum[]|ObjectCollection findByP21(int $p21) Return ChildAlbum objects filtered by the p21 column
+ * @method     ChildAlbum[]|ObjectCollection findByP22(int $p22) Return ChildAlbum objects filtered by the p22 column
+ * @method     ChildAlbum[]|ObjectCollection findByP23(int $p23) Return ChildAlbum objects filtered by the p23 column
+ * @method     ChildAlbum[]|ObjectCollection findByP24(int $p24) Return ChildAlbum objects filtered by the p24 column
+ * @method     ChildAlbum[]|ObjectCollection findByP25(int $p25) Return ChildAlbum objects filtered by the p25 column
+ * @method     ChildAlbum[]|ObjectCollection findByP26(int $p26) Return ChildAlbum objects filtered by the p26 column
+ * @method     ChildAlbum[]|ObjectCollection findByP27(int $p27) Return ChildAlbum objects filtered by the p27 column
+ * @method     ChildAlbum[]|ObjectCollection findByP28(int $p28) Return ChildAlbum objects filtered by the p28 column
+ * @method     ChildAlbum[]|ObjectCollection findByP29(int $p29) Return ChildAlbum objects filtered by the p29 column
+ * @method     ChildAlbum[]|ObjectCollection findByP30(int $p30) Return ChildAlbum objects filtered by the p30 column
+ * @method     ChildAlbum[]|ObjectCollection findByP31(int $p31) Return ChildAlbum objects filtered by the p31 column
+ * @method     ChildAlbum[]|ObjectCollection findByP32(int $p32) Return ChildAlbum objects filtered by the p32 column
+ * @method     ChildAlbum[]|ObjectCollection findByP33(int $p33) Return ChildAlbum objects filtered by the p33 column
+ * @method     ChildAlbum[]|ObjectCollection findByP34(int $p34) Return ChildAlbum objects filtered by the p34 column
+ * @method     ChildAlbum[]|ObjectCollection findByP35(int $p35) Return ChildAlbum objects filtered by the p35 column
+ * @method     ChildAlbum[]|ObjectCollection findByP1n(string $p1n) Return ChildAlbum objects filtered by the p1n column
+ * @method     ChildAlbum[]|ObjectCollection findByP2n(string $p2n) Return ChildAlbum objects filtered by the p2n column
+ * @method     ChildAlbum[]|ObjectCollection findByP3n(string $p3n) Return ChildAlbum objects filtered by the p3n column
+ * @method     ChildAlbum[]|ObjectCollection findByP4n(string $p4n) Return ChildAlbum objects filtered by the p4n column
+ * @method     ChildAlbum[]|ObjectCollection findByP5n(string $p5n) Return ChildAlbum objects filtered by the p5n column
+ * @method     ChildAlbum[]|ObjectCollection findByP6n(string $p6n) Return ChildAlbum objects filtered by the p6n column
+ * @method     ChildAlbum[]|ObjectCollection findByP7n(string $p7n) Return ChildAlbum objects filtered by the p7n column
+ * @method     ChildAlbum[]|ObjectCollection findByP8n(string $p8n) Return ChildAlbum objects filtered by the p8n column
+ * @method     ChildAlbum[]|ObjectCollection findByP9n(string $p9n) Return ChildAlbum objects filtered by the p9n column
+ * @method     ChildAlbum[]|ObjectCollection findByP10n(string $p10n) Return ChildAlbum objects filtered by the p10n column
+ * @method     ChildAlbum[]|ObjectCollection findByP11n(string $p11n) Return ChildAlbum objects filtered by the p11n column
+ * @method     ChildAlbum[]|ObjectCollection findByP12n(string $p12n) Return ChildAlbum objects filtered by the p12n column
+ * @method     ChildAlbum[]|ObjectCollection findByP13n(string $p13n) Return ChildAlbum objects filtered by the p13n column
+ * @method     ChildAlbum[]|ObjectCollection findByP14n(string $p14n) Return ChildAlbum objects filtered by the p14n column
+ * @method     ChildAlbum[]|ObjectCollection findByP15n(string $p15n) Return ChildAlbum objects filtered by the p15n column
+ * @method     ChildAlbum[]|ObjectCollection findByP16n(string $p16n) Return ChildAlbum objects filtered by the p16n column
+ * @method     ChildAlbum[]|ObjectCollection findByP17n(string $p17n) Return ChildAlbum objects filtered by the p17n column
+ * @method     ChildAlbum[]|ObjectCollection findByP18n(string $p18n) Return ChildAlbum objects filtered by the p18n column
+ * @method     ChildAlbum[]|ObjectCollection findByP19n(string $p19n) Return ChildAlbum objects filtered by the p19n column
+ * @method     ChildAlbum[]|ObjectCollection findByP20n(string $p20n) Return ChildAlbum objects filtered by the p20n column
+ * @method     ChildAlbum[]|ObjectCollection findByP21n(string $p21n) Return ChildAlbum objects filtered by the p21n column
+ * @method     ChildAlbum[]|ObjectCollection findByP22n(string $p22n) Return ChildAlbum objects filtered by the p22n column
+ * @method     ChildAlbum[]|ObjectCollection findByP23n(string $p23n) Return ChildAlbum objects filtered by the p23n column
+ * @method     ChildAlbum[]|ObjectCollection findByP24n(string $p24n) Return ChildAlbum objects filtered by the p24n column
+ * @method     ChildAlbum[]|ObjectCollection findByP25n(string $p25n) Return ChildAlbum objects filtered by the p25n column
+ * @method     ChildAlbum[]|ObjectCollection findByP26n(string $p26n) Return ChildAlbum objects filtered by the p26n column
+ * @method     ChildAlbum[]|ObjectCollection findByP27n(string $p27n) Return ChildAlbum objects filtered by the p27n column
+ * @method     ChildAlbum[]|ObjectCollection findByP28n(string $p28n) Return ChildAlbum objects filtered by the p28n column
+ * @method     ChildAlbum[]|ObjectCollection findByP29n(string $p29n) Return ChildAlbum objects filtered by the p29n column
+ * @method     ChildAlbum[]|ObjectCollection findByP30n(string $p30n) Return ChildAlbum objects filtered by the p30n column
+ * @method     ChildAlbum[]|ObjectCollection findByP31n(string $p31n) Return ChildAlbum objects filtered by the p31n column
+ * @method     ChildAlbum[]|ObjectCollection findByP32n(string $p32n) Return ChildAlbum objects filtered by the p32n column
+ * @method     ChildAlbum[]|ObjectCollection findByP33n(string $p33n) Return ChildAlbum objects filtered by the p33n column
+ * @method     ChildAlbum[]|ObjectCollection findByP34n(string $p34n) Return ChildAlbum objects filtered by the p34n column
+ * @method     ChildAlbum[]|ObjectCollection findByP35n(string $p35n) Return ChildAlbum objects filtered by the p35n column
+ * @method     ChildAlbum[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
-abstract class AlbumsQuery extends ModelCriteria
+abstract class AlbumQuery extends ModelCriteria
 {
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Entity\Base\AlbumsQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Entity\Base\AlbumQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Albums', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Album', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new ChildAlbumsQuery object.
+     * Returns a new ChildAlbumQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
      * @param     Criteria $criteria Optional Criteria to build the query from
      *
-     * @return ChildAlbumsQuery
+     * @return ChildAlbumQuery
      */
     public static function create($modelAlias = null, Criteria $criteria = null)
     {
-        if ($criteria instanceof ChildAlbumsQuery) {
+        if ($criteria instanceof ChildAlbumQuery) {
             return $criteria;
         }
-        $query = new ChildAlbumsQuery();
+        $query = new ChildAlbumQuery();
         if (null !== $modelAlias) {
             $query->setModelAlias($modelAlias);
         }
@@ -489,19 +489,19 @@ abstract class AlbumsQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
-     * @return ChildAlbums|array|mixed the result, formatted by the current formatter
+     * @return ChildAlbum|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, ConnectionInterface $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = AlbumsTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = AlbumTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(AlbumTableMap::DATABASE_NAME);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -522,7 +522,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildAlbums A model object, or null if the key is not found
+     * @return ChildAlbum A model object, or null if the key is not found
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
@@ -537,10 +537,10 @@ abstract class AlbumsQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-            /** @var ChildAlbums $obj */
-            $obj = new ChildAlbums();
+            /** @var ChildAlbum $obj */
+            $obj = new ChildAlbum();
             $obj->hydrate($row);
-            AlbumsTableMap::addInstanceToPool($obj, (string) $key);
+            AlbumTableMap::addInstanceToPool($obj, (string) $key);
         }
         $stmt->closeCursor();
 
@@ -553,7 +553,7 @@ abstract class AlbumsQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return ChildAlbums|array|mixed the result, formatted by the current formatter
+     * @return ChildAlbum|array|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, ConnectionInterface $con)
     {
@@ -595,12 +595,12 @@ abstract class AlbumsQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(AlbumTableMap::COL_ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -608,12 +608,12 @@ abstract class AlbumsQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(AlbumTableMap::COL_ID, $keys, Criteria::IN);
     }
 
     /**
@@ -632,18 +632,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -654,7 +654,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_ID, $id, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_ID, $id, $comparison);
     }
 
     /**
@@ -670,7 +670,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByName($name = null, $comparison = null)
     {
@@ -683,7 +683,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_NAME, $name, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_NAME, $name, $comparison);
     }
 
     /**
@@ -702,18 +702,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByArtist1id($artist1id = null, $comparison = null)
     {
         if (is_array($artist1id)) {
             $useMinMax = false;
             if (isset($artist1id['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ARTIST1ID, $artist1id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ARTIST1ID, $artist1id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($artist1id['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ARTIST1ID, $artist1id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ARTIST1ID, $artist1id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -724,7 +724,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_ARTIST1ID, $artist1id, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_ARTIST1ID, $artist1id, $comparison);
     }
 
     /**
@@ -743,18 +743,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByArtist2id($artist2id = null, $comparison = null)
     {
         if (is_array($artist2id)) {
             $useMinMax = false;
             if (isset($artist2id['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ARTIST2ID, $artist2id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ARTIST2ID, $artist2id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($artist2id['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_ARTIST2ID, $artist2id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_ARTIST2ID, $artist2id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -765,7 +765,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_ARTIST2ID, $artist2id, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_ARTIST2ID, $artist2id, $comparison);
     }
 
     /**
@@ -781,7 +781,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByDopylnitelnoinfo($dopylnitelnoinfo = null, $comparison = null)
     {
@@ -794,7 +794,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_DOPYLNITELNOINFO, $dopylnitelnoinfo, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_DOPYLNITELNOINFO, $dopylnitelnoinfo, $comparison);
     }
 
     /**
@@ -813,18 +813,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByYear($year = null, $comparison = null)
     {
         if (is_array($year)) {
             $useMinMax = false;
             if (isset($year['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_YEAR, $year['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_YEAR, $year['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($year['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_YEAR, $year['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_YEAR, $year['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -835,7 +835,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_YEAR, $year, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_YEAR, $year, $comparison);
     }
 
     /**
@@ -851,7 +851,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByImage($image = null, $comparison = null)
     {
@@ -864,7 +864,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_IMAGE, $image, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_IMAGE, $image, $comparison);
     }
 
     /**
@@ -883,18 +883,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByVid($vid = null, $comparison = null)
     {
         if (is_array($vid)) {
             $useMinMax = false;
             if (isset($vid['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_VID, $vid['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_VID, $vid['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($vid['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_VID, $vid['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_VID, $vid['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -905,7 +905,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_VID, $vid, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_VID, $vid, $comparison);
     }
 
     /**
@@ -924,18 +924,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByUpId($upId = null, $comparison = null)
     {
         if (is_array($upId)) {
             $useMinMax = false;
             if (isset($upId['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_UP_ID, $upId['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_UP_ID, $upId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($upId['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_UP_ID, $upId['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_UP_ID, $upId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -946,7 +946,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_UP_ID, $upId, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_UP_ID, $upId, $comparison);
     }
 
     /**
@@ -965,7 +965,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByVa($va = null, $comparison = null)
     {
@@ -973,7 +973,7 @@ abstract class AlbumsQuery extends ModelCriteria
             $va = in_array(strtolower($va), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_VA, $va, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_VA, $va, $comparison);
     }
 
     /**
@@ -992,18 +992,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP1($p1 = null, $comparison = null)
     {
         if (is_array($p1)) {
             $useMinMax = false;
             if (isset($p1['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P1, $p1['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P1, $p1['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p1['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P1, $p1['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P1, $p1['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1014,7 +1014,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P1, $p1, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P1, $p1, $comparison);
     }
 
     /**
@@ -1033,18 +1033,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP2($p2 = null, $comparison = null)
     {
         if (is_array($p2)) {
             $useMinMax = false;
             if (isset($p2['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P2, $p2['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P2, $p2['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p2['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P2, $p2['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P2, $p2['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1055,7 +1055,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P2, $p2, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P2, $p2, $comparison);
     }
 
     /**
@@ -1074,18 +1074,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP3($p3 = null, $comparison = null)
     {
         if (is_array($p3)) {
             $useMinMax = false;
             if (isset($p3['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P3, $p3['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P3, $p3['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p3['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P3, $p3['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P3, $p3['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1096,7 +1096,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P3, $p3, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P3, $p3, $comparison);
     }
 
     /**
@@ -1115,18 +1115,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP4($p4 = null, $comparison = null)
     {
         if (is_array($p4)) {
             $useMinMax = false;
             if (isset($p4['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P4, $p4['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P4, $p4['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p4['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P4, $p4['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P4, $p4['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1137,7 +1137,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P4, $p4, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P4, $p4, $comparison);
     }
 
     /**
@@ -1156,18 +1156,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP5($p5 = null, $comparison = null)
     {
         if (is_array($p5)) {
             $useMinMax = false;
             if (isset($p5['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P5, $p5['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P5, $p5['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p5['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P5, $p5['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P5, $p5['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1178,7 +1178,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P5, $p5, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P5, $p5, $comparison);
     }
 
     /**
@@ -1197,18 +1197,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP6($p6 = null, $comparison = null)
     {
         if (is_array($p6)) {
             $useMinMax = false;
             if (isset($p6['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P6, $p6['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P6, $p6['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p6['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P6, $p6['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P6, $p6['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1219,7 +1219,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P6, $p6, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P6, $p6, $comparison);
     }
 
     /**
@@ -1238,18 +1238,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP7($p7 = null, $comparison = null)
     {
         if (is_array($p7)) {
             $useMinMax = false;
             if (isset($p7['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P7, $p7['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P7, $p7['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p7['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P7, $p7['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P7, $p7['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1260,7 +1260,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P7, $p7, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P7, $p7, $comparison);
     }
 
     /**
@@ -1279,18 +1279,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP8($p8 = null, $comparison = null)
     {
         if (is_array($p8)) {
             $useMinMax = false;
             if (isset($p8['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P8, $p8['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P8, $p8['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p8['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P8, $p8['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P8, $p8['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1301,7 +1301,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P8, $p8, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P8, $p8, $comparison);
     }
 
     /**
@@ -1320,18 +1320,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP9($p9 = null, $comparison = null)
     {
         if (is_array($p9)) {
             $useMinMax = false;
             if (isset($p9['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P9, $p9['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P9, $p9['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p9['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P9, $p9['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P9, $p9['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1342,7 +1342,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P9, $p9, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P9, $p9, $comparison);
     }
 
     /**
@@ -1361,18 +1361,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP10($p10 = null, $comparison = null)
     {
         if (is_array($p10)) {
             $useMinMax = false;
             if (isset($p10['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P10, $p10['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P10, $p10['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p10['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P10, $p10['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P10, $p10['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1383,7 +1383,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P10, $p10, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P10, $p10, $comparison);
     }
 
     /**
@@ -1402,18 +1402,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP11($p11 = null, $comparison = null)
     {
         if (is_array($p11)) {
             $useMinMax = false;
             if (isset($p11['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P11, $p11['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P11, $p11['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p11['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P11, $p11['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P11, $p11['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1424,7 +1424,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P11, $p11, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P11, $p11, $comparison);
     }
 
     /**
@@ -1443,18 +1443,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP12($p12 = null, $comparison = null)
     {
         if (is_array($p12)) {
             $useMinMax = false;
             if (isset($p12['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P12, $p12['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P12, $p12['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p12['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P12, $p12['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P12, $p12['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1465,7 +1465,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P12, $p12, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P12, $p12, $comparison);
     }
 
     /**
@@ -1484,18 +1484,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP13($p13 = null, $comparison = null)
     {
         if (is_array($p13)) {
             $useMinMax = false;
             if (isset($p13['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P13, $p13['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P13, $p13['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p13['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P13, $p13['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P13, $p13['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1506,7 +1506,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P13, $p13, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P13, $p13, $comparison);
     }
 
     /**
@@ -1525,18 +1525,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP14($p14 = null, $comparison = null)
     {
         if (is_array($p14)) {
             $useMinMax = false;
             if (isset($p14['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P14, $p14['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P14, $p14['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p14['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P14, $p14['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P14, $p14['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1547,7 +1547,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P14, $p14, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P14, $p14, $comparison);
     }
 
     /**
@@ -1566,18 +1566,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP15($p15 = null, $comparison = null)
     {
         if (is_array($p15)) {
             $useMinMax = false;
             if (isset($p15['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P15, $p15['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P15, $p15['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p15['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P15, $p15['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P15, $p15['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1588,7 +1588,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P15, $p15, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P15, $p15, $comparison);
     }
 
     /**
@@ -1607,18 +1607,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP16($p16 = null, $comparison = null)
     {
         if (is_array($p16)) {
             $useMinMax = false;
             if (isset($p16['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P16, $p16['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P16, $p16['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p16['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P16, $p16['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P16, $p16['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1629,7 +1629,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P16, $p16, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P16, $p16, $comparison);
     }
 
     /**
@@ -1648,18 +1648,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP17($p17 = null, $comparison = null)
     {
         if (is_array($p17)) {
             $useMinMax = false;
             if (isset($p17['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P17, $p17['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P17, $p17['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p17['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P17, $p17['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P17, $p17['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1670,7 +1670,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P17, $p17, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P17, $p17, $comparison);
     }
 
     /**
@@ -1689,18 +1689,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP18($p18 = null, $comparison = null)
     {
         if (is_array($p18)) {
             $useMinMax = false;
             if (isset($p18['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P18, $p18['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P18, $p18['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p18['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P18, $p18['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P18, $p18['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1711,7 +1711,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P18, $p18, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P18, $p18, $comparison);
     }
 
     /**
@@ -1730,18 +1730,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP19($p19 = null, $comparison = null)
     {
         if (is_array($p19)) {
             $useMinMax = false;
             if (isset($p19['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P19, $p19['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P19, $p19['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p19['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P19, $p19['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P19, $p19['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1752,7 +1752,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P19, $p19, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P19, $p19, $comparison);
     }
 
     /**
@@ -1771,18 +1771,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP20($p20 = null, $comparison = null)
     {
         if (is_array($p20)) {
             $useMinMax = false;
             if (isset($p20['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P20, $p20['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P20, $p20['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p20['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P20, $p20['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P20, $p20['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1793,7 +1793,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P20, $p20, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P20, $p20, $comparison);
     }
 
     /**
@@ -1812,18 +1812,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP21($p21 = null, $comparison = null)
     {
         if (is_array($p21)) {
             $useMinMax = false;
             if (isset($p21['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P21, $p21['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P21, $p21['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p21['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P21, $p21['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P21, $p21['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1834,7 +1834,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P21, $p21, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P21, $p21, $comparison);
     }
 
     /**
@@ -1853,18 +1853,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP22($p22 = null, $comparison = null)
     {
         if (is_array($p22)) {
             $useMinMax = false;
             if (isset($p22['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P22, $p22['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P22, $p22['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p22['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P22, $p22['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P22, $p22['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1875,7 +1875,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P22, $p22, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P22, $p22, $comparison);
     }
 
     /**
@@ -1894,18 +1894,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP23($p23 = null, $comparison = null)
     {
         if (is_array($p23)) {
             $useMinMax = false;
             if (isset($p23['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P23, $p23['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P23, $p23['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p23['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P23, $p23['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P23, $p23['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1916,7 +1916,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P23, $p23, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P23, $p23, $comparison);
     }
 
     /**
@@ -1935,18 +1935,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP24($p24 = null, $comparison = null)
     {
         if (is_array($p24)) {
             $useMinMax = false;
             if (isset($p24['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P24, $p24['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P24, $p24['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p24['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P24, $p24['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P24, $p24['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1957,7 +1957,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P24, $p24, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P24, $p24, $comparison);
     }
 
     /**
@@ -1976,18 +1976,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP25($p25 = null, $comparison = null)
     {
         if (is_array($p25)) {
             $useMinMax = false;
             if (isset($p25['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P25, $p25['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P25, $p25['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p25['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P25, $p25['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P25, $p25['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1998,7 +1998,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P25, $p25, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P25, $p25, $comparison);
     }
 
     /**
@@ -2017,18 +2017,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP26($p26 = null, $comparison = null)
     {
         if (is_array($p26)) {
             $useMinMax = false;
             if (isset($p26['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P26, $p26['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P26, $p26['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p26['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P26, $p26['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P26, $p26['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2039,7 +2039,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P26, $p26, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P26, $p26, $comparison);
     }
 
     /**
@@ -2058,18 +2058,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP27($p27 = null, $comparison = null)
     {
         if (is_array($p27)) {
             $useMinMax = false;
             if (isset($p27['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P27, $p27['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P27, $p27['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p27['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P27, $p27['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P27, $p27['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2080,7 +2080,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P27, $p27, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P27, $p27, $comparison);
     }
 
     /**
@@ -2099,18 +2099,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP28($p28 = null, $comparison = null)
     {
         if (is_array($p28)) {
             $useMinMax = false;
             if (isset($p28['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P28, $p28['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P28, $p28['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p28['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P28, $p28['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P28, $p28['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2121,7 +2121,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P28, $p28, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P28, $p28, $comparison);
     }
 
     /**
@@ -2140,18 +2140,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP29($p29 = null, $comparison = null)
     {
         if (is_array($p29)) {
             $useMinMax = false;
             if (isset($p29['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P29, $p29['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P29, $p29['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p29['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P29, $p29['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P29, $p29['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2162,7 +2162,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P29, $p29, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P29, $p29, $comparison);
     }
 
     /**
@@ -2181,18 +2181,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP30($p30 = null, $comparison = null)
     {
         if (is_array($p30)) {
             $useMinMax = false;
             if (isset($p30['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P30, $p30['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P30, $p30['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p30['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P30, $p30['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P30, $p30['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2203,7 +2203,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P30, $p30, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P30, $p30, $comparison);
     }
 
     /**
@@ -2222,18 +2222,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP31($p31 = null, $comparison = null)
     {
         if (is_array($p31)) {
             $useMinMax = false;
             if (isset($p31['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P31, $p31['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P31, $p31['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p31['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P31, $p31['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P31, $p31['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2244,7 +2244,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P31, $p31, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P31, $p31, $comparison);
     }
 
     /**
@@ -2263,18 +2263,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP32($p32 = null, $comparison = null)
     {
         if (is_array($p32)) {
             $useMinMax = false;
             if (isset($p32['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P32, $p32['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P32, $p32['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p32['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P32, $p32['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P32, $p32['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2285,7 +2285,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P32, $p32, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P32, $p32, $comparison);
     }
 
     /**
@@ -2304,18 +2304,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP33($p33 = null, $comparison = null)
     {
         if (is_array($p33)) {
             $useMinMax = false;
             if (isset($p33['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P33, $p33['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P33, $p33['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p33['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P33, $p33['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P33, $p33['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2326,7 +2326,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P33, $p33, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P33, $p33, $comparison);
     }
 
     /**
@@ -2345,18 +2345,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP34($p34 = null, $comparison = null)
     {
         if (is_array($p34)) {
             $useMinMax = false;
             if (isset($p34['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P34, $p34['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P34, $p34['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p34['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P34, $p34['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P34, $p34['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2367,7 +2367,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P34, $p34, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P34, $p34, $comparison);
     }
 
     /**
@@ -2386,18 +2386,18 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP35($p35 = null, $comparison = null)
     {
         if (is_array($p35)) {
             $useMinMax = false;
             if (isset($p35['min'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P35, $p35['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P35, $p35['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($p35['max'])) {
-                $this->addUsingAlias(AlbumsTableMap::COL_P35, $p35['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AlbumTableMap::COL_P35, $p35['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -2408,7 +2408,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P35, $p35, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P35, $p35, $comparison);
     }
 
     /**
@@ -2424,7 +2424,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP1n($p1n = null, $comparison = null)
     {
@@ -2437,7 +2437,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P1N, $p1n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P1N, $p1n, $comparison);
     }
 
     /**
@@ -2453,7 +2453,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP2n($p2n = null, $comparison = null)
     {
@@ -2466,7 +2466,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P2N, $p2n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P2N, $p2n, $comparison);
     }
 
     /**
@@ -2482,7 +2482,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP3n($p3n = null, $comparison = null)
     {
@@ -2495,7 +2495,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P3N, $p3n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P3N, $p3n, $comparison);
     }
 
     /**
@@ -2511,7 +2511,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP4n($p4n = null, $comparison = null)
     {
@@ -2524,7 +2524,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P4N, $p4n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P4N, $p4n, $comparison);
     }
 
     /**
@@ -2540,7 +2540,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP5n($p5n = null, $comparison = null)
     {
@@ -2553,7 +2553,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P5N, $p5n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P5N, $p5n, $comparison);
     }
 
     /**
@@ -2569,7 +2569,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP6n($p6n = null, $comparison = null)
     {
@@ -2582,7 +2582,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P6N, $p6n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P6N, $p6n, $comparison);
     }
 
     /**
@@ -2598,7 +2598,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP7n($p7n = null, $comparison = null)
     {
@@ -2611,7 +2611,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P7N, $p7n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P7N, $p7n, $comparison);
     }
 
     /**
@@ -2627,7 +2627,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP8n($p8n = null, $comparison = null)
     {
@@ -2640,7 +2640,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P8N, $p8n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P8N, $p8n, $comparison);
     }
 
     /**
@@ -2656,7 +2656,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP9n($p9n = null, $comparison = null)
     {
@@ -2669,7 +2669,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P9N, $p9n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P9N, $p9n, $comparison);
     }
 
     /**
@@ -2685,7 +2685,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP10n($p10n = null, $comparison = null)
     {
@@ -2698,7 +2698,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P10N, $p10n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P10N, $p10n, $comparison);
     }
 
     /**
@@ -2714,7 +2714,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP11n($p11n = null, $comparison = null)
     {
@@ -2727,7 +2727,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P11N, $p11n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P11N, $p11n, $comparison);
     }
 
     /**
@@ -2743,7 +2743,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP12n($p12n = null, $comparison = null)
     {
@@ -2756,7 +2756,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P12N, $p12n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P12N, $p12n, $comparison);
     }
 
     /**
@@ -2772,7 +2772,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP13n($p13n = null, $comparison = null)
     {
@@ -2785,7 +2785,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P13N, $p13n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P13N, $p13n, $comparison);
     }
 
     /**
@@ -2801,7 +2801,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP14n($p14n = null, $comparison = null)
     {
@@ -2814,7 +2814,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P14N, $p14n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P14N, $p14n, $comparison);
     }
 
     /**
@@ -2830,7 +2830,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP15n($p15n = null, $comparison = null)
     {
@@ -2843,7 +2843,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P15N, $p15n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P15N, $p15n, $comparison);
     }
 
     /**
@@ -2859,7 +2859,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP16n($p16n = null, $comparison = null)
     {
@@ -2872,7 +2872,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P16N, $p16n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P16N, $p16n, $comparison);
     }
 
     /**
@@ -2888,7 +2888,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP17n($p17n = null, $comparison = null)
     {
@@ -2901,7 +2901,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P17N, $p17n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P17N, $p17n, $comparison);
     }
 
     /**
@@ -2917,7 +2917,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP18n($p18n = null, $comparison = null)
     {
@@ -2930,7 +2930,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P18N, $p18n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P18N, $p18n, $comparison);
     }
 
     /**
@@ -2946,7 +2946,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP19n($p19n = null, $comparison = null)
     {
@@ -2959,7 +2959,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P19N, $p19n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P19N, $p19n, $comparison);
     }
 
     /**
@@ -2975,7 +2975,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP20n($p20n = null, $comparison = null)
     {
@@ -2988,7 +2988,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P20N, $p20n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P20N, $p20n, $comparison);
     }
 
     /**
@@ -3004,7 +3004,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP21n($p21n = null, $comparison = null)
     {
@@ -3017,7 +3017,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P21N, $p21n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P21N, $p21n, $comparison);
     }
 
     /**
@@ -3033,7 +3033,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP22n($p22n = null, $comparison = null)
     {
@@ -3046,7 +3046,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P22N, $p22n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P22N, $p22n, $comparison);
     }
 
     /**
@@ -3062,7 +3062,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP23n($p23n = null, $comparison = null)
     {
@@ -3075,7 +3075,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P23N, $p23n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P23N, $p23n, $comparison);
     }
 
     /**
@@ -3091,7 +3091,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP24n($p24n = null, $comparison = null)
     {
@@ -3104,7 +3104,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P24N, $p24n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P24N, $p24n, $comparison);
     }
 
     /**
@@ -3120,7 +3120,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP25n($p25n = null, $comparison = null)
     {
@@ -3133,7 +3133,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P25N, $p25n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P25N, $p25n, $comparison);
     }
 
     /**
@@ -3149,7 +3149,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP26n($p26n = null, $comparison = null)
     {
@@ -3162,7 +3162,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P26N, $p26n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P26N, $p26n, $comparison);
     }
 
     /**
@@ -3178,7 +3178,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP27n($p27n = null, $comparison = null)
     {
@@ -3191,7 +3191,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P27N, $p27n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P27N, $p27n, $comparison);
     }
 
     /**
@@ -3207,7 +3207,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP28n($p28n = null, $comparison = null)
     {
@@ -3220,7 +3220,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P28N, $p28n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P28N, $p28n, $comparison);
     }
 
     /**
@@ -3236,7 +3236,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP29n($p29n = null, $comparison = null)
     {
@@ -3249,7 +3249,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P29N, $p29n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P29N, $p29n, $comparison);
     }
 
     /**
@@ -3265,7 +3265,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP30n($p30n = null, $comparison = null)
     {
@@ -3278,7 +3278,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P30N, $p30n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P30N, $p30n, $comparison);
     }
 
     /**
@@ -3294,7 +3294,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP31n($p31n = null, $comparison = null)
     {
@@ -3307,7 +3307,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P31N, $p31n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P31N, $p31n, $comparison);
     }
 
     /**
@@ -3323,7 +3323,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP32n($p32n = null, $comparison = null)
     {
@@ -3336,7 +3336,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P32N, $p32n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P32N, $p32n, $comparison);
     }
 
     /**
@@ -3352,7 +3352,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP33n($p33n = null, $comparison = null)
     {
@@ -3365,7 +3365,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P33N, $p33n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P33N, $p33n, $comparison);
     }
 
     /**
@@ -3381,7 +3381,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP34n($p34n = null, $comparison = null)
     {
@@ -3394,7 +3394,7 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P34N, $p34n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P34N, $p34n, $comparison);
     }
 
     /**
@@ -3410,7 +3410,7 @@ abstract class AlbumsQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
     public function filterByP35n($p35n = null, $comparison = null)
     {
@@ -3423,20 +3423,20 @@ abstract class AlbumsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AlbumsTableMap::COL_P35N, $p35n, $comparison);
+        return $this->addUsingAlias(AlbumTableMap::COL_P35N, $p35n, $comparison);
     }
 
     /**
      * Exclude object from result
      *
-     * @param   ChildAlbums $albums Object to remove from the list of results
+     * @param   ChildAlbum $album Object to remove from the list of results
      *
-     * @return $this|ChildAlbumsQuery The current query, for fluid interface
+     * @return $this|ChildAlbumQuery The current query, for fluid interface
      */
-    public function prune($albums = null)
+    public function prune($album = null)
     {
-        if ($albums) {
-            $this->addUsingAlias(AlbumsTableMap::COL_ID, $albums->getId(), Criteria::NOT_EQUAL);
+        if ($album) {
+            $this->addUsingAlias(AlbumTableMap::COL_ID, $album->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;
@@ -3451,7 +3451,7 @@ abstract class AlbumsQuery extends ModelCriteria
     public function doDeleteAll(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AlbumTableMap::DATABASE_NAME);
         }
 
         // use transaction because $criteria could contain info
@@ -3462,8 +3462,8 @@ abstract class AlbumsQuery extends ModelCriteria
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            AlbumsTableMap::clearInstancePool();
-            AlbumsTableMap::clearRelatedInstancePool();
+            AlbumTableMap::clearInstancePool();
+            AlbumTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
@@ -3481,26 +3481,26 @@ abstract class AlbumsQuery extends ModelCriteria
     public function delete(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AlbumTableMap::DATABASE_NAME);
         }
 
         $criteria = $this;
 
         // Set the correct dbName
-        $criteria->setDbName(AlbumsTableMap::DATABASE_NAME);
+        $criteria->setDbName(AlbumTableMap::DATABASE_NAME);
 
         // use transaction because $criteria could contain info
         // for more than one table or we could emulating ON DELETE CASCADE, etc.
         return $con->transaction(function () use ($con, $criteria) {
             $affectedRows = 0; // initialize var to track total num of affected rows
 
-            AlbumsTableMap::removeInstanceFromPool($criteria);
+            AlbumTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
-            AlbumsTableMap::clearRelatedInstancePool();
+            AlbumTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
     }
 
-} // AlbumsQuery
+} // AlbumQuery

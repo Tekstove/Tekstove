@@ -84,7 +84,7 @@
         <tr>
             <td class="pesni" colspan=2>
 
-                <i><b>@най-нови албуми</b></i><br>
+                <i><b>най-нови албуми</b></i><br>
 
 
                 <table class="albums" style="text-align: center;">
@@ -94,7 +94,7 @@
                         
                             <td class="albumstd" style="text-align: center;">
 
-                                <a href="#{{ album.id|e }}">
+                                @todo <a href="#{{ album.id|e }}">
 
                                     <b>
                                         {% if album.artist1 is not empty %}
@@ -102,7 +102,7 @@
                                             <br>
                                         {% endif %}
                                         
-                                        @{{ album.title|e }}
+                                        {{ album.name|e }}
                                         <br />
                                         <i>({{ album.year|e }})</i>
                                         <br />

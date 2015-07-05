@@ -12,7 +12,8 @@ use Tekstove\TekstoveBundle\Model\Entity\LyricQuery;
  */
 class IndexController extends Controller
 {
-    public function indexAction() {
+    public function indexAction()
+    {
         $albumManager = $this->get('tekstoveAlbumManager');
         /* @var $albumManager \Tekstove\TekstoveBundle\Model\Album\Manager */
         
@@ -44,15 +45,18 @@ class IndexController extends Controller
         $lastVotesQuery->limit(10);
         $lastVoted = $lastVotesQuery->find();
         
-        $lastAlbums = $albumManager->getLatest(5);
+        $albumQuery = \Tekstove\TekstoveBundle\Model\Entity\AlbumQuery::create();
+        $albumQuery->addDescendingOrderByColumn('id');
+        $albumQuery->limit(5);
+        $lastAlbums = $albumQuery->find();
         
         return [
             'lastlyrics' => $lastLyrics,
             'lastTranslated' => $lastTranslated,
             'popular' => $popular,
-            'albums' => $lastAlbums,
             'mostViewed' => $mostViewd,
             'lastVoted' => $lastVoted,
+            'albums' => $lastAlbums,
         ];
     }
 }

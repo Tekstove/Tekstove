@@ -15,8 +15,8 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Tekstove\TekstoveBundle\Model\Entity\AlbumsQuery as ChildAlbumsQuery;
-use Tekstove\TekstoveBundle\Model\Entity\Map\AlbumsTableMap;
+use Tekstove\TekstoveBundle\Model\Entity\AlbumQuery as ChildAlbumQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Map\AlbumTableMap;
 
 /**
  * Base class that represents a row from the 'albums' table.
@@ -25,12 +25,12 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\AlbumsTableMap;
  *
 * @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
 */
-abstract class Albums implements ActiveRecordInterface
+abstract class Album implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Map\\AlbumsTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Map\\AlbumTableMap';
 
 
     /**
@@ -548,7 +548,7 @@ abstract class Albums implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Entity\Base\Albums object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Entity\Base\Album object.
      */
     public function __construct()
     {
@@ -643,9 +643,9 @@ abstract class Albums implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Albums</code> instance.  If
-     * <code>obj</code> is an instance of <code>Albums</code>, delegates to
-     * <code>equals(Albums)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Album</code> instance.  If
+     * <code>obj</code> is an instance of <code>Album</code>, delegates to
+     * <code>equals(Album)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -711,7 +711,7 @@ abstract class Albums implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Albums The current object, for fluid interface
+     * @return $this|Album The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -1578,7 +1578,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -1588,7 +1588,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_ID] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_ID] = true;
         }
 
         return $this;
@@ -1598,7 +1598,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [name] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setName($v)
     {
@@ -1608,7 +1608,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->name !== $v) {
             $this->name = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_NAME] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_NAME] = true;
         }
 
         return $this;
@@ -1618,7 +1618,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [artist1id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setArtist1id($v)
     {
@@ -1628,7 +1628,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->artist1id !== $v) {
             $this->artist1id = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_ARTIST1ID] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_ARTIST1ID] = true;
         }
 
         return $this;
@@ -1638,7 +1638,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [artist2id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setArtist2id($v)
     {
@@ -1648,7 +1648,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->artist2id !== $v) {
             $this->artist2id = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_ARTIST2ID] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_ARTIST2ID] = true;
         }
 
         return $this;
@@ -1658,7 +1658,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [dopylnitelnoinfo] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setDopylnitelnoinfo($v)
     {
@@ -1668,7 +1668,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->dopylnitelnoinfo !== $v) {
             $this->dopylnitelnoinfo = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_DOPYLNITELNOINFO] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_DOPYLNITELNOINFO] = true;
         }
 
         return $this;
@@ -1678,7 +1678,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [year] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setYear($v)
     {
@@ -1688,7 +1688,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->year !== $v) {
             $this->year = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_YEAR] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_YEAR] = true;
         }
 
         return $this;
@@ -1698,7 +1698,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [image] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setImage($v)
     {
@@ -1708,7 +1708,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->image !== $v) {
             $this->image = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_IMAGE] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_IMAGE] = true;
         }
 
         return $this;
@@ -1718,7 +1718,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [vid] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setVid($v)
     {
@@ -1728,7 +1728,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->vid !== $v) {
             $this->vid = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_VID] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_VID] = true;
         }
 
         return $this;
@@ -1738,7 +1738,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [up_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setUpId($v)
     {
@@ -1748,7 +1748,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->up_id !== $v) {
             $this->up_id = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_UP_ID] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_UP_ID] = true;
         }
 
         return $this;
@@ -1762,7 +1762,7 @@ abstract class Albums implements ActiveRecordInterface
      * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
      * @param  boolean|integer|string $v The new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setVa($v)
     {
@@ -1776,7 +1776,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->va !== $v) {
             $this->va = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_VA] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_VA] = true;
         }
 
         return $this;
@@ -1786,7 +1786,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p1] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP1($v)
     {
@@ -1796,7 +1796,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p1 !== $v) {
             $this->p1 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P1] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P1] = true;
         }
 
         return $this;
@@ -1806,7 +1806,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p2] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP2($v)
     {
@@ -1816,7 +1816,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p2 !== $v) {
             $this->p2 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P2] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P2] = true;
         }
 
         return $this;
@@ -1826,7 +1826,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p3] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP3($v)
     {
@@ -1836,7 +1836,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p3 !== $v) {
             $this->p3 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P3] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P3] = true;
         }
 
         return $this;
@@ -1846,7 +1846,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p4] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP4($v)
     {
@@ -1856,7 +1856,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p4 !== $v) {
             $this->p4 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P4] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P4] = true;
         }
 
         return $this;
@@ -1866,7 +1866,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p5] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP5($v)
     {
@@ -1876,7 +1876,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p5 !== $v) {
             $this->p5 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P5] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P5] = true;
         }
 
         return $this;
@@ -1886,7 +1886,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p6] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP6($v)
     {
@@ -1896,7 +1896,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p6 !== $v) {
             $this->p6 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P6] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P6] = true;
         }
 
         return $this;
@@ -1906,7 +1906,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p7] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP7($v)
     {
@@ -1916,7 +1916,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p7 !== $v) {
             $this->p7 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P7] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P7] = true;
         }
 
         return $this;
@@ -1926,7 +1926,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p8] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP8($v)
     {
@@ -1936,7 +1936,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p8 !== $v) {
             $this->p8 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P8] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P8] = true;
         }
 
         return $this;
@@ -1946,7 +1946,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p9] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP9($v)
     {
@@ -1956,7 +1956,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p9 !== $v) {
             $this->p9 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P9] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P9] = true;
         }
 
         return $this;
@@ -1966,7 +1966,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p10] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP10($v)
     {
@@ -1976,7 +1976,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p10 !== $v) {
             $this->p10 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P10] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P10] = true;
         }
 
         return $this;
@@ -1986,7 +1986,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p11] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP11($v)
     {
@@ -1996,7 +1996,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p11 !== $v) {
             $this->p11 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P11] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P11] = true;
         }
 
         return $this;
@@ -2006,7 +2006,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p12] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP12($v)
     {
@@ -2016,7 +2016,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p12 !== $v) {
             $this->p12 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P12] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P12] = true;
         }
 
         return $this;
@@ -2026,7 +2026,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p13] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP13($v)
     {
@@ -2036,7 +2036,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p13 !== $v) {
             $this->p13 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P13] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P13] = true;
         }
 
         return $this;
@@ -2046,7 +2046,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p14] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP14($v)
     {
@@ -2056,7 +2056,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p14 !== $v) {
             $this->p14 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P14] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P14] = true;
         }
 
         return $this;
@@ -2066,7 +2066,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p15] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP15($v)
     {
@@ -2076,7 +2076,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p15 !== $v) {
             $this->p15 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P15] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P15] = true;
         }
 
         return $this;
@@ -2086,7 +2086,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p16] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP16($v)
     {
@@ -2096,7 +2096,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p16 !== $v) {
             $this->p16 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P16] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P16] = true;
         }
 
         return $this;
@@ -2106,7 +2106,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p17] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP17($v)
     {
@@ -2116,7 +2116,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p17 !== $v) {
             $this->p17 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P17] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P17] = true;
         }
 
         return $this;
@@ -2126,7 +2126,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p18] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP18($v)
     {
@@ -2136,7 +2136,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p18 !== $v) {
             $this->p18 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P18] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P18] = true;
         }
 
         return $this;
@@ -2146,7 +2146,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p19] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP19($v)
     {
@@ -2156,7 +2156,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p19 !== $v) {
             $this->p19 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P19] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P19] = true;
         }
 
         return $this;
@@ -2166,7 +2166,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p20] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP20($v)
     {
@@ -2176,7 +2176,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p20 !== $v) {
             $this->p20 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P20] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P20] = true;
         }
 
         return $this;
@@ -2186,7 +2186,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p21] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP21($v)
     {
@@ -2196,7 +2196,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p21 !== $v) {
             $this->p21 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P21] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P21] = true;
         }
 
         return $this;
@@ -2206,7 +2206,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p22] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP22($v)
     {
@@ -2216,7 +2216,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p22 !== $v) {
             $this->p22 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P22] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P22] = true;
         }
 
         return $this;
@@ -2226,7 +2226,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p23] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP23($v)
     {
@@ -2236,7 +2236,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p23 !== $v) {
             $this->p23 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P23] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P23] = true;
         }
 
         return $this;
@@ -2246,7 +2246,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p24] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP24($v)
     {
@@ -2256,7 +2256,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p24 !== $v) {
             $this->p24 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P24] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P24] = true;
         }
 
         return $this;
@@ -2266,7 +2266,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p25] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP25($v)
     {
@@ -2276,7 +2276,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p25 !== $v) {
             $this->p25 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P25] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P25] = true;
         }
 
         return $this;
@@ -2286,7 +2286,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p26] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP26($v)
     {
@@ -2296,7 +2296,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p26 !== $v) {
             $this->p26 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P26] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P26] = true;
         }
 
         return $this;
@@ -2306,7 +2306,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p27] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP27($v)
     {
@@ -2316,7 +2316,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p27 !== $v) {
             $this->p27 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P27] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P27] = true;
         }
 
         return $this;
@@ -2326,7 +2326,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p28] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP28($v)
     {
@@ -2336,7 +2336,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p28 !== $v) {
             $this->p28 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P28] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P28] = true;
         }
 
         return $this;
@@ -2346,7 +2346,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p29] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP29($v)
     {
@@ -2356,7 +2356,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p29 !== $v) {
             $this->p29 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P29] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P29] = true;
         }
 
         return $this;
@@ -2366,7 +2366,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p30] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP30($v)
     {
@@ -2376,7 +2376,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p30 !== $v) {
             $this->p30 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P30] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P30] = true;
         }
 
         return $this;
@@ -2386,7 +2386,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p31] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP31($v)
     {
@@ -2396,7 +2396,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p31 !== $v) {
             $this->p31 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P31] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P31] = true;
         }
 
         return $this;
@@ -2406,7 +2406,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p32] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP32($v)
     {
@@ -2416,7 +2416,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p32 !== $v) {
             $this->p32 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P32] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P32] = true;
         }
 
         return $this;
@@ -2426,7 +2426,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p33] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP33($v)
     {
@@ -2436,7 +2436,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p33 !== $v) {
             $this->p33 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P33] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P33] = true;
         }
 
         return $this;
@@ -2446,7 +2446,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p34] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP34($v)
     {
@@ -2456,7 +2456,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p34 !== $v) {
             $this->p34 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P34] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P34] = true;
         }
 
         return $this;
@@ -2466,7 +2466,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p35] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP35($v)
     {
@@ -2476,7 +2476,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p35 !== $v) {
             $this->p35 = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P35] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P35] = true;
         }
 
         return $this;
@@ -2486,7 +2486,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p1n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP1n($v)
     {
@@ -2496,7 +2496,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p1n !== $v) {
             $this->p1n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P1N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P1N] = true;
         }
 
         return $this;
@@ -2506,7 +2506,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p2n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP2n($v)
     {
@@ -2516,7 +2516,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p2n !== $v) {
             $this->p2n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P2N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P2N] = true;
         }
 
         return $this;
@@ -2526,7 +2526,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p3n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP3n($v)
     {
@@ -2536,7 +2536,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p3n !== $v) {
             $this->p3n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P3N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P3N] = true;
         }
 
         return $this;
@@ -2546,7 +2546,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p4n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP4n($v)
     {
@@ -2556,7 +2556,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p4n !== $v) {
             $this->p4n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P4N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P4N] = true;
         }
 
         return $this;
@@ -2566,7 +2566,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p5n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP5n($v)
     {
@@ -2576,7 +2576,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p5n !== $v) {
             $this->p5n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P5N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P5N] = true;
         }
 
         return $this;
@@ -2586,7 +2586,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p6n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP6n($v)
     {
@@ -2596,7 +2596,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p6n !== $v) {
             $this->p6n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P6N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P6N] = true;
         }
 
         return $this;
@@ -2606,7 +2606,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p7n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP7n($v)
     {
@@ -2616,7 +2616,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p7n !== $v) {
             $this->p7n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P7N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P7N] = true;
         }
 
         return $this;
@@ -2626,7 +2626,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p8n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP8n($v)
     {
@@ -2636,7 +2636,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p8n !== $v) {
             $this->p8n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P8N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P8N] = true;
         }
 
         return $this;
@@ -2646,7 +2646,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p9n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP9n($v)
     {
@@ -2656,7 +2656,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p9n !== $v) {
             $this->p9n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P9N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P9N] = true;
         }
 
         return $this;
@@ -2666,7 +2666,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p10n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP10n($v)
     {
@@ -2676,7 +2676,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p10n !== $v) {
             $this->p10n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P10N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P10N] = true;
         }
 
         return $this;
@@ -2686,7 +2686,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p11n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP11n($v)
     {
@@ -2696,7 +2696,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p11n !== $v) {
             $this->p11n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P11N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P11N] = true;
         }
 
         return $this;
@@ -2706,7 +2706,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p12n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP12n($v)
     {
@@ -2716,7 +2716,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p12n !== $v) {
             $this->p12n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P12N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P12N] = true;
         }
 
         return $this;
@@ -2726,7 +2726,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p13n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP13n($v)
     {
@@ -2736,7 +2736,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p13n !== $v) {
             $this->p13n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P13N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P13N] = true;
         }
 
         return $this;
@@ -2746,7 +2746,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p14n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP14n($v)
     {
@@ -2756,7 +2756,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p14n !== $v) {
             $this->p14n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P14N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P14N] = true;
         }
 
         return $this;
@@ -2766,7 +2766,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p15n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP15n($v)
     {
@@ -2776,7 +2776,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p15n !== $v) {
             $this->p15n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P15N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P15N] = true;
         }
 
         return $this;
@@ -2786,7 +2786,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p16n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP16n($v)
     {
@@ -2796,7 +2796,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p16n !== $v) {
             $this->p16n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P16N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P16N] = true;
         }
 
         return $this;
@@ -2806,7 +2806,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p17n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP17n($v)
     {
@@ -2816,7 +2816,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p17n !== $v) {
             $this->p17n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P17N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P17N] = true;
         }
 
         return $this;
@@ -2826,7 +2826,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p18n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP18n($v)
     {
@@ -2836,7 +2836,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p18n !== $v) {
             $this->p18n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P18N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P18N] = true;
         }
 
         return $this;
@@ -2846,7 +2846,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p19n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP19n($v)
     {
@@ -2856,7 +2856,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p19n !== $v) {
             $this->p19n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P19N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P19N] = true;
         }
 
         return $this;
@@ -2866,7 +2866,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p20n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP20n($v)
     {
@@ -2876,7 +2876,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p20n !== $v) {
             $this->p20n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P20N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P20N] = true;
         }
 
         return $this;
@@ -2886,7 +2886,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p21n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP21n($v)
     {
@@ -2896,7 +2896,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p21n !== $v) {
             $this->p21n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P21N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P21N] = true;
         }
 
         return $this;
@@ -2906,7 +2906,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p22n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP22n($v)
     {
@@ -2916,7 +2916,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p22n !== $v) {
             $this->p22n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P22N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P22N] = true;
         }
 
         return $this;
@@ -2926,7 +2926,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p23n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP23n($v)
     {
@@ -2936,7 +2936,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p23n !== $v) {
             $this->p23n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P23N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P23N] = true;
         }
 
         return $this;
@@ -2946,7 +2946,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p24n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP24n($v)
     {
@@ -2956,7 +2956,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p24n !== $v) {
             $this->p24n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P24N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P24N] = true;
         }
 
         return $this;
@@ -2966,7 +2966,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p25n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP25n($v)
     {
@@ -2976,7 +2976,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p25n !== $v) {
             $this->p25n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P25N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P25N] = true;
         }
 
         return $this;
@@ -2986,7 +2986,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p26n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP26n($v)
     {
@@ -2996,7 +2996,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p26n !== $v) {
             $this->p26n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P26N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P26N] = true;
         }
 
         return $this;
@@ -3006,7 +3006,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p27n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP27n($v)
     {
@@ -3016,7 +3016,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p27n !== $v) {
             $this->p27n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P27N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P27N] = true;
         }
 
         return $this;
@@ -3026,7 +3026,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p28n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP28n($v)
     {
@@ -3036,7 +3036,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p28n !== $v) {
             $this->p28n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P28N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P28N] = true;
         }
 
         return $this;
@@ -3046,7 +3046,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p29n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP29n($v)
     {
@@ -3056,7 +3056,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p29n !== $v) {
             $this->p29n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P29N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P29N] = true;
         }
 
         return $this;
@@ -3066,7 +3066,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p30n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP30n($v)
     {
@@ -3076,7 +3076,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p30n !== $v) {
             $this->p30n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P30N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P30N] = true;
         }
 
         return $this;
@@ -3086,7 +3086,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p31n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP31n($v)
     {
@@ -3096,7 +3096,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p31n !== $v) {
             $this->p31n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P31N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P31N] = true;
         }
 
         return $this;
@@ -3106,7 +3106,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p32n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP32n($v)
     {
@@ -3116,7 +3116,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p32n !== $v) {
             $this->p32n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P32N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P32N] = true;
         }
 
         return $this;
@@ -3126,7 +3126,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p33n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP33n($v)
     {
@@ -3136,7 +3136,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p33n !== $v) {
             $this->p33n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P33N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P33N] = true;
         }
 
         return $this;
@@ -3146,7 +3146,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p34n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP34n($v)
     {
@@ -3156,7 +3156,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p34n !== $v) {
             $this->p34n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P34N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P34N] = true;
         }
 
         return $this;
@@ -3166,7 +3166,7 @@ abstract class Albums implements ActiveRecordInterface
      * Set the value of [p35n] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object (for fluent API support)
      */
     public function setP35n($v)
     {
@@ -3176,7 +3176,7 @@ abstract class Albums implements ActiveRecordInterface
 
         if ($this->p35n !== $v) {
             $this->p35n = $v;
-            $this->modifiedColumns[AlbumsTableMap::COL_P35N] = true;
+            $this->modifiedColumns[AlbumTableMap::COL_P35N] = true;
         }
 
         return $this;
@@ -3218,244 +3218,244 @@ abstract class Albums implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : AlbumsTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : AlbumTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : AlbumsTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : AlbumTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
             $this->name = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : AlbumsTableMap::translateFieldName('Artist1id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : AlbumTableMap::translateFieldName('Artist1id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->artist1id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : AlbumsTableMap::translateFieldName('Artist2id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : AlbumTableMap::translateFieldName('Artist2id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->artist2id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : AlbumsTableMap::translateFieldName('Dopylnitelnoinfo', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : AlbumTableMap::translateFieldName('Dopylnitelnoinfo', TableMap::TYPE_PHPNAME, $indexType)];
             $this->dopylnitelnoinfo = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : AlbumsTableMap::translateFieldName('Year', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : AlbumTableMap::translateFieldName('Year', TableMap::TYPE_PHPNAME, $indexType)];
             $this->year = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : AlbumsTableMap::translateFieldName('Image', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : AlbumTableMap::translateFieldName('Image', TableMap::TYPE_PHPNAME, $indexType)];
             $this->image = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : AlbumsTableMap::translateFieldName('Vid', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : AlbumTableMap::translateFieldName('Vid', TableMap::TYPE_PHPNAME, $indexType)];
             $this->vid = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : AlbumsTableMap::translateFieldName('UpId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : AlbumTableMap::translateFieldName('UpId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->up_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : AlbumsTableMap::translateFieldName('Va', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : AlbumTableMap::translateFieldName('Va', TableMap::TYPE_PHPNAME, $indexType)];
             $this->va = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : AlbumsTableMap::translateFieldName('P1', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : AlbumTableMap::translateFieldName('P1', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p1 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : AlbumsTableMap::translateFieldName('P2', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : AlbumTableMap::translateFieldName('P2', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p2 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : AlbumsTableMap::translateFieldName('P3', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : AlbumTableMap::translateFieldName('P3', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p3 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : AlbumsTableMap::translateFieldName('P4', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : AlbumTableMap::translateFieldName('P4', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p4 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : AlbumsTableMap::translateFieldName('P5', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : AlbumTableMap::translateFieldName('P5', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p5 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : AlbumsTableMap::translateFieldName('P6', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : AlbumTableMap::translateFieldName('P6', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p6 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : AlbumsTableMap::translateFieldName('P7', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : AlbumTableMap::translateFieldName('P7', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p7 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : AlbumsTableMap::translateFieldName('P8', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : AlbumTableMap::translateFieldName('P8', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p8 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : AlbumsTableMap::translateFieldName('P9', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : AlbumTableMap::translateFieldName('P9', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p9 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : AlbumsTableMap::translateFieldName('P10', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : AlbumTableMap::translateFieldName('P10', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p10 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : AlbumsTableMap::translateFieldName('P11', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 20 + $startcol : AlbumTableMap::translateFieldName('P11', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p11 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : AlbumsTableMap::translateFieldName('P12', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 21 + $startcol : AlbumTableMap::translateFieldName('P12', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p12 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : AlbumsTableMap::translateFieldName('P13', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 22 + $startcol : AlbumTableMap::translateFieldName('P13', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p13 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 23 + $startcol : AlbumsTableMap::translateFieldName('P14', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 23 + $startcol : AlbumTableMap::translateFieldName('P14', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p14 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 24 + $startcol : AlbumsTableMap::translateFieldName('P15', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 24 + $startcol : AlbumTableMap::translateFieldName('P15', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p15 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 25 + $startcol : AlbumsTableMap::translateFieldName('P16', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 25 + $startcol : AlbumTableMap::translateFieldName('P16', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p16 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 26 + $startcol : AlbumsTableMap::translateFieldName('P17', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 26 + $startcol : AlbumTableMap::translateFieldName('P17', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p17 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 27 + $startcol : AlbumsTableMap::translateFieldName('P18', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 27 + $startcol : AlbumTableMap::translateFieldName('P18', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p18 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 28 + $startcol : AlbumsTableMap::translateFieldName('P19', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 28 + $startcol : AlbumTableMap::translateFieldName('P19', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p19 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 29 + $startcol : AlbumsTableMap::translateFieldName('P20', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 29 + $startcol : AlbumTableMap::translateFieldName('P20', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p20 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 30 + $startcol : AlbumsTableMap::translateFieldName('P21', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 30 + $startcol : AlbumTableMap::translateFieldName('P21', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p21 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 31 + $startcol : AlbumsTableMap::translateFieldName('P22', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 31 + $startcol : AlbumTableMap::translateFieldName('P22', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p22 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 32 + $startcol : AlbumsTableMap::translateFieldName('P23', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 32 + $startcol : AlbumTableMap::translateFieldName('P23', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p23 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 33 + $startcol : AlbumsTableMap::translateFieldName('P24', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 33 + $startcol : AlbumTableMap::translateFieldName('P24', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p24 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 34 + $startcol : AlbumsTableMap::translateFieldName('P25', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 34 + $startcol : AlbumTableMap::translateFieldName('P25', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p25 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 35 + $startcol : AlbumsTableMap::translateFieldName('P26', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 35 + $startcol : AlbumTableMap::translateFieldName('P26', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p26 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 36 + $startcol : AlbumsTableMap::translateFieldName('P27', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 36 + $startcol : AlbumTableMap::translateFieldName('P27', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p27 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 37 + $startcol : AlbumsTableMap::translateFieldName('P28', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 37 + $startcol : AlbumTableMap::translateFieldName('P28', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p28 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 38 + $startcol : AlbumsTableMap::translateFieldName('P29', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 38 + $startcol : AlbumTableMap::translateFieldName('P29', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p29 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 39 + $startcol : AlbumsTableMap::translateFieldName('P30', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 39 + $startcol : AlbumTableMap::translateFieldName('P30', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p30 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 40 + $startcol : AlbumsTableMap::translateFieldName('P31', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 40 + $startcol : AlbumTableMap::translateFieldName('P31', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p31 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 41 + $startcol : AlbumsTableMap::translateFieldName('P32', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 41 + $startcol : AlbumTableMap::translateFieldName('P32', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p32 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 42 + $startcol : AlbumsTableMap::translateFieldName('P33', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 42 + $startcol : AlbumTableMap::translateFieldName('P33', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p33 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 43 + $startcol : AlbumsTableMap::translateFieldName('P34', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 43 + $startcol : AlbumTableMap::translateFieldName('P34', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p34 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 44 + $startcol : AlbumsTableMap::translateFieldName('P35', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 44 + $startcol : AlbumTableMap::translateFieldName('P35', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p35 = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 45 + $startcol : AlbumsTableMap::translateFieldName('P1n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 45 + $startcol : AlbumTableMap::translateFieldName('P1n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p1n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 46 + $startcol : AlbumsTableMap::translateFieldName('P2n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 46 + $startcol : AlbumTableMap::translateFieldName('P2n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p2n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 47 + $startcol : AlbumsTableMap::translateFieldName('P3n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 47 + $startcol : AlbumTableMap::translateFieldName('P3n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p3n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 48 + $startcol : AlbumsTableMap::translateFieldName('P4n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 48 + $startcol : AlbumTableMap::translateFieldName('P4n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p4n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 49 + $startcol : AlbumsTableMap::translateFieldName('P5n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 49 + $startcol : AlbumTableMap::translateFieldName('P5n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p5n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 50 + $startcol : AlbumsTableMap::translateFieldName('P6n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 50 + $startcol : AlbumTableMap::translateFieldName('P6n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p6n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 51 + $startcol : AlbumsTableMap::translateFieldName('P7n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 51 + $startcol : AlbumTableMap::translateFieldName('P7n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p7n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 52 + $startcol : AlbumsTableMap::translateFieldName('P8n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 52 + $startcol : AlbumTableMap::translateFieldName('P8n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p8n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 53 + $startcol : AlbumsTableMap::translateFieldName('P9n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 53 + $startcol : AlbumTableMap::translateFieldName('P9n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p9n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 54 + $startcol : AlbumsTableMap::translateFieldName('P10n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 54 + $startcol : AlbumTableMap::translateFieldName('P10n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p10n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 55 + $startcol : AlbumsTableMap::translateFieldName('P11n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 55 + $startcol : AlbumTableMap::translateFieldName('P11n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p11n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 56 + $startcol : AlbumsTableMap::translateFieldName('P12n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 56 + $startcol : AlbumTableMap::translateFieldName('P12n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p12n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 57 + $startcol : AlbumsTableMap::translateFieldName('P13n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 57 + $startcol : AlbumTableMap::translateFieldName('P13n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p13n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 58 + $startcol : AlbumsTableMap::translateFieldName('P14n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 58 + $startcol : AlbumTableMap::translateFieldName('P14n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p14n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 59 + $startcol : AlbumsTableMap::translateFieldName('P15n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 59 + $startcol : AlbumTableMap::translateFieldName('P15n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p15n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 60 + $startcol : AlbumsTableMap::translateFieldName('P16n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 60 + $startcol : AlbumTableMap::translateFieldName('P16n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p16n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 61 + $startcol : AlbumsTableMap::translateFieldName('P17n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 61 + $startcol : AlbumTableMap::translateFieldName('P17n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p17n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 62 + $startcol : AlbumsTableMap::translateFieldName('P18n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 62 + $startcol : AlbumTableMap::translateFieldName('P18n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p18n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 63 + $startcol : AlbumsTableMap::translateFieldName('P19n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 63 + $startcol : AlbumTableMap::translateFieldName('P19n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p19n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 64 + $startcol : AlbumsTableMap::translateFieldName('P20n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 64 + $startcol : AlbumTableMap::translateFieldName('P20n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p20n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 65 + $startcol : AlbumsTableMap::translateFieldName('P21n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 65 + $startcol : AlbumTableMap::translateFieldName('P21n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p21n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 66 + $startcol : AlbumsTableMap::translateFieldName('P22n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 66 + $startcol : AlbumTableMap::translateFieldName('P22n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p22n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 67 + $startcol : AlbumsTableMap::translateFieldName('P23n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 67 + $startcol : AlbumTableMap::translateFieldName('P23n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p23n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 68 + $startcol : AlbumsTableMap::translateFieldName('P24n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 68 + $startcol : AlbumTableMap::translateFieldName('P24n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p24n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 69 + $startcol : AlbumsTableMap::translateFieldName('P25n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 69 + $startcol : AlbumTableMap::translateFieldName('P25n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p25n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 70 + $startcol : AlbumsTableMap::translateFieldName('P26n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 70 + $startcol : AlbumTableMap::translateFieldName('P26n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p26n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 71 + $startcol : AlbumsTableMap::translateFieldName('P27n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 71 + $startcol : AlbumTableMap::translateFieldName('P27n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p27n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 72 + $startcol : AlbumsTableMap::translateFieldName('P28n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 72 + $startcol : AlbumTableMap::translateFieldName('P28n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p28n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 73 + $startcol : AlbumsTableMap::translateFieldName('P29n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 73 + $startcol : AlbumTableMap::translateFieldName('P29n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p29n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 74 + $startcol : AlbumsTableMap::translateFieldName('P30n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 74 + $startcol : AlbumTableMap::translateFieldName('P30n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p30n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 75 + $startcol : AlbumsTableMap::translateFieldName('P31n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 75 + $startcol : AlbumTableMap::translateFieldName('P31n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p31n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 76 + $startcol : AlbumsTableMap::translateFieldName('P32n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 76 + $startcol : AlbumTableMap::translateFieldName('P32n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p32n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 77 + $startcol : AlbumsTableMap::translateFieldName('P33n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 77 + $startcol : AlbumTableMap::translateFieldName('P33n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p33n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 78 + $startcol : AlbumsTableMap::translateFieldName('P34n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 78 + $startcol : AlbumTableMap::translateFieldName('P34n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p34n = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 79 + $startcol : AlbumsTableMap::translateFieldName('P35n', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 79 + $startcol : AlbumTableMap::translateFieldName('P35n', TableMap::TYPE_PHPNAME, $indexType)];
             $this->p35n = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
@@ -3465,10 +3465,10 @@ abstract class Albums implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 80; // 80 = AlbumsTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 80; // 80 = AlbumTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Albums'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Album'), 0, $e);
         }
     }
 
@@ -3510,13 +3510,13 @@ abstract class Albums implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(AlbumTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildAlbumsQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildAlbumQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -3535,8 +3535,8 @@ abstract class Albums implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Albums::setDeleted()
-     * @see Albums::isDeleted()
+     * @see Album::setDeleted()
+     * @see Album::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -3545,11 +3545,11 @@ abstract class Albums implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AlbumTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildAlbumsQuery::create()
+            $deleteQuery = ChildAlbumQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -3580,7 +3580,7 @@ abstract class Albums implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(AlbumsTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AlbumTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -3599,7 +3599,7 @@ abstract class Albums implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                AlbumsTableMap::addInstanceToPool($this);
+                AlbumTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -3656,250 +3656,250 @@ abstract class Albums implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[AlbumsTableMap::COL_ID] = true;
+        $this->modifiedColumns[AlbumTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AlbumsTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AlbumTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AlbumsTableMap::COL_ID)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_NAME)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_NAME)) {
             $modifiedColumns[':p' . $index++]  = 'name';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_ARTIST1ID)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_ARTIST1ID)) {
             $modifiedColumns[':p' . $index++]  = 'artist1id';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_ARTIST2ID)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_ARTIST2ID)) {
             $modifiedColumns[':p' . $index++]  = 'artist2id';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_DOPYLNITELNOINFO)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_DOPYLNITELNOINFO)) {
             $modifiedColumns[':p' . $index++]  = 'dopylnitelnoinfo';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_YEAR)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_YEAR)) {
             $modifiedColumns[':p' . $index++]  = 'year';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_IMAGE)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_IMAGE)) {
             $modifiedColumns[':p' . $index++]  = 'image';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_VID)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_VID)) {
             $modifiedColumns[':p' . $index++]  = 'vid';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_UP_ID)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_UP_ID)) {
             $modifiedColumns[':p' . $index++]  = 'up_id';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_VA)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_VA)) {
             $modifiedColumns[':p' . $index++]  = 'va';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P1)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P1)) {
             $modifiedColumns[':p' . $index++]  = 'p1';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P2)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P2)) {
             $modifiedColumns[':p' . $index++]  = 'p2';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P3)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P3)) {
             $modifiedColumns[':p' . $index++]  = 'p3';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P4)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P4)) {
             $modifiedColumns[':p' . $index++]  = 'p4';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P5)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P5)) {
             $modifiedColumns[':p' . $index++]  = 'p5';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P6)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P6)) {
             $modifiedColumns[':p' . $index++]  = 'p6';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P7)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P7)) {
             $modifiedColumns[':p' . $index++]  = 'p7';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P8)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P8)) {
             $modifiedColumns[':p' . $index++]  = 'p8';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P9)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P9)) {
             $modifiedColumns[':p' . $index++]  = 'p9';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P10)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P10)) {
             $modifiedColumns[':p' . $index++]  = 'p10';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P11)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P11)) {
             $modifiedColumns[':p' . $index++]  = 'p11';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P12)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P12)) {
             $modifiedColumns[':p' . $index++]  = 'p12';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P13)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P13)) {
             $modifiedColumns[':p' . $index++]  = 'p13';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P14)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P14)) {
             $modifiedColumns[':p' . $index++]  = 'p14';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P15)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P15)) {
             $modifiedColumns[':p' . $index++]  = 'p15';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P16)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P16)) {
             $modifiedColumns[':p' . $index++]  = 'p16';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P17)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P17)) {
             $modifiedColumns[':p' . $index++]  = 'p17';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P18)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P18)) {
             $modifiedColumns[':p' . $index++]  = 'p18';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P19)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P19)) {
             $modifiedColumns[':p' . $index++]  = 'p19';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P20)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P20)) {
             $modifiedColumns[':p' . $index++]  = 'p20';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P21)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P21)) {
             $modifiedColumns[':p' . $index++]  = 'p21';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P22)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P22)) {
             $modifiedColumns[':p' . $index++]  = 'p22';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P23)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P23)) {
             $modifiedColumns[':p' . $index++]  = 'p23';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P24)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P24)) {
             $modifiedColumns[':p' . $index++]  = 'p24';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P25)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P25)) {
             $modifiedColumns[':p' . $index++]  = 'p25';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P26)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P26)) {
             $modifiedColumns[':p' . $index++]  = 'p26';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P27)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P27)) {
             $modifiedColumns[':p' . $index++]  = 'p27';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P28)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P28)) {
             $modifiedColumns[':p' . $index++]  = 'p28';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P29)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P29)) {
             $modifiedColumns[':p' . $index++]  = 'p29';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P30)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P30)) {
             $modifiedColumns[':p' . $index++]  = 'p30';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P31)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P31)) {
             $modifiedColumns[':p' . $index++]  = 'p31';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P32)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P32)) {
             $modifiedColumns[':p' . $index++]  = 'p32';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P33)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P33)) {
             $modifiedColumns[':p' . $index++]  = 'p33';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P34)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P34)) {
             $modifiedColumns[':p' . $index++]  = 'p34';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P35)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P35)) {
             $modifiedColumns[':p' . $index++]  = 'p35';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P1N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P1N)) {
             $modifiedColumns[':p' . $index++]  = 'p1n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P2N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P2N)) {
             $modifiedColumns[':p' . $index++]  = 'p2n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P3N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P3N)) {
             $modifiedColumns[':p' . $index++]  = 'p3n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P4N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P4N)) {
             $modifiedColumns[':p' . $index++]  = 'p4n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P5N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P5N)) {
             $modifiedColumns[':p' . $index++]  = 'p5n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P6N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P6N)) {
             $modifiedColumns[':p' . $index++]  = 'p6n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P7N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P7N)) {
             $modifiedColumns[':p' . $index++]  = 'p7n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P8N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P8N)) {
             $modifiedColumns[':p' . $index++]  = 'p8n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P9N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P9N)) {
             $modifiedColumns[':p' . $index++]  = 'p9n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P10N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P10N)) {
             $modifiedColumns[':p' . $index++]  = 'p10n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P11N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P11N)) {
             $modifiedColumns[':p' . $index++]  = 'p11n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P12N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P12N)) {
             $modifiedColumns[':p' . $index++]  = 'p12n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P13N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P13N)) {
             $modifiedColumns[':p' . $index++]  = 'p13n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P14N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P14N)) {
             $modifiedColumns[':p' . $index++]  = 'p14n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P15N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P15N)) {
             $modifiedColumns[':p' . $index++]  = 'p15n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P16N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P16N)) {
             $modifiedColumns[':p' . $index++]  = 'p16n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P17N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P17N)) {
             $modifiedColumns[':p' . $index++]  = 'p17n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P18N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P18N)) {
             $modifiedColumns[':p' . $index++]  = 'p18n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P19N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P19N)) {
             $modifiedColumns[':p' . $index++]  = 'p19n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P20N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P20N)) {
             $modifiedColumns[':p' . $index++]  = 'p20n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P21N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P21N)) {
             $modifiedColumns[':p' . $index++]  = 'p21n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P22N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P22N)) {
             $modifiedColumns[':p' . $index++]  = 'p22n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P23N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P23N)) {
             $modifiedColumns[':p' . $index++]  = 'p23n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P24N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P24N)) {
             $modifiedColumns[':p' . $index++]  = 'p24n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P25N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P25N)) {
             $modifiedColumns[':p' . $index++]  = 'p25n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P26N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P26N)) {
             $modifiedColumns[':p' . $index++]  = 'p26n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P27N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P27N)) {
             $modifiedColumns[':p' . $index++]  = 'p27n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P28N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P28N)) {
             $modifiedColumns[':p' . $index++]  = 'p28n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P29N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P29N)) {
             $modifiedColumns[':p' . $index++]  = 'p29n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P30N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P30N)) {
             $modifiedColumns[':p' . $index++]  = 'p30n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P31N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P31N)) {
             $modifiedColumns[':p' . $index++]  = 'p31n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P32N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P32N)) {
             $modifiedColumns[':p' . $index++]  = 'p32n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P33N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P33N)) {
             $modifiedColumns[':p' . $index++]  = 'p33n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P34N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P34N)) {
             $modifiedColumns[':p' . $index++]  = 'p34n';
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P35N)) {
+        if ($this->isColumnModified(AlbumTableMap::COL_P35N)) {
             $modifiedColumns[':p' . $index++]  = 'p35n';
         }
 
@@ -4199,7 +4199,7 @@ abstract class Albums implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = AlbumsTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = AlbumTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -4478,11 +4478,11 @@ abstract class Albums implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
 
-        if (isset($alreadyDumpedObjects['Albums'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Album'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Albums'][$this->hashCode()] = true;
-        $keys = AlbumsTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Album'][$this->hashCode()] = true;
+        $keys = AlbumTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
@@ -4583,11 +4583,11 @@ abstract class Albums implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = AlbumsTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = AlbumTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -4598,7 +4598,7 @@ abstract class Albums implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album
      */
     public function setByPosition($pos, $value)
     {
@@ -4867,7 +4867,7 @@ abstract class Albums implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = AlbumsTableMap::getFieldNames($keyType);
+        $keys = AlbumTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
@@ -5128,7 +5128,7 @@ abstract class Albums implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Albums The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Album The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -5148,247 +5148,247 @@ abstract class Albums implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AlbumsTableMap::DATABASE_NAME);
+        $criteria = new Criteria(AlbumTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(AlbumsTableMap::COL_ID)) {
-            $criteria->add(AlbumsTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(AlbumTableMap::COL_ID)) {
+            $criteria->add(AlbumTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_NAME)) {
-            $criteria->add(AlbumsTableMap::COL_NAME, $this->name);
+        if ($this->isColumnModified(AlbumTableMap::COL_NAME)) {
+            $criteria->add(AlbumTableMap::COL_NAME, $this->name);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_ARTIST1ID)) {
-            $criteria->add(AlbumsTableMap::COL_ARTIST1ID, $this->artist1id);
+        if ($this->isColumnModified(AlbumTableMap::COL_ARTIST1ID)) {
+            $criteria->add(AlbumTableMap::COL_ARTIST1ID, $this->artist1id);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_ARTIST2ID)) {
-            $criteria->add(AlbumsTableMap::COL_ARTIST2ID, $this->artist2id);
+        if ($this->isColumnModified(AlbumTableMap::COL_ARTIST2ID)) {
+            $criteria->add(AlbumTableMap::COL_ARTIST2ID, $this->artist2id);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_DOPYLNITELNOINFO)) {
-            $criteria->add(AlbumsTableMap::COL_DOPYLNITELNOINFO, $this->dopylnitelnoinfo);
+        if ($this->isColumnModified(AlbumTableMap::COL_DOPYLNITELNOINFO)) {
+            $criteria->add(AlbumTableMap::COL_DOPYLNITELNOINFO, $this->dopylnitelnoinfo);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_YEAR)) {
-            $criteria->add(AlbumsTableMap::COL_YEAR, $this->year);
+        if ($this->isColumnModified(AlbumTableMap::COL_YEAR)) {
+            $criteria->add(AlbumTableMap::COL_YEAR, $this->year);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_IMAGE)) {
-            $criteria->add(AlbumsTableMap::COL_IMAGE, $this->image);
+        if ($this->isColumnModified(AlbumTableMap::COL_IMAGE)) {
+            $criteria->add(AlbumTableMap::COL_IMAGE, $this->image);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_VID)) {
-            $criteria->add(AlbumsTableMap::COL_VID, $this->vid);
+        if ($this->isColumnModified(AlbumTableMap::COL_VID)) {
+            $criteria->add(AlbumTableMap::COL_VID, $this->vid);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_UP_ID)) {
-            $criteria->add(AlbumsTableMap::COL_UP_ID, $this->up_id);
+        if ($this->isColumnModified(AlbumTableMap::COL_UP_ID)) {
+            $criteria->add(AlbumTableMap::COL_UP_ID, $this->up_id);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_VA)) {
-            $criteria->add(AlbumsTableMap::COL_VA, $this->va);
+        if ($this->isColumnModified(AlbumTableMap::COL_VA)) {
+            $criteria->add(AlbumTableMap::COL_VA, $this->va);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P1)) {
-            $criteria->add(AlbumsTableMap::COL_P1, $this->p1);
+        if ($this->isColumnModified(AlbumTableMap::COL_P1)) {
+            $criteria->add(AlbumTableMap::COL_P1, $this->p1);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P2)) {
-            $criteria->add(AlbumsTableMap::COL_P2, $this->p2);
+        if ($this->isColumnModified(AlbumTableMap::COL_P2)) {
+            $criteria->add(AlbumTableMap::COL_P2, $this->p2);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P3)) {
-            $criteria->add(AlbumsTableMap::COL_P3, $this->p3);
+        if ($this->isColumnModified(AlbumTableMap::COL_P3)) {
+            $criteria->add(AlbumTableMap::COL_P3, $this->p3);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P4)) {
-            $criteria->add(AlbumsTableMap::COL_P4, $this->p4);
+        if ($this->isColumnModified(AlbumTableMap::COL_P4)) {
+            $criteria->add(AlbumTableMap::COL_P4, $this->p4);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P5)) {
-            $criteria->add(AlbumsTableMap::COL_P5, $this->p5);
+        if ($this->isColumnModified(AlbumTableMap::COL_P5)) {
+            $criteria->add(AlbumTableMap::COL_P5, $this->p5);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P6)) {
-            $criteria->add(AlbumsTableMap::COL_P6, $this->p6);
+        if ($this->isColumnModified(AlbumTableMap::COL_P6)) {
+            $criteria->add(AlbumTableMap::COL_P6, $this->p6);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P7)) {
-            $criteria->add(AlbumsTableMap::COL_P7, $this->p7);
+        if ($this->isColumnModified(AlbumTableMap::COL_P7)) {
+            $criteria->add(AlbumTableMap::COL_P7, $this->p7);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P8)) {
-            $criteria->add(AlbumsTableMap::COL_P8, $this->p8);
+        if ($this->isColumnModified(AlbumTableMap::COL_P8)) {
+            $criteria->add(AlbumTableMap::COL_P8, $this->p8);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P9)) {
-            $criteria->add(AlbumsTableMap::COL_P9, $this->p9);
+        if ($this->isColumnModified(AlbumTableMap::COL_P9)) {
+            $criteria->add(AlbumTableMap::COL_P9, $this->p9);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P10)) {
-            $criteria->add(AlbumsTableMap::COL_P10, $this->p10);
+        if ($this->isColumnModified(AlbumTableMap::COL_P10)) {
+            $criteria->add(AlbumTableMap::COL_P10, $this->p10);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P11)) {
-            $criteria->add(AlbumsTableMap::COL_P11, $this->p11);
+        if ($this->isColumnModified(AlbumTableMap::COL_P11)) {
+            $criteria->add(AlbumTableMap::COL_P11, $this->p11);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P12)) {
-            $criteria->add(AlbumsTableMap::COL_P12, $this->p12);
+        if ($this->isColumnModified(AlbumTableMap::COL_P12)) {
+            $criteria->add(AlbumTableMap::COL_P12, $this->p12);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P13)) {
-            $criteria->add(AlbumsTableMap::COL_P13, $this->p13);
+        if ($this->isColumnModified(AlbumTableMap::COL_P13)) {
+            $criteria->add(AlbumTableMap::COL_P13, $this->p13);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P14)) {
-            $criteria->add(AlbumsTableMap::COL_P14, $this->p14);
+        if ($this->isColumnModified(AlbumTableMap::COL_P14)) {
+            $criteria->add(AlbumTableMap::COL_P14, $this->p14);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P15)) {
-            $criteria->add(AlbumsTableMap::COL_P15, $this->p15);
+        if ($this->isColumnModified(AlbumTableMap::COL_P15)) {
+            $criteria->add(AlbumTableMap::COL_P15, $this->p15);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P16)) {
-            $criteria->add(AlbumsTableMap::COL_P16, $this->p16);
+        if ($this->isColumnModified(AlbumTableMap::COL_P16)) {
+            $criteria->add(AlbumTableMap::COL_P16, $this->p16);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P17)) {
-            $criteria->add(AlbumsTableMap::COL_P17, $this->p17);
+        if ($this->isColumnModified(AlbumTableMap::COL_P17)) {
+            $criteria->add(AlbumTableMap::COL_P17, $this->p17);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P18)) {
-            $criteria->add(AlbumsTableMap::COL_P18, $this->p18);
+        if ($this->isColumnModified(AlbumTableMap::COL_P18)) {
+            $criteria->add(AlbumTableMap::COL_P18, $this->p18);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P19)) {
-            $criteria->add(AlbumsTableMap::COL_P19, $this->p19);
+        if ($this->isColumnModified(AlbumTableMap::COL_P19)) {
+            $criteria->add(AlbumTableMap::COL_P19, $this->p19);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P20)) {
-            $criteria->add(AlbumsTableMap::COL_P20, $this->p20);
+        if ($this->isColumnModified(AlbumTableMap::COL_P20)) {
+            $criteria->add(AlbumTableMap::COL_P20, $this->p20);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P21)) {
-            $criteria->add(AlbumsTableMap::COL_P21, $this->p21);
+        if ($this->isColumnModified(AlbumTableMap::COL_P21)) {
+            $criteria->add(AlbumTableMap::COL_P21, $this->p21);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P22)) {
-            $criteria->add(AlbumsTableMap::COL_P22, $this->p22);
+        if ($this->isColumnModified(AlbumTableMap::COL_P22)) {
+            $criteria->add(AlbumTableMap::COL_P22, $this->p22);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P23)) {
-            $criteria->add(AlbumsTableMap::COL_P23, $this->p23);
+        if ($this->isColumnModified(AlbumTableMap::COL_P23)) {
+            $criteria->add(AlbumTableMap::COL_P23, $this->p23);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P24)) {
-            $criteria->add(AlbumsTableMap::COL_P24, $this->p24);
+        if ($this->isColumnModified(AlbumTableMap::COL_P24)) {
+            $criteria->add(AlbumTableMap::COL_P24, $this->p24);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P25)) {
-            $criteria->add(AlbumsTableMap::COL_P25, $this->p25);
+        if ($this->isColumnModified(AlbumTableMap::COL_P25)) {
+            $criteria->add(AlbumTableMap::COL_P25, $this->p25);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P26)) {
-            $criteria->add(AlbumsTableMap::COL_P26, $this->p26);
+        if ($this->isColumnModified(AlbumTableMap::COL_P26)) {
+            $criteria->add(AlbumTableMap::COL_P26, $this->p26);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P27)) {
-            $criteria->add(AlbumsTableMap::COL_P27, $this->p27);
+        if ($this->isColumnModified(AlbumTableMap::COL_P27)) {
+            $criteria->add(AlbumTableMap::COL_P27, $this->p27);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P28)) {
-            $criteria->add(AlbumsTableMap::COL_P28, $this->p28);
+        if ($this->isColumnModified(AlbumTableMap::COL_P28)) {
+            $criteria->add(AlbumTableMap::COL_P28, $this->p28);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P29)) {
-            $criteria->add(AlbumsTableMap::COL_P29, $this->p29);
+        if ($this->isColumnModified(AlbumTableMap::COL_P29)) {
+            $criteria->add(AlbumTableMap::COL_P29, $this->p29);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P30)) {
-            $criteria->add(AlbumsTableMap::COL_P30, $this->p30);
+        if ($this->isColumnModified(AlbumTableMap::COL_P30)) {
+            $criteria->add(AlbumTableMap::COL_P30, $this->p30);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P31)) {
-            $criteria->add(AlbumsTableMap::COL_P31, $this->p31);
+        if ($this->isColumnModified(AlbumTableMap::COL_P31)) {
+            $criteria->add(AlbumTableMap::COL_P31, $this->p31);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P32)) {
-            $criteria->add(AlbumsTableMap::COL_P32, $this->p32);
+        if ($this->isColumnModified(AlbumTableMap::COL_P32)) {
+            $criteria->add(AlbumTableMap::COL_P32, $this->p32);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P33)) {
-            $criteria->add(AlbumsTableMap::COL_P33, $this->p33);
+        if ($this->isColumnModified(AlbumTableMap::COL_P33)) {
+            $criteria->add(AlbumTableMap::COL_P33, $this->p33);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P34)) {
-            $criteria->add(AlbumsTableMap::COL_P34, $this->p34);
+        if ($this->isColumnModified(AlbumTableMap::COL_P34)) {
+            $criteria->add(AlbumTableMap::COL_P34, $this->p34);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P35)) {
-            $criteria->add(AlbumsTableMap::COL_P35, $this->p35);
+        if ($this->isColumnModified(AlbumTableMap::COL_P35)) {
+            $criteria->add(AlbumTableMap::COL_P35, $this->p35);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P1N)) {
-            $criteria->add(AlbumsTableMap::COL_P1N, $this->p1n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P1N)) {
+            $criteria->add(AlbumTableMap::COL_P1N, $this->p1n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P2N)) {
-            $criteria->add(AlbumsTableMap::COL_P2N, $this->p2n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P2N)) {
+            $criteria->add(AlbumTableMap::COL_P2N, $this->p2n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P3N)) {
-            $criteria->add(AlbumsTableMap::COL_P3N, $this->p3n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P3N)) {
+            $criteria->add(AlbumTableMap::COL_P3N, $this->p3n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P4N)) {
-            $criteria->add(AlbumsTableMap::COL_P4N, $this->p4n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P4N)) {
+            $criteria->add(AlbumTableMap::COL_P4N, $this->p4n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P5N)) {
-            $criteria->add(AlbumsTableMap::COL_P5N, $this->p5n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P5N)) {
+            $criteria->add(AlbumTableMap::COL_P5N, $this->p5n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P6N)) {
-            $criteria->add(AlbumsTableMap::COL_P6N, $this->p6n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P6N)) {
+            $criteria->add(AlbumTableMap::COL_P6N, $this->p6n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P7N)) {
-            $criteria->add(AlbumsTableMap::COL_P7N, $this->p7n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P7N)) {
+            $criteria->add(AlbumTableMap::COL_P7N, $this->p7n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P8N)) {
-            $criteria->add(AlbumsTableMap::COL_P8N, $this->p8n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P8N)) {
+            $criteria->add(AlbumTableMap::COL_P8N, $this->p8n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P9N)) {
-            $criteria->add(AlbumsTableMap::COL_P9N, $this->p9n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P9N)) {
+            $criteria->add(AlbumTableMap::COL_P9N, $this->p9n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P10N)) {
-            $criteria->add(AlbumsTableMap::COL_P10N, $this->p10n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P10N)) {
+            $criteria->add(AlbumTableMap::COL_P10N, $this->p10n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P11N)) {
-            $criteria->add(AlbumsTableMap::COL_P11N, $this->p11n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P11N)) {
+            $criteria->add(AlbumTableMap::COL_P11N, $this->p11n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P12N)) {
-            $criteria->add(AlbumsTableMap::COL_P12N, $this->p12n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P12N)) {
+            $criteria->add(AlbumTableMap::COL_P12N, $this->p12n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P13N)) {
-            $criteria->add(AlbumsTableMap::COL_P13N, $this->p13n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P13N)) {
+            $criteria->add(AlbumTableMap::COL_P13N, $this->p13n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P14N)) {
-            $criteria->add(AlbumsTableMap::COL_P14N, $this->p14n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P14N)) {
+            $criteria->add(AlbumTableMap::COL_P14N, $this->p14n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P15N)) {
-            $criteria->add(AlbumsTableMap::COL_P15N, $this->p15n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P15N)) {
+            $criteria->add(AlbumTableMap::COL_P15N, $this->p15n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P16N)) {
-            $criteria->add(AlbumsTableMap::COL_P16N, $this->p16n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P16N)) {
+            $criteria->add(AlbumTableMap::COL_P16N, $this->p16n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P17N)) {
-            $criteria->add(AlbumsTableMap::COL_P17N, $this->p17n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P17N)) {
+            $criteria->add(AlbumTableMap::COL_P17N, $this->p17n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P18N)) {
-            $criteria->add(AlbumsTableMap::COL_P18N, $this->p18n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P18N)) {
+            $criteria->add(AlbumTableMap::COL_P18N, $this->p18n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P19N)) {
-            $criteria->add(AlbumsTableMap::COL_P19N, $this->p19n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P19N)) {
+            $criteria->add(AlbumTableMap::COL_P19N, $this->p19n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P20N)) {
-            $criteria->add(AlbumsTableMap::COL_P20N, $this->p20n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P20N)) {
+            $criteria->add(AlbumTableMap::COL_P20N, $this->p20n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P21N)) {
-            $criteria->add(AlbumsTableMap::COL_P21N, $this->p21n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P21N)) {
+            $criteria->add(AlbumTableMap::COL_P21N, $this->p21n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P22N)) {
-            $criteria->add(AlbumsTableMap::COL_P22N, $this->p22n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P22N)) {
+            $criteria->add(AlbumTableMap::COL_P22N, $this->p22n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P23N)) {
-            $criteria->add(AlbumsTableMap::COL_P23N, $this->p23n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P23N)) {
+            $criteria->add(AlbumTableMap::COL_P23N, $this->p23n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P24N)) {
-            $criteria->add(AlbumsTableMap::COL_P24N, $this->p24n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P24N)) {
+            $criteria->add(AlbumTableMap::COL_P24N, $this->p24n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P25N)) {
-            $criteria->add(AlbumsTableMap::COL_P25N, $this->p25n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P25N)) {
+            $criteria->add(AlbumTableMap::COL_P25N, $this->p25n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P26N)) {
-            $criteria->add(AlbumsTableMap::COL_P26N, $this->p26n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P26N)) {
+            $criteria->add(AlbumTableMap::COL_P26N, $this->p26n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P27N)) {
-            $criteria->add(AlbumsTableMap::COL_P27N, $this->p27n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P27N)) {
+            $criteria->add(AlbumTableMap::COL_P27N, $this->p27n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P28N)) {
-            $criteria->add(AlbumsTableMap::COL_P28N, $this->p28n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P28N)) {
+            $criteria->add(AlbumTableMap::COL_P28N, $this->p28n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P29N)) {
-            $criteria->add(AlbumsTableMap::COL_P29N, $this->p29n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P29N)) {
+            $criteria->add(AlbumTableMap::COL_P29N, $this->p29n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P30N)) {
-            $criteria->add(AlbumsTableMap::COL_P30N, $this->p30n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P30N)) {
+            $criteria->add(AlbumTableMap::COL_P30N, $this->p30n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P31N)) {
-            $criteria->add(AlbumsTableMap::COL_P31N, $this->p31n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P31N)) {
+            $criteria->add(AlbumTableMap::COL_P31N, $this->p31n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P32N)) {
-            $criteria->add(AlbumsTableMap::COL_P32N, $this->p32n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P32N)) {
+            $criteria->add(AlbumTableMap::COL_P32N, $this->p32n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P33N)) {
-            $criteria->add(AlbumsTableMap::COL_P33N, $this->p33n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P33N)) {
+            $criteria->add(AlbumTableMap::COL_P33N, $this->p33n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P34N)) {
-            $criteria->add(AlbumsTableMap::COL_P34N, $this->p34n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P34N)) {
+            $criteria->add(AlbumTableMap::COL_P34N, $this->p34n);
         }
-        if ($this->isColumnModified(AlbumsTableMap::COL_P35N)) {
-            $criteria->add(AlbumsTableMap::COL_P35N, $this->p35n);
+        if ($this->isColumnModified(AlbumTableMap::COL_P35N)) {
+            $criteria->add(AlbumTableMap::COL_P35N, $this->p35n);
         }
 
         return $criteria;
@@ -5406,8 +5406,8 @@ abstract class Albums implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildAlbumsQuery::create();
-        $criteria->add(AlbumsTableMap::COL_ID, $this->id);
+        $criteria = ChildAlbumQuery::create();
+        $criteria->add(AlbumTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -5469,7 +5469,7 @@ abstract class Albums implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Entity\Albums (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Entity\Album (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -5570,7 +5570,7 @@ abstract class Albums implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\Entity\Albums Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Entity\Album Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -5699,7 +5699,7 @@ abstract class Albums implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AlbumsTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(AlbumTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**
