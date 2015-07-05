@@ -2,7 +2,6 @@
 
 namespace Tekstove\TekstoveBundle\Model\Entity\Base;
 
-use \DateTime;
 use \Exception;
 use \PDO;
 use Propel\Runtime\Propel;
@@ -10,31 +9,32 @@ use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\Collection;
+use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\BadMethodCallException;
 use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Propel\Runtime\Util\PropelDateTime;
 use Tekstove\TekstoveBundle\Model\Entity\Artist as ChildArtist;
 use Tekstove\TekstoveBundle\Model\Entity\ArtistQuery as ChildArtistQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Today as ChildToday;
 use Tekstove\TekstoveBundle\Model\Entity\TodayQuery as ChildTodayQuery;
-use Tekstove\TekstoveBundle\Model\Entity\Map\TodayTableMap;
+use Tekstove\TekstoveBundle\Model\Entity\Map\ArtistTableMap;
 
 /**
- * Base class that represents a row from the 'today' table.
+ * Base class that represents a row from the 'artists' table.
  *
  *
  *
 * @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
 */
-abstract class Today implements ActiveRecordInterface
+abstract class Artist implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Map\\TodayTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Map\\ArtistTableMap';
 
 
     /**
@@ -64,33 +64,47 @@ abstract class Today implements ActiveRecordInterface
     protected $virtualColumns = array();
 
     /**
+     * The value for the name field.
+     * @var        string
+     */
+    protected $name;
+
+    /**
+     * The value for the name_alternatives field.
+     * @var        string
+     */
+    protected $name_alternatives;
+
+    /**
+     * The value for the addedby field.
+     * @var        int
+     */
+    protected $addedby;
+
+    /**
      * The value for the id field.
      * @var        int
      */
     protected $id;
 
     /**
-     * The value for the date field.
-     * @var        \DateTime
-     */
-    protected $date;
-
-    /**
-     * The value for the artist_id field.
+     * The value for the redirect_to_artist_id field.
      * @var        int
      */
-    protected $artist_id;
+    protected $redirect_to_artist_id;
 
     /**
-     * The value for the text field.
-     * @var        string
+     * The value for the forbidden field.
+     * Note: this column has a database default value of: false
+     * @var        boolean
      */
-    protected $text;
+    protected $forbidden;
 
     /**
-     * @var        ChildArtist
+     * @var        ObjectCollection|ChildToday[] Collection to store aggregation of ChildToday objects.
      */
-    protected $aArtist;
+    protected $collTodays;
+    protected $collTodaysPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -101,10 +115,29 @@ abstract class Today implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Entity\Base\Today object.
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildToday[]
+     */
+    protected $todaysScheduledForDeletion = null;
+
+    /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->forbidden = false;
+    }
+
+    /**
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Entity\Base\Artist object.
+     * @see applyDefaults()
      */
     public function __construct()
     {
+        $this->applyDefaultValues();
     }
 
     /**
@@ -196,9 +229,9 @@ abstract class Today implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Today</code> instance.  If
-     * <code>obj</code> is an instance of <code>Today</code>, delegates to
-     * <code>equals(Today)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Artist</code> instance.  If
+     * <code>obj</code> is an instance of <code>Artist</code>, delegates to
+     * <code>equals(Artist)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -264,7 +297,7 @@ abstract class Today implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Today The current object, for fluid interface
+     * @return $this|Artist The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -318,6 +351,36 @@ abstract class Today implements ActiveRecordInterface
     }
 
     /**
+     * Get the [name] column value.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the [name_alternatives] column value.
+     *
+     * @return string
+     */
+    public function getNameAlternatives()
+    {
+        return $this->name_alternatives;
+    }
+
+    /**
+     * Get the [addedby] column value.
+     *
+     * @return int
+     */
+    public function getAddedby()
+    {
+        return $this->addedby;
+    }
+
+    /**
      * Get the [id] column value.
      *
      * @return int
@@ -328,50 +391,100 @@ abstract class Today implements ActiveRecordInterface
     }
 
     /**
-     * Get the [optionally formatted] temporal [date] column value.
-     *
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getDate($format = NULL)
-    {
-        if ($format === null) {
-            return $this->date;
-        } else {
-            return $this->date instanceof \DateTime ? $this->date->format($format) : null;
-        }
-    }
-
-    /**
-     * Get the [artist_id] column value.
+     * Get the [redirect_to_artist_id] column value.
      *
      * @return int
      */
-    public function getArtistId()
+    public function getRedirectToArtistId()
     {
-        return $this->artist_id;
+        return $this->redirect_to_artist_id;
     }
 
     /**
-     * Get the [text] column value.
+     * Get the [forbidden] column value.
      *
-     * @return string
+     * @return boolean
      */
-    public function getText()
+    public function getForbidden()
     {
-        return $this->text;
+        return $this->forbidden;
     }
+
+    /**
+     * Get the [forbidden] column value.
+     *
+     * @return boolean
+     */
+    public function isForbidden()
+    {
+        return $this->getForbidden();
+    }
+
+    /**
+     * Set the value of [name] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function setName($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->name !== $v) {
+            $this->name = $v;
+            $this->modifiedColumns[ArtistTableMap::COL_NAME] = true;
+        }
+
+        return $this;
+    } // setName()
+
+    /**
+     * Set the value of [name_alternatives] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function setNameAlternatives($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->name_alternatives !== $v) {
+            $this->name_alternatives = $v;
+            $this->modifiedColumns[ArtistTableMap::COL_NAME_ALTERNATIVES] = true;
+        }
+
+        return $this;
+    } // setNameAlternatives()
+
+    /**
+     * Set the value of [addedby] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function setAddedby($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->addedby !== $v) {
+            $this->addedby = $v;
+            $this->modifiedColumns[ArtistTableMap::COL_ADDEDBY] = true;
+        }
+
+        return $this;
+    } // setAddedby()
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -381,75 +494,59 @@ abstract class Today implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[TodayTableMap::COL_ID] = true;
+            $this->modifiedColumns[ArtistTableMap::COL_ID] = true;
         }
 
         return $this;
     } // setId()
 
     /**
-     * Sets the value of [date] column to a normalized version of the date/time value specified.
-     *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object (for fluent API support)
-     */
-    public function setDate($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->date !== null || $dt !== null) {
-            if ($this->date === null || $dt === null || $dt->format("Y-m-d") !== $this->date->format("Y-m-d")) {
-                $this->date = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TodayTableMap::COL_DATE] = true;
-            }
-        } // if either are not null
-
-        return $this;
-    } // setDate()
-
-    /**
-     * Set the value of [artist_id] column.
+     * Set the value of [redirect_to_artist_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
      */
-    public function setArtistId($v)
+    public function setRedirectToArtistId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->artist_id !== $v) {
-            $this->artist_id = $v;
-            $this->modifiedColumns[TodayTableMap::COL_ARTIST_ID] = true;
-        }
-
-        if ($this->aArtist !== null && $this->aArtist->getId() !== $v) {
-            $this->aArtist = null;
+        if ($this->redirect_to_artist_id !== $v) {
+            $this->redirect_to_artist_id = $v;
+            $this->modifiedColumns[ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID] = true;
         }
 
         return $this;
-    } // setArtistId()
+    } // setRedirectToArtistId()
 
     /**
-     * Set the value of [text] column.
+     * Sets the value of the [forbidden] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
-     * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object (for fluent API support)
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
      */
-    public function setText($v)
+    public function setForbidden($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
         }
 
-        if ($this->text !== $v) {
-            $this->text = $v;
-            $this->modifiedColumns[TodayTableMap::COL_TEXT] = true;
+        if ($this->forbidden !== $v) {
+            $this->forbidden = $v;
+            $this->modifiedColumns[ArtistTableMap::COL_FORBIDDEN] = true;
         }
 
         return $this;
-    } // setText()
+    } // setForbidden()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -461,6 +558,10 @@ abstract class Today implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->forbidden !== false) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -487,20 +588,23 @@ abstract class Today implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : TodayTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : ArtistTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->name = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : ArtistTableMap::translateFieldName('NameAlternatives', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->name_alternatives = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : ArtistTableMap::translateFieldName('Addedby', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->addedby = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : ArtistTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TodayTableMap::translateFieldName('Date', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00') {
-                $col = null;
-            }
-            $this->date = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : ArtistTableMap::translateFieldName('RedirectToArtistId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->redirect_to_artist_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TodayTableMap::translateFieldName('ArtistId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->artist_id = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TodayTableMap::translateFieldName('Text', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->text = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : ArtistTableMap::translateFieldName('Forbidden', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->forbidden = (null !== $col) ? (boolean) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -509,10 +613,10 @@ abstract class Today implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = TodayTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = ArtistTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Today'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist'), 0, $e);
         }
     }
 
@@ -531,9 +635,6 @@ abstract class Today implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aArtist !== null && $this->artist_id !== $this->aArtist->getId()) {
-            $this->aArtist = null;
-        }
     } // ensureConsistency
 
     /**
@@ -557,13 +658,13 @@ abstract class Today implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(TodayTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildTodayQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildArtistQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -573,7 +674,8 @@ abstract class Today implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aArtist = null;
+            $this->collTodays = null;
+
         } // if (deep)
     }
 
@@ -583,8 +685,8 @@ abstract class Today implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Today::setDeleted()
-     * @see Today::isDeleted()
+     * @see Artist::setDeleted()
+     * @see Artist::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -593,11 +695,11 @@ abstract class Today implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TodayTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildTodayQuery::create()
+            $deleteQuery = ChildArtistQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -628,7 +730,7 @@ abstract class Today implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TodayTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -647,7 +749,7 @@ abstract class Today implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                TodayTableMap::addInstanceToPool($this);
+                ArtistTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -673,18 +775,6 @@ abstract class Today implements ActiveRecordInterface
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
-            // We call the save method on the following object(s) if they
-            // were passed to this object by their corresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aArtist !== null) {
-                if ($this->aArtist->isModified() || $this->aArtist->isNew()) {
-                    $affectedRows += $this->aArtist->save($con);
-                }
-                $this->setArtist($this->aArtist);
-            }
-
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -694,6 +784,24 @@ abstract class Today implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
+            }
+
+            if ($this->todaysScheduledForDeletion !== null) {
+                if (!$this->todaysScheduledForDeletion->isEmpty()) {
+                    foreach ($this->todaysScheduledForDeletion as $today) {
+                        // need to save related object because we set the relation to null
+                        $today->save($con);
+                    }
+                    $this->todaysScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collTodays !== null) {
+                foreach ($this->collTodays as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             $this->alreadyInSave = false;
@@ -716,27 +824,33 @@ abstract class Today implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[TodayTableMap::COL_ID] = true;
+        $this->modifiedColumns[ArtistTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TodayTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ArtistTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(TodayTableMap::COL_ID)) {
+        if ($this->isColumnModified(ArtistTableMap::COL_NAME)) {
+            $modifiedColumns[':p' . $index++]  = 'name';
+        }
+        if ($this->isColumnModified(ArtistTableMap::COL_NAME_ALTERNATIVES)) {
+            $modifiedColumns[':p' . $index++]  = 'name_alternatives';
+        }
+        if ($this->isColumnModified(ArtistTableMap::COL_ADDEDBY)) {
+            $modifiedColumns[':p' . $index++]  = 'addedby';
+        }
+        if ($this->isColumnModified(ArtistTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(TodayTableMap::COL_DATE)) {
-            $modifiedColumns[':p' . $index++]  = 'date';
+        if ($this->isColumnModified(ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'redirect_to_artist_id';
         }
-        if ($this->isColumnModified(TodayTableMap::COL_ARTIST_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'artist_id';
-        }
-        if ($this->isColumnModified(TodayTableMap::COL_TEXT)) {
-            $modifiedColumns[':p' . $index++]  = 'text';
+        if ($this->isColumnModified(ArtistTableMap::COL_FORBIDDEN)) {
+            $modifiedColumns[':p' . $index++]  = 'forbidden';
         }
 
         $sql = sprintf(
-            'INSERT INTO today (%s) VALUES (%s)',
+            'INSERT INTO artists (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -745,17 +859,23 @@ abstract class Today implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
+                    case 'name':
+                        $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+                        break;
+                    case 'name_alternatives':
+                        $stmt->bindValue($identifier, $this->name_alternatives, PDO::PARAM_STR);
+                        break;
+                    case 'addedby':
+                        $stmt->bindValue($identifier, $this->addedby, PDO::PARAM_INT);
+                        break;
                     case 'id':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'date':
-                        $stmt->bindValue($identifier, $this->date ? $this->date->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                    case 'redirect_to_artist_id':
+                        $stmt->bindValue($identifier, $this->redirect_to_artist_id, PDO::PARAM_INT);
                         break;
-                    case 'artist_id':
-                        $stmt->bindValue($identifier, $this->artist_id, PDO::PARAM_INT);
-                        break;
-                    case 'text':
-                        $stmt->bindValue($identifier, $this->text, PDO::PARAM_STR);
+                    case 'forbidden':
+                        $stmt->bindValue($identifier, (int) $this->forbidden, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -803,7 +923,7 @@ abstract class Today implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = TodayTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = ArtistTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -820,16 +940,22 @@ abstract class Today implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                return $this->getId();
+                return $this->getName();
                 break;
             case 1:
-                return $this->getDate();
+                return $this->getNameAlternatives();
                 break;
             case 2:
-                return $this->getArtistId();
+                return $this->getAddedby();
                 break;
             case 3:
-                return $this->getText();
+                return $this->getId();
+                break;
+            case 4:
+                return $this->getRedirectToArtistId();
+                break;
+            case 5:
+                return $this->getForbidden();
                 break;
             default:
                 return null;
@@ -855,45 +981,39 @@ abstract class Today implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
-        if (isset($alreadyDumpedObjects['Today'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Artist'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Today'][$this->hashCode()] = true;
-        $keys = TodayTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Artist'][$this->hashCode()] = true;
+        $keys = ArtistTableMap::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getId(),
-            $keys[1] => $this->getDate(),
-            $keys[2] => $this->getArtistId(),
-            $keys[3] => $this->getText(),
+            $keys[0] => $this->getName(),
+            $keys[1] => $this->getNameAlternatives(),
+            $keys[2] => $this->getAddedby(),
+            $keys[3] => $this->getId(),
+            $keys[4] => $this->getRedirectToArtistId(),
+            $keys[5] => $this->getForbidden(),
         );
-
-        $utc = new \DateTimeZone('utc');
-        if ($result[$keys[1]] instanceof \DateTime) {
-            // When changing timezone we don't want to change existing instances
-            $dateTime = clone $result[$keys[1]];
-            $result[$keys[1]] = $dateTime->setTimezone($utc)->format('Y-m-d\TH:i:s\Z');
-        }
-
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aArtist) {
+            if (null !== $this->collTodays) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'artist';
+                        $key = 'todays';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'artists';
+                        $key = 'todays';
                         break;
                     default:
-                        $key = 'Artist';
+                        $key = 'Todays';
                 }
 
-                $result[$key] = $this->aArtist->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->collTodays->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -909,11 +1029,11 @@ abstract class Today implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = TodayTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = ArtistTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -924,22 +1044,28 @@ abstract class Today implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist
      */
     public function setByPosition($pos, $value)
     {
         switch ($pos) {
             case 0:
-                $this->setId($value);
+                $this->setName($value);
                 break;
             case 1:
-                $this->setDate($value);
+                $this->setNameAlternatives($value);
                 break;
             case 2:
-                $this->setArtistId($value);
+                $this->setAddedby($value);
                 break;
             case 3:
-                $this->setText($value);
+                $this->setId($value);
+                break;
+            case 4:
+                $this->setRedirectToArtistId($value);
+                break;
+            case 5:
+                $this->setForbidden($value);
                 break;
         } // switch()
 
@@ -965,19 +1091,25 @@ abstract class Today implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = TodayTableMap::getFieldNames($keyType);
+        $keys = ArtistTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
-            $this->setId($arr[$keys[0]]);
+            $this->setName($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setDate($arr[$keys[1]]);
+            $this->setNameAlternatives($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setArtistId($arr[$keys[2]]);
+            $this->setAddedby($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setText($arr[$keys[3]]);
+            $this->setId($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setRedirectToArtistId($arr[$keys[4]]);
+        }
+        if (array_key_exists($keys[5], $arr)) {
+            $this->setForbidden($arr[$keys[5]]);
         }
     }
 
@@ -998,7 +1130,7 @@ abstract class Today implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1018,19 +1150,25 @@ abstract class Today implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(TodayTableMap::DATABASE_NAME);
+        $criteria = new Criteria(ArtistTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(TodayTableMap::COL_ID)) {
-            $criteria->add(TodayTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(ArtistTableMap::COL_NAME)) {
+            $criteria->add(ArtistTableMap::COL_NAME, $this->name);
         }
-        if ($this->isColumnModified(TodayTableMap::COL_DATE)) {
-            $criteria->add(TodayTableMap::COL_DATE, $this->date);
+        if ($this->isColumnModified(ArtistTableMap::COL_NAME_ALTERNATIVES)) {
+            $criteria->add(ArtistTableMap::COL_NAME_ALTERNATIVES, $this->name_alternatives);
         }
-        if ($this->isColumnModified(TodayTableMap::COL_ARTIST_ID)) {
-            $criteria->add(TodayTableMap::COL_ARTIST_ID, $this->artist_id);
+        if ($this->isColumnModified(ArtistTableMap::COL_ADDEDBY)) {
+            $criteria->add(ArtistTableMap::COL_ADDEDBY, $this->addedby);
         }
-        if ($this->isColumnModified(TodayTableMap::COL_TEXT)) {
-            $criteria->add(TodayTableMap::COL_TEXT, $this->text);
+        if ($this->isColumnModified(ArtistTableMap::COL_ID)) {
+            $criteria->add(ArtistTableMap::COL_ID, $this->id);
+        }
+        if ($this->isColumnModified(ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID)) {
+            $criteria->add(ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID, $this->redirect_to_artist_id);
+        }
+        if ($this->isColumnModified(ArtistTableMap::COL_FORBIDDEN)) {
+            $criteria->add(ArtistTableMap::COL_FORBIDDEN, $this->forbidden);
         }
 
         return $criteria;
@@ -1048,8 +1186,8 @@ abstract class Today implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildTodayQuery::create();
-        $criteria->add(TodayTableMap::COL_ID, $this->id);
+        $criteria = ChildArtistQuery::create();
+        $criteria->add(ArtistTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1111,16 +1249,32 @@ abstract class Today implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Entity\Today (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Entity\Artist (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setDate($this->getDate());
-        $copyObj->setArtistId($this->getArtistId());
-        $copyObj->setText($this->getText());
+        $copyObj->setName($this->getName());
+        $copyObj->setNameAlternatives($this->getNameAlternatives());
+        $copyObj->setAddedby($this->getAddedby());
+        $copyObj->setRedirectToArtistId($this->getRedirectToArtistId());
+        $copyObj->setForbidden($this->getForbidden());
+
+        if ($deepCopy) {
+            // important: temporarily setNew(false) because this affects the behavior of
+            // the getter/setter methods for fkey referrer objects.
+            $copyObj->setNew(false);
+
+            foreach ($this->getTodays() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addToday($relObj->copy($deepCopy));
+                }
+            }
+
+        } // if ($deepCopy)
+
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1136,7 +1290,7 @@ abstract class Today implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\Entity\Today Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Entity\Artist Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1149,55 +1303,238 @@ abstract class Today implements ActiveRecordInterface
         return $copyObj;
     }
 
+
     /**
-     * Declares an association between this object and a ChildArtist object.
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
      *
-     * @param  ChildArtist $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Today The current object (for fluent API support)
+     * @param      string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName)
+    {
+        if ('Today' == $relationName) {
+            return $this->initTodays();
+        }
+    }
+
+    /**
+     * Clears out the collTodays collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addTodays()
+     */
+    public function clearTodays()
+    {
+        $this->collTodays = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collTodays collection loaded partially.
+     */
+    public function resetPartialTodays($v = true)
+    {
+        $this->collTodaysPartial = $v;
+    }
+
+    /**
+     * Initializes the collTodays collection.
+     *
+     * By default this just sets the collTodays collection to an empty array (like clearcollTodays());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initTodays($overrideExisting = true)
+    {
+        if (null !== $this->collTodays && !$overrideExisting) {
+            return;
+        }
+        $this->collTodays = new ObjectCollection();
+        $this->collTodays->setModel('\Tekstove\TekstoveBundle\Model\Entity\Today');
+    }
+
+    /**
+     * Gets an array of ChildToday objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildToday[] List of ChildToday objects
      * @throws PropelException
      */
-    public function setArtist(ChildArtist $v = null)
+    public function getTodays(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        if ($v === null) {
-            $this->setArtistId(NULL);
-        } else {
-            $this->setArtistId($v->getId());
+        $partial = $this->collTodaysPartial && !$this->isNew();
+        if (null === $this->collTodays || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collTodays) {
+                // return empty collection
+                $this->initTodays();
+            } else {
+                $collTodays = ChildTodayQuery::create(null, $criteria)
+                    ->filterByArtist($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collTodaysPartial && count($collTodays)) {
+                        $this->initTodays(false);
+
+                        foreach ($collTodays as $obj) {
+                            if (false == $this->collTodays->contains($obj)) {
+                                $this->collTodays->append($obj);
+                            }
+                        }
+
+                        $this->collTodaysPartial = true;
+                    }
+
+                    return $collTodays;
+                }
+
+                if ($partial && $this->collTodays) {
+                    foreach ($this->collTodays as $obj) {
+                        if ($obj->isNew()) {
+                            $collTodays[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collTodays = $collTodays;
+                $this->collTodaysPartial = false;
+            }
         }
 
-        $this->aArtist = $v;
+        return $this->collTodays;
+    }
 
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildArtist object, it will not be re-added.
-        if ($v !== null) {
-            $v->addToday($this);
+    /**
+     * Sets a collection of ChildToday objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $todays A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setTodays(Collection $todays, ConnectionInterface $con = null)
+    {
+        /** @var ChildToday[] $todaysToDelete */
+        $todaysToDelete = $this->getTodays(new Criteria(), $con)->diff($todays);
+
+
+        $this->todaysScheduledForDeletion = $todaysToDelete;
+
+        foreach ($todaysToDelete as $todayRemoved) {
+            $todayRemoved->setArtist(null);
         }
 
+        $this->collTodays = null;
+        foreach ($todays as $today) {
+            $this->addToday($today);
+        }
+
+        $this->collTodays = $todays;
+        $this->collTodaysPartial = false;
 
         return $this;
     }
 
-
     /**
-     * Get the associated ChildArtist object
+     * Returns the number of related Today objects.
      *
-     * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildArtist The associated ChildArtist object.
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Today objects.
      * @throws PropelException
      */
-    public function getArtist(ConnectionInterface $con = null)
+    public function countTodays(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        if ($this->aArtist === null && ($this->artist_id !== null)) {
-            $this->aArtist = ChildArtistQuery::create()->findPk($this->artist_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aArtist->addTodays($this);
-             */
+        $partial = $this->collTodaysPartial && !$this->isNew();
+        if (null === $this->collTodays || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collTodays) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getTodays());
+            }
+
+            $query = ChildTodayQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtist($this)
+                ->count($con);
         }
 
-        return $this->aArtist;
+        return count($this->collTodays);
+    }
+
+    /**
+     * Method called to associate a ChildToday object to this object
+     * through the ChildToday foreign key attribute.
+     *
+     * @param  ChildToday $l ChildToday
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addToday(ChildToday $l)
+    {
+        if ($this->collTodays === null) {
+            $this->initTodays();
+            $this->collTodaysPartial = true;
+        }
+
+        if (!$this->collTodays->contains($l)) {
+            $this->doAddToday($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildToday $today The ChildToday object to add.
+     */
+    protected function doAddToday(ChildToday $today)
+    {
+        $this->collTodays[]= $today;
+        $today->setArtist($this);
+    }
+
+    /**
+     * @param  ChildToday $today The ChildToday object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeToday(ChildToday $today)
+    {
+        if ($this->getTodays()->contains($today)) {
+            $pos = $this->collTodays->search($today);
+            $this->collTodays->remove($pos);
+            if (null === $this->todaysScheduledForDeletion) {
+                $this->todaysScheduledForDeletion = clone $this->collTodays;
+                $this->todaysScheduledForDeletion->clear();
+            }
+            $this->todaysScheduledForDeletion[]= $today;
+            $today->setArtist(null);
+        }
+
+        return $this;
     }
 
     /**
@@ -1207,15 +1544,15 @@ abstract class Today implements ActiveRecordInterface
      */
     public function clear()
     {
-        if (null !== $this->aArtist) {
-            $this->aArtist->removeToday($this);
-        }
+        $this->name = null;
+        $this->name_alternatives = null;
+        $this->addedby = null;
         $this->id = null;
-        $this->date = null;
-        $this->artist_id = null;
-        $this->text = null;
+        $this->redirect_to_artist_id = null;
+        $this->forbidden = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);
@@ -1232,9 +1569,14 @@ abstract class Today implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collTodays) {
+                foreach ($this->collTodays as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
-        $this->aArtist = null;
+        $this->collTodays = null;
     }
 
     /**
@@ -1244,7 +1586,7 @@ abstract class Today implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TodayTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ArtistTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

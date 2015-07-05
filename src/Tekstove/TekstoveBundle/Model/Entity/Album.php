@@ -22,7 +22,7 @@ class Album extends BaseAlbum
             return null;
         }
         
-        $artistManager = new ArtistsQuery();
+        $artistManager = new ArtistQuery();
         $artist = $artistManager->findOneById($this->artist1id);
         
         return $artist;

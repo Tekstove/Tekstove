@@ -91,7 +91,7 @@
       <parameter name="Engine" value="MyISAM"/>
     </vendor>
   </table>
-  <table name="artists" idMethod="native" phpName="Artists">
+  <table name="artists" idMethod="native" phpName="Artist">
     <column name="name" phpName="Name" type="VARCHAR" size="100" required="true"/>
     <column name="name_alternatives" phpName="NameAlternatives" type="VARCHAR" size="255" required="true"/>
     <column name="addedby" phpName="Addedby" type="INTEGER" sqlType="int(11) unsigned" required="true"/>

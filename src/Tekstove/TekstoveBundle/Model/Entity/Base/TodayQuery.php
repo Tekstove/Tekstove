@@ -34,11 +34,11 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\TodayTableMap;
  * @method     ChildTodayQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildTodayQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildTodayQuery leftJoinArtists($relationAlias = null) Adds a LEFT JOIN clause to the query using the Artists relation
- * @method     ChildTodayQuery rightJoinArtists($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Artists relation
- * @method     ChildTodayQuery innerJoinArtists($relationAlias = null) Adds a INNER JOIN clause to the query using the Artists relation
+ * @method     ChildTodayQuery leftJoinArtist($relationAlias = null) Adds a LEFT JOIN clause to the query using the Artist relation
+ * @method     ChildTodayQuery rightJoinArtist($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Artist relation
+ * @method     ChildTodayQuery innerJoinArtist($relationAlias = null) Adds a INNER JOIN clause to the query using the Artist relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\ArtistsQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\ArtistQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildToday findOne(ConnectionInterface $con = null) Return the first ChildToday matching the query
  * @method     ChildToday findOneOrCreate(ConnectionInterface $con = null) Return the first ChildToday matching the query, or a new ChildToday object populated from the query conditions when no match is found
@@ -337,7 +337,7 @@ abstract class TodayQuery extends ModelCriteria
      * $query->filterByArtistId(array('min' => 12)); // WHERE artist_id > 12
      * </code>
      *
-     * @see       filterByArtists()
+     * @see       filterByArtist()
      *
      * @param     mixed $artistId The value to use as filter.
      *              Use scalar values for equality.
@@ -400,44 +400,44 @@ abstract class TodayQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Artists object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Artist object
      *
-     * @param \Tekstove\TekstoveBundle\Model\Entity\Artists|ObjectCollection $artists The related object(s) to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Artist|ObjectCollection $artist The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return ChildTodayQuery The current query, for fluid interface
      */
-    public function filterByArtists($artists, $comparison = null)
+    public function filterByArtist($artist, $comparison = null)
     {
-        if ($artists instanceof \Tekstove\TekstoveBundle\Model\Entity\Artists) {
+        if ($artist instanceof \Tekstove\TekstoveBundle\Model\Entity\Artist) {
             return $this
-                ->addUsingAlias(TodayTableMap::COL_ARTIST_ID, $artists->getId(), $comparison);
-        } elseif ($artists instanceof ObjectCollection) {
+                ->addUsingAlias(TodayTableMap::COL_ARTIST_ID, $artist->getId(), $comparison);
+        } elseif ($artist instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(TodayTableMap::COL_ARTIST_ID, $artists->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(TodayTableMap::COL_ARTIST_ID, $artist->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByArtists() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Artists or Collection');
+            throw new PropelException('filterByArtist() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Artist or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Artists relation
+     * Adds a JOIN clause to the query using the Artist relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildTodayQuery The current query, for fluid interface
      */
-    public function joinArtists($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinArtist($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Artists');
+        $relationMap = $tableMap->getRelation('Artist');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -452,14 +452,14 @@ abstract class TodayQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Artists');
+            $this->addJoinObject($join, 'Artist');
         }
 
         return $this;
     }
 
     /**
-     * Use the Artists relation Artists object
+     * Use the Artist relation Artist object
      *
      * @see useQuery()
      *
@@ -467,13 +467,13 @@ abstract class TodayQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\Entity\ArtistsQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Entity\ArtistQuery A secondary query class using the current class as primary query
      */
-    public function useArtistsQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function useArtistQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinArtists($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Artists', '\Tekstove\TekstoveBundle\Model\Entity\ArtistsQuery');
+            ->joinArtist($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Artist', '\Tekstove\TekstoveBundle\Model\Entity\ArtistQuery');
     }
 
     /**

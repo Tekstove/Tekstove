@@ -11,12 +11,12 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
-use Tekstove\TekstoveBundle\Model\Entity\Today;
-use Tekstove\TekstoveBundle\Model\Entity\TodayQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Artist;
+use Tekstove\TekstoveBundle\Model\Entity\ArtistQuery;
 
 
 /**
- * This class defines the structure of the 'today' table.
+ * This class defines the structure of the 'artists' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Tekstove\TekstoveBundle\Model\Entity\TodayQuery;
  * (i.e. if it's a text column type).
  *
  */
-class TodayTableMap extends TableMap
+class ArtistTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class TodayTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.TodayTableMap';
+    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ArtistTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +44,22 @@ class TodayTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'today';
+    const TABLE_NAME = 'artists';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Today';
+    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Today';
+    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Artist';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 4;
+    const NUM_COLUMNS = 6;
 
     /**
      * The number of lazy-loaded columns
@@ -69,27 +69,37 @@ class TodayTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 4;
+    const NUM_HYDRATE_COLUMNS = 6;
+
+    /**
+     * the column name for the name field
+     */
+    const COL_NAME = 'artists.name';
+
+    /**
+     * the column name for the name_alternatives field
+     */
+    const COL_NAME_ALTERNATIVES = 'artists.name_alternatives';
+
+    /**
+     * the column name for the addedby field
+     */
+    const COL_ADDEDBY = 'artists.addedby';
 
     /**
      * the column name for the id field
      */
-    const COL_ID = 'today.id';
+    const COL_ID = 'artists.id';
 
     /**
-     * the column name for the date field
+     * the column name for the redirect_to_artist_id field
      */
-    const COL_DATE = 'today.date';
+    const COL_REDIRECT_TO_ARTIST_ID = 'artists.redirect_to_artist_id';
 
     /**
-     * the column name for the artist_id field
+     * the column name for the forbidden field
      */
-    const COL_ARTIST_ID = 'today.artist_id';
-
-    /**
-     * the column name for the text field
-     */
-    const COL_TEXT = 'today.text';
+    const COL_FORBIDDEN = 'artists.forbidden';
 
     /**
      * The default string format for model objects of the related table
@@ -103,11 +113,11 @@ class TodayTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Date', 'ArtistId', 'Text', ),
-        self::TYPE_CAMELNAME     => array('id', 'date', 'artistId', 'text', ),
-        self::TYPE_COLNAME       => array(TodayTableMap::COL_ID, TodayTableMap::COL_DATE, TodayTableMap::COL_ARTIST_ID, TodayTableMap::COL_TEXT, ),
-        self::TYPE_FIELDNAME     => array('id', 'date', 'artist_id', 'text', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
+        self::TYPE_PHPNAME       => array('Name', 'NameAlternatives', 'Addedby', 'Id', 'RedirectToArtistId', 'Forbidden', ),
+        self::TYPE_CAMELNAME     => array('name', 'nameAlternatives', 'addedby', 'id', 'redirectToArtistId', 'forbidden', ),
+        self::TYPE_COLNAME       => array(ArtistTableMap::COL_NAME, ArtistTableMap::COL_NAME_ALTERNATIVES, ArtistTableMap::COL_ADDEDBY, ArtistTableMap::COL_ID, ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID, ArtistTableMap::COL_FORBIDDEN, ),
+        self::TYPE_FIELDNAME     => array('name', 'name_alternatives', 'addedby', 'id', 'redirect_to_artist_id', 'forbidden', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -117,11 +127,11 @@ class TodayTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Date' => 1, 'ArtistId' => 2, 'Text' => 3, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'date' => 1, 'artistId' => 2, 'text' => 3, ),
-        self::TYPE_COLNAME       => array(TodayTableMap::COL_ID => 0, TodayTableMap::COL_DATE => 1, TodayTableMap::COL_ARTIST_ID => 2, TodayTableMap::COL_TEXT => 3, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'date' => 1, 'artist_id' => 2, 'text' => 3, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
+        self::TYPE_PHPNAME       => array('Name' => 0, 'NameAlternatives' => 1, 'Addedby' => 2, 'Id' => 3, 'RedirectToArtistId' => 4, 'Forbidden' => 5, ),
+        self::TYPE_CAMELNAME     => array('name' => 0, 'nameAlternatives' => 1, 'addedby' => 2, 'id' => 3, 'redirectToArtistId' => 4, 'forbidden' => 5, ),
+        self::TYPE_COLNAME       => array(ArtistTableMap::COL_NAME => 0, ArtistTableMap::COL_NAME_ALTERNATIVES => 1, ArtistTableMap::COL_ADDEDBY => 2, ArtistTableMap::COL_ID => 3, ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID => 4, ArtistTableMap::COL_FORBIDDEN => 5, ),
+        self::TYPE_FIELDNAME     => array('name' => 0, 'name_alternatives' => 1, 'addedby' => 2, 'id' => 3, 'redirect_to_artist_id' => 4, 'forbidden' => 5, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -134,17 +144,19 @@ class TodayTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('today');
-        $this->setPhpName('Today');
+        $this->setName('artists');
+        $this->setPhpName('Artist');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Today');
+        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist');
         $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, 10, null);
-        $this->addColumn('date', 'Date', 'DATE', true, null, null);
-        $this->addForeignKey('artist_id', 'ArtistId', 'INTEGER', 'artists', 'id', false, null, null);
-        $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);
+        $this->addColumn('name', 'Name', 'VARCHAR', true, 100, null);
+        $this->addColumn('name_alternatives', 'NameAlternatives', 'VARCHAR', true, 255, null);
+        $this->addColumn('addedby', 'Addedby', 'INTEGER', true, null, null);
+        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addColumn('redirect_to_artist_id', 'RedirectToArtistId', 'INTEGER', false, null, null);
+        $this->addColumn('forbidden', 'Forbidden', 'BOOLEAN', true, 1, false);
     } // initialize()
 
     /**
@@ -152,13 +164,13 @@ class TodayTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Artist', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+        $this->addRelation('Today', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Today', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':artist_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), null, null, 'Todays', false);
     } // buildRelations()
 
     /**
@@ -177,11 +189,11 @@ class TodayTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 3 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
             return null;
         }
 
-        return (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+        return (string) $row[TableMap::TYPE_NUM == $indexType ? 3 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -200,7 +212,7 @@ class TodayTableMap extends TableMap
     {
         return (int) $row[
             $indexType == TableMap::TYPE_NUM
-                ? 0 + $offset
+                ? 3 + $offset
                 : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
         ];
     }
@@ -218,7 +230,7 @@ class TodayTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? TodayTableMap::CLASS_DEFAULT : TodayTableMap::OM_CLASS;
+        return $withPrefix ? ArtistTableMap::CLASS_DEFAULT : ArtistTableMap::OM_CLASS;
     }
 
     /**
@@ -232,22 +244,22 @@ class TodayTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Today object, last column rank)
+     * @return array           (Artist object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = TodayTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = TodayTableMap::getInstanceFromPool($key))) {
+        $key = ArtistTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = ArtistTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + TodayTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + ArtistTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = TodayTableMap::OM_CLASS;
-            /** @var Today $obj */
+            $cls = ArtistTableMap::OM_CLASS;
+            /** @var Artist $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            TodayTableMap::addInstanceToPool($obj, $key);
+            ArtistTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -270,18 +282,18 @@ class TodayTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = TodayTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = TodayTableMap::getInstanceFromPool($key))) {
+            $key = ArtistTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = ArtistTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Today $obj */
+                /** @var Artist $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                TodayTableMap::addInstanceToPool($obj, $key);
+                ArtistTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -302,15 +314,19 @@ class TodayTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(TodayTableMap::COL_ID);
-            $criteria->addSelectColumn(TodayTableMap::COL_DATE);
-            $criteria->addSelectColumn(TodayTableMap::COL_ARTIST_ID);
-            $criteria->addSelectColumn(TodayTableMap::COL_TEXT);
+            $criteria->addSelectColumn(ArtistTableMap::COL_NAME);
+            $criteria->addSelectColumn(ArtistTableMap::COL_NAME_ALTERNATIVES);
+            $criteria->addSelectColumn(ArtistTableMap::COL_ADDEDBY);
+            $criteria->addSelectColumn(ArtistTableMap::COL_ID);
+            $criteria->addSelectColumn(ArtistTableMap::COL_REDIRECT_TO_ARTIST_ID);
+            $criteria->addSelectColumn(ArtistTableMap::COL_FORBIDDEN);
         } else {
+            $criteria->addSelectColumn($alias . '.name');
+            $criteria->addSelectColumn($alias . '.name_alternatives');
+            $criteria->addSelectColumn($alias . '.addedby');
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.date');
-            $criteria->addSelectColumn($alias . '.artist_id');
-            $criteria->addSelectColumn($alias . '.text');
+            $criteria->addSelectColumn($alias . '.redirect_to_artist_id');
+            $criteria->addSelectColumn($alias . '.forbidden');
         }
     }
 
@@ -323,7 +339,7 @@ class TodayTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(TodayTableMap::DATABASE_NAME)->getTable(TodayTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(ArtistTableMap::DATABASE_NAME)->getTable(ArtistTableMap::TABLE_NAME);
     }
 
     /**
@@ -331,16 +347,16 @@ class TodayTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(TodayTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(TodayTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new TodayTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(ArtistTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(ArtistTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new ArtistTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Today or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Artist or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Today object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Artist object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -351,27 +367,27 @@ class TodayTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TodayTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Entity\Today) { // it's a model object
+        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Entity\Artist) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(TodayTableMap::DATABASE_NAME);
-            $criteria->add(TodayTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(ArtistTableMap::DATABASE_NAME);
+            $criteria->add(ArtistTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = TodayQuery::create()->mergeWith($criteria);
+        $query = ArtistQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            TodayTableMap::clearInstancePool();
+            ArtistTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                TodayTableMap::removeInstanceFromPool($singleval);
+                ArtistTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -379,20 +395,20 @@ class TodayTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the today table.
+     * Deletes all rows from the artists table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return TodayQuery::create()->doDeleteAll($con);
+        return ArtistQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Today or Criteria object.
+     * Performs an INSERT on the database, given a Artist or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Today object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Artist object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -401,22 +417,22 @@ class TodayTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TodayTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Today object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Artist object
         }
 
-        if ($criteria->containsKey(TodayTableMap::COL_ID) && $criteria->keyContainsValue(TodayTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TodayTableMap::COL_ID.')');
+        if ($criteria->containsKey(ArtistTableMap::COL_ID) && $criteria->keyContainsValue(ArtistTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ArtistTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = TodayQuery::create()->mergeWith($criteria);
+        $query = ArtistQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -425,7 +441,7 @@ class TodayTableMap extends TableMap
         });
     }
 
-} // TodayTableMap
+} // ArtistTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-TodayTableMap::buildTableMap();
+ArtistTableMap::buildTableMap();

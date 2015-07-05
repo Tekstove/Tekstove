@@ -2,10 +2,10 @@
 
 namespace Tekstove\TekstoveBundle\Model\Entity;
 
-use Tekstove\TekstoveBundle\Model\Entity\Base\ArtistsQuery as BaseArtistsQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Base\Artist as BaseArtist;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'artists' table.
+ * Skeleton subclass for representing a row from the 'artists' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\ArtistsQuery as BaseArtistsQuery;
  * long as it does not already exist in the output directory.
  *
  */
-class ArtistsQuery extends BaseArtistsQuery
+class Artist extends BaseArtist
 {
 
 }
