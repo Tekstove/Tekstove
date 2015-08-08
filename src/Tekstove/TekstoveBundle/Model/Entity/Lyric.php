@@ -16,10 +16,4 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\Lyric as BaseLyric;
  */
 class Lyric extends BaseLyric
 {
-    public function getArtist1() {
-        $id = parent::getArtist1();
-        $artistRepo = ArtistQuery::create();
-        $artist = $artistRepo->findOneById($id);
-        return $artist;
-    }
 }

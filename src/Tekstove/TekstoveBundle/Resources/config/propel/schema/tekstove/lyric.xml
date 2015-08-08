@@ -12,32 +12,104 @@
         
         <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
         <column name="text_bg" phpName="textBg" type="LONGVARCHAR"/>
-        <column name="artist1" phpName="Artist1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="artist2" phpName="Artist2" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="artist3" phpName="Artist3" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="artist4" phpName="Artist4" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="artist5" phpName="Artist5" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        
+        <column name="artist1" phpName="Artist1" type="INTEGER" sqlType="int(11) unsigned" required="false" />
+        <foreign-key foreignTable="artists">
+            <reference local="artist1" foreign="id" />
+        </foreign-key>
+        <index name="artist1">
+            <index-column name="artist1"/>
+        </index>
+        
+        <column name="artist2" phpName="Artist2" type="INTEGER" sqlType="int(11) unsigned" required="false" />
+        <foreign-key foreignTable="artists" name="lyric_artist2_fk">
+            <reference local="artist2" foreign="id" />
+        </foreign-key>
+        <index name="artist2">
+            <index-column name="artist2"/>
+        </index>
+        
+        <column name="artist3" phpName="Artist3" type="INTEGER" sqlType="int(11) unsigned" required="false" />
+        <foreign-key foreignTable="artists" name="lyric_artist3_fk">
+            <reference local="artist3" foreign="id" />
+        </foreign-key>
+        <index name="artist3">
+            <index-column name="artist3"/>
+        </index>
+        
+        <column name="artist4" phpName="Artist4" type="INTEGER" sqlType="int(11) unsigned" required="false" />
+        <foreign-key foreignTable="artists" name="lyric_artist4_fk">
+            <reference local="artist4" foreign="id" />
+        </foreign-key>
+        <index name="artist4">
+            <index-column name="artist4"/>
+        </index>
+        
+        <column name="artist5" phpName="Artist5" type="INTEGER" sqlType="int(11) unsigned" required="false" />
+        <foreign-key foreignTable="artists" name="lyric_artist5_fk">
+            <reference local="artist5" foreign="id" />
+        </foreign-key>
+        <index name="artist5">
+            <index-column name="artist5"/>
+        </index>
+        
         <column name="artist6" phpName="Artist6" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="artists" name="lyric_artist6_fk">
+            <reference local="artist6" foreign="id" />
+        </foreign-key>
+        <index name="artist6">
+            <index-column name="artist6"/>
+        </index>
+        
         <column name="title" phpName="Title" type="VARCHAR" size="60" required="true"/>
-        <column name="album1" phpName="Album1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="album2" phpName="Album2" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="video" phpName="Video" type="VARCHAR" size="100" required="true"/>
-        <column name="video_vbox7" phpName="VideoVbox7" type="VARCHAR" size="100" required="true"/>
-        <column name="video_vbox7_orig" phpName="VideoVbox7Orig" type="VARCHAR" size="100" required="true"/>
-        <column name="video_youtube" phpName="VideoYoutube" type="VARCHAR" size="100" required="true"/>
-        <column name="video_youtube_orig" phpName="VideoYoutubeOrig" type="VARCHAR" size="100" required="true"/>
-        <column name="video_metacafe" phpName="VideoMetacafe" type="VARCHAR" size="150" required="true"/>
-        <column name="video_metacafe_orig" phpName="VideoMetacafeOrig" type="VARCHAR" size="150" required="true"/>
+        
+        <column name="album1" phpName="Album1" type="INTEGER" sqlType="int(11) unsigned" required="false"/>
+        
+        <column name="album2" phpName="Album2" type="INTEGER" sqlType="int(11) unsigned" required="false"/>
+        
+        <column name="video" phpName="Video" type="VARCHAR" size="100" />
+        
+        <column name="video_vbox7" phpName="VideoVbox7" type="VARCHAR" size="100" />
+        
+        <column name="video_vbox7_orig" phpName="VideoVbox7Orig" type="VARCHAR" size="100" />
+        
+        <column name="video_youtube" phpName="VideoYoutube" type="VARCHAR" size="100" />
+        
+        <column name="video_youtube_orig" phpName="VideoYoutubeOrig" type="VARCHAR" size="100" />
+        
+        <column name="video_metacafe" phpName="VideoMetacafe" type="VARCHAR" size="150" />
+        
+        <column name="video_metacafe_orig" phpName="VideoMetacafeOrig" type="VARCHAR" size="150" />
+        
         <column name="download" phpName="Download" type="VARCHAR" size="255"/>
-        <column name="image" phpName="Image" type="VARCHAR" size="100" required="true"/>
+        
+        <column name="image" phpName="Image" type="VARCHAR" size="100" />
+        
         <column name="podnovena" phpName="Podnovena" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        
         <column name="ip_upload" phpName="IpUpload" type="VARCHAR" size="30" required="true"/>
-        <column name="dopylnitelnoinfo" phpName="Dopylnitelnoinfo" type="LONGVARCHAR" required="true"/>
+        
+        <column name="dopylnitelnoinfo" phpName="Dopylnitelnoinfo" type="LONGVARCHAR" />
+        
         <column name="glasa" phpName="cacheVotes" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <index name="glasa">
+            <index-column name="glasa"/>
+        </index>
+        
         <column name="views" phpName="Views" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <index name="lyric_views">
+            <index-column name="views"/>
+        </index>
+        
         <column name="popularity" phpName="Popularity" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <index name="lyric_popularity">
+            <index-column name="popularity"/>
+        </index>
+        
         <column name="stilraphiphop" phpName="Stilraphiphop" type="BOOLEAN" size="1" required="true"/>
+        
         <column name="stilhiphop" phpName="Stilhiphop" type="BOOLEAN" size="1" required="true"/>
+        
         <column name="stileastcoast" phpName="Stileastcoast" type="BOOLEAN" size="1" required="true"/>
         
         <column name="language" phpName="languageId" type="TINYINT" size="1" sqlType="tinyint(1) unsigned" required="false"/>
@@ -84,33 +156,7 @@
         <column name="stilblus" phpName="Stilblus" type="BOOLEAN" size="1" required="true"/>
         <column name="stilelectronica" phpName="Stilelectronica" type="BOOLEAN" size="1" required="true"/>
         <column name="stilska" phpName="Stilska" type="BOOLEAN" size="1" required="true"/>
-        <index name="artist">
-            <index-column name="artist1"/>
-        </index>
-        <index name="artist2">
-            <index-column name="artist2"/>
-        </index>
-        <index name="artist3">
-            <index-column name="artist3"/>
-        </index>
-        <index name="artist4">
-            <index-column name="artist4"/>
-        </index>
-        <index name="artist6">
-            <index-column name="artist6"/>
-        </index>
-        <index name="artist5">
-            <index-column name="artist5"/>
-        </index>
-        <index name="glasa">
-            <index-column name="glasa"/>
-        </index>
-        <index name="vidqna">
-            <index-column name="vidqna"/>
-        </index>
-        <index name="populqrnost">
-            <index-column name="populqrnost"/>
-        </index>
+        
         <vendor type="mysql">
             <parameter name="Engine" value="InnoDB"/>
         </vendor>

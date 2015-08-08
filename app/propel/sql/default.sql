@@ -597,27 +597,27 @@ CREATE TABLE `lyric`
     `uploaded_by` int(11) unsigned NOT NULL,
     `text` TEXT NOT NULL,
     `text_bg` TEXT,
-    `artist1` int(11) unsigned NOT NULL,
-    `artist2` int(11) unsigned NOT NULL,
-    `artist3` int(11) unsigned NOT NULL,
-    `artist4` int(11) unsigned NOT NULL,
-    `artist5` int(11) unsigned NOT NULL,
+    `artist1` int(11) unsigned,
+    `artist2` int(11) unsigned,
+    `artist3` int(11) unsigned,
+    `artist4` int(11) unsigned,
+    `artist5` int(11) unsigned,
     `artist6` int(11) unsigned NOT NULL,
     `title` VARCHAR(60) NOT NULL,
-    `album1` int(11) unsigned NOT NULL,
-    `album2` int(11) unsigned NOT NULL,
-    `video` VARCHAR(100) NOT NULL,
-    `video_vbox7` VARCHAR(100) NOT NULL,
-    `video_vbox7_orig` VARCHAR(100) NOT NULL,
-    `video_youtube` VARCHAR(100) NOT NULL,
-    `video_youtube_orig` VARCHAR(100) NOT NULL,
-    `video_metacafe` VARCHAR(150) NOT NULL,
-    `video_metacafe_orig` VARCHAR(150) NOT NULL,
+    `album1` int(11) unsigned,
+    `album2` int(11) unsigned,
+    `video` VARCHAR(100),
+    `video_vbox7` VARCHAR(100),
+    `video_vbox7_orig` VARCHAR(100),
+    `video_youtube` VARCHAR(100),
+    `video_youtube_orig` VARCHAR(100),
+    `video_metacafe` VARCHAR(150),
+    `video_metacafe_orig` VARCHAR(150),
     `download` VARCHAR(255),
-    `image` VARCHAR(100) NOT NULL,
+    `image` VARCHAR(100),
     `podnovena` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ip_upload` VARCHAR(30) NOT NULL,
-    `dopylnitelnoinfo` TEXT NOT NULL,
+    `dopylnitelnoinfo` TEXT,
     `glasa` int(11) unsigned NOT NULL,
     `views` int(11) unsigned NOT NULL,
     `popularity` int(11) unsigned NOT NULL,
@@ -665,20 +665,38 @@ CREATE TABLE `lyric`
     `stilelectronica` TINYINT(1) NOT NULL,
     `stilska` TINYINT(1) NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `artist` (`artist1`),
+    INDEX `artist1` (`artist1`),
     INDEX `artist2` (`artist2`),
     INDEX `artist3` (`artist3`),
     INDEX `artist4` (`artist4`),
-    INDEX `artist6` (`artist6`),
     INDEX `artist5` (`artist5`),
+    INDEX `artist6` (`artist6`),
     INDEX `glasa` (`glasa`),
-    INDEX `vidqna` (`vidqna`),
-    INDEX `populqrnost` (`populqrnost`),
+    INDEX `lyric_views` (`views`),
+    INDEX `lyric_popularity` (`popularity`),
     INDEX `lyric_fi_23acc4` (`uploaded_by`),
     INDEX `lyric_fi_39ca59` (`language`),
     CONSTRAINT `lyric_fk_23acc4`
         FOREIGN KEY (`uploaded_by`)
         REFERENCES `users` (`id`),
+    CONSTRAINT `lyric_fk_952d9c`
+        FOREIGN KEY (`artist1`)
+        REFERENCES `artists` (`id`),
+    CONSTRAINT `lyric_artist2_fk`
+        FOREIGN KEY (`artist2`)
+        REFERENCES `artists` (`id`),
+    CONSTRAINT `lyric_artist3_fk`
+        FOREIGN KEY (`artist3`)
+        REFERENCES `artists` (`id`),
+    CONSTRAINT `lyric_artist4_fk`
+        FOREIGN KEY (`artist4`)
+        REFERENCES `artists` (`id`),
+    CONSTRAINT `lyric_artist5_fk`
+        FOREIGN KEY (`artist5`)
+        REFERENCES `artists` (`id`),
+    CONSTRAINT `lyric_artist6_fk`
+        FOREIGN KEY (`artist6`)
+        REFERENCES `artists` (`id`),
     CONSTRAINT `lyric_fk_39ca59`
         FOREIGN KEY (`language`)
         REFERENCES `languages` (`id`)

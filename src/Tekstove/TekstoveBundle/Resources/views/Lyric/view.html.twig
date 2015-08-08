@@ -34,9 +34,9 @@
         <tr>
             <td align="left">
                 <h1>
-                    {% if (lyric.getArtist1) %}
-                        <a href="{{ path('artistBrowse', { id: lyric.getArtist1.id }) }}">
-                            {{ lyric.getArtist1.getName }}
+                    {% if (lyric.artist1) %}
+                        <a href="{{ path('artistBrowse', { id: lyric.artist1 }) }}">
+                            {{ lyric.artistRelatedByArtist1.getName }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist2) %}

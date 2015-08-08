@@ -52,7 +52,67 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ArtistTableMap;
  * @method     ChildArtistQuery rightJoinWithToday() Adds a RIGHT JOIN clause and with to the query using the Today relation
  * @method     ChildArtistQuery innerJoinWithToday() Adds a INNER JOIN clause and with to the query using the Today relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\TodayQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist1($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist1 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist1($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist1 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist1($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist1 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist1($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist1 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist1() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist1 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist1() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist1 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist1() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist1 relation
+ *
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist2($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist2 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist2($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist2 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist2($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist2 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist2($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist2 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist2() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist2 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist2() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist2 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist2() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist2 relation
+ *
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist3($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist3 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist3($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist3 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist3($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist3 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist3($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist3 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist3() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist3 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist3() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist3 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist3() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist3 relation
+ *
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist4($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist4 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist4($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist4 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist4($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist4 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist4($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist4 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist4() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist4 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist4() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist4 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist4() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist4 relation
+ *
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist5($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist5 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist5($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist5 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist5($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist5 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist5($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist5 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist5() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist5 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist5() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist5 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist5() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist5 relation
+ *
+ * @method     ChildArtistQuery leftJoinLyricRelatedByArtist6($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRelatedByArtist6 relation
+ * @method     ChildArtistQuery rightJoinLyricRelatedByArtist6($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRelatedByArtist6 relation
+ * @method     ChildArtistQuery innerJoinLyricRelatedByArtist6($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRelatedByArtist6 relation
+ *
+ * @method     ChildArtistQuery joinWithLyricRelatedByArtist6($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRelatedByArtist6 relation
+ *
+ * @method     ChildArtistQuery leftJoinWithLyricRelatedByArtist6() Adds a LEFT JOIN clause and with to the query using the LyricRelatedByArtist6 relation
+ * @method     ChildArtistQuery rightJoinWithLyricRelatedByArtist6() Adds a RIGHT JOIN clause and with to the query using the LyricRelatedByArtist6 relation
+ * @method     ChildArtistQuery innerJoinWithLyricRelatedByArtist6() Adds a INNER JOIN clause and with to the query using the LyricRelatedByArtist6 relation
+ *
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\TodayQuery|\Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildArtist findOne(ConnectionInterface $con = null) Return the first ChildArtist matching the query
  * @method     ChildArtist findOneOrCreate(ConnectionInterface $con = null) Return the first ChildArtist matching the query, or a new ChildArtist object populated from the query conditions when no match is found
@@ -542,6 +602,444 @@ abstract class ArtistQuery extends ModelCriteria
         return $this
             ->joinToday($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Today', '\Tekstove\TekstoveBundle\Model\Entity\TodayQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist1($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist1(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist1Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist1() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist1 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist1($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist1');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist1');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist1 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist1Query($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist1($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist1', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist2($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist2(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist2Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist2() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist2 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist2($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist2');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist2');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist2 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist2Query($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist2($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist2', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist3($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist3(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist3Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist3() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist3 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist3($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist3');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist3');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist3 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist3Query($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist3($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist3', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist4($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist4(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist4Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist4() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist4 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist4($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist4');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist4');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist4 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist4Query($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist4($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist4', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist5($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist5(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist5Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist5() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist5 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist5($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist5');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist5');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist5 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist5Query($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist5($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist5', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildArtistQuery The current query, for fluid interface
+     */
+    public function filterByLyricRelatedByArtist6($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(ArtistTableMap::COL_ID, $lyric->getArtist6(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricRelatedByArtist6Query()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricRelatedByArtist6() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricRelatedByArtist6 relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildArtistQuery The current query, for fluid interface
+     */
+    public function joinLyricRelatedByArtist6($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricRelatedByArtist6');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricRelatedByArtist6');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricRelatedByArtist6 relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricRelatedByArtist6Query($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinLyricRelatedByArtist6($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricRelatedByArtist6', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
     }
 
     /**

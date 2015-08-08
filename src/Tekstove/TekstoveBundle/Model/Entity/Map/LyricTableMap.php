@@ -493,27 +493,27 @@ class LyricTableMap extends TableMap
         $this->addForeignKey('uploaded_by', 'uploader', 'INTEGER', 'users', 'id', true, null, null);
         $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);
         $this->addColumn('text_bg', 'textBg', 'LONGVARCHAR', false, null, null);
-        $this->addColumn('artist1', 'Artist1', 'INTEGER', true, null, null);
-        $this->addColumn('artist2', 'Artist2', 'INTEGER', true, null, null);
-        $this->addColumn('artist3', 'Artist3', 'INTEGER', true, null, null);
-        $this->addColumn('artist4', 'Artist4', 'INTEGER', true, null, null);
-        $this->addColumn('artist5', 'Artist5', 'INTEGER', true, null, null);
-        $this->addColumn('artist6', 'Artist6', 'INTEGER', true, null, null);
+        $this->addForeignKey('artist1', 'Artist1', 'INTEGER', 'artists', 'id', false, null, null);
+        $this->addForeignKey('artist2', 'Artist2', 'INTEGER', 'artists', 'id', false, null, null);
+        $this->addForeignKey('artist3', 'Artist3', 'INTEGER', 'artists', 'id', false, null, null);
+        $this->addForeignKey('artist4', 'Artist4', 'INTEGER', 'artists', 'id', false, null, null);
+        $this->addForeignKey('artist5', 'Artist5', 'INTEGER', 'artists', 'id', false, null, null);
+        $this->addForeignKey('artist6', 'Artist6', 'INTEGER', 'artists', 'id', true, null, null);
         $this->addColumn('title', 'Title', 'VARCHAR', true, 60, null);
-        $this->addColumn('album1', 'Album1', 'INTEGER', true, null, null);
-        $this->addColumn('album2', 'Album2', 'INTEGER', true, null, null);
-        $this->addColumn('video', 'Video', 'VARCHAR', true, 100, null);
-        $this->addColumn('video_vbox7', 'VideoVbox7', 'VARCHAR', true, 100, null);
-        $this->addColumn('video_vbox7_orig', 'VideoVbox7Orig', 'VARCHAR', true, 100, null);
-        $this->addColumn('video_youtube', 'VideoYoutube', 'VARCHAR', true, 100, null);
-        $this->addColumn('video_youtube_orig', 'VideoYoutubeOrig', 'VARCHAR', true, 100, null);
-        $this->addColumn('video_metacafe', 'VideoMetacafe', 'VARCHAR', true, 150, null);
-        $this->addColumn('video_metacafe_orig', 'VideoMetacafeOrig', 'VARCHAR', true, 150, null);
+        $this->addColumn('album1', 'Album1', 'INTEGER', false, null, null);
+        $this->addColumn('album2', 'Album2', 'INTEGER', false, null, null);
+        $this->addColumn('video', 'Video', 'VARCHAR', false, 100, null);
+        $this->addColumn('video_vbox7', 'VideoVbox7', 'VARCHAR', false, 100, null);
+        $this->addColumn('video_vbox7_orig', 'VideoVbox7Orig', 'VARCHAR', false, 100, null);
+        $this->addColumn('video_youtube', 'VideoYoutube', 'VARCHAR', false, 100, null);
+        $this->addColumn('video_youtube_orig', 'VideoYoutubeOrig', 'VARCHAR', false, 100, null);
+        $this->addColumn('video_metacafe', 'VideoMetacafe', 'VARCHAR', false, 150, null);
+        $this->addColumn('video_metacafe_orig', 'VideoMetacafeOrig', 'VARCHAR', false, 150, null);
         $this->addColumn('download', 'Download', 'VARCHAR', false, 255, null);
-        $this->addColumn('image', 'Image', 'VARCHAR', true, 100, null);
+        $this->addColumn('image', 'Image', 'VARCHAR', false, 100, null);
         $this->addColumn('podnovena', 'Podnovena', 'TIMESTAMP', true, null, 'CURRENT_TIMESTAMP');
         $this->addColumn('ip_upload', 'IpUpload', 'VARCHAR', true, 30, null);
-        $this->addColumn('dopylnitelnoinfo', 'Dopylnitelnoinfo', 'LONGVARCHAR', true, null, null);
+        $this->addColumn('dopylnitelnoinfo', 'Dopylnitelnoinfo', 'LONGVARCHAR', false, null, null);
         $this->addColumn('glasa', 'cacheVotes', 'INTEGER', true, null, null);
         $this->addColumn('views', 'Views', 'INTEGER', true, null, null);
         $this->addColumn('popularity', 'Popularity', 'INTEGER', true, null, null);
@@ -571,6 +571,48 @@ class LyricTableMap extends TableMap
   0 =>
   array (
     0 => ':uploaded_by',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist1', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist1',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist2', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist2',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist3', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist3',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist4', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist4',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist5', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist5',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('ArtistRelatedByArtist6', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':artist6',
     1 => ':id',
   ),
 ), null, null, null, false);

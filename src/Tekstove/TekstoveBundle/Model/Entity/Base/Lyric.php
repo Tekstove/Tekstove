@@ -18,6 +18,8 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
+use Tekstove\TekstoveBundle\Model\Entity\Artist as ChildArtist;
+use Tekstove\TekstoveBundle\Model\Entity\ArtistQuery as ChildArtistQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Comments as ChildComments;
 use Tekstove\TekstoveBundle\Model\Entity\CommentsQuery as ChildCommentsQuery;
 use Tekstove\TekstoveBundle\Model\Entity\EditAddPrevod as ChildEditAddPrevod;
@@ -523,6 +525,36 @@ abstract class Lyric implements ActiveRecordInterface
      * @var        ChildUsers
      */
     protected $aUsers;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist1;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist2;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist3;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist4;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist5;
+
+    /**
+     * @var        ChildArtist
+     */
+    protected $aArtistRelatedByArtist6;
 
     /**
      * @var        ChildLanguages
@@ -2132,6 +2164,10 @@ abstract class Lyric implements ActiveRecordInterface
             $this->modifiedColumns[LyricTableMap::COL_ARTIST1] = true;
         }
 
+        if ($this->aArtistRelatedByArtist1 !== null && $this->aArtistRelatedByArtist1->getId() !== $v) {
+            $this->aArtistRelatedByArtist1 = null;
+        }
+
         return $this;
     } // setArtist1()
 
@@ -2150,6 +2186,10 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->artist2 !== $v) {
             $this->artist2 = $v;
             $this->modifiedColumns[LyricTableMap::COL_ARTIST2] = true;
+        }
+
+        if ($this->aArtistRelatedByArtist2 !== null && $this->aArtistRelatedByArtist2->getId() !== $v) {
+            $this->aArtistRelatedByArtist2 = null;
         }
 
         return $this;
@@ -2172,6 +2212,10 @@ abstract class Lyric implements ActiveRecordInterface
             $this->modifiedColumns[LyricTableMap::COL_ARTIST3] = true;
         }
 
+        if ($this->aArtistRelatedByArtist3 !== null && $this->aArtistRelatedByArtist3->getId() !== $v) {
+            $this->aArtistRelatedByArtist3 = null;
+        }
+
         return $this;
     } // setArtist3()
 
@@ -2190,6 +2234,10 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->artist4 !== $v) {
             $this->artist4 = $v;
             $this->modifiedColumns[LyricTableMap::COL_ARTIST4] = true;
+        }
+
+        if ($this->aArtistRelatedByArtist4 !== null && $this->aArtistRelatedByArtist4->getId() !== $v) {
+            $this->aArtistRelatedByArtist4 = null;
         }
 
         return $this;
@@ -2212,6 +2260,10 @@ abstract class Lyric implements ActiveRecordInterface
             $this->modifiedColumns[LyricTableMap::COL_ARTIST5] = true;
         }
 
+        if ($this->aArtistRelatedByArtist5 !== null && $this->aArtistRelatedByArtist5->getId() !== $v) {
+            $this->aArtistRelatedByArtist5 = null;
+        }
+
         return $this;
     } // setArtist5()
 
@@ -2230,6 +2282,10 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->artist6 !== $v) {
             $this->artist6 = $v;
             $this->modifiedColumns[LyricTableMap::COL_ARTIST6] = true;
+        }
+
+        if ($this->aArtistRelatedByArtist6 !== null && $this->aArtistRelatedByArtist6->getId() !== $v) {
+            $this->aArtistRelatedByArtist6 = null;
         }
 
         return $this;
@@ -4085,6 +4141,24 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->aUsers !== null && $this->uploaded_by !== $this->aUsers->getId()) {
             $this->aUsers = null;
         }
+        if ($this->aArtistRelatedByArtist1 !== null && $this->artist1 !== $this->aArtistRelatedByArtist1->getId()) {
+            $this->aArtistRelatedByArtist1 = null;
+        }
+        if ($this->aArtistRelatedByArtist2 !== null && $this->artist2 !== $this->aArtistRelatedByArtist2->getId()) {
+            $this->aArtistRelatedByArtist2 = null;
+        }
+        if ($this->aArtistRelatedByArtist3 !== null && $this->artist3 !== $this->aArtistRelatedByArtist3->getId()) {
+            $this->aArtistRelatedByArtist3 = null;
+        }
+        if ($this->aArtistRelatedByArtist4 !== null && $this->artist4 !== $this->aArtistRelatedByArtist4->getId()) {
+            $this->aArtistRelatedByArtist4 = null;
+        }
+        if ($this->aArtistRelatedByArtist5 !== null && $this->artist5 !== $this->aArtistRelatedByArtist5->getId()) {
+            $this->aArtistRelatedByArtist5 = null;
+        }
+        if ($this->aArtistRelatedByArtist6 !== null && $this->artist6 !== $this->aArtistRelatedByArtist6->getId()) {
+            $this->aArtistRelatedByArtist6 = null;
+        }
         if ($this->aLanguages !== null && $this->language !== $this->aLanguages->getId()) {
             $this->aLanguages = null;
         }
@@ -4128,6 +4202,12 @@ abstract class Lyric implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aUsers = null;
+            $this->aArtistRelatedByArtist1 = null;
+            $this->aArtistRelatedByArtist2 = null;
+            $this->aArtistRelatedByArtist3 = null;
+            $this->aArtistRelatedByArtist4 = null;
+            $this->aArtistRelatedByArtist5 = null;
+            $this->aArtistRelatedByArtist6 = null;
             $this->aLanguages = null;
             $this->collEditAddPrevods = null;
 
@@ -4250,6 +4330,48 @@ abstract class Lyric implements ActiveRecordInterface
                     $affectedRows += $this->aUsers->save($con);
                 }
                 $this->setUsers($this->aUsers);
+            }
+
+            if ($this->aArtistRelatedByArtist1 !== null) {
+                if ($this->aArtistRelatedByArtist1->isModified() || $this->aArtistRelatedByArtist1->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist1->save($con);
+                }
+                $this->setArtistRelatedByArtist1($this->aArtistRelatedByArtist1);
+            }
+
+            if ($this->aArtistRelatedByArtist2 !== null) {
+                if ($this->aArtistRelatedByArtist2->isModified() || $this->aArtistRelatedByArtist2->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist2->save($con);
+                }
+                $this->setArtistRelatedByArtist2($this->aArtistRelatedByArtist2);
+            }
+
+            if ($this->aArtistRelatedByArtist3 !== null) {
+                if ($this->aArtistRelatedByArtist3->isModified() || $this->aArtistRelatedByArtist3->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist3->save($con);
+                }
+                $this->setArtistRelatedByArtist3($this->aArtistRelatedByArtist3);
+            }
+
+            if ($this->aArtistRelatedByArtist4 !== null) {
+                if ($this->aArtistRelatedByArtist4->isModified() || $this->aArtistRelatedByArtist4->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist4->save($con);
+                }
+                $this->setArtistRelatedByArtist4($this->aArtistRelatedByArtist4);
+            }
+
+            if ($this->aArtistRelatedByArtist5 !== null) {
+                if ($this->aArtistRelatedByArtist5->isModified() || $this->aArtistRelatedByArtist5->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist5->save($con);
+                }
+                $this->setArtistRelatedByArtist5($this->aArtistRelatedByArtist5);
+            }
+
+            if ($this->aArtistRelatedByArtist6 !== null) {
+                if ($this->aArtistRelatedByArtist6->isModified() || $this->aArtistRelatedByArtist6->isNew()) {
+                    $affectedRows += $this->aArtistRelatedByArtist6->save($con);
+                }
+                $this->setArtistRelatedByArtist6($this->aArtistRelatedByArtist6);
             }
 
             if ($this->aLanguages !== null) {
@@ -5249,6 +5371,96 @@ abstract class Lyric implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->aUsers->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist1) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist1->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist2) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist2->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist3) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist3->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist4) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist4->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist5) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist5->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aArtistRelatedByArtist6) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'artist';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'artists';
+                        break;
+                    default:
+                        $key = 'Artist';
+                }
+
+                $result[$key] = $this->aArtistRelatedByArtist6->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->aLanguages) {
 
@@ -6391,6 +6603,312 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         return $this->aUsers;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist1(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist1(NULL);
+        } else {
+            $this->setArtist1($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist1 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist1($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist1(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist1 === null && ($this->artist1 !== null)) {
+            $this->aArtistRelatedByArtist1 = ChildArtistQuery::create()->findPk($this->artist1, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist1->addLyricsRelatedByArtist1($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist1;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist2(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist2(NULL);
+        } else {
+            $this->setArtist2($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist2 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist2($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist2(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist2 === null && ($this->artist2 !== null)) {
+            $this->aArtistRelatedByArtist2 = ChildArtistQuery::create()->findPk($this->artist2, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist2->addLyricsRelatedByArtist2($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist2;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist3(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist3(NULL);
+        } else {
+            $this->setArtist3($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist3 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist3($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist3(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist3 === null && ($this->artist3 !== null)) {
+            $this->aArtistRelatedByArtist3 = ChildArtistQuery::create()->findPk($this->artist3, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist3->addLyricsRelatedByArtist3($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist3;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist4(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist4(NULL);
+        } else {
+            $this->setArtist4($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist4 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist4($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist4(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist4 === null && ($this->artist4 !== null)) {
+            $this->aArtistRelatedByArtist4 = ChildArtistQuery::create()->findPk($this->artist4, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist4->addLyricsRelatedByArtist4($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist4;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist5(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist5(NULL);
+        } else {
+            $this->setArtist5($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist5 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist5($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist5(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist5 === null && ($this->artist5 !== null)) {
+            $this->aArtistRelatedByArtist5 = ChildArtistQuery::create()->findPk($this->artist5, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist5->addLyricsRelatedByArtist5($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist5;
+    }
+
+    /**
+     * Declares an association between this object and a ChildArtist object.
+     *
+     * @param  ChildArtist $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setArtistRelatedByArtist6(ChildArtist $v = null)
+    {
+        if ($v === null) {
+            $this->setArtist6(NULL);
+        } else {
+            $this->setArtist6($v->getId());
+        }
+
+        $this->aArtistRelatedByArtist6 = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildArtist object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricRelatedByArtist6($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildArtist object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildArtist The associated ChildArtist object.
+     * @throws PropelException
+     */
+    public function getArtistRelatedByArtist6(ConnectionInterface $con = null)
+    {
+        if ($this->aArtistRelatedByArtist6 === null && ($this->artist6 !== null)) {
+            $this->aArtistRelatedByArtist6 = ChildArtistQuery::create()->findPk($this->artist6, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aArtistRelatedByArtist6->addLyricsRelatedByArtist6($this);
+             */
+        }
+
+        return $this->aArtistRelatedByArtist6;
     }
 
     /**
@@ -7611,6 +8129,24 @@ abstract class Lyric implements ActiveRecordInterface
         if (null !== $this->aUsers) {
             $this->aUsers->removelyric($this);
         }
+        if (null !== $this->aArtistRelatedByArtist1) {
+            $this->aArtistRelatedByArtist1->removeLyricRelatedByArtist1($this);
+        }
+        if (null !== $this->aArtistRelatedByArtist2) {
+            $this->aArtistRelatedByArtist2->removeLyricRelatedByArtist2($this);
+        }
+        if (null !== $this->aArtistRelatedByArtist3) {
+            $this->aArtistRelatedByArtist3->removeLyricRelatedByArtist3($this);
+        }
+        if (null !== $this->aArtistRelatedByArtist4) {
+            $this->aArtistRelatedByArtist4->removeLyricRelatedByArtist4($this);
+        }
+        if (null !== $this->aArtistRelatedByArtist5) {
+            $this->aArtistRelatedByArtist5->removeLyricRelatedByArtist5($this);
+        }
+        if (null !== $this->aArtistRelatedByArtist6) {
+            $this->aArtistRelatedByArtist6->removeLyricRelatedByArtist6($this);
+        }
         if (null !== $this->aLanguages) {
             $this->aLanguages->removelanguage($this);
         }
@@ -7743,6 +8279,12 @@ abstract class Lyric implements ActiveRecordInterface
         $this->collCommentss = null;
         $this->collVotess = null;
         $this->aUsers = null;
+        $this->aArtistRelatedByArtist1 = null;
+        $this->aArtistRelatedByArtist2 = null;
+        $this->aArtistRelatedByArtist3 = null;
+        $this->aArtistRelatedByArtist4 = null;
+        $this->aArtistRelatedByArtist5 = null;
+        $this->aArtistRelatedByArtist6 = null;
         $this->aLanguages = null;
     }
 

@@ -171,6 +171,48 @@ class ArtistTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'Todays', false);
+        $this->addRelation('LyricRelatedByArtist1', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist1',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist1', false);
+        $this->addRelation('LyricRelatedByArtist2', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist2',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist2', false);
+        $this->addRelation('LyricRelatedByArtist3', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist3',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist3', false);
+        $this->addRelation('LyricRelatedByArtist4', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist4',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist4', false);
+        $this->addRelation('LyricRelatedByArtist5', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist5',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist5', false);
+        $this->addRelation('LyricRelatedByArtist6', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':artist6',
+    1 => ':id',
+  ),
+), null, null, 'LyricsRelatedByArtist6', false);
     } // buildRelations()
 
     /**

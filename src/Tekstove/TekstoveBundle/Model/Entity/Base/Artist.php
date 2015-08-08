@@ -18,6 +18,8 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use Tekstove\TekstoveBundle\Model\Entity\Artist as ChildArtist;
 use Tekstove\TekstoveBundle\Model\Entity\ArtistQuery as ChildArtistQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Lyric as ChildLyric;
+use Tekstove\TekstoveBundle\Model\Entity\LyricQuery as ChildLyricQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Today as ChildToday;
 use Tekstove\TekstoveBundle\Model\Entity\TodayQuery as ChildTodayQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Map\ArtistTableMap;
@@ -107,6 +109,42 @@ abstract class Artist implements ActiveRecordInterface
     protected $collTodaysPartial;
 
     /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist1;
+    protected $collLyricsRelatedByArtist1Partial;
+
+    /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist2;
+    protected $collLyricsRelatedByArtist2Partial;
+
+    /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist3;
+    protected $collLyricsRelatedByArtist3Partial;
+
+    /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist4;
+    protected $collLyricsRelatedByArtist4Partial;
+
+    /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist5;
+    protected $collLyricsRelatedByArtist5Partial;
+
+    /**
+     * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
+     */
+    protected $collLyricsRelatedByArtist6;
+    protected $collLyricsRelatedByArtist6Partial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -119,6 +157,42 @@ abstract class Artist implements ActiveRecordInterface
      * @var ObjectCollection|ChildToday[]
      */
     protected $todaysScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist1ScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist2ScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist3ScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist4ScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist5ScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyric[]
+     */
+    protected $lyricsRelatedByArtist6ScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -676,6 +750,18 @@ abstract class Artist implements ActiveRecordInterface
 
             $this->collTodays = null;
 
+            $this->collLyricsRelatedByArtist1 = null;
+
+            $this->collLyricsRelatedByArtist2 = null;
+
+            $this->collLyricsRelatedByArtist3 = null;
+
+            $this->collLyricsRelatedByArtist4 = null;
+
+            $this->collLyricsRelatedByArtist5 = null;
+
+            $this->collLyricsRelatedByArtist6 = null;
+
         } // if (deep)
     }
 
@@ -798,6 +884,113 @@ abstract class Artist implements ActiveRecordInterface
 
             if ($this->collTodays !== null) {
                 foreach ($this->collTodays as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist1ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist1ScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricsRelatedByArtist1ScheduledForDeletion as $lyricRelatedByArtist1) {
+                        // need to save related object because we set the relation to null
+                        $lyricRelatedByArtist1->save($con);
+                    }
+                    $this->lyricsRelatedByArtist1ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist1 !== null) {
+                foreach ($this->collLyricsRelatedByArtist1 as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist2ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist2ScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricsRelatedByArtist2ScheduledForDeletion as $lyricRelatedByArtist2) {
+                        // need to save related object because we set the relation to null
+                        $lyricRelatedByArtist2->save($con);
+                    }
+                    $this->lyricsRelatedByArtist2ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist2 !== null) {
+                foreach ($this->collLyricsRelatedByArtist2 as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist3ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist3ScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricsRelatedByArtist3ScheduledForDeletion as $lyricRelatedByArtist3) {
+                        // need to save related object because we set the relation to null
+                        $lyricRelatedByArtist3->save($con);
+                    }
+                    $this->lyricsRelatedByArtist3ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist3 !== null) {
+                foreach ($this->collLyricsRelatedByArtist3 as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist4ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist4ScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricsRelatedByArtist4ScheduledForDeletion as $lyricRelatedByArtist4) {
+                        // need to save related object because we set the relation to null
+                        $lyricRelatedByArtist4->save($con);
+                    }
+                    $this->lyricsRelatedByArtist4ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist4 !== null) {
+                foreach ($this->collLyricsRelatedByArtist4 as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist5ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist5ScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricsRelatedByArtist5ScheduledForDeletion as $lyricRelatedByArtist5) {
+                        // need to save related object because we set the relation to null
+                        $lyricRelatedByArtist5->save($con);
+                    }
+                    $this->lyricsRelatedByArtist5ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist5 !== null) {
+                foreach ($this->collLyricsRelatedByArtist5 as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricsRelatedByArtist6ScheduledForDeletion !== null) {
+                if (!$this->lyricsRelatedByArtist6ScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create()
+                        ->filterByPrimaryKeys($this->lyricsRelatedByArtist6ScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->lyricsRelatedByArtist6ScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricsRelatedByArtist6 !== null) {
+                foreach ($this->collLyricsRelatedByArtist6 as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1014,6 +1207,96 @@ abstract class Artist implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collTodays->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist1) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist1->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist2) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist2->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist3) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist3->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist4) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist4->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist5) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist5->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricsRelatedByArtist6) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyrics';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyrics';
+                        break;
+                    default:
+                        $key = 'Lyrics';
+                }
+
+                $result[$key] = $this->collLyricsRelatedByArtist6->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1273,6 +1556,42 @@ abstract class Artist implements ActiveRecordInterface
                 }
             }
 
+            foreach ($this->getLyricsRelatedByArtist1() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist1($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricsRelatedByArtist2() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist2($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricsRelatedByArtist3() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist3($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricsRelatedByArtist4() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist4($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricsRelatedByArtist5() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist5($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricsRelatedByArtist6() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricRelatedByArtist6($relObj->copy($deepCopy));
+                }
+            }
+
         } // if ($deepCopy)
 
         if ($makeNew) {
@@ -1316,6 +1635,24 @@ abstract class Artist implements ActiveRecordInterface
     {
         if ('Today' == $relationName) {
             return $this->initTodays();
+        }
+        if ('LyricRelatedByArtist1' == $relationName) {
+            return $this->initLyricsRelatedByArtist1();
+        }
+        if ('LyricRelatedByArtist2' == $relationName) {
+            return $this->initLyricsRelatedByArtist2();
+        }
+        if ('LyricRelatedByArtist3' == $relationName) {
+            return $this->initLyricsRelatedByArtist3();
+        }
+        if ('LyricRelatedByArtist4' == $relationName) {
+            return $this->initLyricsRelatedByArtist4();
+        }
+        if ('LyricRelatedByArtist5' == $relationName) {
+            return $this->initLyricsRelatedByArtist5();
+        }
+        if ('LyricRelatedByArtist6' == $relationName) {
+            return $this->initLyricsRelatedByArtist6();
         }
     }
 
@@ -1538,6 +1875,1614 @@ abstract class Artist implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collLyricsRelatedByArtist1 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist1()
+     */
+    public function clearLyricsRelatedByArtist1()
+    {
+        $this->collLyricsRelatedByArtist1 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist1 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist1($v = true)
+    {
+        $this->collLyricsRelatedByArtist1Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist1 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist1 collection to an empty array (like clearcollLyricsRelatedByArtist1());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist1($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist1 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist1 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist1->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist1(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist1Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist1 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist1) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist1();
+            } else {
+                $collLyricsRelatedByArtist1 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist1($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist1Partial && count($collLyricsRelatedByArtist1)) {
+                        $this->initLyricsRelatedByArtist1(false);
+
+                        foreach ($collLyricsRelatedByArtist1 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist1->contains($obj)) {
+                                $this->collLyricsRelatedByArtist1->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist1Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist1;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist1) {
+                    foreach ($this->collLyricsRelatedByArtist1 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist1[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist1 = $collLyricsRelatedByArtist1;
+                $this->collLyricsRelatedByArtist1Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist1;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist1 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist1(Collection $lyricsRelatedByArtist1, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist1ToDelete */
+        $lyricsRelatedByArtist1ToDelete = $this->getLyricsRelatedByArtist1(new Criteria(), $con)->diff($lyricsRelatedByArtist1);
+
+
+        $this->lyricsRelatedByArtist1ScheduledForDeletion = $lyricsRelatedByArtist1ToDelete;
+
+        foreach ($lyricsRelatedByArtist1ToDelete as $lyricRelatedByArtist1Removed) {
+            $lyricRelatedByArtist1Removed->setArtistRelatedByArtist1(null);
+        }
+
+        $this->collLyricsRelatedByArtist1 = null;
+        foreach ($lyricsRelatedByArtist1 as $lyricRelatedByArtist1) {
+            $this->addLyricRelatedByArtist1($lyricRelatedByArtist1);
+        }
+
+        $this->collLyricsRelatedByArtist1 = $lyricsRelatedByArtist1;
+        $this->collLyricsRelatedByArtist1Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist1(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist1Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist1 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist1) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist1());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist1($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist1);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist1(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist1 === null) {
+            $this->initLyricsRelatedByArtist1();
+            $this->collLyricsRelatedByArtist1Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist1->contains($l)) {
+            $this->doAddLyricRelatedByArtist1($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist1 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist1(ChildLyric $lyricRelatedByArtist1)
+    {
+        $this->collLyricsRelatedByArtist1[]= $lyricRelatedByArtist1;
+        $lyricRelatedByArtist1->setArtistRelatedByArtist1($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist1 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist1(ChildLyric $lyricRelatedByArtist1)
+    {
+        if ($this->getLyricsRelatedByArtist1()->contains($lyricRelatedByArtist1)) {
+            $pos = $this->collLyricsRelatedByArtist1->search($lyricRelatedByArtist1);
+            $this->collLyricsRelatedByArtist1->remove($pos);
+            if (null === $this->lyricsRelatedByArtist1ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist1ScheduledForDeletion = clone $this->collLyricsRelatedByArtist1;
+                $this->lyricsRelatedByArtist1ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist1ScheduledForDeletion[]= $lyricRelatedByArtist1;
+            $lyricRelatedByArtist1->setArtistRelatedByArtist1(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist1 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist1JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist1($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist1 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist1JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist1($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricsRelatedByArtist2 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist2()
+     */
+    public function clearLyricsRelatedByArtist2()
+    {
+        $this->collLyricsRelatedByArtist2 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist2 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist2($v = true)
+    {
+        $this->collLyricsRelatedByArtist2Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist2 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist2 collection to an empty array (like clearcollLyricsRelatedByArtist2());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist2($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist2 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist2 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist2->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist2(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist2Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist2 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist2) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist2();
+            } else {
+                $collLyricsRelatedByArtist2 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist2($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist2Partial && count($collLyricsRelatedByArtist2)) {
+                        $this->initLyricsRelatedByArtist2(false);
+
+                        foreach ($collLyricsRelatedByArtist2 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist2->contains($obj)) {
+                                $this->collLyricsRelatedByArtist2->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist2Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist2;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist2) {
+                    foreach ($this->collLyricsRelatedByArtist2 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist2[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist2 = $collLyricsRelatedByArtist2;
+                $this->collLyricsRelatedByArtist2Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist2;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist2 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist2(Collection $lyricsRelatedByArtist2, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist2ToDelete */
+        $lyricsRelatedByArtist2ToDelete = $this->getLyricsRelatedByArtist2(new Criteria(), $con)->diff($lyricsRelatedByArtist2);
+
+
+        $this->lyricsRelatedByArtist2ScheduledForDeletion = $lyricsRelatedByArtist2ToDelete;
+
+        foreach ($lyricsRelatedByArtist2ToDelete as $lyricRelatedByArtist2Removed) {
+            $lyricRelatedByArtist2Removed->setArtistRelatedByArtist2(null);
+        }
+
+        $this->collLyricsRelatedByArtist2 = null;
+        foreach ($lyricsRelatedByArtist2 as $lyricRelatedByArtist2) {
+            $this->addLyricRelatedByArtist2($lyricRelatedByArtist2);
+        }
+
+        $this->collLyricsRelatedByArtist2 = $lyricsRelatedByArtist2;
+        $this->collLyricsRelatedByArtist2Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist2(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist2Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist2 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist2) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist2());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist2($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist2);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist2(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist2 === null) {
+            $this->initLyricsRelatedByArtist2();
+            $this->collLyricsRelatedByArtist2Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist2->contains($l)) {
+            $this->doAddLyricRelatedByArtist2($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist2 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist2(ChildLyric $lyricRelatedByArtist2)
+    {
+        $this->collLyricsRelatedByArtist2[]= $lyricRelatedByArtist2;
+        $lyricRelatedByArtist2->setArtistRelatedByArtist2($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist2 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist2(ChildLyric $lyricRelatedByArtist2)
+    {
+        if ($this->getLyricsRelatedByArtist2()->contains($lyricRelatedByArtist2)) {
+            $pos = $this->collLyricsRelatedByArtist2->search($lyricRelatedByArtist2);
+            $this->collLyricsRelatedByArtist2->remove($pos);
+            if (null === $this->lyricsRelatedByArtist2ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist2ScheduledForDeletion = clone $this->collLyricsRelatedByArtist2;
+                $this->lyricsRelatedByArtist2ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist2ScheduledForDeletion[]= $lyricRelatedByArtist2;
+            $lyricRelatedByArtist2->setArtistRelatedByArtist2(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist2 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist2JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist2($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist2 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist2JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist2($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricsRelatedByArtist3 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist3()
+     */
+    public function clearLyricsRelatedByArtist3()
+    {
+        $this->collLyricsRelatedByArtist3 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist3 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist3($v = true)
+    {
+        $this->collLyricsRelatedByArtist3Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist3 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist3 collection to an empty array (like clearcollLyricsRelatedByArtist3());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist3($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist3 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist3 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist3->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist3(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist3Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist3 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist3) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist3();
+            } else {
+                $collLyricsRelatedByArtist3 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist3($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist3Partial && count($collLyricsRelatedByArtist3)) {
+                        $this->initLyricsRelatedByArtist3(false);
+
+                        foreach ($collLyricsRelatedByArtist3 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist3->contains($obj)) {
+                                $this->collLyricsRelatedByArtist3->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist3Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist3;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist3) {
+                    foreach ($this->collLyricsRelatedByArtist3 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist3[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist3 = $collLyricsRelatedByArtist3;
+                $this->collLyricsRelatedByArtist3Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist3;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist3 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist3(Collection $lyricsRelatedByArtist3, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist3ToDelete */
+        $lyricsRelatedByArtist3ToDelete = $this->getLyricsRelatedByArtist3(new Criteria(), $con)->diff($lyricsRelatedByArtist3);
+
+
+        $this->lyricsRelatedByArtist3ScheduledForDeletion = $lyricsRelatedByArtist3ToDelete;
+
+        foreach ($lyricsRelatedByArtist3ToDelete as $lyricRelatedByArtist3Removed) {
+            $lyricRelatedByArtist3Removed->setArtistRelatedByArtist3(null);
+        }
+
+        $this->collLyricsRelatedByArtist3 = null;
+        foreach ($lyricsRelatedByArtist3 as $lyricRelatedByArtist3) {
+            $this->addLyricRelatedByArtist3($lyricRelatedByArtist3);
+        }
+
+        $this->collLyricsRelatedByArtist3 = $lyricsRelatedByArtist3;
+        $this->collLyricsRelatedByArtist3Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist3(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist3Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist3 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist3) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist3());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist3($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist3);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist3(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist3 === null) {
+            $this->initLyricsRelatedByArtist3();
+            $this->collLyricsRelatedByArtist3Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist3->contains($l)) {
+            $this->doAddLyricRelatedByArtist3($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist3 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist3(ChildLyric $lyricRelatedByArtist3)
+    {
+        $this->collLyricsRelatedByArtist3[]= $lyricRelatedByArtist3;
+        $lyricRelatedByArtist3->setArtistRelatedByArtist3($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist3 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist3(ChildLyric $lyricRelatedByArtist3)
+    {
+        if ($this->getLyricsRelatedByArtist3()->contains($lyricRelatedByArtist3)) {
+            $pos = $this->collLyricsRelatedByArtist3->search($lyricRelatedByArtist3);
+            $this->collLyricsRelatedByArtist3->remove($pos);
+            if (null === $this->lyricsRelatedByArtist3ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist3ScheduledForDeletion = clone $this->collLyricsRelatedByArtist3;
+                $this->lyricsRelatedByArtist3ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist3ScheduledForDeletion[]= $lyricRelatedByArtist3;
+            $lyricRelatedByArtist3->setArtistRelatedByArtist3(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist3 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist3JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist3($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist3 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist3JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist3($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricsRelatedByArtist4 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist4()
+     */
+    public function clearLyricsRelatedByArtist4()
+    {
+        $this->collLyricsRelatedByArtist4 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist4 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist4($v = true)
+    {
+        $this->collLyricsRelatedByArtist4Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist4 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist4 collection to an empty array (like clearcollLyricsRelatedByArtist4());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist4($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist4 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist4 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist4->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist4(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist4Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist4 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist4) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist4();
+            } else {
+                $collLyricsRelatedByArtist4 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist4($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist4Partial && count($collLyricsRelatedByArtist4)) {
+                        $this->initLyricsRelatedByArtist4(false);
+
+                        foreach ($collLyricsRelatedByArtist4 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist4->contains($obj)) {
+                                $this->collLyricsRelatedByArtist4->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist4Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist4;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist4) {
+                    foreach ($this->collLyricsRelatedByArtist4 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist4[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist4 = $collLyricsRelatedByArtist4;
+                $this->collLyricsRelatedByArtist4Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist4;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist4 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist4(Collection $lyricsRelatedByArtist4, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist4ToDelete */
+        $lyricsRelatedByArtist4ToDelete = $this->getLyricsRelatedByArtist4(new Criteria(), $con)->diff($lyricsRelatedByArtist4);
+
+
+        $this->lyricsRelatedByArtist4ScheduledForDeletion = $lyricsRelatedByArtist4ToDelete;
+
+        foreach ($lyricsRelatedByArtist4ToDelete as $lyricRelatedByArtist4Removed) {
+            $lyricRelatedByArtist4Removed->setArtistRelatedByArtist4(null);
+        }
+
+        $this->collLyricsRelatedByArtist4 = null;
+        foreach ($lyricsRelatedByArtist4 as $lyricRelatedByArtist4) {
+            $this->addLyricRelatedByArtist4($lyricRelatedByArtist4);
+        }
+
+        $this->collLyricsRelatedByArtist4 = $lyricsRelatedByArtist4;
+        $this->collLyricsRelatedByArtist4Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist4(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist4Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist4 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist4) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist4());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist4($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist4);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist4(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist4 === null) {
+            $this->initLyricsRelatedByArtist4();
+            $this->collLyricsRelatedByArtist4Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist4->contains($l)) {
+            $this->doAddLyricRelatedByArtist4($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist4 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist4(ChildLyric $lyricRelatedByArtist4)
+    {
+        $this->collLyricsRelatedByArtist4[]= $lyricRelatedByArtist4;
+        $lyricRelatedByArtist4->setArtistRelatedByArtist4($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist4 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist4(ChildLyric $lyricRelatedByArtist4)
+    {
+        if ($this->getLyricsRelatedByArtist4()->contains($lyricRelatedByArtist4)) {
+            $pos = $this->collLyricsRelatedByArtist4->search($lyricRelatedByArtist4);
+            $this->collLyricsRelatedByArtist4->remove($pos);
+            if (null === $this->lyricsRelatedByArtist4ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist4ScheduledForDeletion = clone $this->collLyricsRelatedByArtist4;
+                $this->lyricsRelatedByArtist4ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist4ScheduledForDeletion[]= $lyricRelatedByArtist4;
+            $lyricRelatedByArtist4->setArtistRelatedByArtist4(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist4 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist4JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist4($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist4 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist4JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist4($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricsRelatedByArtist5 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist5()
+     */
+    public function clearLyricsRelatedByArtist5()
+    {
+        $this->collLyricsRelatedByArtist5 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist5 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist5($v = true)
+    {
+        $this->collLyricsRelatedByArtist5Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist5 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist5 collection to an empty array (like clearcollLyricsRelatedByArtist5());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist5($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist5 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist5 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist5->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist5(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist5Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist5 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist5) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist5();
+            } else {
+                $collLyricsRelatedByArtist5 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist5($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist5Partial && count($collLyricsRelatedByArtist5)) {
+                        $this->initLyricsRelatedByArtist5(false);
+
+                        foreach ($collLyricsRelatedByArtist5 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist5->contains($obj)) {
+                                $this->collLyricsRelatedByArtist5->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist5Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist5;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist5) {
+                    foreach ($this->collLyricsRelatedByArtist5 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist5[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist5 = $collLyricsRelatedByArtist5;
+                $this->collLyricsRelatedByArtist5Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist5;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist5 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist5(Collection $lyricsRelatedByArtist5, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist5ToDelete */
+        $lyricsRelatedByArtist5ToDelete = $this->getLyricsRelatedByArtist5(new Criteria(), $con)->diff($lyricsRelatedByArtist5);
+
+
+        $this->lyricsRelatedByArtist5ScheduledForDeletion = $lyricsRelatedByArtist5ToDelete;
+
+        foreach ($lyricsRelatedByArtist5ToDelete as $lyricRelatedByArtist5Removed) {
+            $lyricRelatedByArtist5Removed->setArtistRelatedByArtist5(null);
+        }
+
+        $this->collLyricsRelatedByArtist5 = null;
+        foreach ($lyricsRelatedByArtist5 as $lyricRelatedByArtist5) {
+            $this->addLyricRelatedByArtist5($lyricRelatedByArtist5);
+        }
+
+        $this->collLyricsRelatedByArtist5 = $lyricsRelatedByArtist5;
+        $this->collLyricsRelatedByArtist5Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist5(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist5Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist5 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist5) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist5());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist5($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist5);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist5(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist5 === null) {
+            $this->initLyricsRelatedByArtist5();
+            $this->collLyricsRelatedByArtist5Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist5->contains($l)) {
+            $this->doAddLyricRelatedByArtist5($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist5 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist5(ChildLyric $lyricRelatedByArtist5)
+    {
+        $this->collLyricsRelatedByArtist5[]= $lyricRelatedByArtist5;
+        $lyricRelatedByArtist5->setArtistRelatedByArtist5($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist5 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist5(ChildLyric $lyricRelatedByArtist5)
+    {
+        if ($this->getLyricsRelatedByArtist5()->contains($lyricRelatedByArtist5)) {
+            $pos = $this->collLyricsRelatedByArtist5->search($lyricRelatedByArtist5);
+            $this->collLyricsRelatedByArtist5->remove($pos);
+            if (null === $this->lyricsRelatedByArtist5ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist5ScheduledForDeletion = clone $this->collLyricsRelatedByArtist5;
+                $this->lyricsRelatedByArtist5ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist5ScheduledForDeletion[]= $lyricRelatedByArtist5;
+            $lyricRelatedByArtist5->setArtistRelatedByArtist5(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist5 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist5JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist5($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist5 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist5JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist5($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricsRelatedByArtist6 collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricsRelatedByArtist6()
+     */
+    public function clearLyricsRelatedByArtist6()
+    {
+        $this->collLyricsRelatedByArtist6 = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricsRelatedByArtist6 collection loaded partially.
+     */
+    public function resetPartialLyricsRelatedByArtist6($v = true)
+    {
+        $this->collLyricsRelatedByArtist6Partial = $v;
+    }
+
+    /**
+     * Initializes the collLyricsRelatedByArtist6 collection.
+     *
+     * By default this just sets the collLyricsRelatedByArtist6 collection to an empty array (like clearcollLyricsRelatedByArtist6());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricsRelatedByArtist6($overrideExisting = true)
+    {
+        if (null !== $this->collLyricsRelatedByArtist6 && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricsRelatedByArtist6 = new ObjectCollection();
+        $this->collLyricsRelatedByArtist6->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+    }
+
+    /**
+     * Gets an array of ChildLyric objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildArtist is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     * @throws PropelException
+     */
+    public function getLyricsRelatedByArtist6(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist6Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist6 || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist6) {
+                // return empty collection
+                $this->initLyricsRelatedByArtist6();
+            } else {
+                $collLyricsRelatedByArtist6 = ChildLyricQuery::create(null, $criteria)
+                    ->filterByArtistRelatedByArtist6($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricsRelatedByArtist6Partial && count($collLyricsRelatedByArtist6)) {
+                        $this->initLyricsRelatedByArtist6(false);
+
+                        foreach ($collLyricsRelatedByArtist6 as $obj) {
+                            if (false == $this->collLyricsRelatedByArtist6->contains($obj)) {
+                                $this->collLyricsRelatedByArtist6->append($obj);
+                            }
+                        }
+
+                        $this->collLyricsRelatedByArtist6Partial = true;
+                    }
+
+                    return $collLyricsRelatedByArtist6;
+                }
+
+                if ($partial && $this->collLyricsRelatedByArtist6) {
+                    foreach ($this->collLyricsRelatedByArtist6 as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricsRelatedByArtist6[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricsRelatedByArtist6 = $collLyricsRelatedByArtist6;
+                $this->collLyricsRelatedByArtist6Partial = false;
+            }
+        }
+
+        return $this->collLyricsRelatedByArtist6;
+    }
+
+    /**
+     * Sets a collection of ChildLyric objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricsRelatedByArtist6 A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function setLyricsRelatedByArtist6(Collection $lyricsRelatedByArtist6, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyric[] $lyricsRelatedByArtist6ToDelete */
+        $lyricsRelatedByArtist6ToDelete = $this->getLyricsRelatedByArtist6(new Criteria(), $con)->diff($lyricsRelatedByArtist6);
+
+
+        $this->lyricsRelatedByArtist6ScheduledForDeletion = $lyricsRelatedByArtist6ToDelete;
+
+        foreach ($lyricsRelatedByArtist6ToDelete as $lyricRelatedByArtist6Removed) {
+            $lyricRelatedByArtist6Removed->setArtistRelatedByArtist6(null);
+        }
+
+        $this->collLyricsRelatedByArtist6 = null;
+        foreach ($lyricsRelatedByArtist6 as $lyricRelatedByArtist6) {
+            $this->addLyricRelatedByArtist6($lyricRelatedByArtist6);
+        }
+
+        $this->collLyricsRelatedByArtist6 = $lyricsRelatedByArtist6;
+        $this->collLyricsRelatedByArtist6Partial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Lyric objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Lyric objects.
+     * @throws PropelException
+     */
+    public function countLyricsRelatedByArtist6(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricsRelatedByArtist6Partial && !$this->isNew();
+        if (null === $this->collLyricsRelatedByArtist6 || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricsRelatedByArtist6) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricsRelatedByArtist6());
+            }
+
+            $query = ChildLyricQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByArtistRelatedByArtist6($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricsRelatedByArtist6);
+    }
+
+    /**
+     * Method called to associate a ChildLyric object to this object
+     * through the ChildLyric foreign key attribute.
+     *
+     * @param  ChildLyric $l ChildLyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Artist The current object (for fluent API support)
+     */
+    public function addLyricRelatedByArtist6(ChildLyric $l)
+    {
+        if ($this->collLyricsRelatedByArtist6 === null) {
+            $this->initLyricsRelatedByArtist6();
+            $this->collLyricsRelatedByArtist6Partial = true;
+        }
+
+        if (!$this->collLyricsRelatedByArtist6->contains($l)) {
+            $this->doAddLyricRelatedByArtist6($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyric $lyricRelatedByArtist6 The ChildLyric object to add.
+     */
+    protected function doAddLyricRelatedByArtist6(ChildLyric $lyricRelatedByArtist6)
+    {
+        $this->collLyricsRelatedByArtist6[]= $lyricRelatedByArtist6;
+        $lyricRelatedByArtist6->setArtistRelatedByArtist6($this);
+    }
+
+    /**
+     * @param  ChildLyric $lyricRelatedByArtist6 The ChildLyric object to remove.
+     * @return $this|ChildArtist The current object (for fluent API support)
+     */
+    public function removeLyricRelatedByArtist6(ChildLyric $lyricRelatedByArtist6)
+    {
+        if ($this->getLyricsRelatedByArtist6()->contains($lyricRelatedByArtist6)) {
+            $pos = $this->collLyricsRelatedByArtist6->search($lyricRelatedByArtist6);
+            $this->collLyricsRelatedByArtist6->remove($pos);
+            if (null === $this->lyricsRelatedByArtist6ScheduledForDeletion) {
+                $this->lyricsRelatedByArtist6ScheduledForDeletion = clone $this->collLyricsRelatedByArtist6;
+                $this->lyricsRelatedByArtist6ScheduledForDeletion->clear();
+            }
+            $this->lyricsRelatedByArtist6ScheduledForDeletion[]= clone $lyricRelatedByArtist6;
+            $lyricRelatedByArtist6->setArtistRelatedByArtist6(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist6 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist6JoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist6($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Artist is new, it will return
+     * an empty collection; or if this Artist has previously
+     * been saved, it will retrieve related LyricsRelatedByArtist6 from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Artist.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getLyricsRelatedByArtist6JoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Languages', $joinBehavior);
+
+        return $this->getLyricsRelatedByArtist6($query, $con);
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -1574,9 +3519,45 @@ abstract class Artist implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collLyricsRelatedByArtist1) {
+                foreach ($this->collLyricsRelatedByArtist1 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collLyricsRelatedByArtist2) {
+                foreach ($this->collLyricsRelatedByArtist2 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collLyricsRelatedByArtist3) {
+                foreach ($this->collLyricsRelatedByArtist3 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collLyricsRelatedByArtist4) {
+                foreach ($this->collLyricsRelatedByArtist4 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collLyricsRelatedByArtist5) {
+                foreach ($this->collLyricsRelatedByArtist5 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collLyricsRelatedByArtist6) {
+                foreach ($this->collLyricsRelatedByArtist6 as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
         $this->collTodays = null;
+        $this->collLyricsRelatedByArtist1 = null;
+        $this->collLyricsRelatedByArtist2 = null;
+        $this->collLyricsRelatedByArtist3 = null;
+        $this->collLyricsRelatedByArtist4 = null;
+        $this->collLyricsRelatedByArtist5 = null;
+        $this->collLyricsRelatedByArtist6 = null;
     }
 
     /**

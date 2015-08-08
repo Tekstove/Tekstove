@@ -3599,6 +3599,156 @@ abstract class Users implements ActiveRecordInterface
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
      */
+    public function getlyricsJoinArtistRelatedByArtist1(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist1', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlyricsJoinArtistRelatedByArtist2(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist2', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlyricsJoinArtistRelatedByArtist3(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist3', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlyricsJoinArtistRelatedByArtist4(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist4', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlyricsJoinArtistRelatedByArtist5(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist5', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlyricsJoinArtistRelatedByArtist6(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist6', $joinBehavior);
+
+        return $this->getlyrics($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related lyrics from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
     public function getlyricsJoinLanguages(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildLyricQuery::create(null, $criteria);

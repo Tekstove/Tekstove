@@ -1290,6 +1290,156 @@ abstract class Languages implements ActiveRecordInterface
         return $this->getlanguages($query, $con);
     }
 
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist1(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist1', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist2(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist2', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist3(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist3', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist4(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist4', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist5(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist5', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinArtistRelatedByArtist6(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('ArtistRelatedByArtist6', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
+    }
+
     /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
