@@ -30,9 +30,4 @@ class Lyric extends BaseLyric
         return $user;
     }
     
-    public function getlanguage() {
-        $id = parent::getlanguage();
-        return LanguagesQuery::create()->findOneById($id);
-    }
-
 }

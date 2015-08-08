@@ -34,8 +34,9 @@
         <column name="stilraphiphop" phpName="Stilraphiphop" type="BOOLEAN" size="1" required="true"/>
         <column name="stilhiphop" phpName="Stilhiphop" type="BOOLEAN" size="1" required="true"/>
         <column name="stileastcoast" phpName="Stileastcoast" type="BOOLEAN" size="1" required="true"/>
-        <column name="language" phpName="language" type="TINYINT" size="1" sqlType="tinyint(1) unsigned" required="true"/>
-        <foreign-key foreignTable="languages" name="lyric_language_fk" onDelete="restrict" >
+        
+        <column name="language" phpName="languageId" type="TINYINT" size="1" sqlType="tinyint(1) unsigned" required="false"/>
+        <foreign-key foreignTable="languages" refPhpName="language" >
             <reference local="language" foreign="id"/>
         </foreign-key>
 

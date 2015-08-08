@@ -54,7 +54,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByStilraphiphop($order = Criteria::ASC) Order by the stilraphiphop column
  * @method     ChildLyricQuery orderByStilhiphop($order = Criteria::ASC) Order by the stilhiphop column
  * @method     ChildLyricQuery orderByStileastcoast($order = Criteria::ASC) Order by the stileastcoast column
- * @method     ChildLyricQuery orderBylanguage($order = Criteria::ASC) Order by the language column
+ * @method     ChildLyricQuery orderBylanguageId($order = Criteria::ASC) Order by the language column
  * @method     ChildLyricQuery orderByStilskit($order = Criteria::ASC) Order by the stilskit column
  * @method     ChildLyricQuery orderByStilelektronna($order = Criteria::ASC) Order by the stilelektronna column
  * @method     ChildLyricQuery orderByStilrok($order = Criteria::ASC) Order by the stilrok column
@@ -128,7 +128,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery groupByStilraphiphop() Group by the stilraphiphop column
  * @method     ChildLyricQuery groupByStilhiphop() Group by the stilhiphop column
  * @method     ChildLyricQuery groupByStileastcoast() Group by the stileastcoast column
- * @method     ChildLyricQuery groupBylanguage() Group by the language column
+ * @method     ChildLyricQuery groupBylanguageId() Group by the language column
  * @method     ChildLyricQuery groupByStilskit() Group by the stilskit column
  * @method     ChildLyricQuery groupByStilelektronna() Group by the stilelektronna column
  * @method     ChildLyricQuery groupByStilrok() Group by the stilrok column
@@ -285,7 +285,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric findOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column
  * @method     ChildLyric findOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column
  * @method     ChildLyric findOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column
- * @method     ChildLyric findOneBylanguage(int $language) Return the first ChildLyric filtered by the language column
+ * @method     ChildLyric findOneBylanguageId(int $language) Return the first ChildLyric filtered by the language column
  * @method     ChildLyric findOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column
  * @method     ChildLyric findOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column
  * @method     ChildLyric findOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column
@@ -362,7 +362,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric requireOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneBylanguage(int $language) Return the first ChildLyric filtered by the language column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBylanguageId(int $language) Return the first ChildLyric filtered by the language column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -437,7 +437,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findByStilraphiphop(boolean $stilraphiphop) Return ChildLyric objects filtered by the stilraphiphop column
  * @method     ChildLyric[]|ObjectCollection findByStilhiphop(boolean $stilhiphop) Return ChildLyric objects filtered by the stilhiphop column
  * @method     ChildLyric[]|ObjectCollection findByStileastcoast(boolean $stileastcoast) Return ChildLyric objects filtered by the stileastcoast column
- * @method     ChildLyric[]|ObjectCollection findBylanguage(int $language) Return ChildLyric objects filtered by the language column
+ * @method     ChildLyric[]|ObjectCollection findBylanguageId(int $language) Return ChildLyric objects filtered by the language column
  * @method     ChildLyric[]|ObjectCollection findByStilskit(boolean $stilskit) Return ChildLyric objects filtered by the stilskit column
  * @method     ChildLyric[]|ObjectCollection findByStilelektronna(boolean $stilelektronna) Return ChildLyric objects filtered by the stilelektronna column
  * @method     ChildLyric[]|ObjectCollection findByStilrok(boolean $stilrok) Return ChildLyric objects filtered by the stilrok column
@@ -1785,14 +1785,14 @@ abstract class LyricQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterBylanguage(1234); // WHERE language = 1234
-     * $query->filterBylanguage(array(12, 34)); // WHERE language IN (12, 34)
-     * $query->filterBylanguage(array('min' => 12)); // WHERE language > 12
+     * $query->filterBylanguageId(1234); // WHERE language = 1234
+     * $query->filterBylanguageId(array(12, 34)); // WHERE language IN (12, 34)
+     * $query->filterBylanguageId(array('min' => 12)); // WHERE language > 12
      * </code>
      *
      * @see       filterByLanguages()
      *
-     * @param     mixed $language The value to use as filter.
+     * @param     mixed $languageId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -1800,16 +1800,16 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterBylanguage($language = null, $comparison = null)
+    public function filterBylanguageId($languageId = null, $comparison = null)
     {
-        if (is_array($language)) {
+        if (is_array($languageId)) {
             $useMinMax = false;
-            if (isset($language['min'])) {
-                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language['min'], Criteria::GREATER_EQUAL);
+            if (isset($languageId['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $languageId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($language['max'])) {
-                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language['max'], Criteria::LESS_EQUAL);
+            if (isset($languageId['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $languageId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1820,7 +1820,7 @@ abstract class LyricQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $languageId, $comparison);
     }
 
     /**
@@ -2911,7 +2911,7 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function joinLanguages($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinLanguages($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('Languages');
@@ -2946,7 +2946,7 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery A secondary query class using the current class as primary query
      */
-    public function useLanguagesQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useLanguagesQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
             ->joinLanguages($relationAlias, $joinType)

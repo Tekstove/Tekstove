@@ -624,7 +624,7 @@ CREATE TABLE `lyric`
     `stilraphiphop` TINYINT(1) NOT NULL,
     `stilhiphop` TINYINT(1) NOT NULL,
     `stileastcoast` TINYINT(1) NOT NULL,
-    `language` tinyint(1) unsigned NOT NULL,
+    `language` tinyint(1) unsigned,
     `stilskit` TINYINT(1) NOT NULL,
     `stilelektronna` TINYINT(1) NOT NULL,
     `stilrok` TINYINT(1) NOT NULL,
@@ -674,11 +674,10 @@ CREATE TABLE `lyric`
     INDEX `glasa` (`glasa`),
     INDEX `vidqna` (`vidqna`),
     INDEX `populqrnost` (`populqrnost`),
-    INDEX `fi_ic_language_fk` (`language`),
-    CONSTRAINT `lyric_language_fk`
+    INDEX `lyric_fi_39ca59` (`language`),
+    CONSTRAINT `lyric_fk_39ca59`
         FOREIGN KEY (`language`)
         REFERENCES `languages` (`id`)
-        ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------

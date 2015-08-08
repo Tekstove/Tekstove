@@ -34,15 +34,15 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LanguagesTableMap;
  * @method     ChildLanguagesQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLanguagesQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildLanguagesQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
- * @method     ChildLanguagesQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
- * @method     ChildLanguagesQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ * @method     ChildLanguagesQuery leftJoinlanguageggg($relationAlias = null) Adds a LEFT JOIN clause to the query using the languageggg relation
+ * @method     ChildLanguagesQuery rightJoinlanguageggg($relationAlias = null) Adds a RIGHT JOIN clause to the query using the languageggg relation
+ * @method     ChildLanguagesQuery innerJoinlanguageggg($relationAlias = null) Adds a INNER JOIN clause to the query using the languageggg relation
  *
- * @method     ChildLanguagesQuery joinWithLyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric relation
+ * @method     ChildLanguagesQuery joinWithlanguageggg($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the languageggg relation
  *
- * @method     ChildLanguagesQuery leftJoinWithLyric() Adds a LEFT JOIN clause and with to the query using the Lyric relation
- * @method     ChildLanguagesQuery rightJoinWithLyric() Adds a RIGHT JOIN clause and with to the query using the Lyric relation
- * @method     ChildLanguagesQuery innerJoinWithLyric() Adds a INNER JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLanguagesQuery leftJoinWithlanguageggg() Adds a LEFT JOIN clause and with to the query using the languageggg relation
+ * @method     ChildLanguagesQuery rightJoinWithlanguageggg() Adds a RIGHT JOIN clause and with to the query using the languageggg relation
+ * @method     ChildLanguagesQuery innerJoinWithlanguageggg() Adds a INNER JOIN clause and with to the query using the languageggg relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
@@ -321,33 +321,33 @@ abstract class LanguagesQuery extends ModelCriteria
      *
      * @return ChildLanguagesQuery The current query, for fluid interface
      */
-    public function filterByLyric($lyric, $comparison = null)
+    public function filterBylanguageggg($lyric, $comparison = null)
     {
         if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
             return $this
-                ->addUsingAlias(LanguagesTableMap::COL_ID, $lyric->getlanguage(), $comparison);
+                ->addUsingAlias(LanguagesTableMap::COL_ID, $lyric->getlanguageId(), $comparison);
         } elseif ($lyric instanceof ObjectCollection) {
             return $this
-                ->useLyricQuery()
+                ->uselanguagegggQuery()
                 ->filterByPrimaryKeys($lyric->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByLyric() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+            throw new PropelException('filterBylanguageggg() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Lyric relation
+     * Adds a JOIN clause to the query using the languageggg relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildLanguagesQuery The current query, for fluid interface
      */
-    public function joinLyric($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinlanguageggg($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Lyric');
+        $relationMap = $tableMap->getRelation('languageggg');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -362,14 +362,14 @@ abstract class LanguagesQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Lyric');
+            $this->addJoinObject($join, 'languageggg');
         }
 
         return $this;
     }
 
     /**
-     * Use the Lyric relation Lyric object
+     * Use the languageggg relation Lyric object
      *
      * @see useQuery()
      *
@@ -379,11 +379,11 @@ abstract class LanguagesQuery extends ModelCriteria
      *
      * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
      */
-    public function useLyricQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function uselanguagegggQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinLyric($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Lyric', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
+            ->joinlanguageggg($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'languageggg', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
     }
 
     /**

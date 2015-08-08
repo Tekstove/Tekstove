@@ -1199,7 +1199,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @return int
      */
-    public function getlanguage()
+    public function getlanguageId()
     {
         return $this->language;
     }
@@ -2674,7 +2674,7 @@ abstract class Lyric implements ActiveRecordInterface
      * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
-    public function setlanguage($v)
+    public function setlanguageId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
@@ -2690,7 +2690,7 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         return $this;
-    } // setlanguage()
+    } // setlanguageId()
 
     /**
      * Sets the value of the [stilskit] column.
@@ -3922,7 +3922,7 @@ abstract class Lyric implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 32 + $startcol : LyricTableMap::translateFieldName('Stileastcoast', TableMap::TYPE_PHPNAME, $indexType)];
             $this->stileastcoast = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 33 + $startcol : LyricTableMap::translateFieldName('language', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 33 + $startcol : LyricTableMap::translateFieldName('languageId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->language = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 34 + $startcol : LyricTableMap::translateFieldName('Stilskit', TableMap::TYPE_PHPNAME, $indexType)];
@@ -4976,7 +4976,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return $this->getStileastcoast();
                 break;
             case 33:
-                return $this->getlanguage();
+                return $this->getlanguageId();
                 break;
             case 34:
                 return $this->getStilskit();
@@ -5158,7 +5158,7 @@ abstract class Lyric implements ActiveRecordInterface
             $keys[30] => $this->getStilraphiphop(),
             $keys[31] => $this->getStilhiphop(),
             $keys[32] => $this->getStileastcoast(),
-            $keys[33] => $this->getlanguage(),
+            $keys[33] => $this->getlanguageId(),
             $keys[34] => $this->getStilskit(),
             $keys[35] => $this->getStilelektronna(),
             $keys[36] => $this->getStilrok(),
@@ -5452,7 +5452,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->setStileastcoast($value);
                 break;
             case 33:
-                $this->setlanguage($value);
+                $this->setlanguageId($value);
                 break;
             case 34:
                 $this->setStilskit($value);
@@ -5697,7 +5697,7 @@ abstract class Lyric implements ActiveRecordInterface
             $this->setStileastcoast($arr[$keys[32]]);
         }
         if (array_key_exists($keys[33], $arr)) {
-            $this->setlanguage($arr[$keys[33]]);
+            $this->setlanguageId($arr[$keys[33]]);
         }
         if (array_key_exists($keys[34], $arr)) {
             $this->setStilskit($arr[$keys[34]]);
@@ -6194,7 +6194,7 @@ abstract class Lyric implements ActiveRecordInterface
         $copyObj->setStilraphiphop($this->getStilraphiphop());
         $copyObj->setStilhiphop($this->getStilhiphop());
         $copyObj->setStileastcoast($this->getStileastcoast());
-        $copyObj->setlanguage($this->getlanguage());
+        $copyObj->setlanguageId($this->getlanguageId());
         $copyObj->setStilskit($this->getStilskit());
         $copyObj->setStilelektronna($this->getStilelektronna());
         $copyObj->setStilrok($this->getStilrok());
@@ -6315,9 +6315,9 @@ abstract class Lyric implements ActiveRecordInterface
     public function setLanguages(ChildLanguages $v = null)
     {
         if ($v === null) {
-            $this->setlanguage(NULL);
+            $this->setlanguageId(NULL);
         } else {
-            $this->setlanguage($v->getId());
+            $this->setlanguageId($v->getId());
         }
 
         $this->aLanguages = $v;
@@ -6325,7 +6325,7 @@ abstract class Lyric implements ActiveRecordInterface
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the ChildLanguages object, it will not be re-added.
         if ($v !== null) {
-            $v->addLyric($this);
+            $v->addlanguageggg($this);
         }
 
 
@@ -6349,7 +6349,7 @@ abstract class Lyric implements ActiveRecordInterface
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aLanguages->addLyrics($this);
+                $this->aLanguages->addlanguagegggs($this);
              */
         }
 
@@ -7521,7 +7521,7 @@ abstract class Lyric implements ActiveRecordInterface
     public function clear()
     {
         if (null !== $this->aLanguages) {
-            $this->aLanguages->removeLyric($this);
+            $this->aLanguages->removelanguageggg($this);
         }
         $this->id = null;
         $this->cache_title_full = null;
