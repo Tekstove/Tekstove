@@ -33,6 +33,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricEditprotectTableMap;
  * @method     ChildLyricEditprotectQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLyricEditprotectQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLyricEditprotectQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLyricEditprotectQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLyricEditprotectQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLyricEditprotect findOne(ConnectionInterface $con = null) Return the first ChildLyricEditprotect matching the query
  * @method     ChildLyricEditprotect findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyricEditprotect matching the query, or a new ChildLyricEditprotect object populated from the query conditions when no match is found
  *

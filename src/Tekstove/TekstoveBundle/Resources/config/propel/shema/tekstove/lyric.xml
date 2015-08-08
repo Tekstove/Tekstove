@@ -1,0 +1,105 @@
+<table name="lyric" idMethod="native" phpName="Lyric">
+    <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="zaglavie_palno" phpName="ZaglaviePalno" type="LONGVARCHAR" required="true"/>
+    <column name="zaglavie_sakrateno" phpName="FullTitleShort" type="VARCHAR" size="280" required="true"/>
+    <column name="up_id" phpName="UpId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+    <column name="text_bg" phpName="TextBg" type="LONGVARCHAR"/>
+    <column name="artist1" phpName="Artist1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="artist2" phpName="Artist2" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="artist3" phpName="Artist3" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="artist4" phpName="Artist4" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="artist5" phpName="Artist5" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="artist6" phpName="Artist6" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="title" phpName="Title" type="VARCHAR" size="60" required="true"/>
+    <column name="album1" phpName="Album1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="album2" phpName="Album2" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="video" phpName="Video" type="VARCHAR" size="100" required="true"/>
+    <column name="video_vbox7" phpName="VideoVbox7" type="VARCHAR" size="100" required="true"/>
+    <column name="video_vbox7_orig" phpName="VideoVbox7Orig" type="VARCHAR" size="100" required="true"/>
+    <column name="video_youtube" phpName="VideoYoutube" type="VARCHAR" size="100" required="true"/>
+    <column name="video_youtube_orig" phpName="VideoYoutubeOrig" type="VARCHAR" size="100" required="true"/>
+    <column name="video_metacafe" phpName="VideoMetacafe" type="VARCHAR" size="150" required="true"/>
+    <column name="video_metacafe_orig" phpName="VideoMetacafeOrig" type="VARCHAR" size="150" required="true"/>
+    <column name="download" phpName="Download" type="VARCHAR" size="255"/>
+    <column name="image" phpName="Image" type="VARCHAR" size="100" required="true"/>
+    <column name="podnovena" phpName="Podnovena" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <column name="ip_upload" phpName="IpUpload" type="VARCHAR" size="30" required="true"/>
+    <column name="dopylnitelnoinfo" phpName="Dopylnitelnoinfo" type="LONGVARCHAR" required="true"/>
+    <column name="glasa" phpName="VotesCountCache" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="views" phpName="Views" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="popularity" phpName="Popularity" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="stilraphiphop" phpName="Stilraphiphop" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilhiphop" phpName="Stilhiphop" type="BOOLEAN" size="1" required="true"/>
+    <column name="stileastcoast" phpName="Stileastcoast" type="BOOLEAN" size="1" required="true"/>
+    <column name="pee_se_na" phpName="PeeSeNa" type="BOOLEAN" size="1" sqlType="tinyint(1) unsigned" required="true"/>
+    <column name="stilskit" phpName="Stilskit" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilelektronna" phpName="Stilelektronna" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilrok" phpName="Stilrok" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilrok_clas" phpName="StilrokClas" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilrok_alt" phpName="StilrokAlt" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilrok_hard" phpName="StilrokHard" type="BOOLEAN" size="1" required="true"/>
+    <column name="stildisko" phpName="Stildisko" type="BOOLEAN" size="1" required="true"/>
+    <column name="stillatam" phpName="Stillatam" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilsamba" phpName="Stilsamba" type="BOOLEAN" size="1" required="true"/>
+    <column name="stiltango" phpName="Stiltango" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilsalsa" phpName="Stilsalsa" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilklasi" phpName="Stilklasi" type="BOOLEAN" size="1" required="true"/>
+    <column name="stildetski" phpName="Stildetski" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilfolk" phpName="Stilfolk" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilnarodna" phpName="Stilnarodna" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilchalga" phpName="Stilchalga" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilpopfolk" phpName="Stilpopfolk" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal" phpName="Stilmetal" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_heavy" phpName="StilmetalHeavy" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_power" phpName="StilmetalPower" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_death" phpName="StilmetalDeath" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_nu" phpName="StilmetalNu" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_gothic" phpName="StilmetalGothic" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilmetal_symphonic" phpName="StilmetalSymphonic" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilsoundtrack" phpName="Stilsoundtrack" type="BOOLEAN" size="1" required="true"/>
+    <column name="stildance" phpName="Stildance" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilRnB" phpName="Stilrnb" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilsoul" phpName="Stilsoul" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilnew_rave" phpName="StilnewRave" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilreggae" phpName="Stilreggae" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilkantri" phpName="Stilkantri" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilpunk" phpName="Stilpunk" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilemo" phpName="Stilemo" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilbreakbeat" phpName="Stilbreakbeat" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilbigbeat" phpName="Stilbigbeat" type="BOOLEAN" size="1" required="true"/>
+    <column name="stiljaz" phpName="Stiljaz" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilblus" phpName="Stilblus" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilelectronica" phpName="Stilelectronica" type="BOOLEAN" size="1" required="true"/>
+    <column name="stilska" phpName="Stilska" type="BOOLEAN" size="1" required="true"/>
+    <index name="artist">
+        <index-column name="artist1"/>
+    </index>
+    <index name="artist2">
+        <index-column name="artist2"/>
+    </index>
+    <index name="artist3">
+        <index-column name="artist3"/>
+    </index>
+    <index name="artist4">
+        <index-column name="artist4"/>
+    </index>
+    <index name="artist6">
+        <index-column name="artist6"/>
+    </index>
+    <index name="artist5">
+        <index-column name="artist5"/>
+    </index>
+    <index name="glasa">
+        <index-column name="glasa"/>
+    </index>
+    <index name="vidqna">
+        <index-column name="vidqna"/>
+    </index>
+    <index name="populqrnost">
+        <index-column name="populqrnost"/>
+    </index>
+    <vendor type="mysql">
+        <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+</table>

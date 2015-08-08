@@ -28,9 +28,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\Lyric18TableMap;
  * @method     ChildLyric18Query rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLyric18Query innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLyric18Query leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLyric18Query rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLyric18Query innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLyric18Query leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
  * @method     ChildLyric18Query rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
  * @method     ChildLyric18Query innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ *
+ * @method     ChildLyric18Query joinWithLyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric relation
+ *
+ * @method     ChildLyric18Query leftJoinWithLyric() Adds a LEFT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLyric18Query rightJoinWithLyric() Adds a RIGHT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLyric18Query innerJoinWithLyric() Adds a INNER JOIN clause and with to the query using the Lyric relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

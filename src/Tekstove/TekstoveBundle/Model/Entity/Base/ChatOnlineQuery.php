@@ -32,9 +32,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ChatOnlineTableMap;
  * @method     ChildChatOnlineQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildChatOnlineQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildChatOnlineQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildChatOnlineQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildChatOnlineQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildChatOnlineQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
  * @method     ChildChatOnlineQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
  * @method     ChildChatOnlineQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
+ *
+ * @method     ChildChatOnlineQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ *
+ * @method     ChildChatOnlineQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
+ * @method     ChildChatOnlineQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
+ * @method     ChildChatOnlineQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\UsersQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

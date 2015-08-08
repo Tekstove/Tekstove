@@ -31,6 +31,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\GlasuvanePosledniTableMap;
  * @method     ChildGlasuvanePosledniQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildGlasuvanePosledniQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildGlasuvanePosledniQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildGlasuvanePosledniQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildGlasuvanePosledniQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildGlasuvanePosledni findOne(ConnectionInterface $con = null) Return the first ChildGlasuvanePosledni matching the query
  * @method     ChildGlasuvanePosledni findOneOrCreate(ConnectionInterface $con = null) Return the first ChildGlasuvanePosledni matching the query, or a new ChildGlasuvanePosledni object populated from the query conditions when no match is found
  *

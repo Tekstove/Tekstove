@@ -30,13 +30,29 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumTopicWatchersTableMap;
  * @method     ChildForumTopicWatchersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildForumTopicWatchersQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildForumTopicWatchersQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildForumTopicWatchersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildForumTopicWatchersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildForumTopicWatchersQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
  * @method     ChildForumTopicWatchersQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
  * @method     ChildForumTopicWatchersQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
  *
+ * @method     ChildForumTopicWatchersQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ *
+ * @method     ChildForumTopicWatchersQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
+ * @method     ChildForumTopicWatchersQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
+ * @method     ChildForumTopicWatchersQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
+ *
  * @method     ChildForumTopicWatchersQuery leftJoinForumTopic($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopic relation
  * @method     ChildForumTopicWatchersQuery rightJoinForumTopic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopic relation
  * @method     ChildForumTopicWatchersQuery innerJoinForumTopic($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopic relation
+ *
+ * @method     ChildForumTopicWatchersQuery joinWithForumTopic($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopic relation
+ *
+ * @method     ChildForumTopicWatchersQuery leftJoinWithForumTopic() Adds a LEFT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildForumTopicWatchersQuery rightJoinWithForumTopic() Adds a RIGHT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildForumTopicWatchersQuery innerJoinWithForumTopic() Adds a INNER JOIN clause and with to the query using the ForumTopic relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\UsersQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

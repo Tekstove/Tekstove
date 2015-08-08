@@ -32,9 +32,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\NoviniTableMap;
  * @method     ChildNoviniQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildNoviniQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildNoviniQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildNoviniQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildNoviniQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildNoviniQuery leftJoinForumTopic($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopic relation
  * @method     ChildNoviniQuery rightJoinForumTopic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopic relation
  * @method     ChildNoviniQuery innerJoinForumTopic($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopic relation
+ *
+ * @method     ChildNoviniQuery joinWithForumTopic($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopic relation
+ *
+ * @method     ChildNoviniQuery leftJoinWithForumTopic() Adds a LEFT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildNoviniQuery rightJoinWithForumTopic() Adds a RIGHT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildNoviniQuery innerJoinWithForumTopic() Adds a INNER JOIN clause and with to the query using the ForumTopic relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\ForumTopicQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

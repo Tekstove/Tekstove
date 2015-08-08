@@ -14,8 +14,6 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $albumManager = $this->get('tekstoveAlbumManager');
-        /* @var $albumManager \Tekstove\TekstoveBundle\Model\Album\Manager */
         
         $lastLyricQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
         $lastLyricQuery->orderBy('id', \Propel\Runtime\ActiveQuery\Criteria::DESC);

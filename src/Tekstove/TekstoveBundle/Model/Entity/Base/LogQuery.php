@@ -31,6 +31,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LogTableMap;
  * @method     ChildLogQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLogQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLogQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLogQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLogQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLog findOne(ConnectionInterface $con = null) Return the first ChildLog matching the query
  * @method     ChildLog findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLog matching the query, or a new ChildLog object populated from the query conditions when no match is found
  *

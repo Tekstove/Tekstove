@@ -39,10 +39,9 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $manager = $this->get('tekstoveLyricManager');
-        /* @var $manager \Tekstove\TekstoveBundle\Model\Lyric\Manager */
+        $repo = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
         
-        $lyric = $manager->getById($id);
+        $lyric = $repo->findOneById($id);
         
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
             throw new \Exception('Unauthorised access!');
@@ -60,6 +59,8 @@ class LyricController extends Controller
     {
         $formBuilder = $this->getLyricFormBuilder();
         $form = $formBuilder->getForm();
+        
+        $form = $this->createForm(new \Tekstove\TekstoveBundle\Form\Type\LyricType());
         
         return [
             'form' => $form->createView(),

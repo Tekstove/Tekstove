@@ -30,9 +30,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricRedirectTableMap;
  * @method     ChildLyricRedirectQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLyricRedirectQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLyricRedirectQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLyricRedirectQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLyricRedirectQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLyricRedirectQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
  * @method     ChildLyricRedirectQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
  * @method     ChildLyricRedirectQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ *
+ * @method     ChildLyricRedirectQuery joinWithLyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric relation
+ *
+ * @method     ChildLyricRedirectQuery leftJoinWithLyric() Adds a LEFT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLyricRedirectQuery rightJoinWithLyric() Adds a RIGHT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLyricRedirectQuery innerJoinWithLyric() Adds a INNER JOIN clause and with to the query using the Lyric relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

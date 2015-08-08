@@ -31,6 +31,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\FloodControlTableMap;
  * @method     ChildFloodControlQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildFloodControlQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildFloodControlQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildFloodControlQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildFloodControlQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildFloodControl findOne(ConnectionInterface $con = null) Return the first ChildFloodControl matching the query
  * @method     ChildFloodControl findOneOrCreate(ConnectionInterface $con = null) Return the first ChildFloodControl matching the query, or a new ChildFloodControl object populated from the query conditions when no match is found
  *

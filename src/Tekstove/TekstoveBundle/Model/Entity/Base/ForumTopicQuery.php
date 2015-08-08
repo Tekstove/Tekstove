@@ -40,21 +40,49 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumTopicTableMap;
  * @method     ChildForumTopicQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildForumTopicQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildForumTopicQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildForumTopicQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildForumTopicQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildForumTopicQuery leftJoinForumRazdel($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumRazdel relation
  * @method     ChildForumTopicQuery rightJoinForumRazdel($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumRazdel relation
  * @method     ChildForumTopicQuery innerJoinForumRazdel($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumRazdel relation
+ *
+ * @method     ChildForumTopicQuery joinWithForumRazdel($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumRazdel relation
+ *
+ * @method     ChildForumTopicQuery leftJoinWithForumRazdel() Adds a LEFT JOIN clause and with to the query using the ForumRazdel relation
+ * @method     ChildForumTopicQuery rightJoinWithForumRazdel() Adds a RIGHT JOIN clause and with to the query using the ForumRazdel relation
+ * @method     ChildForumTopicQuery innerJoinWithForumRazdel() Adds a INNER JOIN clause and with to the query using the ForumRazdel relation
  *
  * @method     ChildForumTopicQuery leftJoinForumPosts($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumPosts relation
  * @method     ChildForumTopicQuery rightJoinForumPosts($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumPosts relation
  * @method     ChildForumTopicQuery innerJoinForumPosts($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumPosts relation
  *
+ * @method     ChildForumTopicQuery joinWithForumPosts($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumPosts relation
+ *
+ * @method     ChildForumTopicQuery leftJoinWithForumPosts() Adds a LEFT JOIN clause and with to the query using the ForumPosts relation
+ * @method     ChildForumTopicQuery rightJoinWithForumPosts() Adds a RIGHT JOIN clause and with to the query using the ForumPosts relation
+ * @method     ChildForumTopicQuery innerJoinWithForumPosts() Adds a INNER JOIN clause and with to the query using the ForumPosts relation
+ *
  * @method     ChildForumTopicQuery leftJoinForumTopicWatchers($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopicWatchers relation
  * @method     ChildForumTopicQuery rightJoinForumTopicWatchers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopicWatchers relation
  * @method     ChildForumTopicQuery innerJoinForumTopicWatchers($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopicWatchers relation
  *
+ * @method     ChildForumTopicQuery joinWithForumTopicWatchers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopicWatchers relation
+ *
+ * @method     ChildForumTopicQuery leftJoinWithForumTopicWatchers() Adds a LEFT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildForumTopicQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildForumTopicQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
+ *
  * @method     ChildForumTopicQuery leftJoinNovini($relationAlias = null) Adds a LEFT JOIN clause to the query using the Novini relation
  * @method     ChildForumTopicQuery rightJoinNovini($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Novini relation
  * @method     ChildForumTopicQuery innerJoinNovini($relationAlias = null) Adds a INNER JOIN clause to the query using the Novini relation
+ *
+ * @method     ChildForumTopicQuery joinWithNovini($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Novini relation
+ *
+ * @method     ChildForumTopicQuery leftJoinWithNovini() Adds a LEFT JOIN clause and with to the query using the Novini relation
+ * @method     ChildForumTopicQuery rightJoinWithNovini() Adds a RIGHT JOIN clause and with to the query using the Novini relation
+ * @method     ChildForumTopicQuery innerJoinWithNovini() Adds a INNER JOIN clause and with to the query using the Novini relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\ForumRazdelQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumPostsQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\NoviniQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

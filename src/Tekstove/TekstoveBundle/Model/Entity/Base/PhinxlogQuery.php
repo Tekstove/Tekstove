@@ -31,6 +31,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PhinxlogTableMap;
  * @method     ChildPhinxlogQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildPhinxlogQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildPhinxlogQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildPhinxlogQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildPhinxlogQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildPhinxlog findOne(ConnectionInterface $con = null) Return the first ChildPhinxlog matching the query
  * @method     ChildPhinxlog findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPhinxlog matching the query, or a new ChildPhinxlog object populated from the query conditions when no match is found
  *

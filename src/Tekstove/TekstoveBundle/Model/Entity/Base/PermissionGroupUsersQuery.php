@@ -30,13 +30,29 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PermissionGroupUsersTableMap;
  * @method     ChildPermissionGroupUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildPermissionGroupUsersQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildPermissionGroupUsersQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildPermissionGroupUsersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildPermissionGroupUsersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildPermissionGroupUsersQuery leftJoinPermissionGroups($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroups relation
  * @method     ChildPermissionGroupUsersQuery rightJoinPermissionGroups($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroups relation
  * @method     ChildPermissionGroupUsersQuery innerJoinPermissionGroups($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroups relation
  *
+ * @method     ChildPermissionGroupUsersQuery joinWithPermissionGroups($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionGroups relation
+ *
+ * @method     ChildPermissionGroupUsersQuery leftJoinWithPermissionGroups() Adds a LEFT JOIN clause and with to the query using the PermissionGroups relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinWithPermissionGroups() Adds a RIGHT JOIN clause and with to the query using the PermissionGroups relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinWithPermissionGroups() Adds a INNER JOIN clause and with to the query using the PermissionGroups relation
+ *
  * @method     ChildPermissionGroupUsersQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
  * @method     ChildPermissionGroupUsersQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
  * @method     ChildPermissionGroupUsersQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
+ *
+ * @method     ChildPermissionGroupUsersQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ *
+ * @method     ChildPermissionGroupUsersQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\PermissionGroupsQuery|\Tekstove\TekstoveBundle\Model\Entity\UsersQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

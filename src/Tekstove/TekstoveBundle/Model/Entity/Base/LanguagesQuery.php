@@ -29,6 +29,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LanguagesTableMap;
  * @method     ChildLanguagesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLanguagesQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLanguagesQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLanguagesQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLanguagesQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLanguages findOne(ConnectionInterface $con = null) Return the first ChildLanguages matching the query
  * @method     ChildLanguages findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLanguages matching the query, or a new ChildLanguages object populated from the query conditions when no match is found
  *

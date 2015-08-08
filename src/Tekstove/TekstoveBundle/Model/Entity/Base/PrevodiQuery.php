@@ -34,9 +34,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PrevodiTableMap;
  * @method     ChildPrevodiQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildPrevodiQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildPrevodiQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildPrevodiQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildPrevodiQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildPrevodiQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
  * @method     ChildPrevodiQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
  * @method     ChildPrevodiQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
+ *
+ * @method     ChildPrevodiQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ *
+ * @method     ChildPrevodiQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
+ * @method     ChildPrevodiQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
+ * @method     ChildPrevodiQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\UsersQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

@@ -36,9 +36,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumPostsTableMap;
  * @method     ChildForumPostsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildForumPostsQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildForumPostsQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildForumPostsQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildForumPostsQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildForumPostsQuery leftJoinForumTopic($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopic relation
  * @method     ChildForumPostsQuery rightJoinForumTopic($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopic relation
  * @method     ChildForumPostsQuery innerJoinForumTopic($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopic relation
+ *
+ * @method     ChildForumPostsQuery joinWithForumTopic($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopic relation
+ *
+ * @method     ChildForumPostsQuery leftJoinWithForumTopic() Adds a LEFT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildForumPostsQuery rightJoinWithForumTopic() Adds a RIGHT JOIN clause and with to the query using the ForumTopic relation
+ * @method     ChildForumPostsQuery innerJoinWithForumTopic() Adds a INNER JOIN clause and with to the query using the ForumTopic relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\ForumTopicQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

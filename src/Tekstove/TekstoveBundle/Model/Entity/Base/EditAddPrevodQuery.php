@@ -38,9 +38,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\EditAddPrevodTableMap;
  * @method     ChildEditAddPrevodQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildEditAddPrevodQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildEditAddPrevodQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildEditAddPrevodQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildEditAddPrevodQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildEditAddPrevodQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
  * @method     ChildEditAddPrevodQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
  * @method     ChildEditAddPrevodQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ *
+ * @method     ChildEditAddPrevodQuery joinWithLyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric relation
+ *
+ * @method     ChildEditAddPrevodQuery leftJoinWithLyric() Adds a LEFT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildEditAddPrevodQuery rightJoinWithLyric() Adds a RIGHT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildEditAddPrevodQuery innerJoinWithLyric() Adds a INNER JOIN clause and with to the query using the Lyric relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

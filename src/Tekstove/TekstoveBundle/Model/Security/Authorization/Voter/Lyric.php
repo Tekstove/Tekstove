@@ -21,7 +21,7 @@ class Lyric implements VoterInterface
 
     public function supportsClass($class)
     {
-        if ($class instanceof Model\Lyric) {
+        if ($class instanceof Model\Entity\Lyric) {
             return true;
         }
         

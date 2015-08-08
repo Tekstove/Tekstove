@@ -66,25 +66,59 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildUsersQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildUsersQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildUsersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildUsersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildUsersQuery leftJoinChatOnline($relationAlias = null) Adds a LEFT JOIN clause to the query using the ChatOnline relation
  * @method     ChildUsersQuery rightJoinChatOnline($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ChatOnline relation
  * @method     ChildUsersQuery innerJoinChatOnline($relationAlias = null) Adds a INNER JOIN clause to the query using the ChatOnline relation
+ *
+ * @method     ChildUsersQuery joinWithChatOnline($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ChatOnline relation
+ *
+ * @method     ChildUsersQuery leftJoinWithChatOnline() Adds a LEFT JOIN clause and with to the query using the ChatOnline relation
+ * @method     ChildUsersQuery rightJoinWithChatOnline() Adds a RIGHT JOIN clause and with to the query using the ChatOnline relation
+ * @method     ChildUsersQuery innerJoinWithChatOnline() Adds a INNER JOIN clause and with to the query using the ChatOnline relation
  *
  * @method     ChildUsersQuery leftJoinForumTopicWatchers($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopicWatchers relation
  * @method     ChildUsersQuery rightJoinForumTopicWatchers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopicWatchers relation
  * @method     ChildUsersQuery innerJoinForumTopicWatchers($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopicWatchers relation
  *
+ * @method     ChildUsersQuery joinWithForumTopicWatchers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopicWatchers relation
+ *
+ * @method     ChildUsersQuery leftJoinWithForumTopicWatchers() Adds a LEFT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
+ *
  * @method     ChildUsersQuery leftJoinPermissionGroupUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroupUsers relation
  * @method     ChildUsersQuery rightJoinPermissionGroupUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroupUsers relation
  * @method     ChildUsersQuery innerJoinPermissionGroupUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroupUsers relation
+ *
+ * @method     ChildUsersQuery joinWithPermissionGroupUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionGroupUsers relation
+ *
+ * @method     ChildUsersQuery leftJoinWithPermissionGroupUsers() Adds a LEFT JOIN clause and with to the query using the PermissionGroupUsers relation
+ * @method     ChildUsersQuery rightJoinWithPermissionGroupUsers() Adds a RIGHT JOIN clause and with to the query using the PermissionGroupUsers relation
+ * @method     ChildUsersQuery innerJoinWithPermissionGroupUsers() Adds a INNER JOIN clause and with to the query using the PermissionGroupUsers relation
  *
  * @method     ChildUsersQuery leftJoinPermissionUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionUsers relation
  * @method     ChildUsersQuery rightJoinPermissionUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionUsers relation
  * @method     ChildUsersQuery innerJoinPermissionUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionUsers relation
  *
+ * @method     ChildUsersQuery joinWithPermissionUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionUsers relation
+ *
+ * @method     ChildUsersQuery leftJoinWithPermissionUsers() Adds a LEFT JOIN clause and with to the query using the PermissionUsers relation
+ * @method     ChildUsersQuery rightJoinWithPermissionUsers() Adds a RIGHT JOIN clause and with to the query using the PermissionUsers relation
+ * @method     ChildUsersQuery innerJoinWithPermissionUsers() Adds a INNER JOIN clause and with to the query using the PermissionUsers relation
+ *
  * @method     ChildUsersQuery leftJoinPrevodi($relationAlias = null) Adds a LEFT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery rightJoinPrevodi($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery innerJoinPrevodi($relationAlias = null) Adds a INNER JOIN clause to the query using the Prevodi relation
+ *
+ * @method     ChildUsersQuery joinWithPrevodi($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Prevodi relation
+ *
+ * @method     ChildUsersQuery leftJoinWithPrevodi() Adds a LEFT JOIN clause and with to the query using the Prevodi relation
+ * @method     ChildUsersQuery rightJoinWithPrevodi() Adds a RIGHT JOIN clause and with to the query using the Prevodi relation
+ * @method     ChildUsersQuery innerJoinWithPrevodi() Adds a INNER JOIN clause and with to the query using the Prevodi relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\ChatOnlineQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PrevodiQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

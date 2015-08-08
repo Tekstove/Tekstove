@@ -34,9 +34,19 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\TodayTableMap;
  * @method     ChildTodayQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildTodayQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildTodayQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildTodayQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildTodayQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildTodayQuery leftJoinArtist($relationAlias = null) Adds a LEFT JOIN clause to the query using the Artist relation
  * @method     ChildTodayQuery rightJoinArtist($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Artist relation
  * @method     ChildTodayQuery innerJoinArtist($relationAlias = null) Adds a INNER JOIN clause to the query using the Artist relation
+ *
+ * @method     ChildTodayQuery joinWithArtist($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Artist relation
+ *
+ * @method     ChildTodayQuery leftJoinWithArtist() Adds a LEFT JOIN clause and with to the query using the Artist relation
+ * @method     ChildTodayQuery rightJoinWithArtist() Adds a RIGHT JOIN clause and with to the query using the Artist relation
+ * @method     ChildTodayQuery innerJoinWithArtist() Adds a INNER JOIN clause and with to the query using the Artist relation
  *
  * @method     \Tekstove\TekstoveBundle\Model\Entity\ArtistQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *

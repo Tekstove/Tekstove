@@ -43,6 +43,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ChatTableMap;
  * @method     ChildChatQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildChatQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildChatQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildChatQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildChatQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildChat findOne(ConnectionInterface $con = null) Return the first ChildChat matching the query
  * @method     ChildChat findOneOrCreate(ConnectionInterface $con = null) Return the first ChildChat matching the query, or a new ChildChat object populated from the query conditions when no match is found
  *

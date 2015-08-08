@@ -35,6 +35,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\BansTableMap;
  * @method     ChildBansQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildBansQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildBansQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildBansQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildBansQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildBans findOne(ConnectionInterface $con = null) Return the first ChildBans matching the query
  * @method     ChildBans findOneOrCreate(ConnectionInterface $con = null) Return the first ChildBans matching the query, or a new ChildBans object populated from the query conditions when no match is found
  *
