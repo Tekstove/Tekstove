@@ -59,7 +59,7 @@ class UsersTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 20;
+    const NUM_COLUMNS = 19;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class UsersTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 20;
+    const NUM_HYDRATE_COLUMNS = 19;
 
     /**
      * the column name for the username field
@@ -142,11 +142,6 @@ class UsersTableMap extends TableMap
     const COL_RAJDANE = 'users.rajdane';
 
     /**
-     * the column name for the prevodi field
-     */
-    const COL_PREVODI = 'users.prevodi';
-
-    /**
      * the column name for the autoplay field
      */
     const COL_AUTOPLAY = 'users.autoplay';
@@ -183,11 +178,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Username', 'Password', 'PasswordMod', 'PasswordModCoockie', 'Id', 'Mail', 'Class', 'Classcustomname', 'Avatar', 'About', 'RegDate', 'Pozdrav', 'BrPesni', 'Rajdane', 'Prevodi', 'Autoplay', 'Skype', 'ActivityPoints', 'Banned', 'Chatmessages', ),
-        self::TYPE_CAMELNAME     => array('username', 'password', 'passwordMod', 'passwordModCoockie', 'id', 'mail', 'class', 'classcustomname', 'avatar', 'about', 'regDate', 'pozdrav', 'brPesni', 'rajdane', 'prevodi', 'autoplay', 'skype', 'activityPoints', 'banned', 'chatmessages', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_USERNAME, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_PASSWORD_MOD, UsersTableMap::COL_PASSWORD_MOD_COOCKIE, UsersTableMap::COL_ID, UsersTableMap::COL_MAIL, UsersTableMap::COL_CLASS, UsersTableMap::COL_CLASSCUSTOMNAME, UsersTableMap::COL_AVATAR, UsersTableMap::COL_ABOUT, UsersTableMap::COL_REG_DATE, UsersTableMap::COL_POZDRAV, UsersTableMap::COL_BR_PESNI, UsersTableMap::COL_RAJDANE, UsersTableMap::COL_PREVODI, UsersTableMap::COL_AUTOPLAY, UsersTableMap::COL_SKYPE, UsersTableMap::COL_ACTIVITY_POINTS, UsersTableMap::COL_BANNED, UsersTableMap::COL_CHATMESSAGES, ),
-        self::TYPE_FIELDNAME     => array('username', 'password', 'password_mod', 'password_mod_coockie', 'id', 'mail', 'class', 'classCustomName', 'avatar', 'about', 'reg_date', 'pozdrav', 'br_pesni', 'rajdane', 'prevodi', 'autoplay', 'skype', 'activity_points', 'banned', 'chatMessages', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, )
+        self::TYPE_PHPNAME       => array('Username', 'Password', 'PasswordMod', 'PasswordModCoockie', 'Id', 'Mail', 'Class', 'Classcustomname', 'Avatar', 'About', 'RegDate', 'Pozdrav', 'BrPesni', 'Rajdane', 'Autoplay', 'Skype', 'ActivityPoints', 'Banned', 'Chatmessages', ),
+        self::TYPE_CAMELNAME     => array('username', 'password', 'passwordMod', 'passwordModCoockie', 'id', 'mail', 'class', 'classcustomname', 'avatar', 'about', 'regDate', 'pozdrav', 'brPesni', 'rajdane', 'autoplay', 'skype', 'activityPoints', 'banned', 'chatmessages', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_USERNAME, UsersTableMap::COL_PASSWORD, UsersTableMap::COL_PASSWORD_MOD, UsersTableMap::COL_PASSWORD_MOD_COOCKIE, UsersTableMap::COL_ID, UsersTableMap::COL_MAIL, UsersTableMap::COL_CLASS, UsersTableMap::COL_CLASSCUSTOMNAME, UsersTableMap::COL_AVATAR, UsersTableMap::COL_ABOUT, UsersTableMap::COL_REG_DATE, UsersTableMap::COL_POZDRAV, UsersTableMap::COL_BR_PESNI, UsersTableMap::COL_RAJDANE, UsersTableMap::COL_AUTOPLAY, UsersTableMap::COL_SKYPE, UsersTableMap::COL_ACTIVITY_POINTS, UsersTableMap::COL_BANNED, UsersTableMap::COL_CHATMESSAGES, ),
+        self::TYPE_FIELDNAME     => array('username', 'password', 'password_mod', 'password_mod_coockie', 'id', 'mail', 'class', 'classCustomName', 'avatar', 'about', 'reg_date', 'pozdrav', 'br_pesni', 'rajdane', 'autoplay', 'skype', 'activity_points', 'banned', 'chatMessages', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
     );
 
     /**
@@ -197,11 +192,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Username' => 0, 'Password' => 1, 'PasswordMod' => 2, 'PasswordModCoockie' => 3, 'Id' => 4, 'Mail' => 5, 'Class' => 6, 'Classcustomname' => 7, 'Avatar' => 8, 'About' => 9, 'RegDate' => 10, 'Pozdrav' => 11, 'BrPesni' => 12, 'Rajdane' => 13, 'Prevodi' => 14, 'Autoplay' => 15, 'Skype' => 16, 'ActivityPoints' => 17, 'Banned' => 18, 'Chatmessages' => 19, ),
-        self::TYPE_CAMELNAME     => array('username' => 0, 'password' => 1, 'passwordMod' => 2, 'passwordModCoockie' => 3, 'id' => 4, 'mail' => 5, 'class' => 6, 'classcustomname' => 7, 'avatar' => 8, 'about' => 9, 'regDate' => 10, 'pozdrav' => 11, 'brPesni' => 12, 'rajdane' => 13, 'prevodi' => 14, 'autoplay' => 15, 'skype' => 16, 'activityPoints' => 17, 'banned' => 18, 'chatmessages' => 19, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_USERNAME => 0, UsersTableMap::COL_PASSWORD => 1, UsersTableMap::COL_PASSWORD_MOD => 2, UsersTableMap::COL_PASSWORD_MOD_COOCKIE => 3, UsersTableMap::COL_ID => 4, UsersTableMap::COL_MAIL => 5, UsersTableMap::COL_CLASS => 6, UsersTableMap::COL_CLASSCUSTOMNAME => 7, UsersTableMap::COL_AVATAR => 8, UsersTableMap::COL_ABOUT => 9, UsersTableMap::COL_REG_DATE => 10, UsersTableMap::COL_POZDRAV => 11, UsersTableMap::COL_BR_PESNI => 12, UsersTableMap::COL_RAJDANE => 13, UsersTableMap::COL_PREVODI => 14, UsersTableMap::COL_AUTOPLAY => 15, UsersTableMap::COL_SKYPE => 16, UsersTableMap::COL_ACTIVITY_POINTS => 17, UsersTableMap::COL_BANNED => 18, UsersTableMap::COL_CHATMESSAGES => 19, ),
-        self::TYPE_FIELDNAME     => array('username' => 0, 'password' => 1, 'password_mod' => 2, 'password_mod_coockie' => 3, 'id' => 4, 'mail' => 5, 'class' => 6, 'classCustomName' => 7, 'avatar' => 8, 'about' => 9, 'reg_date' => 10, 'pozdrav' => 11, 'br_pesni' => 12, 'rajdane' => 13, 'prevodi' => 14, 'autoplay' => 15, 'skype' => 16, 'activity_points' => 17, 'banned' => 18, 'chatMessages' => 19, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, )
+        self::TYPE_PHPNAME       => array('Username' => 0, 'Password' => 1, 'PasswordMod' => 2, 'PasswordModCoockie' => 3, 'Id' => 4, 'Mail' => 5, 'Class' => 6, 'Classcustomname' => 7, 'Avatar' => 8, 'About' => 9, 'RegDate' => 10, 'Pozdrav' => 11, 'BrPesni' => 12, 'Rajdane' => 13, 'Autoplay' => 14, 'Skype' => 15, 'ActivityPoints' => 16, 'Banned' => 17, 'Chatmessages' => 18, ),
+        self::TYPE_CAMELNAME     => array('username' => 0, 'password' => 1, 'passwordMod' => 2, 'passwordModCoockie' => 3, 'id' => 4, 'mail' => 5, 'class' => 6, 'classcustomname' => 7, 'avatar' => 8, 'about' => 9, 'regDate' => 10, 'pozdrav' => 11, 'brPesni' => 12, 'rajdane' => 13, 'autoplay' => 14, 'skype' => 15, 'activityPoints' => 16, 'banned' => 17, 'chatmessages' => 18, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_USERNAME => 0, UsersTableMap::COL_PASSWORD => 1, UsersTableMap::COL_PASSWORD_MOD => 2, UsersTableMap::COL_PASSWORD_MOD_COOCKIE => 3, UsersTableMap::COL_ID => 4, UsersTableMap::COL_MAIL => 5, UsersTableMap::COL_CLASS => 6, UsersTableMap::COL_CLASSCUSTOMNAME => 7, UsersTableMap::COL_AVATAR => 8, UsersTableMap::COL_ABOUT => 9, UsersTableMap::COL_REG_DATE => 10, UsersTableMap::COL_POZDRAV => 11, UsersTableMap::COL_BR_PESNI => 12, UsersTableMap::COL_RAJDANE => 13, UsersTableMap::COL_AUTOPLAY => 14, UsersTableMap::COL_SKYPE => 15, UsersTableMap::COL_ACTIVITY_POINTS => 16, UsersTableMap::COL_BANNED => 17, UsersTableMap::COL_CHATMESSAGES => 18, ),
+        self::TYPE_FIELDNAME     => array('username' => 0, 'password' => 1, 'password_mod' => 2, 'password_mod_coockie' => 3, 'id' => 4, 'mail' => 5, 'class' => 6, 'classCustomName' => 7, 'avatar' => 8, 'about' => 9, 'reg_date' => 10, 'pozdrav' => 11, 'br_pesni' => 12, 'rajdane' => 13, 'autoplay' => 14, 'skype' => 15, 'activity_points' => 16, 'banned' => 17, 'chatMessages' => 18, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
     );
 
     /**
@@ -235,7 +230,6 @@ class UsersTableMap extends TableMap
         $this->addColumn('pozdrav', 'Pozdrav', 'INTEGER', true, null, null);
         $this->addColumn('br_pesni', 'BrPesni', 'INTEGER', true, null, null);
         $this->addColumn('rajdane', 'Rajdane', 'VARCHAR', true, 8, null);
-        $this->addColumn('prevodi', 'Prevodi', 'INTEGER', true, 10, null);
         $this->addColumn('autoplay', 'Autoplay', 'SMALLINT', true, 1, 1);
         $this->addColumn('skype', 'Skype', 'VARCHAR', true, 50, null);
         $this->addColumn('activity_points', 'ActivityPoints', 'INTEGER', true, 10, null);
@@ -440,7 +434,6 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn(UsersTableMap::COL_POZDRAV);
             $criteria->addSelectColumn(UsersTableMap::COL_BR_PESNI);
             $criteria->addSelectColumn(UsersTableMap::COL_RAJDANE);
-            $criteria->addSelectColumn(UsersTableMap::COL_PREVODI);
             $criteria->addSelectColumn(UsersTableMap::COL_AUTOPLAY);
             $criteria->addSelectColumn(UsersTableMap::COL_SKYPE);
             $criteria->addSelectColumn(UsersTableMap::COL_ACTIVITY_POINTS);
@@ -461,7 +454,6 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.pozdrav');
             $criteria->addSelectColumn($alias . '.br_pesni');
             $criteria->addSelectColumn($alias . '.rajdane');
-            $criteria->addSelectColumn($alias . '.prevodi');
             $criteria->addSelectColumn($alias . '.autoplay');
             $criteria->addSelectColumn($alias . '.skype');
             $criteria->addSelectColumn($alias . '.activity_points');

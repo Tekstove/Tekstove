@@ -15,7 +15,6 @@
         <column name="pozdrav" phpName="Pozdrav" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
         <column name="br_pesni" phpName="BrPesni" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
         <column name="rajdane" phpName="Rajdane" type="VARCHAR" size="8" required="true"/>
-        <column name="prevodi" phpName="Prevodi" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
         <column name="autoplay" phpName="Autoplay" type="SMALLINT" size="1" sqlType="smallint(1) unsigned" required="true" defaultValue="1"/>
         <column name="skype" phpName="Skype" type="VARCHAR" size="50" required="true"/>
         <column name="activity_points" phpName="ActivityPoints" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>

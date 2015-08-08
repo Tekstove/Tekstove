@@ -741,7 +741,6 @@ CREATE TABLE `users`
     `pozdrav` int(11) unsigned NOT NULL,
     `br_pesni` int(11) unsigned NOT NULL,
     `rajdane` VARCHAR(8) NOT NULL,
-    `prevodi` int(10) unsigned NOT NULL,
     `autoplay` smallint(1) unsigned DEFAULT 1 NOT NULL,
     `skype` VARCHAR(50) NOT NULL,
     `activity_points` int(10) unsigned NOT NULL,

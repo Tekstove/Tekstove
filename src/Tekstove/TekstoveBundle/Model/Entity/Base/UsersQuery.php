@@ -34,7 +34,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery orderByPozdrav($order = Criteria::ASC) Order by the pozdrav column
  * @method     ChildUsersQuery orderByBrPesni($order = Criteria::ASC) Order by the br_pesni column
  * @method     ChildUsersQuery orderByRajdane($order = Criteria::ASC) Order by the rajdane column
- * @method     ChildUsersQuery orderByPrevodi($order = Criteria::ASC) Order by the prevodi column
  * @method     ChildUsersQuery orderByAutoplay($order = Criteria::ASC) Order by the autoplay column
  * @method     ChildUsersQuery orderBySkype($order = Criteria::ASC) Order by the skype column
  * @method     ChildUsersQuery orderByActivityPoints($order = Criteria::ASC) Order by the activity_points column
@@ -55,7 +54,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery groupByPozdrav() Group by the pozdrav column
  * @method     ChildUsersQuery groupByBrPesni() Group by the br_pesni column
  * @method     ChildUsersQuery groupByRajdane() Group by the rajdane column
- * @method     ChildUsersQuery groupByPrevodi() Group by the prevodi column
  * @method     ChildUsersQuery groupByAutoplay() Group by the autoplay column
  * @method     ChildUsersQuery groupBySkype() Group by the skype column
  * @method     ChildUsersQuery groupByActivityPoints() Group by the activity_points column
@@ -139,7 +137,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsers findOneByPozdrav(int $pozdrav) Return the first ChildUsers filtered by the pozdrav column
  * @method     ChildUsers findOneByBrPesni(int $br_pesni) Return the first ChildUsers filtered by the br_pesni column
  * @method     ChildUsers findOneByRajdane(string $rajdane) Return the first ChildUsers filtered by the rajdane column
- * @method     ChildUsers findOneByPrevodi(int $prevodi) Return the first ChildUsers filtered by the prevodi column
  * @method     ChildUsers findOneByAutoplay(int $autoplay) Return the first ChildUsers filtered by the autoplay column
  * @method     ChildUsers findOneBySkype(string $skype) Return the first ChildUsers filtered by the skype column
  * @method     ChildUsers findOneByActivityPoints(int $activity_points) Return the first ChildUsers filtered by the activity_points column
@@ -163,7 +160,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsers requireOneByPozdrav(int $pozdrav) Return the first ChildUsers filtered by the pozdrav column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByBrPesni(int $br_pesni) Return the first ChildUsers filtered by the br_pesni column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByRajdane(string $rajdane) Return the first ChildUsers filtered by the rajdane column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByPrevodi(int $prevodi) Return the first ChildUsers filtered by the prevodi column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByAutoplay(int $autoplay) Return the first ChildUsers filtered by the autoplay column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneBySkype(string $skype) Return the first ChildUsers filtered by the skype column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByActivityPoints(int $activity_points) Return the first ChildUsers filtered by the activity_points column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -185,7 +181,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsers[]|ObjectCollection findByPozdrav(int $pozdrav) Return ChildUsers objects filtered by the pozdrav column
  * @method     ChildUsers[]|ObjectCollection findByBrPesni(int $br_pesni) Return ChildUsers objects filtered by the br_pesni column
  * @method     ChildUsers[]|ObjectCollection findByRajdane(string $rajdane) Return ChildUsers objects filtered by the rajdane column
- * @method     ChildUsers[]|ObjectCollection findByPrevodi(int $prevodi) Return ChildUsers objects filtered by the prevodi column
  * @method     ChildUsers[]|ObjectCollection findByAutoplay(int $autoplay) Return ChildUsers objects filtered by the autoplay column
  * @method     ChildUsers[]|ObjectCollection findBySkype(string $skype) Return ChildUsers objects filtered by the skype column
  * @method     ChildUsers[]|ObjectCollection findByActivityPoints(int $activity_points) Return ChildUsers objects filtered by the activity_points column
@@ -283,7 +278,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT username, password, password_mod, password_mod_coockie, id, mail, class, classCustomName, avatar, about, reg_date, pozdrav, br_pesni, rajdane, prevodi, autoplay, skype, activity_points, banned, chatMessages FROM users WHERE id = :p0';
+        $sql = 'SELECT username, password, password_mod, password_mod_coockie, id, mail, class, classCustomName, avatar, about, reg_date, pozdrav, br_pesni, rajdane, autoplay, skype, activity_points, banned, chatMessages FROM users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -839,47 +834,6 @@ abstract class UsersQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UsersTableMap::COL_RAJDANE, $rajdane, $comparison);
-    }
-
-    /**
-     * Filter the query on the prevodi column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByPrevodi(1234); // WHERE prevodi = 1234
-     * $query->filterByPrevodi(array(12, 34)); // WHERE prevodi IN (12, 34)
-     * $query->filterByPrevodi(array('min' => 12)); // WHERE prevodi > 12
-     * </code>
-     *
-     * @param     mixed $prevodi The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByPrevodi($prevodi = null, $comparison = null)
-    {
-        if (is_array($prevodi)) {
-            $useMinMax = false;
-            if (isset($prevodi['min'])) {
-                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($prevodi['max'])) {
-                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi, $comparison);
     }
 
     /**

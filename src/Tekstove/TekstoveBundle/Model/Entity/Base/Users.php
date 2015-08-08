@@ -160,12 +160,6 @@ abstract class Users implements ActiveRecordInterface
     protected $rajdane;
 
     /**
-     * The value for the prevodi field.
-     * @var        int
-     */
-    protected $prevodi;
-
-    /**
      * The value for the autoplay field.
      * Note: this column has a database default value of: 1
      * @var        int
@@ -648,16 +642,6 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [prevodi] column value.
-     *
-     * @return int
-     */
-    public function getPrevodi()
-    {
-        return $this->prevodi;
-    }
-
-    /**
      * Get the [autoplay] column value.
      *
      * @return int
@@ -998,26 +982,6 @@ abstract class Users implements ActiveRecordInterface
     } // setRajdane()
 
     /**
-     * Set the value of [prevodi] column.
-     *
-     * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Users The current object (for fluent API support)
-     */
-    public function setPrevodi($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->prevodi !== $v) {
-            $this->prevodi = $v;
-            $this->modifiedColumns[UsersTableMap::COL_PREVODI] = true;
-        }
-
-        return $this;
-    } // setPrevodi()
-
-    /**
      * Set the value of [autoplay] column.
      *
      * @param int $v new value
@@ -1210,25 +1174,22 @@ abstract class Users implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : UsersTableMap::translateFieldName('Rajdane', TableMap::TYPE_PHPNAME, $indexType)];
             $this->rajdane = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : UsersTableMap::translateFieldName('Prevodi', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->prevodi = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : UsersTableMap::translateFieldName('Autoplay', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : UsersTableMap::translateFieldName('Autoplay', TableMap::TYPE_PHPNAME, $indexType)];
             $this->autoplay = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : UsersTableMap::translateFieldName('Skype', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : UsersTableMap::translateFieldName('Skype', TableMap::TYPE_PHPNAME, $indexType)];
             $this->skype = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : UsersTableMap::translateFieldName('ActivityPoints', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : UsersTableMap::translateFieldName('ActivityPoints', TableMap::TYPE_PHPNAME, $indexType)];
             $this->activity_points = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : UsersTableMap::translateFieldName('Banned', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 17 + $startcol : UsersTableMap::translateFieldName('Banned', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->banned = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 19 + $startcol : UsersTableMap::translateFieldName('Chatmessages', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 18 + $startcol : UsersTableMap::translateFieldName('Chatmessages', TableMap::TYPE_PHPNAME, $indexType)];
             $this->chatmessages = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -1238,7 +1199,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 20; // 20 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 19; // 19 = UsersTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Users'), 0, $e);
@@ -1573,9 +1534,6 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_RAJDANE)) {
             $modifiedColumns[':p' . $index++]  = 'rajdane';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_PREVODI)) {
-            $modifiedColumns[':p' . $index++]  = 'prevodi';
-        }
         if ($this->isColumnModified(UsersTableMap::COL_AUTOPLAY)) {
             $modifiedColumns[':p' . $index++]  = 'autoplay';
         }
@@ -1643,9 +1601,6 @@ abstract class Users implements ActiveRecordInterface
                         break;
                     case 'rajdane':
                         $stmt->bindValue($identifier, $this->rajdane, PDO::PARAM_STR);
-                        break;
-                    case 'prevodi':
-                        $stmt->bindValue($identifier, $this->prevodi, PDO::PARAM_INT);
                         break;
                     case 'autoplay':
                         $stmt->bindValue($identifier, $this->autoplay, PDO::PARAM_INT);
@@ -1767,21 +1722,18 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getRajdane();
                 break;
             case 14:
-                return $this->getPrevodi();
-                break;
-            case 15:
                 return $this->getAutoplay();
                 break;
-            case 16:
+            case 15:
                 return $this->getSkype();
                 break;
-            case 17:
+            case 16:
                 return $this->getActivityPoints();
                 break;
-            case 18:
+            case 17:
                 return $this->getBanned();
                 break;
-            case 19:
+            case 18:
                 return $this->getChatmessages();
                 break;
             default:
@@ -1828,12 +1780,11 @@ abstract class Users implements ActiveRecordInterface
             $keys[11] => $this->getPozdrav(),
             $keys[12] => $this->getBrPesni(),
             $keys[13] => $this->getRajdane(),
-            $keys[14] => $this->getPrevodi(),
-            $keys[15] => $this->getAutoplay(),
-            $keys[16] => $this->getSkype(),
-            $keys[17] => $this->getActivityPoints(),
-            $keys[18] => $this->getBanned(),
-            $keys[19] => $this->getChatmessages(),
+            $keys[14] => $this->getAutoplay(),
+            $keys[15] => $this->getSkype(),
+            $keys[16] => $this->getActivityPoints(),
+            $keys[17] => $this->getBanned(),
+            $keys[18] => $this->getChatmessages(),
         );
 
         $utc = new \DateTimeZone('utc');
@@ -1843,10 +1794,10 @@ abstract class Users implements ActiveRecordInterface
             $result[$keys[10]] = $dateTime->setTimezone($utc)->format('Y-m-d\TH:i:s\Z');
         }
 
-        if ($result[$keys[18]] instanceof \DateTime) {
+        if ($result[$keys[17]] instanceof \DateTime) {
             // When changing timezone we don't want to change existing instances
-            $dateTime = clone $result[$keys[18]];
-            $result[$keys[18]] = $dateTime->setTimezone($utc)->format('Y-m-d\TH:i:s\Z');
+            $dateTime = clone $result[$keys[17]];
+            $result[$keys[17]] = $dateTime->setTimezone($utc)->format('Y-m-d\TH:i:s\Z');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -2007,21 +1958,18 @@ abstract class Users implements ActiveRecordInterface
                 $this->setRajdane($value);
                 break;
             case 14:
-                $this->setPrevodi($value);
-                break;
-            case 15:
                 $this->setAutoplay($value);
                 break;
-            case 16:
+            case 15:
                 $this->setSkype($value);
                 break;
-            case 17:
+            case 16:
                 $this->setActivityPoints($value);
                 break;
-            case 18:
+            case 17:
                 $this->setBanned($value);
                 break;
-            case 19:
+            case 18:
                 $this->setChatmessages($value);
                 break;
         } // switch()
@@ -2093,22 +2041,19 @@ abstract class Users implements ActiveRecordInterface
             $this->setRajdane($arr[$keys[13]]);
         }
         if (array_key_exists($keys[14], $arr)) {
-            $this->setPrevodi($arr[$keys[14]]);
+            $this->setAutoplay($arr[$keys[14]]);
         }
         if (array_key_exists($keys[15], $arr)) {
-            $this->setAutoplay($arr[$keys[15]]);
+            $this->setSkype($arr[$keys[15]]);
         }
         if (array_key_exists($keys[16], $arr)) {
-            $this->setSkype($arr[$keys[16]]);
+            $this->setActivityPoints($arr[$keys[16]]);
         }
         if (array_key_exists($keys[17], $arr)) {
-            $this->setActivityPoints($arr[$keys[17]]);
+            $this->setBanned($arr[$keys[17]]);
         }
         if (array_key_exists($keys[18], $arr)) {
-            $this->setBanned($arr[$keys[18]]);
-        }
-        if (array_key_exists($keys[19], $arr)) {
-            $this->setChatmessages($arr[$keys[19]]);
+            $this->setChatmessages($arr[$keys[18]]);
         }
     }
 
@@ -2192,9 +2137,6 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_RAJDANE)) {
             $criteria->add(UsersTableMap::COL_RAJDANE, $this->rajdane);
-        }
-        if ($this->isColumnModified(UsersTableMap::COL_PREVODI)) {
-            $criteria->add(UsersTableMap::COL_PREVODI, $this->prevodi);
         }
         if ($this->isColumnModified(UsersTableMap::COL_AUTOPLAY)) {
             $criteria->add(UsersTableMap::COL_AUTOPLAY, $this->autoplay);
@@ -2310,7 +2252,6 @@ abstract class Users implements ActiveRecordInterface
         $copyObj->setPozdrav($this->getPozdrav());
         $copyObj->setBrPesni($this->getBrPesni());
         $copyObj->setRajdane($this->getRajdane());
-        $copyObj->setPrevodi($this->getPrevodi());
         $copyObj->setAutoplay($this->getAutoplay());
         $copyObj->setSkype($this->getSkype());
         $copyObj->setActivityPoints($this->getActivityPoints());
@@ -3605,7 +3546,6 @@ abstract class Users implements ActiveRecordInterface
         $this->pozdrav = null;
         $this->br_pesni = null;
         $this->rajdane = null;
-        $this->prevodi = null;
         $this->autoplay = null;
         $this->skype = null;
         $this->activity_points = null;
