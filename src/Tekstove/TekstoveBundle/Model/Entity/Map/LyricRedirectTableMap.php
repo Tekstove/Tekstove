@@ -34,7 +34,7 @@ class LyricRedirectTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.LyricRedirectTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.LyricRedirectTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class LyricRedirectTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.LyricRedirect';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.LyricRedirect';
 
     /**
      * The total number of columns
@@ -128,7 +128,7 @@ class LyricRedirectTableMap extends TableMap
         $this->setPhpName('LyricRedirect');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\LyricRedirect');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(false);
         // columns
         $this->addPrimaryKey('deleted_id', 'DeletedId', 'INTEGER', true, null, null);

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore" namespace="Tekstove\TekstoveBundle\Model\Entity">
+    <table name="comments" idMethod="native" phpName="Comments">
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="sendby" phpName="Sendby" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+        <column name="date_orig" phpName="DateOrig" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="edited" phpName="Edited" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+        <column name="zakoqpesen" phpName="Zakoqpesen" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="lyric" name="komentari_ako_se_iztrie_pesenta" onDelete="CASCADE">
+            <reference local="zakoqpesen" foreign="id"/>
+        </foreign-key>
+        <index name="zakoqpesen">
+            <index-column name="zakoqpesen"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+</database>

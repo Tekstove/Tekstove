@@ -34,7 +34,7 @@ class ForumTopicWatchersTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ForumTopicWatchersTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.ForumTopicWatchersTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class ForumTopicWatchersTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.ForumTopicWatchers';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.ForumTopicWatchers';
 
     /**
      * The total number of columns
@@ -128,7 +128,7 @@ class ForumTopicWatchersTableMap extends TableMap
         $this->setPhpName('ForumTopicWatchers');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumTopicWatchers');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(false);
         // columns
         $this->addForeignPrimaryKey('user_id', 'UserId', 'INTEGER' , 'users', 'id', true, 10, null);

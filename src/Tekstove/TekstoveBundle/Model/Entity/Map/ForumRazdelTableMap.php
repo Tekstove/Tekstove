@@ -34,7 +34,7 @@ class ForumRazdelTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ForumRazdelTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.ForumRazdelTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class ForumRazdelTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.ForumRazdel';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.ForumRazdel';
 
     /**
      * The total number of columns
@@ -138,7 +138,7 @@ class ForumRazdelTableMap extends TableMap
         $this->setPhpName('ForumRazdel');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumRazdel');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addColumn('name', 'Name', 'VARCHAR', true, 50, null);

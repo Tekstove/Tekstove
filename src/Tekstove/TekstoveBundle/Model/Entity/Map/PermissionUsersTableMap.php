@@ -34,7 +34,7 @@ class PermissionUsersTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.PermissionUsersTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.PermissionUsersTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class PermissionUsersTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.PermissionUsers';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.PermissionUsers';
 
     /**
      * The total number of columns
@@ -128,7 +128,7 @@ class PermissionUsersTableMap extends TableMap
         $this->setPhpName('PermissionUsers');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\PermissionUsers');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(false);
         // columns
         $this->addForeignPrimaryKey('permissionId', 'Permissionid', 'INTEGER' , 'permissions', 'id', true, 10, null);

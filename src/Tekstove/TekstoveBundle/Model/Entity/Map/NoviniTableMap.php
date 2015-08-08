@@ -34,7 +34,7 @@ class NoviniTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.NoviniTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.NoviniTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class NoviniTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Novini';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Novini';
 
     /**
      * The total number of columns
@@ -133,7 +133,7 @@ class NoviniTableMap extends TableMap
         $this->setPhpName('Novini');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Novini');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(false);
         // columns
         $this->addForeignPrimaryKey('id', 'Id', 'INTEGER' , 'forum_topic', 'id', true, null, null);

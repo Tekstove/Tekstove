@@ -34,7 +34,7 @@ class CommentsTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.CommentsTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.CommentsTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class CommentsTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Comments';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Comments';
 
     /**
      * The total number of columns
@@ -153,7 +153,7 @@ class CommentsTableMap extends TableMap
         $this->setPhpName('Comments');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Comments');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);

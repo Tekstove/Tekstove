@@ -27,7 +27,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\CommentsTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Comments implements ActiveRecordInterface
 {

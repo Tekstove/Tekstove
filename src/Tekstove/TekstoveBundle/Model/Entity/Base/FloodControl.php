@@ -25,7 +25,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\FloodControlTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class FloodControl implements ActiveRecordInterface
 {

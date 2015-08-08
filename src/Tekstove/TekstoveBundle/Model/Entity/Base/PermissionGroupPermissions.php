@@ -27,7 +27,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PermissionGroupPermissionsTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class PermissionGroupPermissions implements ActiveRecordInterface
 {

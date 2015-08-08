@@ -25,7 +25,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PrevodiTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Prevodi implements ActiveRecordInterface
 {

@@ -187,16 +187,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithLanguages() Adds a RIGHT JOIN clause and with to the query using the Languages relation
  * @method     ChildLyricQuery innerJoinWithLanguages() Adds a INNER JOIN clause and with to the query using the Languages relation
  *
- * @method     ChildLyricQuery leftJoinComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the Comments relation
- * @method     ChildLyricQuery rightJoinComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Comments relation
- * @method     ChildLyricQuery innerJoinComments($relationAlias = null) Adds a INNER JOIN clause to the query using the Comments relation
- *
- * @method     ChildLyricQuery joinWithComments($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Comments relation
- *
- * @method     ChildLyricQuery leftJoinWithComments() Adds a LEFT JOIN clause and with to the query using the Comments relation
- * @method     ChildLyricQuery rightJoinWithComments() Adds a RIGHT JOIN clause and with to the query using the Comments relation
- * @method     ChildLyricQuery innerJoinWithComments() Adds a INNER JOIN clause and with to the query using the Comments relation
- *
  * @method     ChildLyricQuery leftJoinEditAddPrevod($relationAlias = null) Adds a LEFT JOIN clause to the query using the EditAddPrevod relation
  * @method     ChildLyricQuery rightJoinEditAddPrevod($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EditAddPrevod relation
  * @method     ChildLyricQuery innerJoinEditAddPrevod($relationAlias = null) Adds a INNER JOIN clause to the query using the EditAddPrevod relation
@@ -237,6 +227,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithLyricRedirect() Adds a RIGHT JOIN clause and with to the query using the LyricRedirect relation
  * @method     ChildLyricQuery innerJoinWithLyricRedirect() Adds a INNER JOIN clause and with to the query using the LyricRedirect relation
  *
+ * @method     ChildLyricQuery leftJoinComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the Comments relation
+ * @method     ChildLyricQuery rightJoinComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Comments relation
+ * @method     ChildLyricQuery innerJoinComments($relationAlias = null) Adds a INNER JOIN clause to the query using the Comments relation
+ *
+ * @method     ChildLyricQuery joinWithComments($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Comments relation
+ *
+ * @method     ChildLyricQuery leftJoinWithComments() Adds a LEFT JOIN clause and with to the query using the Comments relation
+ * @method     ChildLyricQuery rightJoinWithComments() Adds a RIGHT JOIN clause and with to the query using the Comments relation
+ * @method     ChildLyricQuery innerJoinWithComments() Adds a INNER JOIN clause and with to the query using the Comments relation
+ *
  * @method     ChildLyricQuery leftJoinVotes($relationAlias = null) Adds a LEFT JOIN clause to the query using the Votes relation
  * @method     ChildLyricQuery rightJoinVotes($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Votes relation
  * @method     ChildLyricQuery innerJoinVotes($relationAlias = null) Adds a INNER JOIN clause to the query using the Votes relation
@@ -247,7 +247,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithVotes() Adds a RIGHT JOIN clause and with to the query using the Votes relation
  * @method     ChildLyricQuery innerJoinWithVotes() Adds a INNER JOIN clause and with to the query using the Votes relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery|\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
@@ -2954,79 +2954,6 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Comments object
-     *
-     * @param \Tekstove\TekstoveBundle\Model\Entity\Comments|ObjectCollection $comments the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildLyricQuery The current query, for fluid interface
-     */
-    public function filterByComments($comments, $comparison = null)
-    {
-        if ($comments instanceof \Tekstove\TekstoveBundle\Model\Entity\Comments) {
-            return $this
-                ->addUsingAlias(LyricTableMap::COL_ID, $comments->getZakoqpesen(), $comparison);
-        } elseif ($comments instanceof ObjectCollection) {
-            return $this
-                ->useCommentsQuery()
-                ->filterByPrimaryKeys($comments->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByComments() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Comments or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Comments relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildLyricQuery The current query, for fluid interface
-     */
-    public function joinComments($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Comments');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Comments');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Comments relation Comments object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery A secondary query class using the current class as primary query
-     */
-    public function useCommentsQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinComments($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Comments', '\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery');
-    }
-
-    /**
      * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\EditAddPrevod object
      *
      * @param \Tekstove\TekstoveBundle\Model\Entity\EditAddPrevod|ObjectCollection $editAddPrevod the related object to use as filter
@@ -3316,6 +3243,79 @@ abstract class LyricQuery extends ModelCriteria
         return $this
             ->joinLyricRedirect($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'LyricRedirect', '\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Comments object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Comments|ObjectCollection $comments the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByComments($comments, $comparison = null)
+    {
+        if ($comments instanceof \Tekstove\TekstoveBundle\Model\Entity\Comments) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_ID, $comments->getZakoqpesen(), $comparison);
+        } elseif ($comments instanceof ObjectCollection) {
+            return $this
+                ->useCommentsQuery()
+                ->filterByPrimaryKeys($comments->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByComments() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Comments or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Comments relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinComments($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Comments');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Comments');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Comments relation Comments object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery A secondary query class using the current class as primary query
+     */
+    public function useCommentsQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinComments($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Comments', '\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery');
     }
 
     /**

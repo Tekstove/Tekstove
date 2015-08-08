@@ -34,7 +34,7 @@ class LogTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.LogTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.LogTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class LogTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Log';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Log';
 
     /**
      * The total number of columns
@@ -133,7 +133,7 @@ class LogTableMap extends TableMap
         $this->setPhpName('Log');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Log');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);

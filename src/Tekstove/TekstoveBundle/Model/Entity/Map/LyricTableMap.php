@@ -574,13 +574,6 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), 'RESTRICT', null, null, false);
-        $this->addRelation('Comments', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Comments', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':zakoqpesen',
-    1 => ':id',
-  ),
-), 'CASCADE', null, 'Commentss', false);
         $this->addRelation('EditAddPrevod', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\EditAddPrevod', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -609,6 +602,13 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'LyricRedirects', false);
+        $this->addRelation('Comments', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Comments', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':zakoqpesen',
+    1 => ':id',
+  ),
+), 'CASCADE', null, 'Commentss', false);
         $this->addRelation('Votes', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric\\Votes', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -624,10 +624,10 @@ class LyricTableMap extends TableMap
     {
         // Invalidate objects in related instance pools,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        CommentsTableMap::clearInstancePool();
         EditAddPrevodTableMap::clearInstancePool();
         LiubimiTableMap::clearInstancePool();
         Lyric18TableMap::clearInstancePool();
+        CommentsTableMap::clearInstancePool();
         VotesTableMap::clearInstancePool();
     }
 

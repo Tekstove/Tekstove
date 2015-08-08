@@ -34,7 +34,7 @@ class ArtistTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ArtistTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.ArtistTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class ArtistTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Artist';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Artist';
 
     /**
      * The total number of columns
@@ -148,7 +148,7 @@ class ArtistTableMap extends TableMap
         $this->setPhpName('Artist');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Artist');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addColumn('name', 'Name', 'VARCHAR', true, 100, null);

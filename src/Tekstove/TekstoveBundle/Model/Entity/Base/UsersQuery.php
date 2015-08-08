@@ -80,16 +80,6 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoinWithChatOnline() Adds a RIGHT JOIN clause and with to the query using the ChatOnline relation
  * @method     ChildUsersQuery innerJoinWithChatOnline() Adds a INNER JOIN clause and with to the query using the ChatOnline relation
  *
- * @method     ChildUsersQuery leftJoinForumTopicWatchers($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopicWatchers relation
- * @method     ChildUsersQuery rightJoinForumTopicWatchers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopicWatchers relation
- * @method     ChildUsersQuery innerJoinForumTopicWatchers($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopicWatchers relation
- *
- * @method     ChildUsersQuery joinWithForumTopicWatchers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopicWatchers relation
- *
- * @method     ChildUsersQuery leftJoinWithForumTopicWatchers() Adds a LEFT JOIN clause and with to the query using the ForumTopicWatchers relation
- * @method     ChildUsersQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
- * @method     ChildUsersQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
- *
  * @method     ChildUsersQuery leftJoinPermissionGroupUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroupUsers relation
  * @method     ChildUsersQuery rightJoinPermissionGroupUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroupUsers relation
  * @method     ChildUsersQuery innerJoinPermissionGroupUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroupUsers relation
@@ -110,6 +100,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoinWithPermissionUsers() Adds a RIGHT JOIN clause and with to the query using the PermissionUsers relation
  * @method     ChildUsersQuery innerJoinWithPermissionUsers() Adds a INNER JOIN clause and with to the query using the PermissionUsers relation
  *
+ * @method     ChildUsersQuery leftJoinForumTopicWatchers($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery rightJoinForumTopicWatchers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery innerJoinForumTopicWatchers($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumTopicWatchers relation
+ *
+ * @method     ChildUsersQuery joinWithForumTopicWatchers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the ForumTopicWatchers relation
+ *
+ * @method     ChildUsersQuery leftJoinWithForumTopicWatchers() Adds a LEFT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
+ * @method     ChildUsersQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
+ *
  * @method     ChildUsersQuery leftJoinPrevodi($relationAlias = null) Adds a LEFT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery rightJoinPrevodi($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery innerJoinPrevodi($relationAlias = null) Adds a INNER JOIN clause to the query using the Prevodi relation
@@ -120,7 +120,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoinWithPrevodi() Adds a RIGHT JOIN clause and with to the query using the Prevodi relation
  * @method     ChildUsersQuery innerJoinWithPrevodi() Adds a INNER JOIN clause and with to the query using the Prevodi relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\ChatOnlineQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PrevodiQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\ChatOnlineQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\PrevodiQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUsers findOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query
  * @method     ChildUsers findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUsers matching the query, or a new ChildUsers object populated from the query conditions when no match is found
@@ -842,6 +842,47 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the prevodi column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPrevodi(1234); // WHERE prevodi = 1234
+     * $query->filterByPrevodi(array(12, 34)); // WHERE prevodi IN (12, 34)
+     * $query->filterByPrevodi(array('min' => 12)); // WHERE prevodi > 12
+     * </code>
+     *
+     * @param     mixed $prevodi The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByPrevodi($prevodi = null, $comparison = null)
+    {
+        if (is_array($prevodi)) {
+            $useMinMax = false;
+            if (isset($prevodi['min'])) {
+                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($prevodi['max'])) {
+                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi, $comparison);
+    }
+
+    /**
      * Filter the query on the autoplay column
      *
      * Example usage:
@@ -1110,79 +1151,6 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers object
-     *
-     * @param \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers|ObjectCollection $forumTopicWatchers the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByForumTopicWatchers($forumTopicWatchers, $comparison = null)
-    {
-        if ($forumTopicWatchers instanceof \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers) {
-            return $this
-                ->addUsingAlias(UsersTableMap::COL_ID, $forumTopicWatchers->getUserId(), $comparison);
-        } elseif ($forumTopicWatchers instanceof ObjectCollection) {
-            return $this
-                ->useForumTopicWatchersQuery()
-                ->filterByPrimaryKeys($forumTopicWatchers->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByForumTopicWatchers() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the ForumTopicWatchers relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function joinForumTopicWatchers($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('ForumTopicWatchers');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'ForumTopicWatchers');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the ForumTopicWatchers relation ForumTopicWatchers object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery A secondary query class using the current class as primary query
-     */
-    public function useForumTopicWatchersQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinForumTopicWatchers($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'ForumTopicWatchers', '\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery');
-    }
-
-    /**
      * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsers object
      *
      * @param \Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsers|ObjectCollection $permissionGroupUsers the related object to use as filter
@@ -1326,6 +1294,79 @@ abstract class UsersQuery extends ModelCriteria
         return $this
             ->joinPermissionUsers($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'PermissionUsers', '\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers|ObjectCollection $forumTopicWatchers the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByForumTopicWatchers($forumTopicWatchers, $comparison = null)
+    {
+        if ($forumTopicWatchers instanceof \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers) {
+            return $this
+                ->addUsingAlias(UsersTableMap::COL_ID, $forumTopicWatchers->getUserId(), $comparison);
+        } elseif ($forumTopicWatchers instanceof ObjectCollection) {
+            return $this
+                ->useForumTopicWatchersQuery()
+                ->filterByPrimaryKeys($forumTopicWatchers->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByForumTopicWatchers() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the ForumTopicWatchers relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function joinForumTopicWatchers($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('ForumTopicWatchers');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'ForumTopicWatchers');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the ForumTopicWatchers relation ForumTopicWatchers object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery A secondary query class using the current class as primary query
+     */
+    public function useForumTopicWatchersQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinForumTopicWatchers($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'ForumTopicWatchers', '\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery');
     }
 
     /**

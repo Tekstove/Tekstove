@@ -27,7 +27,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\TodayTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Today implements ActiveRecordInterface
 {

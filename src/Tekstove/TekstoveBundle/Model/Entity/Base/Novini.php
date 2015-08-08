@@ -27,7 +27,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\NoviniTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Novini implements ActiveRecordInterface
 {

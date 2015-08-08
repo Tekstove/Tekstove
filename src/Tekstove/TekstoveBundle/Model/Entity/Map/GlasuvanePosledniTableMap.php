@@ -35,7 +35,7 @@ class GlasuvanePosledniTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.GlasuvanePosledniTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.GlasuvanePosledniTableMap';
 
     /**
      * The default database name for this class
@@ -55,7 +55,7 @@ class GlasuvanePosledniTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.GlasuvanePosledni';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.GlasuvanePosledni';
 
     /**
      * The total number of columns
@@ -134,7 +134,7 @@ class GlasuvanePosledniTableMap extends TableMap
         $this->setPhpName('GlasuvanePosledni');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\GlasuvanePosledni');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(false);
         // columns
         $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);

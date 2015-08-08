@@ -523,12 +523,6 @@ abstract class Lyric implements ActiveRecordInterface
     protected $aLanguages;
 
     /**
-     * @var        ObjectCollection|ChildComments[] Collection to store aggregation of ChildComments objects.
-     */
-    protected $collCommentss;
-    protected $collCommentssPartial;
-
-    /**
      * @var        ObjectCollection|ChildEditAddPrevod[] Collection to store aggregation of ChildEditAddPrevod objects.
      */
     protected $collEditAddPrevods;
@@ -552,6 +546,12 @@ abstract class Lyric implements ActiveRecordInterface
     protected $collLyricRedirectsPartial;
 
     /**
+     * @var        ObjectCollection|ChildComments[] Collection to store aggregation of ChildComments objects.
+     */
+    protected $collCommentss;
+    protected $collCommentssPartial;
+
+    /**
      * @var        ObjectCollection|Votes[] Collection to store aggregation of Votes objects.
      */
     protected $collVotess;
@@ -564,12 +564,6 @@ abstract class Lyric implements ActiveRecordInterface
      * @var boolean
      */
     protected $alreadyInSave = false;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildComments[]
-     */
-    protected $commentssScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -588,6 +582,12 @@ abstract class Lyric implements ActiveRecordInterface
      * @var ObjectCollection|ChildLyricRedirect[]
      */
     protected $lyricRedirectsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildComments[]
+     */
+    protected $commentssScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -4114,8 +4114,6 @@ abstract class Lyric implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aLanguages = null;
-            $this->collCommentss = null;
-
             $this->collEditAddPrevods = null;
 
             $this->collLiubimis = null;
@@ -4123,6 +4121,8 @@ abstract class Lyric implements ActiveRecordInterface
             $this->singleLyric18 = null;
 
             $this->collLyricRedirects = null;
+
+            $this->collCommentss = null;
 
             $this->collVotess = null;
 
@@ -4248,23 +4248,6 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->resetModified();
             }
 
-            if ($this->commentssScheduledForDeletion !== null) {
-                if (!$this->commentssScheduledForDeletion->isEmpty()) {
-                    \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery::create()
-                        ->filterByPrimaryKeys($this->commentssScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->commentssScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collCommentss !== null) {
-                foreach ($this->collCommentss as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
             if ($this->editAddPrevodsScheduledForDeletion !== null) {
                 if (!$this->editAddPrevodsScheduledForDeletion->isEmpty()) {
                     \Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery::create()
@@ -4316,6 +4299,23 @@ abstract class Lyric implements ActiveRecordInterface
 
             if ($this->collLyricRedirects !== null) {
                 foreach ($this->collLyricRedirects as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->commentssScheduledForDeletion !== null) {
+                if (!$this->commentssScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery::create()
+                        ->filterByPrimaryKeys($this->commentssScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->commentssScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collCommentss !== null) {
+                foreach ($this->collCommentss as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -5228,21 +5228,6 @@ abstract class Lyric implements ActiveRecordInterface
 
                 $result[$key] = $this->aLanguages->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->collCommentss) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'commentss';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'commentss';
-                        break;
-                    default:
-                        $key = 'Commentss';
-                }
-
-                $result[$key] = $this->collCommentss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
             if (null !== $this->collEditAddPrevods) {
 
                 switch ($keyType) {
@@ -5302,6 +5287,21 @@ abstract class Lyric implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collLyricRedirects->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collCommentss) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'commentss';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'commentss';
+                        break;
+                    default:
+                        $key = 'Commentss';
+                }
+
+                $result[$key] = $this->collCommentss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collVotess) {
 
@@ -6240,12 +6240,6 @@ abstract class Lyric implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
-            foreach ($this->getCommentss() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addComments($relObj->copy($deepCopy));
-                }
-            }
-
             foreach ($this->getEditAddPrevods() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addEditAddPrevod($relObj->copy($deepCopy));
@@ -6266,6 +6260,12 @@ abstract class Lyric implements ActiveRecordInterface
             foreach ($this->getLyricRedirects() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addLyricRedirect($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getCommentss() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addComments($relObj->copy($deepCopy));
                 }
             }
 
@@ -6367,9 +6367,6 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
-        if ('Comments' == $relationName) {
-            return $this->initCommentss();
-        }
         if ('EditAddPrevod' == $relationName) {
             return $this->initEditAddPrevods();
         }
@@ -6379,227 +6376,12 @@ abstract class Lyric implements ActiveRecordInterface
         if ('LyricRedirect' == $relationName) {
             return $this->initLyricRedirects();
         }
+        if ('Comments' == $relationName) {
+            return $this->initCommentss();
+        }
         if ('Votes' == $relationName) {
             return $this->initVotess();
         }
-    }
-
-    /**
-     * Clears out the collCommentss collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addCommentss()
-     */
-    public function clearCommentss()
-    {
-        $this->collCommentss = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collCommentss collection loaded partially.
-     */
-    public function resetPartialCommentss($v = true)
-    {
-        $this->collCommentssPartial = $v;
-    }
-
-    /**
-     * Initializes the collCommentss collection.
-     *
-     * By default this just sets the collCommentss collection to an empty array (like clearcollCommentss());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initCommentss($overrideExisting = true)
-    {
-        if (null !== $this->collCommentss && !$overrideExisting) {
-            return;
-        }
-        $this->collCommentss = new ObjectCollection();
-        $this->collCommentss->setModel('\Tekstove\TekstoveBundle\Model\Entity\Comments');
-    }
-
-    /**
-     * Gets an array of ChildComments objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildLyric is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildComments[] List of ChildComments objects
-     * @throws PropelException
-     */
-    public function getCommentss(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collCommentssPartial && !$this->isNew();
-        if (null === $this->collCommentss || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collCommentss) {
-                // return empty collection
-                $this->initCommentss();
-            } else {
-                $collCommentss = ChildCommentsQuery::create(null, $criteria)
-                    ->filterByLyric($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collCommentssPartial && count($collCommentss)) {
-                        $this->initCommentss(false);
-
-                        foreach ($collCommentss as $obj) {
-                            if (false == $this->collCommentss->contains($obj)) {
-                                $this->collCommentss->append($obj);
-                            }
-                        }
-
-                        $this->collCommentssPartial = true;
-                    }
-
-                    return $collCommentss;
-                }
-
-                if ($partial && $this->collCommentss) {
-                    foreach ($this->collCommentss as $obj) {
-                        if ($obj->isNew()) {
-                            $collCommentss[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collCommentss = $collCommentss;
-                $this->collCommentssPartial = false;
-            }
-        }
-
-        return $this->collCommentss;
-    }
-
-    /**
-     * Sets a collection of ChildComments objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $commentss A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildLyric The current object (for fluent API support)
-     */
-    public function setCommentss(Collection $commentss, ConnectionInterface $con = null)
-    {
-        /** @var ChildComments[] $commentssToDelete */
-        $commentssToDelete = $this->getCommentss(new Criteria(), $con)->diff($commentss);
-
-
-        $this->commentssScheduledForDeletion = $commentssToDelete;
-
-        foreach ($commentssToDelete as $commentsRemoved) {
-            $commentsRemoved->setLyric(null);
-        }
-
-        $this->collCommentss = null;
-        foreach ($commentss as $comments) {
-            $this->addComments($comments);
-        }
-
-        $this->collCommentss = $commentss;
-        $this->collCommentssPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Comments objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related Comments objects.
-     * @throws PropelException
-     */
-    public function countCommentss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collCommentssPartial && !$this->isNew();
-        if (null === $this->collCommentss || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collCommentss) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getCommentss());
-            }
-
-            $query = ChildCommentsQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByLyric($this)
-                ->count($con);
-        }
-
-        return count($this->collCommentss);
-    }
-
-    /**
-     * Method called to associate a ChildComments object to this object
-     * through the ChildComments foreign key attribute.
-     *
-     * @param  ChildComments $l ChildComments
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
-     */
-    public function addComments(ChildComments $l)
-    {
-        if ($this->collCommentss === null) {
-            $this->initCommentss();
-            $this->collCommentssPartial = true;
-        }
-
-        if (!$this->collCommentss->contains($l)) {
-            $this->doAddComments($l);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildComments $comments The ChildComments object to add.
-     */
-    protected function doAddComments(ChildComments $comments)
-    {
-        $this->collCommentss[]= $comments;
-        $comments->setLyric($this);
-    }
-
-    /**
-     * @param  ChildComments $comments The ChildComments object to remove.
-     * @return $this|ChildLyric The current object (for fluent API support)
-     */
-    public function removeComments(ChildComments $comments)
-    {
-        if ($this->getCommentss()->contains($comments)) {
-            $pos = $this->collCommentss->search($comments);
-            $this->collCommentss->remove($pos);
-            if (null === $this->commentssScheduledForDeletion) {
-                $this->commentssScheduledForDeletion = clone $this->collCommentss;
-                $this->commentssScheduledForDeletion->clear();
-            }
-            $this->commentssScheduledForDeletion[]= clone $comments;
-            $comments->setLyric(null);
-        }
-
-        return $this;
     }
 
     /**
@@ -7296,6 +7078,224 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collCommentss collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addCommentss()
+     */
+    public function clearCommentss()
+    {
+        $this->collCommentss = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collCommentss collection loaded partially.
+     */
+    public function resetPartialCommentss($v = true)
+    {
+        $this->collCommentssPartial = $v;
+    }
+
+    /**
+     * Initializes the collCommentss collection.
+     *
+     * By default this just sets the collCommentss collection to an empty array (like clearcollCommentss());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initCommentss($overrideExisting = true)
+    {
+        if (null !== $this->collCommentss && !$overrideExisting) {
+            return;
+        }
+        $this->collCommentss = new ObjectCollection();
+        $this->collCommentss->setModel('\Tekstove\TekstoveBundle\Model\Entity\Comments');
+    }
+
+    /**
+     * Gets an array of ChildComments objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildLyric is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildComments[] List of ChildComments objects
+     * @throws PropelException
+     */
+    public function getCommentss(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collCommentssPartial && !$this->isNew();
+        if (null === $this->collCommentss || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collCommentss) {
+                // return empty collection
+                $this->initCommentss();
+            } else {
+                $collCommentss = ChildCommentsQuery::create(null, $criteria)
+                    ->filterByLyric($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collCommentssPartial && count($collCommentss)) {
+                        $this->initCommentss(false);
+
+                        foreach ($collCommentss as $obj) {
+                            if (false == $this->collCommentss->contains($obj)) {
+                                $this->collCommentss->append($obj);
+                            }
+                        }
+
+                        $this->collCommentssPartial = true;
+                    }
+
+                    return $collCommentss;
+                }
+
+                if ($partial && $this->collCommentss) {
+                    foreach ($this->collCommentss as $obj) {
+                        if ($obj->isNew()) {
+                            $collCommentss[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collCommentss = $collCommentss;
+                $this->collCommentssPartial = false;
+            }
+        }
+
+        return $this->collCommentss;
+    }
+
+    /**
+     * Sets a collection of ChildComments objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $commentss A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildLyric The current object (for fluent API support)
+     */
+    public function setCommentss(Collection $commentss, ConnectionInterface $con = null)
+    {
+        /** @var ChildComments[] $commentssToDelete */
+        $commentssToDelete = $this->getCommentss(new Criteria(), $con)->diff($commentss);
+
+
+        $this->commentssScheduledForDeletion = $commentssToDelete;
+
+        foreach ($commentssToDelete as $commentsRemoved) {
+            $commentsRemoved->setLyric(null);
+        }
+
+        $this->collCommentss = null;
+        foreach ($commentss as $comments) {
+            $this->addComments($comments);
+        }
+
+        $this->collCommentss = $commentss;
+        $this->collCommentssPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Comments objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Comments objects.
+     * @throws PropelException
+     */
+    public function countCommentss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collCommentssPartial && !$this->isNew();
+        if (null === $this->collCommentss || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collCommentss) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getCommentss());
+            }
+
+            $query = ChildCommentsQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByLyric($this)
+                ->count($con);
+        }
+
+        return count($this->collCommentss);
+    }
+
+    /**
+     * Method called to associate a ChildComments object to this object
+     * through the ChildComments foreign key attribute.
+     *
+     * @param  ChildComments $l ChildComments
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     */
+    public function addComments(ChildComments $l)
+    {
+        if ($this->collCommentss === null) {
+            $this->initCommentss();
+            $this->collCommentssPartial = true;
+        }
+
+        if (!$this->collCommentss->contains($l)) {
+            $this->doAddComments($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildComments $comments The ChildComments object to add.
+     */
+    protected function doAddComments(ChildComments $comments)
+    {
+        $this->collCommentss[]= $comments;
+        $comments->setLyric($this);
+    }
+
+    /**
+     * @param  ChildComments $comments The ChildComments object to remove.
+     * @return $this|ChildLyric The current object (for fluent API support)
+     */
+    public function removeComments(ChildComments $comments)
+    {
+        if ($this->getCommentss()->contains($comments)) {
+            $pos = $this->collCommentss->search($comments);
+            $this->collCommentss->remove($pos);
+            if (null === $this->commentssScheduledForDeletion) {
+                $this->commentssScheduledForDeletion = clone $this->collCommentss;
+                $this->commentssScheduledForDeletion->clear();
+            }
+            $this->commentssScheduledForDeletion[]= clone $comments;
+            $comments->setLyric(null);
+        }
+
+        return $this;
+    }
+
+    /**
      * Clears out the collVotess collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
@@ -7615,11 +7615,6 @@ abstract class Lyric implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collCommentss) {
-                foreach ($this->collCommentss as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
             if ($this->collEditAddPrevods) {
                 foreach ($this->collEditAddPrevods as $o) {
                     $o->clearAllReferences($deep);
@@ -7638,6 +7633,11 @@ abstract class Lyric implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collCommentss) {
+                foreach ($this->collCommentss as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collVotess) {
                 foreach ($this->collVotess as $o) {
                     $o->clearAllReferences($deep);
@@ -7645,11 +7645,11 @@ abstract class Lyric implements ActiveRecordInterface
             }
         } // if ($deep)
 
-        $this->collCommentss = null;
         $this->collEditAddPrevods = null;
         $this->collLiubimis = null;
         $this->singleLyric18 = null;
         $this->collLyricRedirects = null;
+        $this->collCommentss = null;
         $this->collVotess = null;
         $this->aLanguages = null;
     }

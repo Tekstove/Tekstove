@@ -25,7 +25,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\PmTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Pm implements ActiveRecordInterface
 {

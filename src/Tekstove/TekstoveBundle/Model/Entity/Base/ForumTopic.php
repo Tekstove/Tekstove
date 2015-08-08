@@ -35,7 +35,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumTopicTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class ForumTopic implements ActiveRecordInterface
 {
@@ -120,6 +120,11 @@ abstract class ForumTopic implements ActiveRecordInterface
     protected $aForumRazdel;
 
     /**
+     * @var        ChildNovini one-to-one related ChildNovini object
+     */
+    protected $singleNovini;
+
+    /**
      * @var        ObjectCollection|ChildForumPosts[] Collection to store aggregation of ChildForumPosts objects.
      */
     protected $collForumPostss;
@@ -130,11 +135,6 @@ abstract class ForumTopic implements ActiveRecordInterface
      */
     protected $collForumTopicWatcherss;
     protected $collForumTopicWatcherssPartial;
-
-    /**
-     * @var        ChildNovini one-to-one related ChildNovini object
-     */
-    protected $singleNovini;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -759,11 +759,11 @@ abstract class ForumTopic implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->aForumRazdel = null;
+            $this->singleNovini = null;
+
             $this->collForumPostss = null;
 
             $this->collForumTopicWatcherss = null;
-
-            $this->singleNovini = null;
 
         } // if (deep)
     }
@@ -887,6 +887,12 @@ abstract class ForumTopic implements ActiveRecordInterface
                 $this->resetModified();
             }
 
+            if ($this->singleNovini !== null) {
+                if (!$this->singleNovini->isDeleted() && ($this->singleNovini->isNew() || $this->singleNovini->isModified())) {
+                    $affectedRows += $this->singleNovini->save($con);
+                }
+            }
+
             if ($this->forumPostssScheduledForDeletion !== null) {
                 if (!$this->forumPostssScheduledForDeletion->isEmpty()) {
                     \Tekstove\TekstoveBundle\Model\Entity\ForumPostsQuery::create()
@@ -918,12 +924,6 @@ abstract class ForumTopic implements ActiveRecordInterface
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
-                }
-            }
-
-            if ($this->singleNovini !== null) {
-                if (!$this->singleNovini->isDeleted() && ($this->singleNovini->isNew() || $this->singleNovini->isModified())) {
-                    $affectedRows += $this->singleNovini->save($con);
                 }
             }
 
@@ -1151,6 +1151,21 @@ abstract class ForumTopic implements ActiveRecordInterface
 
                 $result[$key] = $this->aForumRazdel->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
+            if (null !== $this->singleNovini) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'novini';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'novini';
+                        break;
+                    default:
+                        $key = 'Novini';
+                }
+
+                $result[$key] = $this->singleNovini->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
+            }
             if (null !== $this->collForumPostss) {
 
                 switch ($keyType) {
@@ -1180,21 +1195,6 @@ abstract class ForumTopic implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collForumTopicWatcherss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->singleNovini) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'novini';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'novini';
-                        break;
-                    default:
-                        $key = 'Novini';
-                }
-
-                $result[$key] = $this->singleNovini->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
             }
         }
 
@@ -1461,6 +1461,11 @@ abstract class ForumTopic implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
+            $relObj = $this->getNovini();
+            if ($relObj) {
+                $copyObj->setNovini($relObj->copy($deepCopy));
+            }
+
             foreach ($this->getForumPostss() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addForumPosts($relObj->copy($deepCopy));
@@ -1471,11 +1476,6 @@ abstract class ForumTopic implements ActiveRecordInterface
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addForumTopicWatchers($relObj->copy($deepCopy));
                 }
-            }
-
-            $relObj = $this->getNovini();
-            if ($relObj) {
-                $copyObj->setNovini($relObj->copy($deepCopy));
             }
 
         } // if ($deepCopy)
@@ -1576,6 +1576,42 @@ abstract class ForumTopic implements ActiveRecordInterface
         if ('ForumTopicWatchers' == $relationName) {
             return $this->initForumTopicWatcherss();
         }
+    }
+
+    /**
+     * Gets a single ChildNovini object, which is related to this object by a one-to-one relationship.
+     *
+     * @param  ConnectionInterface $con optional connection object
+     * @return ChildNovini
+     * @throws PropelException
+     */
+    public function getNovini(ConnectionInterface $con = null)
+    {
+
+        if ($this->singleNovini === null && !$this->isNew()) {
+            $this->singleNovini = ChildNoviniQuery::create()->findPk($this->getPrimaryKey(), $con);
+        }
+
+        return $this->singleNovini;
+    }
+
+    /**
+     * Sets a single ChildNovini object as related to this object by a one-to-one relationship.
+     *
+     * @param  ChildNovini $v ChildNovini
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\ForumTopic The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setNovini(ChildNovini $v = null)
+    {
+        $this->singleNovini = $v;
+
+        // Make sure that that the passed-in ChildNovini isn't already associated with this object
+        if ($v !== null && $v->getForumTopic(null, false) === null) {
+            $v->setForumTopic($this);
+        }
+
+        return $this;
     }
 
     /**
@@ -2043,42 +2079,6 @@ abstract class ForumTopic implements ActiveRecordInterface
     }
 
     /**
-     * Gets a single ChildNovini object, which is related to this object by a one-to-one relationship.
-     *
-     * @param  ConnectionInterface $con optional connection object
-     * @return ChildNovini
-     * @throws PropelException
-     */
-    public function getNovini(ConnectionInterface $con = null)
-    {
-
-        if ($this->singleNovini === null && !$this->isNew()) {
-            $this->singleNovini = ChildNoviniQuery::create()->findPk($this->getPrimaryKey(), $con);
-        }
-
-        return $this->singleNovini;
-    }
-
-    /**
-     * Sets a single ChildNovini object as related to this object by a one-to-one relationship.
-     *
-     * @param  ChildNovini $v ChildNovini
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\ForumTopic The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setNovini(ChildNovini $v = null)
-    {
-        $this->singleNovini = $v;
-
-        // Make sure that that the passed-in ChildNovini isn't already associated with this object
-        if ($v !== null && $v->getForumTopic(null, false) === null) {
-            $v->setForumTopic($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -2114,6 +2114,9 @@ abstract class ForumTopic implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->singleNovini) {
+                $this->singleNovini->clearAllReferences($deep);
+            }
             if ($this->collForumPostss) {
                 foreach ($this->collForumPostss as $o) {
                     $o->clearAllReferences($deep);
@@ -2124,14 +2127,11 @@ abstract class ForumTopic implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->singleNovini) {
-                $this->singleNovini->clearAllReferences($deep);
-            }
         } // if ($deep)
 
+        $this->singleNovini = null;
         $this->collForumPostss = null;
         $this->collForumTopicWatcherss = null;
-        $this->singleNovini = null;
         $this->aForumRazdel = null;
     }
 

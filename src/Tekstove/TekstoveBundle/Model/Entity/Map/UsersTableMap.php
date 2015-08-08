@@ -255,13 +255,6 @@ class UsersTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'ChatOnlines', false);
-        $this->addRelation('ForumTopicWatchers', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumTopicWatchers', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':user_id',
-    1 => ':id',
-  ),
-), null, null, 'ForumTopicWatcherss', false);
         $this->addRelation('PermissionGroupUsers', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\PermissionGroupUsers', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -276,6 +269,13 @@ class UsersTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'PermissionUserss', false);
+        $this->addRelation('ForumTopicWatchers', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumTopicWatchers', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, 'ForumTopicWatcherss', false);
         $this->addRelation('Prevodi', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Prevodi', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (

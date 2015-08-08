@@ -54,6 +54,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumTopicTableMap;
  * @method     ChildForumTopicQuery rightJoinWithForumRazdel() Adds a RIGHT JOIN clause and with to the query using the ForumRazdel relation
  * @method     ChildForumTopicQuery innerJoinWithForumRazdel() Adds a INNER JOIN clause and with to the query using the ForumRazdel relation
  *
+ * @method     ChildForumTopicQuery leftJoinNovini($relationAlias = null) Adds a LEFT JOIN clause to the query using the Novini relation
+ * @method     ChildForumTopicQuery rightJoinNovini($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Novini relation
+ * @method     ChildForumTopicQuery innerJoinNovini($relationAlias = null) Adds a INNER JOIN clause to the query using the Novini relation
+ *
+ * @method     ChildForumTopicQuery joinWithNovini($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Novini relation
+ *
+ * @method     ChildForumTopicQuery leftJoinWithNovini() Adds a LEFT JOIN clause and with to the query using the Novini relation
+ * @method     ChildForumTopicQuery rightJoinWithNovini() Adds a RIGHT JOIN clause and with to the query using the Novini relation
+ * @method     ChildForumTopicQuery innerJoinWithNovini() Adds a INNER JOIN clause and with to the query using the Novini relation
+ *
  * @method     ChildForumTopicQuery leftJoinForumPosts($relationAlias = null) Adds a LEFT JOIN clause to the query using the ForumPosts relation
  * @method     ChildForumTopicQuery rightJoinForumPosts($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ForumPosts relation
  * @method     ChildForumTopicQuery innerJoinForumPosts($relationAlias = null) Adds a INNER JOIN clause to the query using the ForumPosts relation
@@ -74,17 +84,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\ForumTopicTableMap;
  * @method     ChildForumTopicQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
  * @method     ChildForumTopicQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
  *
- * @method     ChildForumTopicQuery leftJoinNovini($relationAlias = null) Adds a LEFT JOIN clause to the query using the Novini relation
- * @method     ChildForumTopicQuery rightJoinNovini($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Novini relation
- * @method     ChildForumTopicQuery innerJoinNovini($relationAlias = null) Adds a INNER JOIN clause to the query using the Novini relation
- *
- * @method     ChildForumTopicQuery joinWithNovini($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Novini relation
- *
- * @method     ChildForumTopicQuery leftJoinWithNovini() Adds a LEFT JOIN clause and with to the query using the Novini relation
- * @method     ChildForumTopicQuery rightJoinWithNovini() Adds a RIGHT JOIN clause and with to the query using the Novini relation
- * @method     ChildForumTopicQuery innerJoinWithNovini() Adds a INNER JOIN clause and with to the query using the Novini relation
- *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\ForumRazdelQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumPostsQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\NoviniQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\ForumRazdelQuery|\Tekstove\TekstoveBundle\Model\Entity\NoviniQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumPostsQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildForumTopic findOne(ConnectionInterface $con = null) Return the first ChildForumTopic matching the query
  * @method     ChildForumTopic findOneOrCreate(ConnectionInterface $con = null) Return the first ChildForumTopic matching the query, or a new ChildForumTopic object populated from the query conditions when no match is found
@@ -560,6 +560,79 @@ abstract class ForumTopicQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Novini object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Novini|ObjectCollection $novini the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildForumTopicQuery The current query, for fluid interface
+     */
+    public function filterByNovini($novini, $comparison = null)
+    {
+        if ($novini instanceof \Tekstove\TekstoveBundle\Model\Entity\Novini) {
+            return $this
+                ->addUsingAlias(ForumTopicTableMap::COL_ID, $novini->getId(), $comparison);
+        } elseif ($novini instanceof ObjectCollection) {
+            return $this
+                ->useNoviniQuery()
+                ->filterByPrimaryKeys($novini->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByNovini() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Novini or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Novini relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildForumTopicQuery The current query, for fluid interface
+     */
+    public function joinNovini($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Novini');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Novini');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Novini relation Novini object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\NoviniQuery A secondary query class using the current class as primary query
+     */
+    public function useNoviniQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinNovini($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Novini', '\Tekstove\TekstoveBundle\Model\Entity\NoviniQuery');
+    }
+
+    /**
      * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\ForumPosts object
      *
      * @param \Tekstove\TekstoveBundle\Model\Entity\ForumPosts|ObjectCollection $forumPosts the related object to use as filter
@@ -703,79 +776,6 @@ abstract class ForumTopicQuery extends ModelCriteria
         return $this
             ->joinForumTopicWatchers($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'ForumTopicWatchers', '\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery');
-    }
-
-    /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Novini object
-     *
-     * @param \Tekstove\TekstoveBundle\Model\Entity\Novini|ObjectCollection $novini the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildForumTopicQuery The current query, for fluid interface
-     */
-    public function filterByNovini($novini, $comparison = null)
-    {
-        if ($novini instanceof \Tekstove\TekstoveBundle\Model\Entity\Novini) {
-            return $this
-                ->addUsingAlias(ForumTopicTableMap::COL_ID, $novini->getId(), $comparison);
-        } elseif ($novini instanceof ObjectCollection) {
-            return $this
-                ->useNoviniQuery()
-                ->filterByPrimaryKeys($novini->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByNovini() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Novini or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Novini relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildForumTopicQuery The current query, for fluid interface
-     */
-    public function joinNovini($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Novini');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Novini');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Novini relation Novini object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \Tekstove\TekstoveBundle\Model\Entity\NoviniQuery A secondary query class using the current class as primary query
-     */
-    public function useNoviniQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinNovini($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Novini', '\Tekstove\TekstoveBundle\Model\Entity\NoviniQuery');
     }
 
     /**

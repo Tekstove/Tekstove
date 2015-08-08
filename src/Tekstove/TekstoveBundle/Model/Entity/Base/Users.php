@@ -204,12 +204,6 @@ abstract class Users implements ActiveRecordInterface
     protected $collChatOnlinesPartial;
 
     /**
-     * @var        ObjectCollection|ChildForumTopicWatchers[] Collection to store aggregation of ChildForumTopicWatchers objects.
-     */
-    protected $collForumTopicWatcherss;
-    protected $collForumTopicWatcherssPartial;
-
-    /**
      * @var        ObjectCollection|ChildPermissionGroupUsers[] Collection to store aggregation of ChildPermissionGroupUsers objects.
      */
     protected $collPermissionGroupUserss;
@@ -220,6 +214,12 @@ abstract class Users implements ActiveRecordInterface
      */
     protected $collPermissionUserss;
     protected $collPermissionUserssPartial;
+
+    /**
+     * @var        ObjectCollection|ChildForumTopicWatchers[] Collection to store aggregation of ChildForumTopicWatchers objects.
+     */
+    protected $collForumTopicWatcherss;
+    protected $collForumTopicWatcherssPartial;
 
     /**
      * @var        ObjectCollection|ChildPrevodi[] Collection to store aggregation of ChildPrevodi objects.
@@ -243,12 +243,6 @@ abstract class Users implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildForumTopicWatchers[]
-     */
-    protected $forumTopicWatcherssScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
      * @var ObjectCollection|ChildPermissionGroupUsers[]
      */
     protected $permissionGroupUserssScheduledForDeletion = null;
@@ -258,6 +252,12 @@ abstract class Users implements ActiveRecordInterface
      * @var ObjectCollection|ChildPermissionUsers[]
      */
     protected $permissionUserssScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildForumTopicWatchers[]
+     */
+    protected $forumTopicWatcherssScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -1301,11 +1301,11 @@ abstract class Users implements ActiveRecordInterface
 
             $this->collChatOnlines = null;
 
-            $this->collForumTopicWatcherss = null;
-
             $this->collPermissionGroupUserss = null;
 
             $this->collPermissionUserss = null;
+
+            $this->collForumTopicWatcherss = null;
 
             $this->collPrevodis = null;
 
@@ -1437,23 +1437,6 @@ abstract class Users implements ActiveRecordInterface
                 }
             }
 
-            if ($this->forumTopicWatcherssScheduledForDeletion !== null) {
-                if (!$this->forumTopicWatcherssScheduledForDeletion->isEmpty()) {
-                    \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery::create()
-                        ->filterByPrimaryKeys($this->forumTopicWatcherssScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->forumTopicWatcherssScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collForumTopicWatcherss !== null) {
-                foreach ($this->collForumTopicWatcherss as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
             if ($this->permissionGroupUserssScheduledForDeletion !== null) {
                 if (!$this->permissionGroupUserssScheduledForDeletion->isEmpty()) {
                     \Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery::create()
@@ -1482,6 +1465,23 @@ abstract class Users implements ActiveRecordInterface
 
             if ($this->collPermissionUserss !== null) {
                 foreach ($this->collPermissionUserss as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->forumTopicWatcherssScheduledForDeletion !== null) {
+                if (!$this->forumTopicWatcherssScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery::create()
+                        ->filterByPrimaryKeys($this->forumTopicWatcherssScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->forumTopicWatcherssScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collForumTopicWatcherss !== null) {
+                foreach ($this->collForumTopicWatcherss as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1870,21 +1870,6 @@ abstract class Users implements ActiveRecordInterface
 
                 $result[$key] = $this->collChatOnlines->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
-            if (null !== $this->collForumTopicWatcherss) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'forumTopicWatcherss';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'forum_topic_watcherss';
-                        break;
-                    default:
-                        $key = 'ForumTopicWatcherss';
-                }
-
-                $result[$key] = $this->collForumTopicWatcherss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
             if (null !== $this->collPermissionGroupUserss) {
 
                 switch ($keyType) {
@@ -1914,6 +1899,21 @@ abstract class Users implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collPermissionUserss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collForumTopicWatcherss) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'forumTopicWatcherss';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'forum_topic_watcherss';
+                        break;
+                    default:
+                        $key = 'ForumTopicWatcherss';
+                }
+
+                $result[$key] = $this->collForumTopicWatcherss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collPrevodis) {
 
@@ -2328,12 +2328,6 @@ abstract class Users implements ActiveRecordInterface
                 }
             }
 
-            foreach ($this->getForumTopicWatcherss() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addForumTopicWatchers($relObj->copy($deepCopy));
-                }
-            }
-
             foreach ($this->getPermissionGroupUserss() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addPermissionGroupUsers($relObj->copy($deepCopy));
@@ -2343,6 +2337,12 @@ abstract class Users implements ActiveRecordInterface
             foreach ($this->getPermissionUserss() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addPermissionUsers($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getForumTopicWatcherss() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addForumTopicWatchers($relObj->copy($deepCopy));
                 }
             }
 
@@ -2396,14 +2396,14 @@ abstract class Users implements ActiveRecordInterface
         if ('ChatOnline' == $relationName) {
             return $this->initChatOnlines();
         }
-        if ('ForumTopicWatchers' == $relationName) {
-            return $this->initForumTopicWatcherss();
-        }
         if ('PermissionGroupUsers' == $relationName) {
             return $this->initPermissionGroupUserss();
         }
         if ('PermissionUsers' == $relationName) {
             return $this->initPermissionUserss();
+        }
+        if ('ForumTopicWatchers' == $relationName) {
+            return $this->initForumTopicWatcherss();
         }
         if ('Prevodi' == $relationName) {
             return $this->initPrevodis();
@@ -2626,252 +2626,6 @@ abstract class Users implements ActiveRecordInterface
         }
 
         return $this;
-    }
-
-    /**
-     * Clears out the collForumTopicWatcherss collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addForumTopicWatcherss()
-     */
-    public function clearForumTopicWatcherss()
-    {
-        $this->collForumTopicWatcherss = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collForumTopicWatcherss collection loaded partially.
-     */
-    public function resetPartialForumTopicWatcherss($v = true)
-    {
-        $this->collForumTopicWatcherssPartial = $v;
-    }
-
-    /**
-     * Initializes the collForumTopicWatcherss collection.
-     *
-     * By default this just sets the collForumTopicWatcherss collection to an empty array (like clearcollForumTopicWatcherss());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initForumTopicWatcherss($overrideExisting = true)
-    {
-        if (null !== $this->collForumTopicWatcherss && !$overrideExisting) {
-            return;
-        }
-        $this->collForumTopicWatcherss = new ObjectCollection();
-        $this->collForumTopicWatcherss->setModel('\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers');
-    }
-
-    /**
-     * Gets an array of ChildForumTopicWatchers objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildUsers is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildForumTopicWatchers[] List of ChildForumTopicWatchers objects
-     * @throws PropelException
-     */
-    public function getForumTopicWatcherss(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collForumTopicWatcherssPartial && !$this->isNew();
-        if (null === $this->collForumTopicWatcherss || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collForumTopicWatcherss) {
-                // return empty collection
-                $this->initForumTopicWatcherss();
-            } else {
-                $collForumTopicWatcherss = ChildForumTopicWatchersQuery::create(null, $criteria)
-                    ->filterByUsers($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collForumTopicWatcherssPartial && count($collForumTopicWatcherss)) {
-                        $this->initForumTopicWatcherss(false);
-
-                        foreach ($collForumTopicWatcherss as $obj) {
-                            if (false == $this->collForumTopicWatcherss->contains($obj)) {
-                                $this->collForumTopicWatcherss->append($obj);
-                            }
-                        }
-
-                        $this->collForumTopicWatcherssPartial = true;
-                    }
-
-                    return $collForumTopicWatcherss;
-                }
-
-                if ($partial && $this->collForumTopicWatcherss) {
-                    foreach ($this->collForumTopicWatcherss as $obj) {
-                        if ($obj->isNew()) {
-                            $collForumTopicWatcherss[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collForumTopicWatcherss = $collForumTopicWatcherss;
-                $this->collForumTopicWatcherssPartial = false;
-            }
-        }
-
-        return $this->collForumTopicWatcherss;
-    }
-
-    /**
-     * Sets a collection of ChildForumTopicWatchers objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $forumTopicWatcherss A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildUsers The current object (for fluent API support)
-     */
-    public function setForumTopicWatcherss(Collection $forumTopicWatcherss, ConnectionInterface $con = null)
-    {
-        /** @var ChildForumTopicWatchers[] $forumTopicWatcherssToDelete */
-        $forumTopicWatcherssToDelete = $this->getForumTopicWatcherss(new Criteria(), $con)->diff($forumTopicWatcherss);
-
-
-        //since at least one column in the foreign key is at the same time a PK
-        //we can not just set a PK to NULL in the lines below. We have to store
-        //a backup of all values, so we are able to manipulate these items based on the onDelete value later.
-        $this->forumTopicWatcherssScheduledForDeletion = clone $forumTopicWatcherssToDelete;
-
-        foreach ($forumTopicWatcherssToDelete as $forumTopicWatchersRemoved) {
-            $forumTopicWatchersRemoved->setUsers(null);
-        }
-
-        $this->collForumTopicWatcherss = null;
-        foreach ($forumTopicWatcherss as $forumTopicWatchers) {
-            $this->addForumTopicWatchers($forumTopicWatchers);
-        }
-
-        $this->collForumTopicWatcherss = $forumTopicWatcherss;
-        $this->collForumTopicWatcherssPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related ForumTopicWatchers objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related ForumTopicWatchers objects.
-     * @throws PropelException
-     */
-    public function countForumTopicWatcherss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collForumTopicWatcherssPartial && !$this->isNew();
-        if (null === $this->collForumTopicWatcherss || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collForumTopicWatcherss) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getForumTopicWatcherss());
-            }
-
-            $query = ChildForumTopicWatchersQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByUsers($this)
-                ->count($con);
-        }
-
-        return count($this->collForumTopicWatcherss);
-    }
-
-    /**
-     * Method called to associate a ChildForumTopicWatchers object to this object
-     * through the ChildForumTopicWatchers foreign key attribute.
-     *
-     * @param  ChildForumTopicWatchers $l ChildForumTopicWatchers
-     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Users The current object (for fluent API support)
-     */
-    public function addForumTopicWatchers(ChildForumTopicWatchers $l)
-    {
-        if ($this->collForumTopicWatcherss === null) {
-            $this->initForumTopicWatcherss();
-            $this->collForumTopicWatcherssPartial = true;
-        }
-
-        if (!$this->collForumTopicWatcherss->contains($l)) {
-            $this->doAddForumTopicWatchers($l);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildForumTopicWatchers $forumTopicWatchers The ChildForumTopicWatchers object to add.
-     */
-    protected function doAddForumTopicWatchers(ChildForumTopicWatchers $forumTopicWatchers)
-    {
-        $this->collForumTopicWatcherss[]= $forumTopicWatchers;
-        $forumTopicWatchers->setUsers($this);
-    }
-
-    /**
-     * @param  ChildForumTopicWatchers $forumTopicWatchers The ChildForumTopicWatchers object to remove.
-     * @return $this|ChildUsers The current object (for fluent API support)
-     */
-    public function removeForumTopicWatchers(ChildForumTopicWatchers $forumTopicWatchers)
-    {
-        if ($this->getForumTopicWatcherss()->contains($forumTopicWatchers)) {
-            $pos = $this->collForumTopicWatcherss->search($forumTopicWatchers);
-            $this->collForumTopicWatcherss->remove($pos);
-            if (null === $this->forumTopicWatcherssScheduledForDeletion) {
-                $this->forumTopicWatcherssScheduledForDeletion = clone $this->collForumTopicWatcherss;
-                $this->forumTopicWatcherssScheduledForDeletion->clear();
-            }
-            $this->forumTopicWatcherssScheduledForDeletion[]= clone $forumTopicWatchers;
-            $forumTopicWatchers->setUsers(null);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Users is new, it will return
-     * an empty collection; or if this Users has previously
-     * been saved, it will retrieve related ForumTopicWatcherss from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Users.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildForumTopicWatchers[] List of ChildForumTopicWatchers objects
-     */
-    public function getForumTopicWatcherssJoinForumTopic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
-    {
-        $query = ChildForumTopicWatchersQuery::create(null, $criteria);
-        $query->joinWith('ForumTopic', $joinBehavior);
-
-        return $this->getForumTopicWatcherss($query, $con);
     }
 
     /**
@@ -3367,6 +3121,252 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collForumTopicWatcherss collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addForumTopicWatcherss()
+     */
+    public function clearForumTopicWatcherss()
+    {
+        $this->collForumTopicWatcherss = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collForumTopicWatcherss collection loaded partially.
+     */
+    public function resetPartialForumTopicWatcherss($v = true)
+    {
+        $this->collForumTopicWatcherssPartial = $v;
+    }
+
+    /**
+     * Initializes the collForumTopicWatcherss collection.
+     *
+     * By default this just sets the collForumTopicWatcherss collection to an empty array (like clearcollForumTopicWatcherss());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initForumTopicWatcherss($overrideExisting = true)
+    {
+        if (null !== $this->collForumTopicWatcherss && !$overrideExisting) {
+            return;
+        }
+        $this->collForumTopicWatcherss = new ObjectCollection();
+        $this->collForumTopicWatcherss->setModel('\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchers');
+    }
+
+    /**
+     * Gets an array of ChildForumTopicWatchers objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUsers is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildForumTopicWatchers[] List of ChildForumTopicWatchers objects
+     * @throws PropelException
+     */
+    public function getForumTopicWatcherss(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collForumTopicWatcherssPartial && !$this->isNew();
+        if (null === $this->collForumTopicWatcherss || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collForumTopicWatcherss) {
+                // return empty collection
+                $this->initForumTopicWatcherss();
+            } else {
+                $collForumTopicWatcherss = ChildForumTopicWatchersQuery::create(null, $criteria)
+                    ->filterByUsers($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collForumTopicWatcherssPartial && count($collForumTopicWatcherss)) {
+                        $this->initForumTopicWatcherss(false);
+
+                        foreach ($collForumTopicWatcherss as $obj) {
+                            if (false == $this->collForumTopicWatcherss->contains($obj)) {
+                                $this->collForumTopicWatcherss->append($obj);
+                            }
+                        }
+
+                        $this->collForumTopicWatcherssPartial = true;
+                    }
+
+                    return $collForumTopicWatcherss;
+                }
+
+                if ($partial && $this->collForumTopicWatcherss) {
+                    foreach ($this->collForumTopicWatcherss as $obj) {
+                        if ($obj->isNew()) {
+                            $collForumTopicWatcherss[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collForumTopicWatcherss = $collForumTopicWatcherss;
+                $this->collForumTopicWatcherssPartial = false;
+            }
+        }
+
+        return $this->collForumTopicWatcherss;
+    }
+
+    /**
+     * Sets a collection of ChildForumTopicWatchers objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $forumTopicWatcherss A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildUsers The current object (for fluent API support)
+     */
+    public function setForumTopicWatcherss(Collection $forumTopicWatcherss, ConnectionInterface $con = null)
+    {
+        /** @var ChildForumTopicWatchers[] $forumTopicWatcherssToDelete */
+        $forumTopicWatcherssToDelete = $this->getForumTopicWatcherss(new Criteria(), $con)->diff($forumTopicWatcherss);
+
+
+        //since at least one column in the foreign key is at the same time a PK
+        //we can not just set a PK to NULL in the lines below. We have to store
+        //a backup of all values, so we are able to manipulate these items based on the onDelete value later.
+        $this->forumTopicWatcherssScheduledForDeletion = clone $forumTopicWatcherssToDelete;
+
+        foreach ($forumTopicWatcherssToDelete as $forumTopicWatchersRemoved) {
+            $forumTopicWatchersRemoved->setUsers(null);
+        }
+
+        $this->collForumTopicWatcherss = null;
+        foreach ($forumTopicWatcherss as $forumTopicWatchers) {
+            $this->addForumTopicWatchers($forumTopicWatchers);
+        }
+
+        $this->collForumTopicWatcherss = $forumTopicWatcherss;
+        $this->collForumTopicWatcherssPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related ForumTopicWatchers objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related ForumTopicWatchers objects.
+     * @throws PropelException
+     */
+    public function countForumTopicWatcherss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collForumTopicWatcherssPartial && !$this->isNew();
+        if (null === $this->collForumTopicWatcherss || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collForumTopicWatcherss) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getForumTopicWatcherss());
+            }
+
+            $query = ChildForumTopicWatchersQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUsers($this)
+                ->count($con);
+        }
+
+        return count($this->collForumTopicWatcherss);
+    }
+
+    /**
+     * Method called to associate a ChildForumTopicWatchers object to this object
+     * through the ChildForumTopicWatchers foreign key attribute.
+     *
+     * @param  ChildForumTopicWatchers $l ChildForumTopicWatchers
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Users The current object (for fluent API support)
+     */
+    public function addForumTopicWatchers(ChildForumTopicWatchers $l)
+    {
+        if ($this->collForumTopicWatcherss === null) {
+            $this->initForumTopicWatcherss();
+            $this->collForumTopicWatcherssPartial = true;
+        }
+
+        if (!$this->collForumTopicWatcherss->contains($l)) {
+            $this->doAddForumTopicWatchers($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildForumTopicWatchers $forumTopicWatchers The ChildForumTopicWatchers object to add.
+     */
+    protected function doAddForumTopicWatchers(ChildForumTopicWatchers $forumTopicWatchers)
+    {
+        $this->collForumTopicWatcherss[]= $forumTopicWatchers;
+        $forumTopicWatchers->setUsers($this);
+    }
+
+    /**
+     * @param  ChildForumTopicWatchers $forumTopicWatchers The ChildForumTopicWatchers object to remove.
+     * @return $this|ChildUsers The current object (for fluent API support)
+     */
+    public function removeForumTopicWatchers(ChildForumTopicWatchers $forumTopicWatchers)
+    {
+        if ($this->getForumTopicWatcherss()->contains($forumTopicWatchers)) {
+            $pos = $this->collForumTopicWatcherss->search($forumTopicWatchers);
+            $this->collForumTopicWatcherss->remove($pos);
+            if (null === $this->forumTopicWatcherssScheduledForDeletion) {
+                $this->forumTopicWatcherssScheduledForDeletion = clone $this->collForumTopicWatcherss;
+                $this->forumTopicWatcherssScheduledForDeletion->clear();
+            }
+            $this->forumTopicWatcherssScheduledForDeletion[]= clone $forumTopicWatchers;
+            $forumTopicWatchers->setUsers(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Users is new, it will return
+     * an empty collection; or if this Users has previously
+     * been saved, it will retrieve related ForumTopicWatcherss from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Users.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildForumTopicWatchers[] List of ChildForumTopicWatchers objects
+     */
+    public function getForumTopicWatcherssJoinForumTopic(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildForumTopicWatchersQuery::create(null, $criteria);
+        $query->joinWith('ForumTopic', $joinBehavior);
+
+        return $this->getForumTopicWatcherss($query, $con);
+    }
+
+    /**
      * Clears out the collPrevodis collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
@@ -3635,11 +3635,6 @@ abstract class Users implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collForumTopicWatcherss) {
-                foreach ($this->collForumTopicWatcherss as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
             if ($this->collPermissionGroupUserss) {
                 foreach ($this->collPermissionGroupUserss as $o) {
                     $o->clearAllReferences($deep);
@@ -3647,6 +3642,11 @@ abstract class Users implements ActiveRecordInterface
             }
             if ($this->collPermissionUserss) {
                 foreach ($this->collPermissionUserss as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collForumTopicWatcherss) {
+                foreach ($this->collForumTopicWatcherss as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -3658,9 +3658,9 @@ abstract class Users implements ActiveRecordInterface
         } // if ($deep)
 
         $this->collChatOnlines = null;
-        $this->collForumTopicWatcherss = null;
         $this->collPermissionGroupUserss = null;
         $this->collPermissionUserss = null;
+        $this->collForumTopicWatcherss = null;
         $this->collPrevodis = null;
     }
 

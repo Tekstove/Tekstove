@@ -34,7 +34,7 @@ class ForumPostsTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ForumPostsTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.ForumPostsTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class ForumPostsTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.ForumPosts';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.ForumPosts';
 
     /**
      * The total number of columns
@@ -143,7 +143,7 @@ class ForumPostsTableMap extends TableMap
         $this->setPhpName('ForumPosts');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumPosts');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);

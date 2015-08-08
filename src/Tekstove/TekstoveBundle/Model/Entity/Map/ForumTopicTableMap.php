@@ -35,7 +35,7 @@ class ForumTopicTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.ForumTopicTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.ForumTopicTableMap';
 
     /**
      * The default database name for this class
@@ -55,7 +55,7 @@ class ForumTopicTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.ForumTopic';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.ForumTopic';
 
     /**
      * The total number of columns
@@ -154,7 +154,7 @@ class ForumTopicTableMap extends TableMap
         $this->setPhpName('ForumTopic');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumTopic');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addForeignKey('topic_razdel', 'TopicRazdel', 'INTEGER', 'forum_razdel', 'id', true, null, null);
@@ -178,6 +178,13 @@ class ForumTopicTableMap extends TableMap
     1 => ':id',
   ),
 ), 'CASCADE', null, null, false);
+        $this->addRelation('Novini', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Novini', RelationMap::ONE_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':id',
+    1 => ':id',
+  ),
+), 'CASCADE', null, null, false);
         $this->addRelation('ForumPosts', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\ForumPosts', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -192,13 +199,6 @@ class ForumTopicTableMap extends TableMap
     1 => ':id',
   ),
 ), 'CASCADE', null, 'ForumTopicWatcherss', false);
-        $this->addRelation('Novini', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Novini', RelationMap::ONE_TO_ONE, array (
-  0 =>
-  array (
-    0 => ':id',
-    1 => ':id',
-  ),
-), 'CASCADE', null, null, false);
     } // buildRelations()
     /**
      * Method to invalidate the instance pool of all tables related to forum_topic     * by a foreign key with ON DELETE CASCADE
@@ -207,9 +207,9 @@ class ForumTopicTableMap extends TableMap
     {
         // Invalidate objects in related instance pools,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        NoviniTableMap::clearInstancePool();
         ForumPostsTableMap::clearInstancePool();
         ForumTopicWatchersTableMap::clearInstancePool();
-        NoviniTableMap::clearInstancePool();
     }
 
     /**

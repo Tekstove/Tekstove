@@ -34,7 +34,7 @@ class LiubimiTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.LiubimiTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.LiubimiTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class LiubimiTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Liubimi';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Liubimi';
 
     /**
      * The total number of columns
@@ -133,7 +133,7 @@ class LiubimiTableMap extends TableMap
         $this->setPhpName('Liubimi');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Liubimi');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, 10, null);
