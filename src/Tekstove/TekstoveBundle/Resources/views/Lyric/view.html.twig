@@ -1,10 +1,9 @@
 {% extends 'TekstoveBundle::main.html.twig' %}
 {% block content %}
-    разработва се
     <table width="100%" style="background-color:#EEEEEE;">
         <tr>
             <td style="background-color:#EEEEEE;">
-                гледания: {{ lyric.getViews }}, популярност: {{ lyric.getPopularity }}
+                гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
             </td>
             <td style="background-color:#EEEEEE;">
                 <div style="text-align:right;">
@@ -40,23 +39,23 @@
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist2) %}
-                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist2.getId}) }}" title="">
-                            {{ lyric.getArtist2.getName }}
+                        и <a href="{{ path('artistBrowse', {id:lyric.artist2}) }}" title="">
+                            {{ lyric.artistRelatedByArtist2.name }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist3) %}
-                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist3.getId}) }}}">
-                            {{ lyric.getArtist3.getName }}
+                        и <a href="{{ path('artistBrowse', {id:lyric.artist3}) }}}">
+                            {{ lyric.artistRelatedByArtist3.getName }}
                         </a>
                     {% endif %}
-                    {% if (lyric.getArtist4) %}
-                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist4.getId}) }}" title="">
-                            {{ lyric.getArtist4.getName }}
+                    {% if (lyric.artist4) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.artist4}) }}" title="">
+                            {{ lyric.artistRelatedByArtist4.getName }}
                         </a>
                     {% endif %}
-                    {% if (lyric.getArtist5) %}
-                        и <a href="{{ path('artistBrowse', {id:lyric.getArtist5.getId}) }}" title="">
-                            {{ lyric.getArtist5.getName }}
+                    {% if (lyric.artist5) %}
+                        и <a href="{{ path('artistBrowse', {id:lyric.artist4}) }}" title="">
+                            {{ lyric.artistRelatedByArtist4.getName }}
                         </a>
                     {% endif %}
                     - {{ lyric.title }}

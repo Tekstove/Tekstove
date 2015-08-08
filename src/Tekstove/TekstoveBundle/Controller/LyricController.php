@@ -15,25 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class LyricController extends Controller
 {
-    
-    protected function getLyricFormBuilder()
-    {
-        $formBuilderOptions = [
-            'attr' => [
-                'id' => 'lyric_form',
-            ]
-        ];
-        $formBuilder = $this->createFormBuilder(null, $formBuilderOptions);
-        $formBuilder->add('title','text');
-        $formBuilder->add('text', 'textarea');
-        $formBuilder->add('text_bg', 'textarea', ['required' => false]);
-        $formBuilder->add('youtube', 'text', ['required' => false]);
-        $formBuilder->add('vbox7', 'text', ['required' => false]);
-        $formBuilder->add('metacafe', 'text', ['required' => false]);
-        $formBuilder->add('submit', 'button');
-        return $formBuilder;
-    }
-
     /**
      * @Template()
      */
@@ -53,78 +34,47 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * @Template("TekstoveBundle:Lyric:add.html.twig")
      */
-    public function addAction()
+    public function addHtmlAction(Request $request)
     {
-        $formBuilder = $this->getLyricFormBuilder();
-        $form = $formBuilder->getForm();
-        
-        $form = $this->createForm(new \Tekstove\TekstoveBundle\Form\Type\LyricType());
+        $form = $this->createCreateForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $lyric = $form->getData();
+            $lyric->save();
+            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
+        }
         
         return [
             'form' => $form->createView(),
         ];
     }
     
+    /**
+     * @Template()
+     */
+    public function addAction()
+    {
+        $form = $this->createCreateForm();
+        
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+    
+    public function createCreateForm()
+    {
+        $formType = new \Tekstove\TekstoveBundle\Form\Type\LyricType();
+        $form = $this->createForm($formType);
+        $form->add('submit', 'submit');
+        
+        return $form;
+    }
+    
     public function addJsonAction(Request $request)
     {
-        $formBuilder = $this->getLyricFormBuilder();
-        $form = $formBuilder->getForm();
-        /* @var $form \Symfony\Component\Form\Form */
-        $lyricManager = $this->get('tekstoveLyricManager');
-        /* @var $lyricManager \Tekstove\TekstoveBundle\Model\Lyric\Manager */
-        
-        $form->handleRequest($request);
-        
-        if (false == $form->isValid()) {
-        
-            $error = $form->getErrors();
-            
-            $return = [
-                'error' => $error->current()->getMessage()
-            ];
-            return new JsonResponse($return, Response::HTTP_BAD_REQUEST);
-        }
-        
-        try {
-            $lyric = new \Tekstove\TekstoveBundle\Model\Lyric(null, $lyricManager);
-            $lyric->setText($form->get('text')->getData());
-            $lyric->setTitle($form->get('title')->getData());
-            
-                $updatedLyric = $lyricManager->save($lyric);
-            
-                $returnData = [
-                'valid' => true,
-                'lyric' => [
-                    'id' => $updatedLyric->getId(),
-                ]
-            ];
-            
-        } catch (\Tekstove\TekstoveBundle\Model\Exception\ValidationException $ex) {
-            $returnData = [
-                    'valid' => false,
-                    'error' => $ex->getMessage(),
-                    'field' => $ex->getField(),
-                ];
-                
-                return new JsonResponse($returnData, Response::HTTP_BAD_REQUEST);
-        } catch (\Exception $ex) {
-            if ($ex instanceof \Tekstove\TekstoveBundle\Model\Exception\HumanReadableInterface) {
-                $returnData = [
-                    'valid' => false,
-                    'error' => $ex->getMessage(),
-                ];
-                
-                return new JsonResponse($returnData, Response::HTTP_BAD_REQUEST);
-                
-            } else {
-                throw $ex;
-            }
-        }
-        
-        
-        return new JsonResponse($returnData);
+        throw new \Exception('deprecated');
     }
     
     /**

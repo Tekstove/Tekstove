@@ -30,6 +30,12 @@ lyricAddPostJson:
     path: /lyric/add.json
     defaults: { _controller: TekstoveBundle:Lyric:addJson }
     methods: [POST]
+    
+lyricAddPostHtml:
+    path: /lyric/add
+    defaults: { _controller: TekstoveBundle:Lyric:addHtml }
+    methods: [POST]
+
 lyricAdd:
     path: /lyric/add
     defaults: { _controller: TekstoveBundle:Lyric:add }

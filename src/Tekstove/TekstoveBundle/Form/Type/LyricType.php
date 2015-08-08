@@ -17,9 +17,6 @@ class LyricType extends BaseAbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('zaglaviePalno');
-        $builder->add('fullTitleShort');
-        $builder->add('upId');
         $builder->add('text');
         $builder->add('textBg');
         $builder->add('artist1');
@@ -36,9 +33,7 @@ class LyricType extends BaseAbstractType
         $builder->add('videoYoutube');
         $builder->add('videoMetacafe');
         $builder->add('image');
-        $builder->add('podnovena');
-        $builder->add('ipUpload');
         $builder->add('dopylnitelnoinfo');
-        $builder->add('peeSeNa');
+        $builder->add('languages');
     }
 }

@@ -16,4 +16,10 @@ use Tekstove\TekstoveBundle\Model\Entity\Base\Lyric as BaseLyric;
  */
 class Lyric extends BaseLyric
 {
+    public function preSave(\Propel\Runtime\Connection\ConnectionInterface $con = null) {
+        
+        $cacheTitleShort = $this->getTitle();
+        $this->setcacheTitleShort($cacheTitleShort);
+        return parent::preSave($con);
+    }
 }

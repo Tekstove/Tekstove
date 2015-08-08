@@ -40,7 +40,7 @@ class Lyric implements VoterInterface
             case 'edit':
                 $user = $token->getUser();
                 /* @var $user Model\User */
-                if ($user instanceof Model\User && $user->getId() === $object->getUpId()) {
+                if ($user instanceof Model\User && $user->getId() === $object->getUploader()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 
