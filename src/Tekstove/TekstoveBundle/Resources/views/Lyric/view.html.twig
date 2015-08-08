@@ -35,7 +35,7 @@
             <td align="left">
                 <h1>
                     {% if (lyric.getArtist1) %}
-                        <a href="{{ path('artistBrowse', {id:lyric.getArtist1.getId}) }}">
+                        <a href="{{ path('artistBrowse', { id: lyric.getArtist1.id }) }}">
                             {{ lyric.getArtist1.getName|e }}
                         </a>
                     {% endif %}
@@ -65,7 +65,7 @@
             <td align="right">
                 <div class="browse_glasuvai_buton">
                     <div id="glasuvane" style="padding-top:12px">
-                        {{ lyric.getVotes }}
+                        {{ lyric.cacheVotes }}
                         <br/>
                         {% if app.user %}
                             <a href="#" title="Гласувай">@Гласувай</a>
@@ -105,7 +105,7 @@
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', {id:lyric.uploader.id}) }}">
+                    <a href="{{ path('userView', { id:lyric.uploader.id }) }}">
                         {{ lyric.uploader.username|e }}
                     </a>
                 </b> 

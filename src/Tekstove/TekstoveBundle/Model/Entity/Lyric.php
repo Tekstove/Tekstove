@@ -23,4 +23,16 @@ class Lyric extends BaseLyric
         return $artist;
     }
     
+    public function getuploader() {
+        $id = parent::getuploader();
+        $usersRepo = UsersQuery::create();
+        $user = $usersRepo->findOneById($id);
+        return $user;
+    }
+    
+    public function getlanguage() {
+        $id = parent::getlanguage();
+        return LanguagesQuery::create()->findOneById($id);
+    }
+
 }

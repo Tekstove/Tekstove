@@ -10,7 +10,7 @@
 
                 {% for lyric in lastlyrics %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getFullTitleShort }}
+                        {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
                 {% endfor %}
@@ -22,7 +22,7 @@
                 <div class="top100_index">най-нови преводи</div>
                 {% for lyric in lastTranslated %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getFullTitleShort }}
+                        {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
                 {% endfor %}
@@ -39,7 +39,7 @@
                 </div>
                 {% for lyric in popular %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getFullTitleShort }}
+                        {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
                 {% endfor %}
@@ -51,7 +51,7 @@
                 <div class="top100_index"><a href="#"><b>най-преглеждани текстове</b>&nbsp;&nbsp;--&nbsp;&nbsp;Топ 100</a></div>
                 {% for lyric in mostViewed %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getFullTitleShort }}
+                        {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
                 {% endfor %}
@@ -66,7 +66,7 @@
 
                 {% for lyric in lastVoted %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.getFullTitleShort }}
+                        {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
                 {% endfor %}

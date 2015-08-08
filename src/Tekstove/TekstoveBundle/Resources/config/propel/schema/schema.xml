@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore" namespace="Tekstove\TekstoveBundle\Model\Entity">
+    <table name="albums" idMethod="native" phpName="Album">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="name" phpName="Name" type="VARCHAR" size="40" required="true"/>
+        <column name="artist1id" phpName="Artist1id" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="artist2id" phpName="Artist2id" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="dopylnitelnoinfo" phpName="Dopylnitelnoinfo" type="LONGVARCHAR" required="true"/>
+        <column name="year" phpName="Year" type="INTEGER" size="6" sqlType="int(6) unsigned" required="true"/>
+        <column name="image" phpName="Image" type="VARCHAR" size="100" required="true"/>
+        <column name="vid" phpName="Vid" type="TINYINT" size="3" sqlType="tinyint(3) unsigned" required="true"/>
+        <column name="up_id" phpName="UpId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="va" phpName="Va" type="BOOLEAN" size="1" required="true"/>
+        <column name="p1" phpName="P1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p2" phpName="P2" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p3" phpName="P3" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p4" phpName="P4" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p5" phpName="P5" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p6" phpName="P6" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p7" phpName="P7" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p8" phpName="P8" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p9" phpName="P9" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p10" phpName="P10" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p11" phpName="P11" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p12" phpName="P12" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p13" phpName="P13" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p14" phpName="P14" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p15" phpName="P15" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p16" phpName="P16" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p17" phpName="P17" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p18" phpName="P18" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p19" phpName="P19" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p20" phpName="P20" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p21" phpName="P21" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p22" phpName="P22" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p23" phpName="P23" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p24" phpName="P24" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p25" phpName="P25" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p26" phpName="P26" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p27" phpName="P27" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p28" phpName="P28" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p29" phpName="P29" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p30" phpName="P30" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p31" phpName="P31" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p32" phpName="P32" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p33" phpName="P33" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p34" phpName="P34" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p35" phpName="P35" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="p1n" phpName="P1n" type="VARCHAR" size="60" required="true"/>
+        <column name="p2n" phpName="P2n" type="VARCHAR" size="60" required="true"/>
+        <column name="p3n" phpName="P3n" type="VARCHAR" size="60" required="true"/>
+        <column name="p4n" phpName="P4n" type="VARCHAR" size="60" required="true"/>
+        <column name="p5n" phpName="P5n" type="VARCHAR" size="60" required="true"/>
+        <column name="p6n" phpName="P6n" type="VARCHAR" size="60" required="true"/>
+        <column name="p7n" phpName="P7n" type="VARCHAR" size="60" required="true"/>
+        <column name="p8n" phpName="P8n" type="VARCHAR" size="60" required="true"/>
+        <column name="p9n" phpName="P9n" type="VARCHAR" size="60" required="true"/>
+        <column name="p10n" phpName="P10n" type="VARCHAR" size="60" required="true"/>
+        <column name="p11n" phpName="P11n" type="VARCHAR" size="60" required="true"/>
+        <column name="p12n" phpName="P12n" type="VARCHAR" size="60" required="true"/>
+        <column name="p13n" phpName="P13n" type="VARCHAR" size="60" required="true"/>
+        <column name="p14n" phpName="P14n" type="VARCHAR" size="60" required="true"/>
+        <column name="p15n" phpName="P15n" type="VARCHAR" size="60" required="true"/>
+        <column name="p16n" phpName="P16n" type="VARCHAR" size="60" required="true"/>
+        <column name="p17n" phpName="P17n" type="VARCHAR" size="60" required="true"/>
+        <column name="p18n" phpName="P18n" type="VARCHAR" size="60" required="true"/>
+        <column name="p19n" phpName="P19n" type="VARCHAR" size="60" required="true"/>
+        <column name="p20n" phpName="P20n" type="VARCHAR" size="60" required="true"/>
+        <column name="p21n" phpName="P21n" type="VARCHAR" size="60" required="true"/>
+        <column name="p22n" phpName="P22n" type="VARCHAR" size="60" required="true"/>
+        <column name="p23n" phpName="P23n" type="VARCHAR" size="60" required="true"/>
+        <column name="p24n" phpName="P24n" type="VARCHAR" size="60" required="true"/>
+        <column name="p25n" phpName="P25n" type="VARCHAR" size="60" required="true"/>
+        <column name="p26n" phpName="P26n" type="VARCHAR" size="60" required="true"/>
+        <column name="p27n" phpName="P27n" type="VARCHAR" size="60" required="true"/>
+        <column name="p28n" phpName="P28n" type="VARCHAR" size="60" required="true"/>
+        <column name="p29n" phpName="P29n" type="VARCHAR" size="60" required="true"/>
+        <column name="p30n" phpName="P30n" type="VARCHAR" size="60" required="true"/>
+        <column name="p31n" phpName="P31n" type="VARCHAR" size="60" required="true"/>
+        <column name="p32n" phpName="P32n" type="VARCHAR" size="60" required="true"/>
+        <column name="p33n" phpName="P33n" type="VARCHAR" size="60" required="true"/>
+        <column name="p34n" phpName="P34n" type="VARCHAR" size="60" required="true"/>
+        <column name="p35n" phpName="P35n" type="VARCHAR" size="60" required="true"/>
+        <index name="artistid">
+            <index-column name="artist1id"/>
+        </index>
+        <index name="artist2id">
+            <index-column name="artist2id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+    <table name="artists" idMethod="native" phpName="Artist">
+        <column name="name" phpName="Name" type="VARCHAR" size="100" required="true"/>
+        <column name="name_alternatives" phpName="NameAlternatives" type="VARCHAR" size="255" required="true"/>
+        <column name="addedby" phpName="Addedby" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="redirect_to_artist_id" phpName="RedirectToArtistId" type="INTEGER"/>
+        <column name="forbidden" phpName="Forbidden" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+        <index name="redirect_to_artist_id">
+            <index-column name="redirect_to_artist_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="bans" idMethod="native" phpName="Bans">
+        <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="ip" phpName="Ip" type="INTEGER" size="4" sqlType="int(4) unsigned" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="username" phpName="Username" type="VARCHAR" size="30" required="true"/>
+        <column name="comment" phpName="Comment" type="LONGVARCHAR"/>
+        <index name="ip">
+            <index-column name="ip"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+    <table name="chat" idMethod="native" phpName="Chat">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="message" phpName="Message" type="LONGVARCHAR" required="true"/>
+        <column name="username_id" phpName="UsernameId" type="INTEGER" sqlType="int(11) unsigned"/>
+        <column name="username_name" phpName="UsernameName" type="VARCHAR" size="30" required="true"/>
+        <column name="username_mood" phpName="UsernameMood" type="VARCHAR" size="20"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="ip" phpName="Ip" type="VARCHAR" size="50" required="true"/>
+        <column name="lastEdit" phpName="Lastedit" type="TIMESTAMP"/>
+        <column name="allowBan" phpName="Allowban" type="TINYINT" required="true" defaultValue="0"/>
+        <index name="username_id">
+            <index-column name="username_id"/>
+        </index>
+        <index name="lastEdit">
+            <index-column name="lastEdit"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+    <table name="chat_online" idMethod="native" phpName="ChatOnline">
+        <column name="userId" phpName="Userid" type="INTEGER" sqlType="int(11) unsigned"/>
+        <column name="username" phpName="Username" type="VARCHAR" size="32" primaryKey="true" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <foreign-key foreignTable="users" name="chat_online_ibfk_1">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+        <index name="userId">
+            <index-column name="userId"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="comments" idMethod="native" phpName="Comments">
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="sendby" phpName="Sendby" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+        <column name="date_orig" phpName="DateOrig" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="edited" phpName="Edited" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+        <column name="zakoqpesen" phpName="Zakoqpesen" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="lyric" name="komentari_ako_se_iztrie_pesenta" onDelete="CASCADE">
+            <reference local="zakoqpesen" foreign="id"/>
+        </foreign-key>
+        <index name="zakoqpesen">
+            <index-column name="zakoqpesen"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="edit_add_prevod" idMethod="native" phpName="EditAddPrevod">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="ot" phpName="Ot" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="za_pesen" phpName="ZaPesen" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="ip" phpName="Ip" type="VARCHAR" size="20" required="true"/>
+        <column name="za_user_id" phpName="ZaUserId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="lyric" name="prevodi_ako_se_iztrie_pesenta" onDelete="CASCADE">
+            <reference local="za_pesen" foreign="id"/>
+        </foreign-key>
+        <index name="za_user_id">
+            <index-column name="za_user_id"/>
+        </index>
+        <index name="za_pesen">
+            <index-column name="za_pesen"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="flood_control" idMethod="native" phpName="FloodControl">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="ip" phpName="Ip" type="INTEGER" size="4" sqlType="int(4) unsigned" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <index name="ip">
+            <index-column name="ip"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="forum_posts" idMethod="native" phpName="ForumPosts">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="post" phpName="Post" type="LONGVARCHAR" required="true"/>
+        <column name="poster" phpName="Poster" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="za_topic_id" phpName="ZaTopicId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <foreign-key foreignTable="forum_topic" name="postove_ako_se_iztrie_temata" onDelete="CASCADE">
+            <reference local="za_topic_id" foreign="id"/>
+        </foreign-key>
+        <index name="za_topic_id">
+            <index-column name="za_topic_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="forum_razdel" idMethod="native" phpName="ForumRazdel">
+        <column name="name" phpName="Name" type="VARCHAR" size="50" required="true"/>
+        <column name="podredba" phpName="Podredba" type="BOOLEAN" size="1" required="true"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="hidden" phpName="Hidden" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="forum_topic" idMethod="native" phpName="ForumTopic">
+        <column name="topic_razdel" phpName="TopicRazdel" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="topic_name" phpName="TopicName" type="VARCHAR" size="40" required="true"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" autoIncrement="true" required="true"/>
+        <column name="topic_pin" phpName="TopicPin" type="BOOLEAN" size="1" required="true"/>
+        <column name="topic_starter" phpName="TopicStarter" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="topic_posleden_post" phpName="TopicPosledenPost" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="priority" phpName="Priority" type="TINYINT" size="3" sqlType="tinyint(3) unsigned" required="true"/>
+        <foreign-key foreignTable="forum_razdel" name="temi_ako_se_iztrie_razdel" onDelete="CASCADE">
+            <reference local="topic_razdel" foreign="id"/>
+        </foreign-key>
+        <index name="topic_razdel">
+            <index-column name="topic_razdel"/>
+        </index>
+        <unique name="topic_id">
+            <unique-column name="id"/>
+        </unique>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="forum_topic_watchers" idMethod="native" phpName="ForumTopicWatchers">
+        <column name="user_id" phpName="UserId" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true"/>
+        <column name="forum_topic_id" phpName="ForumTopicId" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true"/>
+        <foreign-key foreignTable="users" name="forum_topic_watchers_ibfk_1">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="forum_topic" name="forum_topic_watchers_ibfk_2" onDelete="CASCADE">
+            <reference local="forum_topic_id" foreign="id"/>
+        </foreign-key>
+        <index name="forum_topic_id">
+            <index-column name="forum_topic_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    
+    
+    
+    
+    
+    <table name="glasuvane_posledni" idMethod="native" phpName="GlasuvanePosledni">
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="date" phpName="Date" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="za" phpName="Za" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+    <table name="languages" idMethod="native" phpName="Languages">
+        <column name="id" phpName="Id" type="SMALLINT" size="5" sqlType="smallint(5) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="liubimi" idMethod="native" phpName="Liubimi">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="username" phpName="Username" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="pesen" phpName="Pesen" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="lyric" name="liubimi_ako_se_iztrie_pesenta" onDelete="CASCADE">
+            <reference local="pesen" foreign="id"/>
+        </foreign-key>
+        <index name="username">
+            <index-column name="username"/>
+        </index>
+        <index name="liubimi_ako_se_iztrie_pesenta">
+            <index-column name="pesen"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="log" idMethod="native" phpName="Log">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="data" phpName="Data" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+  
+  
+    <external-schema
+        filename="/var/www/tekstoveSymfony/src/Tekstove/TekstoveBundle/Resources/config/propel/schema/tekstove/lyric.xml"
+    />
+    
+    <external-schema
+        filename="/var/www/tekstoveSymfony/src/Tekstove/TekstoveBundle/Resources/config/propel/schema/tekstove/lyric_vote.xml"
+    />
+    
+    
+    
+    <table name="lyric_18" idMethod="native" phpName="Lyric18">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+        <foreign-key foreignTable="lyric" name="lyric_18_ako_se_iztrie_pesenta" onDelete="CASCADE">
+            <reference local="id" foreign="id"/>
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="lyric_editprotect" idMethod="native" phpName="LyricEditprotect">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="pesen_id" phpName="PesenId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="user_id" phpName="UserId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="vreme" phpName="Vreme" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <index name="pesen_id">
+            <index-column name="pesen_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="lyric_redirect" idMethod="native" phpName="LyricRedirect">
+        <column name="deleted_id" phpName="DeletedId" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+        <column name="redirect_id" phpName="RedirectId" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+        <foreign-key foreignTable="lyric" name="lyric_redirect_ibfk_1">
+            <reference local="redirect_id" foreign="id"/>
+        </foreign-key>
+        <index name="redirect_id">
+            <index-column name="redirect_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="lyric_views" idMethod="native" phpName="LyricViews">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="lyric_id" phpName="LyricId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="ip" phpName="Ip" type="INTEGER" size="4" sqlType="int(4) unsigned" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="novini" idMethod="native" phpName="Novini">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="data" phpName="Data" type="DATE" required="true"/>
+        <foreign-key foreignTable="forum_topic" name="check_ako_se_iztrie_temata" onDelete="CASCADE">
+            <reference local="id" foreign="id"/>
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="permission_group_permissions" idMethod="native" phpName="PermissionGroupPermissions">
+        <column name="groupId" phpName="Groupid" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+        <column name="permissionId" phpName="Permissionid" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+        <foreign-key foreignTable="permission_groups" name="permission_group_permissions_ibfk_1" onDelete="CASCADE">
+            <reference local="groupId" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="permissions" name="permission_group_permissions_ibfk_2" onDelete="CASCADE">
+            <reference local="permissionId" foreign="id"/>
+        </foreign-key>
+        <index name="groupId">
+            <index-column name="groupId"/>
+        </index>
+        <index name="permissionId">
+            <index-column name="permissionId"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="permission_group_users" idMethod="native" phpName="PermissionGroupUsers">
+        <column name="groupId" phpName="Groupid" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true"/>
+        <column name="userId" phpName="Userid" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+        <foreign-key foreignTable="permission_groups" name="permission_group_users_ibfk_1">
+            <reference local="groupId" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="users" name="permission_group_users_ibfk_2">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+        <index name="userId">
+            <index-column name="userId"/>
+        </index>
+        <index name="groupId">
+            <index-column name="groupId"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="permission_groups" idMethod="native" phpName="PermissionGroups">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+        <column name="image" phpName="Image" type="VARCHAR" size="255" required="true"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="permission_users" idMethod="native" phpName="PermissionUsers">
+        <column name="permissionId" phpName="Permissionid" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true"/>
+        <column name="userId" phpName="Userid" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" required="true"/>
+        <foreign-key foreignTable="permissions" name="permission_users_ibfk_1">
+            <reference local="permissionId" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="users" name="permission_users_ibfk_2">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+        <index name="userId">
+            <index-column name="userId"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="permissions" idMethod="native" phpName="Permissions">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+        <column name="value" phpName="Value" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="phinxlog" idMethod="native" phpName="Phinxlog">
+        <column name="version" phpName="Version" type="BIGINT" required="true"/>
+        <column name="start_time" phpName="StartTime" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="end_time" phpName="EndTime" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="pm" idMethod="native" phpName="Pm">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="za" phpName="Za" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="ot" phpName="Ot" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="otnosno" phpName="Otnosno" type="VARCHAR" size="150" required="true"/>
+        <column name="data" phpName="Data" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="procheteno" phpName="Procheteno" type="BOOLEAN" size="1" required="true"/>
+        <column name="ip" phpName="Ip" type="INTEGER" size="4" sqlType="int(4) unsigned" required="true"/>
+        <index name="za">
+            <index-column name="za"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="MyISAM"/>
+        </vendor>
+    </table>
+    <table name="prevodi" idMethod="native" phpName="Prevodi">
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="user_id" phpName="UserId" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <column name="zaglavie" phpName="Zaglavie" type="LONGVARCHAR" required="true"/>
+        <foreign-key foreignTable="users" name="prevodi_ibfk_1">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+        <index name="user_id">
+            <index-column name="user_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="today" idMethod="native" phpName="Today">
+        <column name="id" phpName="Id" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="date" phpName="Date" type="DATE" required="true"/>
+        <column name="artist_id" phpName="ArtistId" type="INTEGER" sqlType="int(11) unsigned"/>
+        <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
+        <foreign-key foreignTable="artists" name="today_ibfk_1">
+            <reference local="artist_id" foreign="id"/>
+        </foreign-key>
+        <index name="artist_id">
+            <index-column name="artist_id"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+    <table name="users" idMethod="native" phpName="Users">
+        <column name="username" phpName="Username" type="VARCHAR" size="30" required="true"/>
+        <column name="password" phpName="Password" type="VARCHAR" size="32" required="true"/>
+        <column name="password_mod" phpName="PasswordMod" type="VARCHAR" size="32" required="true"/>
+        <column name="password_mod_coockie" phpName="PasswordModCoockie" type="VARCHAR" size="32" required="true"/>
+        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="mail" phpName="Mail" type="VARCHAR" size="37" required="true"/>
+        <column name="class" phpName="Class" type="INTEGER" required="true" defaultValue="0"/>
+        <column name="classCustomName" phpName="Classcustomname" type="VARCHAR" size="255"/>
+        <column name="avatar" phpName="Avatar" type="VARCHAR" size="100"/>
+        <column name="about" phpName="About" type="LONGVARCHAR" required="true"/>
+        <column name="reg_date" phpName="RegDate" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="pozdrav" phpName="Pozdrav" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="br_pesni" phpName="BrPesni" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <column name="rajdane" phpName="Rajdane" type="VARCHAR" size="8" required="true"/>
+        <column name="prevodi" phpName="Prevodi" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+        <column name="autoplay" phpName="Autoplay" type="SMALLINT" size="1" sqlType="smallint(1) unsigned" required="true" defaultValue="1"/>
+        <column name="skype" phpName="Skype" type="VARCHAR" size="50" required="true"/>
+        <column name="activity_points" phpName="ActivityPoints" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+        <column name="banned" phpName="Banned" type="TIMESTAMP"/>
+        <column name="chatMessages" phpName="Chatmessages" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true" defaultValue="0"/>
+        <unique name="username">
+            <unique-column name="username"/>
+        </unique>
+        <unique name="mail">
+            <unique-column name="mail"/>
+        </unique>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+</database>

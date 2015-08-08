@@ -25,7 +25,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Lyric\Map\VotesTableMap;
  *
  *
  *
-* @package    propel.generator.src.Lyric.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Lyric.Base
 */
 abstract class Votes implements ActiveRecordInterface
 {

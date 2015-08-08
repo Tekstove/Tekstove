@@ -35,7 +35,7 @@ class LyricTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Entity.Map.LyricTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Map.LyricTableMap';
 
     /**
      * The default database name for this class
@@ -55,7 +55,7 @@ class LyricTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Entity.Lyric';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Lyric';
 
     /**
      * The total number of columns
@@ -78,19 +78,19 @@ class LyricTableMap extends TableMap
     const COL_ID = 'lyric.id';
 
     /**
-     * the column name for the zaglavie_palno field
+     * the column name for the cache_title_full field
      */
-    const COL_ZAGLAVIE_PALNO = 'lyric.zaglavie_palno';
+    const COL_CACHE_TITLE_FULL = 'lyric.cache_title_full';
 
     /**
-     * the column name for the zaglavie_sakrateno field
+     * the column name for the cache_title_short field
      */
-    const COL_ZAGLAVIE_SAKRATENO = 'lyric.zaglavie_sakrateno';
+    const COL_CACHE_TITLE_SHORT = 'lyric.cache_title_short';
 
     /**
-     * the column name for the up_id field
+     * the column name for the uploaded_by field
      */
-    const COL_UP_ID = 'lyric.up_id';
+    const COL_UPLOADED_BY = 'lyric.uploaded_by';
 
     /**
      * the column name for the text field
@@ -449,10 +449,10 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'ZaglaviePalno', 'FullTitleShort', 'UpId', 'Text', 'TextBg', 'Artist1', 'Artist2', 'Artist3', 'Artist4', 'Artist5', 'Artist6', 'Title', 'Album1', 'Album2', 'Video', 'VideoVbox7', 'VideoVbox7Orig', 'VideoYoutube', 'VideoYoutubeOrig', 'VideoMetacafe', 'VideoMetacafeOrig', 'Download', 'Image', 'Podnovena', 'IpUpload', 'Dopylnitelnoinfo', 'Glasa', 'Views', 'Popularity', 'Stilraphiphop', 'Stilhiphop', 'Stileastcoast', 'PeeSeNa', 'Stilskit', 'Stilelektronna', 'Stilrok', 'StilrokClas', 'StilrokAlt', 'StilrokHard', 'Stildisko', 'Stillatam', 'Stilsamba', 'Stiltango', 'Stilsalsa', 'Stilklasi', 'Stildetski', 'Stilfolk', 'Stilnarodna', 'Stilchalga', 'Stilpopfolk', 'Stilmetal', 'StilmetalHeavy', 'StilmetalPower', 'StilmetalDeath', 'StilmetalNu', 'StilmetalGothic', 'StilmetalSymphonic', 'Stilsoundtrack', 'Stildance', 'Stilrnb', 'Stilsoul', 'StilnewRave', 'Stilreggae', 'Stilkantri', 'Stilpunk', 'Stilemo', 'Stilbreakbeat', 'Stilbigbeat', 'Stiljaz', 'Stilblus', 'Stilelectronica', 'Stilska', ),
-        self::TYPE_CAMELNAME     => array('id', 'zaglaviePalno', 'fullTitleShort', 'upId', 'text', 'textBg', 'artist1', 'artist2', 'artist3', 'artist4', 'artist5', 'artist6', 'title', 'album1', 'album2', 'video', 'videoVbox7', 'videoVbox7Orig', 'videoYoutube', 'videoYoutubeOrig', 'videoMetacafe', 'videoMetacafeOrig', 'download', 'image', 'podnovena', 'ipUpload', 'dopylnitelnoinfo', 'glasa', 'views', 'popularity', 'stilraphiphop', 'stilhiphop', 'stileastcoast', 'peeSeNa', 'stilskit', 'stilelektronna', 'stilrok', 'stilrokClas', 'stilrokAlt', 'stilrokHard', 'stildisko', 'stillatam', 'stilsamba', 'stiltango', 'stilsalsa', 'stilklasi', 'stildetski', 'stilfolk', 'stilnarodna', 'stilchalga', 'stilpopfolk', 'stilmetal', 'stilmetalHeavy', 'stilmetalPower', 'stilmetalDeath', 'stilmetalNu', 'stilmetalGothic', 'stilmetalSymphonic', 'stilsoundtrack', 'stildance', 'stilrnb', 'stilsoul', 'stilnewRave', 'stilreggae', 'stilkantri', 'stilpunk', 'stilemo', 'stilbreakbeat', 'stilbigbeat', 'stiljaz', 'stilblus', 'stilelectronica', 'stilska', ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_ZAGLAVIE_PALNO, LyricTableMap::COL_ZAGLAVIE_SAKRATENO, LyricTableMap::COL_UP_ID, LyricTableMap::COL_TEXT, LyricTableMap::COL_TEXT_BG, LyricTableMap::COL_ARTIST1, LyricTableMap::COL_ARTIST2, LyricTableMap::COL_ARTIST3, LyricTableMap::COL_ARTIST4, LyricTableMap::COL_ARTIST5, LyricTableMap::COL_ARTIST6, LyricTableMap::COL_TITLE, LyricTableMap::COL_ALBUM1, LyricTableMap::COL_ALBUM2, LyricTableMap::COL_VIDEO, LyricTableMap::COL_VIDEO_VBOX7, LyricTableMap::COL_VIDEO_VBOX7_ORIG, LyricTableMap::COL_VIDEO_YOUTUBE, LyricTableMap::COL_VIDEO_YOUTUBE_ORIG, LyricTableMap::COL_VIDEO_METACAFE, LyricTableMap::COL_VIDEO_METACAFE_ORIG, LyricTableMap::COL_DOWNLOAD, LyricTableMap::COL_IMAGE, LyricTableMap::COL_PODNOVENA, LyricTableMap::COL_IP_UPLOAD, LyricTableMap::COL_DOPYLNITELNOINFO, LyricTableMap::COL_GLASA, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, LyricTableMap::COL_STILRAPHIPHOP, LyricTableMap::COL_STILHIPHOP, LyricTableMap::COL_STILEASTCOAST, LyricTableMap::COL_PEE_SE_NA, LyricTableMap::COL_STILSKIT, LyricTableMap::COL_STILELEKTRONNA, LyricTableMap::COL_STILROK, LyricTableMap::COL_STILROK_CLAS, LyricTableMap::COL_STILROK_ALT, LyricTableMap::COL_STILROK_HARD, LyricTableMap::COL_STILDISKO, LyricTableMap::COL_STILLATAM, LyricTableMap::COL_STILSAMBA, LyricTableMap::COL_STILTANGO, LyricTableMap::COL_STILSALSA, LyricTableMap::COL_STILKLASI, LyricTableMap::COL_STILDETSKI, LyricTableMap::COL_STILFOLK, LyricTableMap::COL_STILNARODNA, LyricTableMap::COL_STILCHALGA, LyricTableMap::COL_STILPOPFOLK, LyricTableMap::COL_STILMETAL, LyricTableMap::COL_STILMETAL_HEAVY, LyricTableMap::COL_STILMETAL_POWER, LyricTableMap::COL_STILMETAL_DEATH, LyricTableMap::COL_STILMETAL_NU, LyricTableMap::COL_STILMETAL_GOTHIC, LyricTableMap::COL_STILMETAL_SYMPHONIC, LyricTableMap::COL_STILSOUNDTRACK, LyricTableMap::COL_STILDANCE, LyricTableMap::COL_STILRNB, LyricTableMap::COL_STILSOUL, LyricTableMap::COL_STILNEW_RAVE, LyricTableMap::COL_STILREGGAE, LyricTableMap::COL_STILKANTRI, LyricTableMap::COL_STILPUNK, LyricTableMap::COL_STILEMO, LyricTableMap::COL_STILBREAKBEAT, LyricTableMap::COL_STILBIGBEAT, LyricTableMap::COL_STILJAZ, LyricTableMap::COL_STILBLUS, LyricTableMap::COL_STILELECTRONICA, LyricTableMap::COL_STILSKA, ),
-        self::TYPE_FIELDNAME     => array('id', 'zaglavie_palno', 'zaglavie_sakrateno', 'up_id', 'text', 'text_bg', 'artist1', 'artist2', 'artist3', 'artist4', 'artist5', 'artist6', 'title', 'album1', 'album2', 'video', 'video_vbox7', 'video_vbox7_orig', 'video_youtube', 'video_youtube_orig', 'video_metacafe', 'video_metacafe_orig', 'download', 'image', 'podnovena', 'ip_upload', 'dopylnitelnoinfo', 'glasa', 'views', 'popularity', 'stilraphiphop', 'stilhiphop', 'stileastcoast', 'pee_se_na', 'stilskit', 'stilelektronna', 'stilrok', 'stilrok_clas', 'stilrok_alt', 'stilrok_hard', 'stildisko', 'stillatam', 'stilsamba', 'stiltango', 'stilsalsa', 'stilklasi', 'stildetski', 'stilfolk', 'stilnarodna', 'stilchalga', 'stilpopfolk', 'stilmetal', 'stilmetal_heavy', 'stilmetal_power', 'stilmetal_death', 'stilmetal_nu', 'stilmetal_gothic', 'stilmetal_symphonic', 'stilsoundtrack', 'stildance', 'stilRnB', 'stilsoul', 'stilnew_rave', 'stilreggae', 'stilkantri', 'stilpunk', 'stilemo', 'stilbreakbeat', 'stilbigbeat', 'stiljaz', 'stilblus', 'stilelectronica', 'stilska', ),
+        self::TYPE_PHPNAME       => array('Id', 'cacheTitleFull', 'cacheTitleShort', 'uploadedBy', 'Text', 'textBg', 'Artist1', 'Artist2', 'Artist3', 'Artist4', 'Artist5', 'Artist6', 'Title', 'Album1', 'Album2', 'Video', 'VideoVbox7', 'VideoVbox7Orig', 'VideoYoutube', 'VideoYoutubeOrig', 'VideoMetacafe', 'VideoMetacafeOrig', 'Download', 'Image', 'Podnovena', 'IpUpload', 'Dopylnitelnoinfo', 'VotesCountCache', 'Views', 'Popularity', 'Stilraphiphop', 'Stilhiphop', 'Stileastcoast', 'PeeSeNa', 'Stilskit', 'Stilelektronna', 'Stilrok', 'StilrokClas', 'StilrokAlt', 'StilrokHard', 'Stildisko', 'Stillatam', 'Stilsamba', 'Stiltango', 'Stilsalsa', 'Stilklasi', 'Stildetski', 'Stilfolk', 'Stilnarodna', 'Stilchalga', 'Stilpopfolk', 'Stilmetal', 'StilmetalHeavy', 'StilmetalPower', 'StilmetalDeath', 'StilmetalNu', 'StilmetalGothic', 'StilmetalSymphonic', 'Stilsoundtrack', 'Stildance', 'Stilrnb', 'Stilsoul', 'StilnewRave', 'Stilreggae', 'Stilkantri', 'Stilpunk', 'Stilemo', 'Stilbreakbeat', 'Stilbigbeat', 'Stiljaz', 'Stilblus', 'Stilelectronica', 'Stilska', ),
+        self::TYPE_CAMELNAME     => array('id', 'cacheTitleFull', 'cacheTitleShort', 'uploadedBy', 'text', 'textBg', 'artist1', 'artist2', 'artist3', 'artist4', 'artist5', 'artist6', 'title', 'album1', 'album2', 'video', 'videoVbox7', 'videoVbox7Orig', 'videoYoutube', 'videoYoutubeOrig', 'videoMetacafe', 'videoMetacafeOrig', 'download', 'image', 'podnovena', 'ipUpload', 'dopylnitelnoinfo', 'votesCountCache', 'views', 'popularity', 'stilraphiphop', 'stilhiphop', 'stileastcoast', 'peeSeNa', 'stilskit', 'stilelektronna', 'stilrok', 'stilrokClas', 'stilrokAlt', 'stilrokHard', 'stildisko', 'stillatam', 'stilsamba', 'stiltango', 'stilsalsa', 'stilklasi', 'stildetski', 'stilfolk', 'stilnarodna', 'stilchalga', 'stilpopfolk', 'stilmetal', 'stilmetalHeavy', 'stilmetalPower', 'stilmetalDeath', 'stilmetalNu', 'stilmetalGothic', 'stilmetalSymphonic', 'stilsoundtrack', 'stildance', 'stilrnb', 'stilsoul', 'stilnewRave', 'stilreggae', 'stilkantri', 'stilpunk', 'stilemo', 'stilbreakbeat', 'stilbigbeat', 'stiljaz', 'stilblus', 'stilelectronica', 'stilska', ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_CACHE_TITLE_FULL, LyricTableMap::COL_CACHE_TITLE_SHORT, LyricTableMap::COL_UPLOADED_BY, LyricTableMap::COL_TEXT, LyricTableMap::COL_TEXT_BG, LyricTableMap::COL_ARTIST1, LyricTableMap::COL_ARTIST2, LyricTableMap::COL_ARTIST3, LyricTableMap::COL_ARTIST4, LyricTableMap::COL_ARTIST5, LyricTableMap::COL_ARTIST6, LyricTableMap::COL_TITLE, LyricTableMap::COL_ALBUM1, LyricTableMap::COL_ALBUM2, LyricTableMap::COL_VIDEO, LyricTableMap::COL_VIDEO_VBOX7, LyricTableMap::COL_VIDEO_VBOX7_ORIG, LyricTableMap::COL_VIDEO_YOUTUBE, LyricTableMap::COL_VIDEO_YOUTUBE_ORIG, LyricTableMap::COL_VIDEO_METACAFE, LyricTableMap::COL_VIDEO_METACAFE_ORIG, LyricTableMap::COL_DOWNLOAD, LyricTableMap::COL_IMAGE, LyricTableMap::COL_PODNOVENA, LyricTableMap::COL_IP_UPLOAD, LyricTableMap::COL_DOPYLNITELNOINFO, LyricTableMap::COL_GLASA, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, LyricTableMap::COL_STILRAPHIPHOP, LyricTableMap::COL_STILHIPHOP, LyricTableMap::COL_STILEASTCOAST, LyricTableMap::COL_PEE_SE_NA, LyricTableMap::COL_STILSKIT, LyricTableMap::COL_STILELEKTRONNA, LyricTableMap::COL_STILROK, LyricTableMap::COL_STILROK_CLAS, LyricTableMap::COL_STILROK_ALT, LyricTableMap::COL_STILROK_HARD, LyricTableMap::COL_STILDISKO, LyricTableMap::COL_STILLATAM, LyricTableMap::COL_STILSAMBA, LyricTableMap::COL_STILTANGO, LyricTableMap::COL_STILSALSA, LyricTableMap::COL_STILKLASI, LyricTableMap::COL_STILDETSKI, LyricTableMap::COL_STILFOLK, LyricTableMap::COL_STILNARODNA, LyricTableMap::COL_STILCHALGA, LyricTableMap::COL_STILPOPFOLK, LyricTableMap::COL_STILMETAL, LyricTableMap::COL_STILMETAL_HEAVY, LyricTableMap::COL_STILMETAL_POWER, LyricTableMap::COL_STILMETAL_DEATH, LyricTableMap::COL_STILMETAL_NU, LyricTableMap::COL_STILMETAL_GOTHIC, LyricTableMap::COL_STILMETAL_SYMPHONIC, LyricTableMap::COL_STILSOUNDTRACK, LyricTableMap::COL_STILDANCE, LyricTableMap::COL_STILRNB, LyricTableMap::COL_STILSOUL, LyricTableMap::COL_STILNEW_RAVE, LyricTableMap::COL_STILREGGAE, LyricTableMap::COL_STILKANTRI, LyricTableMap::COL_STILPUNK, LyricTableMap::COL_STILEMO, LyricTableMap::COL_STILBREAKBEAT, LyricTableMap::COL_STILBIGBEAT, LyricTableMap::COL_STILJAZ, LyricTableMap::COL_STILBLUS, LyricTableMap::COL_STILELECTRONICA, LyricTableMap::COL_STILSKA, ),
+        self::TYPE_FIELDNAME     => array('id', 'cache_title_full', 'cache_title_short', 'uploaded_by', 'text', 'text_bg', 'artist1', 'artist2', 'artist3', 'artist4', 'artist5', 'artist6', 'title', 'album1', 'album2', 'video', 'video_vbox7', 'video_vbox7_orig', 'video_youtube', 'video_youtube_orig', 'video_metacafe', 'video_metacafe_orig', 'download', 'image', 'podnovena', 'ip_upload', 'dopylnitelnoinfo', 'glasa', 'views', 'popularity', 'stilraphiphop', 'stilhiphop', 'stileastcoast', 'pee_se_na', 'stilskit', 'stilelektronna', 'stilrok', 'stilrok_clas', 'stilrok_alt', 'stilrok_hard', 'stildisko', 'stillatam', 'stilsamba', 'stiltango', 'stilsalsa', 'stilklasi', 'stildetski', 'stilfolk', 'stilnarodna', 'stilchalga', 'stilpopfolk', 'stilmetal', 'stilmetal_heavy', 'stilmetal_power', 'stilmetal_death', 'stilmetal_nu', 'stilmetal_gothic', 'stilmetal_symphonic', 'stilsoundtrack', 'stildance', 'stilRnB', 'stilsoul', 'stilnew_rave', 'stilreggae', 'stilkantri', 'stilpunk', 'stilemo', 'stilbreakbeat', 'stilbigbeat', 'stiljaz', 'stilblus', 'stilelectronica', 'stilska', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, )
     );
 
@@ -463,10 +463,10 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'ZaglaviePalno' => 1, 'FullTitleShort' => 2, 'UpId' => 3, 'Text' => 4, 'TextBg' => 5, 'Artist1' => 6, 'Artist2' => 7, 'Artist3' => 8, 'Artist4' => 9, 'Artist5' => 10, 'Artist6' => 11, 'Title' => 12, 'Album1' => 13, 'Album2' => 14, 'Video' => 15, 'VideoVbox7' => 16, 'VideoVbox7Orig' => 17, 'VideoYoutube' => 18, 'VideoYoutubeOrig' => 19, 'VideoMetacafe' => 20, 'VideoMetacafeOrig' => 21, 'Download' => 22, 'Image' => 23, 'Podnovena' => 24, 'IpUpload' => 25, 'Dopylnitelnoinfo' => 26, 'Glasa' => 27, 'Views' => 28, 'Popularity' => 29, 'Stilraphiphop' => 30, 'Stilhiphop' => 31, 'Stileastcoast' => 32, 'PeeSeNa' => 33, 'Stilskit' => 34, 'Stilelektronna' => 35, 'Stilrok' => 36, 'StilrokClas' => 37, 'StilrokAlt' => 38, 'StilrokHard' => 39, 'Stildisko' => 40, 'Stillatam' => 41, 'Stilsamba' => 42, 'Stiltango' => 43, 'Stilsalsa' => 44, 'Stilklasi' => 45, 'Stildetski' => 46, 'Stilfolk' => 47, 'Stilnarodna' => 48, 'Stilchalga' => 49, 'Stilpopfolk' => 50, 'Stilmetal' => 51, 'StilmetalHeavy' => 52, 'StilmetalPower' => 53, 'StilmetalDeath' => 54, 'StilmetalNu' => 55, 'StilmetalGothic' => 56, 'StilmetalSymphonic' => 57, 'Stilsoundtrack' => 58, 'Stildance' => 59, 'Stilrnb' => 60, 'Stilsoul' => 61, 'StilnewRave' => 62, 'Stilreggae' => 63, 'Stilkantri' => 64, 'Stilpunk' => 65, 'Stilemo' => 66, 'Stilbreakbeat' => 67, 'Stilbigbeat' => 68, 'Stiljaz' => 69, 'Stilblus' => 70, 'Stilelectronica' => 71, 'Stilska' => 72, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'zaglaviePalno' => 1, 'fullTitleShort' => 2, 'upId' => 3, 'text' => 4, 'textBg' => 5, 'artist1' => 6, 'artist2' => 7, 'artist3' => 8, 'artist4' => 9, 'artist5' => 10, 'artist6' => 11, 'title' => 12, 'album1' => 13, 'album2' => 14, 'video' => 15, 'videoVbox7' => 16, 'videoVbox7Orig' => 17, 'videoYoutube' => 18, 'videoYoutubeOrig' => 19, 'videoMetacafe' => 20, 'videoMetacafeOrig' => 21, 'download' => 22, 'image' => 23, 'podnovena' => 24, 'ipUpload' => 25, 'dopylnitelnoinfo' => 26, 'glasa' => 27, 'views' => 28, 'popularity' => 29, 'stilraphiphop' => 30, 'stilhiphop' => 31, 'stileastcoast' => 32, 'peeSeNa' => 33, 'stilskit' => 34, 'stilelektronna' => 35, 'stilrok' => 36, 'stilrokClas' => 37, 'stilrokAlt' => 38, 'stilrokHard' => 39, 'stildisko' => 40, 'stillatam' => 41, 'stilsamba' => 42, 'stiltango' => 43, 'stilsalsa' => 44, 'stilklasi' => 45, 'stildetski' => 46, 'stilfolk' => 47, 'stilnarodna' => 48, 'stilchalga' => 49, 'stilpopfolk' => 50, 'stilmetal' => 51, 'stilmetalHeavy' => 52, 'stilmetalPower' => 53, 'stilmetalDeath' => 54, 'stilmetalNu' => 55, 'stilmetalGothic' => 56, 'stilmetalSymphonic' => 57, 'stilsoundtrack' => 58, 'stildance' => 59, 'stilrnb' => 60, 'stilsoul' => 61, 'stilnewRave' => 62, 'stilreggae' => 63, 'stilkantri' => 64, 'stilpunk' => 65, 'stilemo' => 66, 'stilbreakbeat' => 67, 'stilbigbeat' => 68, 'stiljaz' => 69, 'stilblus' => 70, 'stilelectronica' => 71, 'stilska' => 72, ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_ZAGLAVIE_PALNO => 1, LyricTableMap::COL_ZAGLAVIE_SAKRATENO => 2, LyricTableMap::COL_UP_ID => 3, LyricTableMap::COL_TEXT => 4, LyricTableMap::COL_TEXT_BG => 5, LyricTableMap::COL_ARTIST1 => 6, LyricTableMap::COL_ARTIST2 => 7, LyricTableMap::COL_ARTIST3 => 8, LyricTableMap::COL_ARTIST4 => 9, LyricTableMap::COL_ARTIST5 => 10, LyricTableMap::COL_ARTIST6 => 11, LyricTableMap::COL_TITLE => 12, LyricTableMap::COL_ALBUM1 => 13, LyricTableMap::COL_ALBUM2 => 14, LyricTableMap::COL_VIDEO => 15, LyricTableMap::COL_VIDEO_VBOX7 => 16, LyricTableMap::COL_VIDEO_VBOX7_ORIG => 17, LyricTableMap::COL_VIDEO_YOUTUBE => 18, LyricTableMap::COL_VIDEO_YOUTUBE_ORIG => 19, LyricTableMap::COL_VIDEO_METACAFE => 20, LyricTableMap::COL_VIDEO_METACAFE_ORIG => 21, LyricTableMap::COL_DOWNLOAD => 22, LyricTableMap::COL_IMAGE => 23, LyricTableMap::COL_PODNOVENA => 24, LyricTableMap::COL_IP_UPLOAD => 25, LyricTableMap::COL_DOPYLNITELNOINFO => 26, LyricTableMap::COL_GLASA => 27, LyricTableMap::COL_VIEWS => 28, LyricTableMap::COL_POPULARITY => 29, LyricTableMap::COL_STILRAPHIPHOP => 30, LyricTableMap::COL_STILHIPHOP => 31, LyricTableMap::COL_STILEASTCOAST => 32, LyricTableMap::COL_PEE_SE_NA => 33, LyricTableMap::COL_STILSKIT => 34, LyricTableMap::COL_STILELEKTRONNA => 35, LyricTableMap::COL_STILROK => 36, LyricTableMap::COL_STILROK_CLAS => 37, LyricTableMap::COL_STILROK_ALT => 38, LyricTableMap::COL_STILROK_HARD => 39, LyricTableMap::COL_STILDISKO => 40, LyricTableMap::COL_STILLATAM => 41, LyricTableMap::COL_STILSAMBA => 42, LyricTableMap::COL_STILTANGO => 43, LyricTableMap::COL_STILSALSA => 44, LyricTableMap::COL_STILKLASI => 45, LyricTableMap::COL_STILDETSKI => 46, LyricTableMap::COL_STILFOLK => 47, LyricTableMap::COL_STILNARODNA => 48, LyricTableMap::COL_STILCHALGA => 49, LyricTableMap::COL_STILPOPFOLK => 50, LyricTableMap::COL_STILMETAL => 51, LyricTableMap::COL_STILMETAL_HEAVY => 52, LyricTableMap::COL_STILMETAL_POWER => 53, LyricTableMap::COL_STILMETAL_DEATH => 54, LyricTableMap::COL_STILMETAL_NU => 55, LyricTableMap::COL_STILMETAL_GOTHIC => 56, LyricTableMap::COL_STILMETAL_SYMPHONIC => 57, LyricTableMap::COL_STILSOUNDTRACK => 58, LyricTableMap::COL_STILDANCE => 59, LyricTableMap::COL_STILRNB => 60, LyricTableMap::COL_STILSOUL => 61, LyricTableMap::COL_STILNEW_RAVE => 62, LyricTableMap::COL_STILREGGAE => 63, LyricTableMap::COL_STILKANTRI => 64, LyricTableMap::COL_STILPUNK => 65, LyricTableMap::COL_STILEMO => 66, LyricTableMap::COL_STILBREAKBEAT => 67, LyricTableMap::COL_STILBIGBEAT => 68, LyricTableMap::COL_STILJAZ => 69, LyricTableMap::COL_STILBLUS => 70, LyricTableMap::COL_STILELECTRONICA => 71, LyricTableMap::COL_STILSKA => 72, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'zaglavie_palno' => 1, 'zaglavie_sakrateno' => 2, 'up_id' => 3, 'text' => 4, 'text_bg' => 5, 'artist1' => 6, 'artist2' => 7, 'artist3' => 8, 'artist4' => 9, 'artist5' => 10, 'artist6' => 11, 'title' => 12, 'album1' => 13, 'album2' => 14, 'video' => 15, 'video_vbox7' => 16, 'video_vbox7_orig' => 17, 'video_youtube' => 18, 'video_youtube_orig' => 19, 'video_metacafe' => 20, 'video_metacafe_orig' => 21, 'download' => 22, 'image' => 23, 'podnovena' => 24, 'ip_upload' => 25, 'dopylnitelnoinfo' => 26, 'glasa' => 27, 'views' => 28, 'popularity' => 29, 'stilraphiphop' => 30, 'stilhiphop' => 31, 'stileastcoast' => 32, 'pee_se_na' => 33, 'stilskit' => 34, 'stilelektronna' => 35, 'stilrok' => 36, 'stilrok_clas' => 37, 'stilrok_alt' => 38, 'stilrok_hard' => 39, 'stildisko' => 40, 'stillatam' => 41, 'stilsamba' => 42, 'stiltango' => 43, 'stilsalsa' => 44, 'stilklasi' => 45, 'stildetski' => 46, 'stilfolk' => 47, 'stilnarodna' => 48, 'stilchalga' => 49, 'stilpopfolk' => 50, 'stilmetal' => 51, 'stilmetal_heavy' => 52, 'stilmetal_power' => 53, 'stilmetal_death' => 54, 'stilmetal_nu' => 55, 'stilmetal_gothic' => 56, 'stilmetal_symphonic' => 57, 'stilsoundtrack' => 58, 'stildance' => 59, 'stilRnB' => 60, 'stilsoul' => 61, 'stilnew_rave' => 62, 'stilreggae' => 63, 'stilkantri' => 64, 'stilpunk' => 65, 'stilemo' => 66, 'stilbreakbeat' => 67, 'stilbigbeat' => 68, 'stiljaz' => 69, 'stilblus' => 70, 'stilelectronica' => 71, 'stilska' => 72, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'cacheTitleFull' => 1, 'cacheTitleShort' => 2, 'uploadedBy' => 3, 'Text' => 4, 'textBg' => 5, 'Artist1' => 6, 'Artist2' => 7, 'Artist3' => 8, 'Artist4' => 9, 'Artist5' => 10, 'Artist6' => 11, 'Title' => 12, 'Album1' => 13, 'Album2' => 14, 'Video' => 15, 'VideoVbox7' => 16, 'VideoVbox7Orig' => 17, 'VideoYoutube' => 18, 'VideoYoutubeOrig' => 19, 'VideoMetacafe' => 20, 'VideoMetacafeOrig' => 21, 'Download' => 22, 'Image' => 23, 'Podnovena' => 24, 'IpUpload' => 25, 'Dopylnitelnoinfo' => 26, 'VotesCountCache' => 27, 'Views' => 28, 'Popularity' => 29, 'Stilraphiphop' => 30, 'Stilhiphop' => 31, 'Stileastcoast' => 32, 'PeeSeNa' => 33, 'Stilskit' => 34, 'Stilelektronna' => 35, 'Stilrok' => 36, 'StilrokClas' => 37, 'StilrokAlt' => 38, 'StilrokHard' => 39, 'Stildisko' => 40, 'Stillatam' => 41, 'Stilsamba' => 42, 'Stiltango' => 43, 'Stilsalsa' => 44, 'Stilklasi' => 45, 'Stildetski' => 46, 'Stilfolk' => 47, 'Stilnarodna' => 48, 'Stilchalga' => 49, 'Stilpopfolk' => 50, 'Stilmetal' => 51, 'StilmetalHeavy' => 52, 'StilmetalPower' => 53, 'StilmetalDeath' => 54, 'StilmetalNu' => 55, 'StilmetalGothic' => 56, 'StilmetalSymphonic' => 57, 'Stilsoundtrack' => 58, 'Stildance' => 59, 'Stilrnb' => 60, 'Stilsoul' => 61, 'StilnewRave' => 62, 'Stilreggae' => 63, 'Stilkantri' => 64, 'Stilpunk' => 65, 'Stilemo' => 66, 'Stilbreakbeat' => 67, 'Stilbigbeat' => 68, 'Stiljaz' => 69, 'Stilblus' => 70, 'Stilelectronica' => 71, 'Stilska' => 72, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'cacheTitleFull' => 1, 'cacheTitleShort' => 2, 'uploadedBy' => 3, 'text' => 4, 'textBg' => 5, 'artist1' => 6, 'artist2' => 7, 'artist3' => 8, 'artist4' => 9, 'artist5' => 10, 'artist6' => 11, 'title' => 12, 'album1' => 13, 'album2' => 14, 'video' => 15, 'videoVbox7' => 16, 'videoVbox7Orig' => 17, 'videoYoutube' => 18, 'videoYoutubeOrig' => 19, 'videoMetacafe' => 20, 'videoMetacafeOrig' => 21, 'download' => 22, 'image' => 23, 'podnovena' => 24, 'ipUpload' => 25, 'dopylnitelnoinfo' => 26, 'votesCountCache' => 27, 'views' => 28, 'popularity' => 29, 'stilraphiphop' => 30, 'stilhiphop' => 31, 'stileastcoast' => 32, 'peeSeNa' => 33, 'stilskit' => 34, 'stilelektronna' => 35, 'stilrok' => 36, 'stilrokClas' => 37, 'stilrokAlt' => 38, 'stilrokHard' => 39, 'stildisko' => 40, 'stillatam' => 41, 'stilsamba' => 42, 'stiltango' => 43, 'stilsalsa' => 44, 'stilklasi' => 45, 'stildetski' => 46, 'stilfolk' => 47, 'stilnarodna' => 48, 'stilchalga' => 49, 'stilpopfolk' => 50, 'stilmetal' => 51, 'stilmetalHeavy' => 52, 'stilmetalPower' => 53, 'stilmetalDeath' => 54, 'stilmetalNu' => 55, 'stilmetalGothic' => 56, 'stilmetalSymphonic' => 57, 'stilsoundtrack' => 58, 'stildance' => 59, 'stilrnb' => 60, 'stilsoul' => 61, 'stilnewRave' => 62, 'stilreggae' => 63, 'stilkantri' => 64, 'stilpunk' => 65, 'stilemo' => 66, 'stilbreakbeat' => 67, 'stilbigbeat' => 68, 'stiljaz' => 69, 'stilblus' => 70, 'stilelectronica' => 71, 'stilska' => 72, ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_CACHE_TITLE_FULL => 1, LyricTableMap::COL_CACHE_TITLE_SHORT => 2, LyricTableMap::COL_UPLOADED_BY => 3, LyricTableMap::COL_TEXT => 4, LyricTableMap::COL_TEXT_BG => 5, LyricTableMap::COL_ARTIST1 => 6, LyricTableMap::COL_ARTIST2 => 7, LyricTableMap::COL_ARTIST3 => 8, LyricTableMap::COL_ARTIST4 => 9, LyricTableMap::COL_ARTIST5 => 10, LyricTableMap::COL_ARTIST6 => 11, LyricTableMap::COL_TITLE => 12, LyricTableMap::COL_ALBUM1 => 13, LyricTableMap::COL_ALBUM2 => 14, LyricTableMap::COL_VIDEO => 15, LyricTableMap::COL_VIDEO_VBOX7 => 16, LyricTableMap::COL_VIDEO_VBOX7_ORIG => 17, LyricTableMap::COL_VIDEO_YOUTUBE => 18, LyricTableMap::COL_VIDEO_YOUTUBE_ORIG => 19, LyricTableMap::COL_VIDEO_METACAFE => 20, LyricTableMap::COL_VIDEO_METACAFE_ORIG => 21, LyricTableMap::COL_DOWNLOAD => 22, LyricTableMap::COL_IMAGE => 23, LyricTableMap::COL_PODNOVENA => 24, LyricTableMap::COL_IP_UPLOAD => 25, LyricTableMap::COL_DOPYLNITELNOINFO => 26, LyricTableMap::COL_GLASA => 27, LyricTableMap::COL_VIEWS => 28, LyricTableMap::COL_POPULARITY => 29, LyricTableMap::COL_STILRAPHIPHOP => 30, LyricTableMap::COL_STILHIPHOP => 31, LyricTableMap::COL_STILEASTCOAST => 32, LyricTableMap::COL_PEE_SE_NA => 33, LyricTableMap::COL_STILSKIT => 34, LyricTableMap::COL_STILELEKTRONNA => 35, LyricTableMap::COL_STILROK => 36, LyricTableMap::COL_STILROK_CLAS => 37, LyricTableMap::COL_STILROK_ALT => 38, LyricTableMap::COL_STILROK_HARD => 39, LyricTableMap::COL_STILDISKO => 40, LyricTableMap::COL_STILLATAM => 41, LyricTableMap::COL_STILSAMBA => 42, LyricTableMap::COL_STILTANGO => 43, LyricTableMap::COL_STILSALSA => 44, LyricTableMap::COL_STILKLASI => 45, LyricTableMap::COL_STILDETSKI => 46, LyricTableMap::COL_STILFOLK => 47, LyricTableMap::COL_STILNARODNA => 48, LyricTableMap::COL_STILCHALGA => 49, LyricTableMap::COL_STILPOPFOLK => 50, LyricTableMap::COL_STILMETAL => 51, LyricTableMap::COL_STILMETAL_HEAVY => 52, LyricTableMap::COL_STILMETAL_POWER => 53, LyricTableMap::COL_STILMETAL_DEATH => 54, LyricTableMap::COL_STILMETAL_NU => 55, LyricTableMap::COL_STILMETAL_GOTHIC => 56, LyricTableMap::COL_STILMETAL_SYMPHONIC => 57, LyricTableMap::COL_STILSOUNDTRACK => 58, LyricTableMap::COL_STILDANCE => 59, LyricTableMap::COL_STILRNB => 60, LyricTableMap::COL_STILSOUL => 61, LyricTableMap::COL_STILNEW_RAVE => 62, LyricTableMap::COL_STILREGGAE => 63, LyricTableMap::COL_STILKANTRI => 64, LyricTableMap::COL_STILPUNK => 65, LyricTableMap::COL_STILEMO => 66, LyricTableMap::COL_STILBREAKBEAT => 67, LyricTableMap::COL_STILBIGBEAT => 68, LyricTableMap::COL_STILJAZ => 69, LyricTableMap::COL_STILBLUS => 70, LyricTableMap::COL_STILELECTRONICA => 71, LyricTableMap::COL_STILSKA => 72, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'cache_title_full' => 1, 'cache_title_short' => 2, 'uploaded_by' => 3, 'text' => 4, 'text_bg' => 5, 'artist1' => 6, 'artist2' => 7, 'artist3' => 8, 'artist4' => 9, 'artist5' => 10, 'artist6' => 11, 'title' => 12, 'album1' => 13, 'album2' => 14, 'video' => 15, 'video_vbox7' => 16, 'video_vbox7_orig' => 17, 'video_youtube' => 18, 'video_youtube_orig' => 19, 'video_metacafe' => 20, 'video_metacafe_orig' => 21, 'download' => 22, 'image' => 23, 'podnovena' => 24, 'ip_upload' => 25, 'dopylnitelnoinfo' => 26, 'glasa' => 27, 'views' => 28, 'popularity' => 29, 'stilraphiphop' => 30, 'stilhiphop' => 31, 'stileastcoast' => 32, 'pee_se_na' => 33, 'stilskit' => 34, 'stilelektronna' => 35, 'stilrok' => 36, 'stilrok_clas' => 37, 'stilrok_alt' => 38, 'stilrok_hard' => 39, 'stildisko' => 40, 'stillatam' => 41, 'stilsamba' => 42, 'stiltango' => 43, 'stilsalsa' => 44, 'stilklasi' => 45, 'stildetski' => 46, 'stilfolk' => 47, 'stilnarodna' => 48, 'stilchalga' => 49, 'stilpopfolk' => 50, 'stilmetal' => 51, 'stilmetal_heavy' => 52, 'stilmetal_power' => 53, 'stilmetal_death' => 54, 'stilmetal_nu' => 55, 'stilmetal_gothic' => 56, 'stilmetal_symphonic' => 57, 'stilsoundtrack' => 58, 'stildance' => 59, 'stilRnB' => 60, 'stilsoul' => 61, 'stilnew_rave' => 62, 'stilreggae' => 63, 'stilkantri' => 64, 'stilpunk' => 65, 'stilemo' => 66, 'stilbreakbeat' => 67, 'stilbigbeat' => 68, 'stiljaz' => 69, 'stilblus' => 70, 'stilelectronica' => 71, 'stilska' => 72, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, )
     );
 
@@ -484,15 +484,15 @@ class LyricTableMap extends TableMap
         $this->setPhpName('Lyric');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model.Entity');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('zaglavie_palno', 'ZaglaviePalno', 'LONGVARCHAR', true, null, null);
-        $this->addColumn('zaglavie_sakrateno', 'FullTitleShort', 'VARCHAR', true, 280, null);
-        $this->addColumn('up_id', 'UpId', 'INTEGER', true, null, null);
+        $this->addColumn('cache_title_full', 'cacheTitleFull', 'LONGVARCHAR', true, null, null);
+        $this->addColumn('cache_title_short', 'cacheTitleShort', 'VARCHAR', true, 280, null);
+        $this->addColumn('uploaded_by', 'uploadedBy', 'INTEGER', true, null, null);
         $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);
-        $this->addColumn('text_bg', 'TextBg', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('text_bg', 'textBg', 'LONGVARCHAR', false, null, null);
         $this->addColumn('artist1', 'Artist1', 'INTEGER', true, null, null);
         $this->addColumn('artist2', 'Artist2', 'INTEGER', true, null, null);
         $this->addColumn('artist3', 'Artist3', 'INTEGER', true, null, null);
@@ -514,7 +514,7 @@ class LyricTableMap extends TableMap
         $this->addColumn('podnovena', 'Podnovena', 'TIMESTAMP', true, null, 'CURRENT_TIMESTAMP');
         $this->addColumn('ip_upload', 'IpUpload', 'VARCHAR', true, 30, null);
         $this->addColumn('dopylnitelnoinfo', 'Dopylnitelnoinfo', 'LONGVARCHAR', true, null, null);
-        $this->addColumn('glasa', 'Glasa', 'INTEGER', true, null, null);
+        $this->addColumn('glasa', 'VotesCountCache', 'INTEGER', true, null, null);
         $this->addColumn('views', 'Views', 'INTEGER', true, null, null);
         $this->addColumn('popularity', 'Popularity', 'INTEGER', true, null, null);
         $this->addColumn('stilraphiphop', 'Stilraphiphop', 'BOOLEAN', true, 1, null);
@@ -581,13 +581,6 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), 'CASCADE', null, 'EditAddPrevods', false);
-        $this->addRelation('Votes', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric\\Votes', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':za',
-    1 => ':id',
-  ),
-), 'CASCADE', null, 'Votess', false);
         $this->addRelation('Liubimi', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Liubimi', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -609,6 +602,13 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'LyricRedirects', false);
+        $this->addRelation('Votes', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric\\Votes', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':za',
+    1 => ':id',
+  ),
+), 'CASCADE', null, 'Votess', false);
     } // buildRelations()
     /**
      * Method to invalidate the instance pool of all tables related to lyric     * by a foreign key with ON DELETE CASCADE
@@ -619,9 +619,9 @@ class LyricTableMap extends TableMap
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         CommentsTableMap::clearInstancePool();
         EditAddPrevodTableMap::clearInstancePool();
-        VotesTableMap::clearInstancePool();
         LiubimiTableMap::clearInstancePool();
         Lyric18TableMap::clearInstancePool();
+        VotesTableMap::clearInstancePool();
     }
 
     /**
@@ -766,9 +766,9 @@ class LyricTableMap extends TableMap
     {
         if (null === $alias) {
             $criteria->addSelectColumn(LyricTableMap::COL_ID);
-            $criteria->addSelectColumn(LyricTableMap::COL_ZAGLAVIE_PALNO);
-            $criteria->addSelectColumn(LyricTableMap::COL_ZAGLAVIE_SAKRATENO);
-            $criteria->addSelectColumn(LyricTableMap::COL_UP_ID);
+            $criteria->addSelectColumn(LyricTableMap::COL_CACHE_TITLE_FULL);
+            $criteria->addSelectColumn(LyricTableMap::COL_CACHE_TITLE_SHORT);
+            $criteria->addSelectColumn(LyricTableMap::COL_UPLOADED_BY);
             $criteria->addSelectColumn(LyricTableMap::COL_TEXT);
             $criteria->addSelectColumn(LyricTableMap::COL_TEXT_BG);
             $criteria->addSelectColumn(LyricTableMap::COL_ARTIST1);
@@ -840,9 +840,9 @@ class LyricTableMap extends TableMap
             $criteria->addSelectColumn(LyricTableMap::COL_STILSKA);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.zaglavie_palno');
-            $criteria->addSelectColumn($alias . '.zaglavie_sakrateno');
-            $criteria->addSelectColumn($alias . '.up_id');
+            $criteria->addSelectColumn($alias . '.cache_title_full');
+            $criteria->addSelectColumn($alias . '.cache_title_short');
+            $criteria->addSelectColumn($alias . '.uploaded_by');
             $criteria->addSelectColumn($alias . '.text');
             $criteria->addSelectColumn($alias . '.text_bg');
             $criteria->addSelectColumn($alias . '.artist1');

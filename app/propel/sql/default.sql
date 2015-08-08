@@ -313,25 +313,6 @@ CREATE TABLE `forum_topic_watchers`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- lyric_votes
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `lyric_votes`;
-
-CREATE TABLE `lyric_votes`
-(
-    `za` int(11) unsigned NOT NULL,
-    `ot` int(11) unsigned NOT NULL,
-    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (`id`),
-    INDEX `glasuvane_ako_se_iztrie_pesenta` (`za`),
-    CONSTRAINT `glasuvane_ako_se_iztrie_pesenta`
-        FOREIGN KEY (`za`)
-        REFERENCES `lyric` (`id`)
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- glasuvane_posledni
 -- ---------------------------------------------------------------------
 
@@ -676,9 +657,9 @@ DROP TABLE IF EXISTS `lyric`;
 CREATE TABLE `lyric`
 (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-    `zaglavie_palno` TEXT NOT NULL,
-    `zaglavie_sakrateno` VARCHAR(280) NOT NULL,
-    `up_id` int(11) unsigned NOT NULL,
+    `cache_title_full` TEXT NOT NULL,
+    `cache_title_short` VARCHAR(280) NOT NULL,
+    `uploaded_by` int(11) unsigned NOT NULL,
     `text` TEXT NOT NULL,
     `text_bg` TEXT,
     `artist1` int(11) unsigned NOT NULL,
@@ -758,6 +739,25 @@ CREATE TABLE `lyric`
     INDEX `glasa` (`glasa`),
     INDEX `vidqna` (`vidqna`),
     INDEX `populqrnost` (`populqrnost`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- lyric_votes
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lyric_votes`;
+
+CREATE TABLE `lyric_votes`
+(
+    `za` int(11) unsigned NOT NULL,
+    `ot` int(11) unsigned NOT NULL,
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (`id`),
+    INDEX `glasuvane_ako_se_iztrie_pesenta` (`za`),
+    CONSTRAINT `glasuvane_ako_se_iztrie_pesenta`
+        FOREIGN KEY (`za`)
+        REFERENCES `lyric` (`id`)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

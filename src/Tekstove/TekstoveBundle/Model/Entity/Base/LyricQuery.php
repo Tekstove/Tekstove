@@ -22,11 +22,11 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  *
  * @method     ChildLyricQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     ChildLyricQuery orderByZaglaviePalno($order = Criteria::ASC) Order by the zaglavie_palno column
- * @method     ChildLyricQuery orderByFullTitleShort($order = Criteria::ASC) Order by the zaglavie_sakrateno column
- * @method     ChildLyricQuery orderByUpId($order = Criteria::ASC) Order by the up_id column
+ * @method     ChildLyricQuery orderBycacheTitleFull($order = Criteria::ASC) Order by the cache_title_full column
+ * @method     ChildLyricQuery orderBycacheTitleShort($order = Criteria::ASC) Order by the cache_title_short column
+ * @method     ChildLyricQuery orderByuploader($order = Criteria::ASC) Order by the uploaded_by column
  * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
- * @method     ChildLyricQuery orderByTextBg($order = Criteria::ASC) Order by the text_bg column
+ * @method     ChildLyricQuery orderBytextBg($order = Criteria::ASC) Order by the text_bg column
  * @method     ChildLyricQuery orderByArtist1($order = Criteria::ASC) Order by the artist1 column
  * @method     ChildLyricQuery orderByArtist2($order = Criteria::ASC) Order by the artist2 column
  * @method     ChildLyricQuery orderByArtist3($order = Criteria::ASC) Order by the artist3 column
@@ -48,13 +48,13 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByPodnovena($order = Criteria::ASC) Order by the podnovena column
  * @method     ChildLyricQuery orderByIpUpload($order = Criteria::ASC) Order by the ip_upload column
  * @method     ChildLyricQuery orderByDopylnitelnoinfo($order = Criteria::ASC) Order by the dopylnitelnoinfo column
- * @method     ChildLyricQuery orderByGlasa($order = Criteria::ASC) Order by the glasa column
+ * @method     ChildLyricQuery orderBycacheVotes($order = Criteria::ASC) Order by the glasa column
  * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
  * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
  * @method     ChildLyricQuery orderByStilraphiphop($order = Criteria::ASC) Order by the stilraphiphop column
  * @method     ChildLyricQuery orderByStilhiphop($order = Criteria::ASC) Order by the stilhiphop column
  * @method     ChildLyricQuery orderByStileastcoast($order = Criteria::ASC) Order by the stileastcoast column
- * @method     ChildLyricQuery orderByPeeSeNa($order = Criteria::ASC) Order by the pee_se_na column
+ * @method     ChildLyricQuery orderBylanguage($order = Criteria::ASC) Order by the pee_se_na column
  * @method     ChildLyricQuery orderByStilskit($order = Criteria::ASC) Order by the stilskit column
  * @method     ChildLyricQuery orderByStilelektronna($order = Criteria::ASC) Order by the stilelektronna column
  * @method     ChildLyricQuery orderByStilrok($order = Criteria::ASC) Order by the stilrok column
@@ -96,11 +96,11 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByStilska($order = Criteria::ASC) Order by the stilska column
  *
  * @method     ChildLyricQuery groupById() Group by the id column
- * @method     ChildLyricQuery groupByZaglaviePalno() Group by the zaglavie_palno column
- * @method     ChildLyricQuery groupByFullTitleShort() Group by the zaglavie_sakrateno column
- * @method     ChildLyricQuery groupByUpId() Group by the up_id column
+ * @method     ChildLyricQuery groupBycacheTitleFull() Group by the cache_title_full column
+ * @method     ChildLyricQuery groupBycacheTitleShort() Group by the cache_title_short column
+ * @method     ChildLyricQuery groupByuploader() Group by the uploaded_by column
  * @method     ChildLyricQuery groupByText() Group by the text column
- * @method     ChildLyricQuery groupByTextBg() Group by the text_bg column
+ * @method     ChildLyricQuery groupBytextBg() Group by the text_bg column
  * @method     ChildLyricQuery groupByArtist1() Group by the artist1 column
  * @method     ChildLyricQuery groupByArtist2() Group by the artist2 column
  * @method     ChildLyricQuery groupByArtist3() Group by the artist3 column
@@ -122,13 +122,13 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery groupByPodnovena() Group by the podnovena column
  * @method     ChildLyricQuery groupByIpUpload() Group by the ip_upload column
  * @method     ChildLyricQuery groupByDopylnitelnoinfo() Group by the dopylnitelnoinfo column
- * @method     ChildLyricQuery groupByGlasa() Group by the glasa column
+ * @method     ChildLyricQuery groupBycacheVotes() Group by the glasa column
  * @method     ChildLyricQuery groupByViews() Group by the views column
  * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
  * @method     ChildLyricQuery groupByStilraphiphop() Group by the stilraphiphop column
  * @method     ChildLyricQuery groupByStilhiphop() Group by the stilhiphop column
  * @method     ChildLyricQuery groupByStileastcoast() Group by the stileastcoast column
- * @method     ChildLyricQuery groupByPeeSeNa() Group by the pee_se_na column
+ * @method     ChildLyricQuery groupBylanguage() Group by the pee_se_na column
  * @method     ChildLyricQuery groupByStilskit() Group by the stilskit column
  * @method     ChildLyricQuery groupByStilelektronna() Group by the stilelektronna column
  * @method     ChildLyricQuery groupByStilrok() Group by the stilrok column
@@ -173,41 +173,81 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildLyricQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     ChildLyricQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildLyricQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildLyricQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
  * @method     ChildLyricQuery leftJoinComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the Comments relation
  * @method     ChildLyricQuery rightJoinComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Comments relation
  * @method     ChildLyricQuery innerJoinComments($relationAlias = null) Adds a INNER JOIN clause to the query using the Comments relation
+ *
+ * @method     ChildLyricQuery joinWithComments($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Comments relation
+ *
+ * @method     ChildLyricQuery leftJoinWithComments() Adds a LEFT JOIN clause and with to the query using the Comments relation
+ * @method     ChildLyricQuery rightJoinWithComments() Adds a RIGHT JOIN clause and with to the query using the Comments relation
+ * @method     ChildLyricQuery innerJoinWithComments() Adds a INNER JOIN clause and with to the query using the Comments relation
  *
  * @method     ChildLyricQuery leftJoinEditAddPrevod($relationAlias = null) Adds a LEFT JOIN clause to the query using the EditAddPrevod relation
  * @method     ChildLyricQuery rightJoinEditAddPrevod($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EditAddPrevod relation
  * @method     ChildLyricQuery innerJoinEditAddPrevod($relationAlias = null) Adds a INNER JOIN clause to the query using the EditAddPrevod relation
  *
- * @method     ChildLyricQuery leftJoinVotes($relationAlias = null) Adds a LEFT JOIN clause to the query using the Votes relation
- * @method     ChildLyricQuery rightJoinVotes($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Votes relation
- * @method     ChildLyricQuery innerJoinVotes($relationAlias = null) Adds a INNER JOIN clause to the query using the Votes relation
+ * @method     ChildLyricQuery joinWithEditAddPrevod($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the EditAddPrevod relation
+ *
+ * @method     ChildLyricQuery leftJoinWithEditAddPrevod() Adds a LEFT JOIN clause and with to the query using the EditAddPrevod relation
+ * @method     ChildLyricQuery rightJoinWithEditAddPrevod() Adds a RIGHT JOIN clause and with to the query using the EditAddPrevod relation
+ * @method     ChildLyricQuery innerJoinWithEditAddPrevod() Adds a INNER JOIN clause and with to the query using the EditAddPrevod relation
  *
  * @method     ChildLyricQuery leftJoinLiubimi($relationAlias = null) Adds a LEFT JOIN clause to the query using the Liubimi relation
  * @method     ChildLyricQuery rightJoinLiubimi($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Liubimi relation
  * @method     ChildLyricQuery innerJoinLiubimi($relationAlias = null) Adds a INNER JOIN clause to the query using the Liubimi relation
  *
+ * @method     ChildLyricQuery joinWithLiubimi($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Liubimi relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLiubimi() Adds a LEFT JOIN clause and with to the query using the Liubimi relation
+ * @method     ChildLyricQuery rightJoinWithLiubimi() Adds a RIGHT JOIN clause and with to the query using the Liubimi relation
+ * @method     ChildLyricQuery innerJoinWithLiubimi() Adds a INNER JOIN clause and with to the query using the Liubimi relation
+ *
  * @method     ChildLyricQuery leftJoinLyric18($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric18 relation
  * @method     ChildLyricQuery rightJoinLyric18($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric18 relation
  * @method     ChildLyricQuery innerJoinLyric18($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric18 relation
+ *
+ * @method     ChildLyricQuery joinWithLyric18($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric18 relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLyric18() Adds a LEFT JOIN clause and with to the query using the Lyric18 relation
+ * @method     ChildLyricQuery rightJoinWithLyric18() Adds a RIGHT JOIN clause and with to the query using the Lyric18 relation
+ * @method     ChildLyricQuery innerJoinWithLyric18() Adds a INNER JOIN clause and with to the query using the Lyric18 relation
  *
  * @method     ChildLyricQuery leftJoinLyricRedirect($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricRedirect relation
  * @method     ChildLyricQuery rightJoinLyricRedirect($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricRedirect relation
  * @method     ChildLyricQuery innerJoinLyricRedirect($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricRedirect relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildLyricQuery joinWithLyricRedirect($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricRedirect relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLyricRedirect() Adds a LEFT JOIN clause and with to the query using the LyricRedirect relation
+ * @method     ChildLyricQuery rightJoinWithLyricRedirect() Adds a RIGHT JOIN clause and with to the query using the LyricRedirect relation
+ * @method     ChildLyricQuery innerJoinWithLyricRedirect() Adds a INNER JOIN clause and with to the query using the LyricRedirect relation
+ *
+ * @method     ChildLyricQuery leftJoinVotes($relationAlias = null) Adds a LEFT JOIN clause to the query using the Votes relation
+ * @method     ChildLyricQuery rightJoinVotes($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Votes relation
+ * @method     ChildLyricQuery innerJoinVotes($relationAlias = null) Adds a INNER JOIN clause to the query using the Votes relation
+ *
+ * @method     ChildLyricQuery joinWithVotes($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Votes relation
+ *
+ * @method     ChildLyricQuery leftJoinWithVotes() Adds a LEFT JOIN clause and with to the query using the Votes relation
+ * @method     ChildLyricQuery rightJoinWithVotes() Adds a RIGHT JOIN clause and with to the query using the Votes relation
+ * @method     ChildLyricQuery innerJoinWithVotes() Adds a INNER JOIN clause and with to the query using the Votes relation
+ *
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
  *
  * @method     ChildLyric findOneById(int $id) Return the first ChildLyric filtered by the id column
- * @method     ChildLyric findOneByZaglaviePalno(string $zaglavie_palno) Return the first ChildLyric filtered by the zaglavie_palno column
- * @method     ChildLyric findOneByFullTitleShort(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column
- * @method     ChildLyric findOneByUpId(int $up_id) Return the first ChildLyric filtered by the up_id column
+ * @method     ChildLyric findOneBycacheTitleFull(string $cache_title_full) Return the first ChildLyric filtered by the cache_title_full column
+ * @method     ChildLyric findOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column
+ * @method     ChildLyric findOneByuploader(int $uploaded_by) Return the first ChildLyric filtered by the uploaded_by column
  * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
- * @method     ChildLyric findOneByTextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
+ * @method     ChildLyric findOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
  * @method     ChildLyric findOneByArtist1(int $artist1) Return the first ChildLyric filtered by the artist1 column
  * @method     ChildLyric findOneByArtist2(int $artist2) Return the first ChildLyric filtered by the artist2 column
  * @method     ChildLyric findOneByArtist3(int $artist3) Return the first ChildLyric filtered by the artist3 column
@@ -229,13 +269,13 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric findOneByPodnovena(string $podnovena) Return the first ChildLyric filtered by the podnovena column
  * @method     ChildLyric findOneByIpUpload(string $ip_upload) Return the first ChildLyric filtered by the ip_upload column
  * @method     ChildLyric findOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildLyric filtered by the dopylnitelnoinfo column
- * @method     ChildLyric findOneByGlasa(int $glasa) Return the first ChildLyric filtered by the glasa column
+ * @method     ChildLyric findOneBycacheVotes(int $glasa) Return the first ChildLyric filtered by the glasa column
  * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
  * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column
  * @method     ChildLyric findOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column
  * @method     ChildLyric findOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column
  * @method     ChildLyric findOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column
- * @method     ChildLyric findOneByPeeSeNa(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column
+ * @method     ChildLyric findOneBylanguage(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column
  * @method     ChildLyric findOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column
  * @method     ChildLyric findOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column
  * @method     ChildLyric findOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column
@@ -280,11 +320,11 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric requireOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildLyric requireOneById(int $id) Return the first ChildLyric filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByZaglaviePalno(string $zaglavie_palno) Return the first ChildLyric filtered by the zaglavie_palno column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByFullTitleShort(string $zaglavie_sakrateno) Return the first ChildLyric filtered by the zaglavie_sakrateno column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByUpId(int $up_id) Return the first ChildLyric filtered by the up_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBycacheTitleFull(string $cache_title_full) Return the first ChildLyric filtered by the cache_title_full column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByuploader(int $uploaded_by) Return the first ChildLyric filtered by the uploaded_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByTextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByArtist1(int $artist1) Return the first ChildLyric filtered by the artist1 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByArtist2(int $artist2) Return the first ChildLyric filtered by the artist2 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByArtist3(int $artist3) Return the first ChildLyric filtered by the artist3 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -306,13 +346,13 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric requireOneByPodnovena(string $podnovena) Return the first ChildLyric filtered by the podnovena column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByIpUpload(string $ip_upload) Return the first ChildLyric filtered by the ip_upload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByDopylnitelnoinfo(string $dopylnitelnoinfo) Return the first ChildLyric filtered by the dopylnitelnoinfo column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByGlasa(int $glasa) Return the first ChildLyric filtered by the glasa column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBycacheVotes(int $glasa) Return the first ChildLyric filtered by the glasa column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneByPeeSeNa(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBylanguage(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -355,11 +395,11 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  *
  * @method     ChildLyric[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildLyric objects based on current ModelCriteria
  * @method     ChildLyric[]|ObjectCollection findById(int $id) Return ChildLyric objects filtered by the id column
- * @method     ChildLyric[]|ObjectCollection findByZaglaviePalno(string $zaglavie_palno) Return ChildLyric objects filtered by the zaglavie_palno column
- * @method     ChildLyric[]|ObjectCollection findByFullTitleShort(string $zaglavie_sakrateno) Return ChildLyric objects filtered by the zaglavie_sakrateno column
- * @method     ChildLyric[]|ObjectCollection findByUpId(int $up_id) Return ChildLyric objects filtered by the up_id column
+ * @method     ChildLyric[]|ObjectCollection findBycacheTitleFull(string $cache_title_full) Return ChildLyric objects filtered by the cache_title_full column
+ * @method     ChildLyric[]|ObjectCollection findBycacheTitleShort(string $cache_title_short) Return ChildLyric objects filtered by the cache_title_short column
+ * @method     ChildLyric[]|ObjectCollection findByuploader(int $uploaded_by) Return ChildLyric objects filtered by the uploaded_by column
  * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
- * @method     ChildLyric[]|ObjectCollection findByTextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
+ * @method     ChildLyric[]|ObjectCollection findBytextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
  * @method     ChildLyric[]|ObjectCollection findByArtist1(int $artist1) Return ChildLyric objects filtered by the artist1 column
  * @method     ChildLyric[]|ObjectCollection findByArtist2(int $artist2) Return ChildLyric objects filtered by the artist2 column
  * @method     ChildLyric[]|ObjectCollection findByArtist3(int $artist3) Return ChildLyric objects filtered by the artist3 column
@@ -381,13 +421,13 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findByPodnovena(string $podnovena) Return ChildLyric objects filtered by the podnovena column
  * @method     ChildLyric[]|ObjectCollection findByIpUpload(string $ip_upload) Return ChildLyric objects filtered by the ip_upload column
  * @method     ChildLyric[]|ObjectCollection findByDopylnitelnoinfo(string $dopylnitelnoinfo) Return ChildLyric objects filtered by the dopylnitelnoinfo column
- * @method     ChildLyric[]|ObjectCollection findByGlasa(int $glasa) Return ChildLyric objects filtered by the glasa column
+ * @method     ChildLyric[]|ObjectCollection findBycacheVotes(int $glasa) Return ChildLyric objects filtered by the glasa column
  * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
  * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
  * @method     ChildLyric[]|ObjectCollection findByStilraphiphop(boolean $stilraphiphop) Return ChildLyric objects filtered by the stilraphiphop column
  * @method     ChildLyric[]|ObjectCollection findByStilhiphop(boolean $stilhiphop) Return ChildLyric objects filtered by the stilhiphop column
  * @method     ChildLyric[]|ObjectCollection findByStileastcoast(boolean $stileastcoast) Return ChildLyric objects filtered by the stileastcoast column
- * @method     ChildLyric[]|ObjectCollection findByPeeSeNa(boolean $pee_se_na) Return ChildLyric objects filtered by the pee_se_na column
+ * @method     ChildLyric[]|ObjectCollection findBylanguage(boolean $pee_se_na) Return ChildLyric objects filtered by the pee_se_na column
  * @method     ChildLyric[]|ObjectCollection findByStilskit(boolean $stilskit) Return ChildLyric objects filtered by the stilskit column
  * @method     ChildLyric[]|ObjectCollection findByStilelektronna(boolean $stilelektronna) Return ChildLyric objects filtered by the stilelektronna column
  * @method     ChildLyric[]|ObjectCollection findByStilrok(boolean $stilrok) Return ChildLyric objects filtered by the stilrok column
@@ -519,7 +559,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, zaglavie_palno, zaglavie_sakrateno, up_id, text, text_bg, artist1, artist2, artist3, artist4, artist5, artist6, title, album1, album2, video, video_vbox7, video_vbox7_orig, video_youtube, video_youtube_orig, video_metacafe, video_metacafe_orig, download, image, podnovena, ip_upload, dopylnitelnoinfo, glasa, views, popularity, stilraphiphop, stilhiphop, stileastcoast, pee_se_na, stilskit, stilelektronna, stilrok, stilrok_clas, stilrok_alt, stilrok_hard, stildisko, stillatam, stilsamba, stiltango, stilsalsa, stilklasi, stildetski, stilfolk, stilnarodna, stilchalga, stilpopfolk, stilmetal, stilmetal_heavy, stilmetal_power, stilmetal_death, stilmetal_nu, stilmetal_gothic, stilmetal_symphonic, stilsoundtrack, stildance, stilRnB, stilsoul, stilnew_rave, stilreggae, stilkantri, stilpunk, stilemo, stilbreakbeat, stilbigbeat, stiljaz, stilblus, stilelectronica, stilska FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, cache_title_full, cache_title_short, uploaded_by, text, text_bg, artist1, artist2, artist3, artist4, artist5, artist6, title, album1, album2, video, video_vbox7, video_vbox7_orig, video_youtube, video_youtube_orig, video_metacafe, video_metacafe_orig, download, image, podnovena, ip_upload, dopylnitelnoinfo, glasa, views, popularity, stilraphiphop, stilhiphop, stileastcoast, pee_se_na, stilskit, stilelektronna, stilrok, stilrok_clas, stilrok_alt, stilrok_hard, stildisko, stillatam, stilsamba, stiltango, stilsalsa, stilklasi, stildetski, stilfolk, stilnarodna, stilchalga, stilpopfolk, stilmetal, stilmetal_heavy, stilmetal_power, stilmetal_death, stilmetal_nu, stilmetal_gothic, stilmetal_symphonic, stilsoundtrack, stildance, stilRnB, stilsoul, stilnew_rave, stilreggae, stilkantri, stilpunk, stilemo, stilbreakbeat, stilbigbeat, stiljaz, stilblus, stilelectronica, stilska FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -651,74 +691,74 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the zaglavie_palno column
+     * Filter the query on the cache_title_full column
      *
      * Example usage:
      * <code>
-     * $query->filterByZaglaviePalno('fooValue');   // WHERE zaglavie_palno = 'fooValue'
-     * $query->filterByZaglaviePalno('%fooValue%'); // WHERE zaglavie_palno LIKE '%fooValue%'
+     * $query->filterBycacheTitleFull('fooValue');   // WHERE cache_title_full = 'fooValue'
+     * $query->filterBycacheTitleFull('%fooValue%'); // WHERE cache_title_full LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $zaglaviePalno The value to use as filter.
+     * @param     string $cacheTitleFull The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByZaglaviePalno($zaglaviePalno = null, $comparison = null)
+    public function filterBycacheTitleFull($cacheTitleFull = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($zaglaviePalno)) {
+            if (is_array($cacheTitleFull)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $zaglaviePalno)) {
-                $zaglaviePalno = str_replace('*', '%', $zaglaviePalno);
+            } elseif (preg_match('/[\%\*]/', $cacheTitleFull)) {
+                $cacheTitleFull = str_replace('*', '%', $cacheTitleFull);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_ZAGLAVIE_PALNO, $zaglaviePalno, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_CACHE_TITLE_FULL, $cacheTitleFull, $comparison);
     }
 
     /**
-     * Filter the query on the zaglavie_sakrateno column
+     * Filter the query on the cache_title_short column
      *
      * Example usage:
      * <code>
-     * $query->filterByFullTitleShort('fooValue');   // WHERE zaglavie_sakrateno = 'fooValue'
-     * $query->filterByFullTitleShort('%fooValue%'); // WHERE zaglavie_sakrateno LIKE '%fooValue%'
+     * $query->filterBycacheTitleShort('fooValue');   // WHERE cache_title_short = 'fooValue'
+     * $query->filterBycacheTitleShort('%fooValue%'); // WHERE cache_title_short LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $fullTitleShort The value to use as filter.
+     * @param     string $cacheTitleShort The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByFullTitleShort($fullTitleShort = null, $comparison = null)
+    public function filterBycacheTitleShort($cacheTitleShort = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($fullTitleShort)) {
+            if (is_array($cacheTitleShort)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $fullTitleShort)) {
-                $fullTitleShort = str_replace('*', '%', $fullTitleShort);
+            } elseif (preg_match('/[\%\*]/', $cacheTitleShort)) {
+                $cacheTitleShort = str_replace('*', '%', $cacheTitleShort);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_ZAGLAVIE_SAKRATENO, $fullTitleShort, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_CACHE_TITLE_SHORT, $cacheTitleShort, $comparison);
     }
 
     /**
-     * Filter the query on the up_id column
+     * Filter the query on the uploaded_by column
      *
      * Example usage:
      * <code>
-     * $query->filterByUpId(1234); // WHERE up_id = 1234
-     * $query->filterByUpId(array(12, 34)); // WHERE up_id IN (12, 34)
-     * $query->filterByUpId(array('min' => 12)); // WHERE up_id > 12
+     * $query->filterByuploader(1234); // WHERE uploaded_by = 1234
+     * $query->filterByuploader(array(12, 34)); // WHERE uploaded_by IN (12, 34)
+     * $query->filterByuploader(array('min' => 12)); // WHERE uploaded_by > 12
      * </code>
      *
-     * @param     mixed $upId The value to use as filter.
+     * @param     mixed $uploader The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -726,16 +766,16 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByUpId($upId = null, $comparison = null)
+    public function filterByuploader($uploader = null, $comparison = null)
     {
-        if (is_array($upId)) {
+        if (is_array($uploader)) {
             $useMinMax = false;
-            if (isset($upId['min'])) {
-                $this->addUsingAlias(LyricTableMap::COL_UP_ID, $upId['min'], Criteria::GREATER_EQUAL);
+            if (isset($uploader['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_UPLOADED_BY, $uploader['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($upId['max'])) {
-                $this->addUsingAlias(LyricTableMap::COL_UP_ID, $upId['max'], Criteria::LESS_EQUAL);
+            if (isset($uploader['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_UPLOADED_BY, $uploader['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -746,7 +786,7 @@ abstract class LyricQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_UP_ID, $upId, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_UPLOADED_BY, $uploader, $comparison);
     }
 
     /**
@@ -783,8 +823,8 @@ abstract class LyricQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByTextBg('fooValue');   // WHERE text_bg = 'fooValue'
-     * $query->filterByTextBg('%fooValue%'); // WHERE text_bg LIKE '%fooValue%'
+     * $query->filterBytextBg('fooValue');   // WHERE text_bg = 'fooValue'
+     * $query->filterBytextBg('%fooValue%'); // WHERE text_bg LIKE '%fooValue%'
      * </code>
      *
      * @param     string $textBg The value to use as filter.
@@ -793,7 +833,7 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByTextBg($textBg = null, $comparison = null)
+    public function filterBytextBg($textBg = null, $comparison = null)
     {
         if (null === $comparison) {
             if (is_array($textBg)) {
@@ -1531,12 +1571,12 @@ abstract class LyricQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByGlasa(1234); // WHERE glasa = 1234
-     * $query->filterByGlasa(array(12, 34)); // WHERE glasa IN (12, 34)
-     * $query->filterByGlasa(array('min' => 12)); // WHERE glasa > 12
+     * $query->filterBycacheVotes(1234); // WHERE glasa = 1234
+     * $query->filterBycacheVotes(array(12, 34)); // WHERE glasa IN (12, 34)
+     * $query->filterBycacheVotes(array('min' => 12)); // WHERE glasa > 12
      * </code>
      *
-     * @param     mixed $glasa The value to use as filter.
+     * @param     mixed $cacheVotes The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -1544,16 +1584,16 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByGlasa($glasa = null, $comparison = null)
+    public function filterBycacheVotes($cacheVotes = null, $comparison = null)
     {
-        if (is_array($glasa)) {
+        if (is_array($cacheVotes)) {
             $useMinMax = false;
-            if (isset($glasa['min'])) {
-                $this->addUsingAlias(LyricTableMap::COL_GLASA, $glasa['min'], Criteria::GREATER_EQUAL);
+            if (isset($cacheVotes['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_GLASA, $cacheVotes['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($glasa['max'])) {
-                $this->addUsingAlias(LyricTableMap::COL_GLASA, $glasa['max'], Criteria::LESS_EQUAL);
+            if (isset($cacheVotes['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_GLASA, $cacheVotes['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -1564,7 +1604,7 @@ abstract class LyricQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_GLASA, $glasa, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_GLASA, $cacheVotes, $comparison);
     }
 
     /**
@@ -1735,11 +1775,11 @@ abstract class LyricQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByPeeSeNa(true); // WHERE pee_se_na = true
-     * $query->filterByPeeSeNa('yes'); // WHERE pee_se_na = true
+     * $query->filterBylanguage(true); // WHERE pee_se_na = true
+     * $query->filterBylanguage('yes'); // WHERE pee_se_na = true
      * </code>
      *
-     * @param     boolean|string $peeSeNa The value to use as filter.
+     * @param     boolean|string $language The value to use as filter.
      *              Non-boolean arguments are converted using the following rules:
      *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
      *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
@@ -1748,13 +1788,13 @@ abstract class LyricQuery extends ModelCriteria
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
-    public function filterByPeeSeNa($peeSeNa = null, $comparison = null)
+    public function filterBylanguage($language = null, $comparison = null)
     {
-        if (is_string($peeSeNa)) {
-            $peeSeNa = in_array(strtolower($peeSeNa), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        if (is_string($language)) {
+            $language = in_array(strtolower($language), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_PEE_SE_NA, $peeSeNa, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_PEE_SE_NA, $language, $comparison);
     }
 
     /**
@@ -2957,79 +2997,6 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes object
-     *
-     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes|ObjectCollection $votes the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildLyricQuery The current query, for fluid interface
-     */
-    public function filterByVotes($votes, $comparison = null)
-    {
-        if ($votes instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes) {
-            return $this
-                ->addUsingAlias(LyricTableMap::COL_ID, $votes->getZa(), $comparison);
-        } elseif ($votes instanceof ObjectCollection) {
-            return $this
-                ->useVotesQuery()
-                ->filterByPrimaryKeys($votes->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByVotes() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the Votes relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildLyricQuery The current query, for fluid interface
-     */
-    public function joinVotes($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Votes');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'Votes');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the Votes relation Votes object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery A secondary query class using the current class as primary query
-     */
-    public function useVotesQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinVotes($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Votes', '\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery');
-    }
-
-    /**
      * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Liubimi object
      *
      * @param \Tekstove\TekstoveBundle\Model\Entity\Liubimi|ObjectCollection $liubimi the related object to use as filter
@@ -3246,6 +3213,79 @@ abstract class LyricQuery extends ModelCriteria
         return $this
             ->joinLyricRedirect($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'LyricRedirect', '\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes|ObjectCollection $votes the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByVotes($votes, $comparison = null)
+    {
+        if ($votes instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_ID, $votes->getZa(), $comparison);
+        } elseif ($votes instanceof ObjectCollection) {
+            return $this
+                ->useVotesQuery()
+                ->filterByPrimaryKeys($votes->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByVotes() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Votes relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinVotes($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Votes');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Votes');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Votes relation Votes object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery A secondary query class using the current class as primary query
+     */
+    public function useVotesQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinVotes($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Votes', '\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery');
     }
 
     /**

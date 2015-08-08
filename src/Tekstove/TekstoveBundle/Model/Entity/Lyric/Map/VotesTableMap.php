@@ -34,7 +34,7 @@ class VotesTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Lyric.Map.VotesTableMap';
+    const CLASS_NAME = 'Tekstove.TekstoveBundle.Model.Entity.Lyric.Map.VotesTableMap';
 
     /**
      * The default database name for this class
@@ -54,7 +54,7 @@ class VotesTableMap extends TableMap
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Lyric.Votes';
+    const CLASS_DEFAULT = 'Tekstove.TekstoveBundle.Model.Entity.Lyric.Votes';
 
     /**
      * The total number of columns
@@ -133,7 +133,7 @@ class VotesTableMap extends TableMap
         $this->setPhpName('Votes');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric\\Votes');
-        $this->setPackage('src.Lyric');
+        $this->setPackage('Tekstove.TekstoveBundle.Model.Entity.Lyric');
         $this->setUseIdGenerator(true);
         // columns
         $this->addForeignKey('za', 'Za', 'INTEGER', 'lyric', 'id', true, null, null);
