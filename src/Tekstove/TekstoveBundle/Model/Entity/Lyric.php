@@ -22,12 +22,4 @@ class Lyric extends BaseLyric
         $artist = $artistRepo->findOneById($id);
         return $artist;
     }
-    
-    public function getuploader() {
-        $id = parent::getuploader();
-        $usersRepo = UsersQuery::create();
-        $user = $usersRepo->findOneById($id);
-        return $user;
-    }
-    
 }

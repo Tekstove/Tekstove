@@ -108,6 +108,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoinWithForumTopicWatchers() Adds a RIGHT JOIN clause and with to the query using the ForumTopicWatchers relation
  * @method     ChildUsersQuery innerJoinWithForumTopicWatchers() Adds a INNER JOIN clause and with to the query using the ForumTopicWatchers relation
  *
+ * @method     ChildUsersQuery leftJoinlyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the lyric relation
+ * @method     ChildUsersQuery rightJoinlyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the lyric relation
+ * @method     ChildUsersQuery innerJoinlyric($relationAlias = null) Adds a INNER JOIN clause to the query using the lyric relation
+ *
+ * @method     ChildUsersQuery joinWithlyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the lyric relation
+ *
+ * @method     ChildUsersQuery leftJoinWithlyric() Adds a LEFT JOIN clause and with to the query using the lyric relation
+ * @method     ChildUsersQuery rightJoinWithlyric() Adds a RIGHT JOIN clause and with to the query using the lyric relation
+ * @method     ChildUsersQuery innerJoinWithlyric() Adds a INNER JOIN clause and with to the query using the lyric relation
+ *
  * @method     ChildUsersQuery leftJoinPrevodi($relationAlias = null) Adds a LEFT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery rightJoinPrevodi($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Prevodi relation
  * @method     ChildUsersQuery innerJoinPrevodi($relationAlias = null) Adds a INNER JOIN clause to the query using the Prevodi relation
@@ -118,7 +128,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  * @method     ChildUsersQuery rightJoinWithPrevodi() Adds a RIGHT JOIN clause and with to the query using the Prevodi relation
  * @method     ChildUsersQuery innerJoinWithPrevodi() Adds a INNER JOIN clause and with to the query using the Prevodi relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\ChatOnlineQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\PrevodiQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\ChatOnlineQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\PermissionUsersQuery|\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery|\Tekstove\TekstoveBundle\Model\Entity\LyricQuery|\Tekstove\TekstoveBundle\Model\Entity\PrevodiQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUsers findOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query
  * @method     ChildUsers findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUsers matching the query, or a new ChildUsers object populated from the query conditions when no match is found
@@ -1321,6 +1331,79 @@ abstract class UsersQuery extends ModelCriteria
         return $this
             ->joinForumTopicWatchers($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'ForumTopicWatchers', '\Tekstove\TekstoveBundle\Model\Entity\ForumTopicWatchersQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterBylyric($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(UsersTableMap::COL_ID, $lyric->getuploader(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->uselyricQuery()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterBylyric() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the lyric relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function joinlyric($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('lyric');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'lyric');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the lyric relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function uselyricQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinlyric($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'lyric', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
     }
 
     /**

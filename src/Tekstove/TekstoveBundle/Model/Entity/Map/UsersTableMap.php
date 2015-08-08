@@ -270,6 +270,13 @@ class UsersTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'ForumTopicWatcherss', false);
+        $this->addRelation('lyric', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':uploaded_by',
+    1 => ':id',
+  ),
+), null, null, 'lyrics', false);
         $this->addRelation('Prevodi', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Prevodi', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (

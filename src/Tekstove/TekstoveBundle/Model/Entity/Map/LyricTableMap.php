@@ -490,7 +490,7 @@ class LyricTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('cache_title_full', 'cacheTitleFull', 'LONGVARCHAR', true, null, null);
         $this->addColumn('cache_title_short', 'cacheTitleShort', 'VARCHAR', true, 280, null);
-        $this->addColumn('uploaded_by', 'uploader', 'INTEGER', true, null, null);
+        $this->addForeignKey('uploaded_by', 'uploader', 'INTEGER', 'users', 'id', true, null, null);
         $this->addColumn('text', 'Text', 'LONGVARCHAR', true, null, null);
         $this->addColumn('text_bg', 'textBg', 'LONGVARCHAR', false, null, null);
         $this->addColumn('artist1', 'Artist1', 'INTEGER', true, null, null);
@@ -567,6 +567,13 @@ class LyricTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('Users', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Users', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':uploaded_by',
+    1 => ':id',
+  ),
+), null, null, null, false);
         $this->addRelation('Languages', '\\Tekstove\\TekstoveBundle\\Model\\Entity\\Languages', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (

@@ -32,6 +32,8 @@ use Tekstove\TekstoveBundle\Model\Entity\Lyric18Query as ChildLyric18Query;
 use Tekstove\TekstoveBundle\Model\Entity\LyricQuery as ChildLyricQuery;
 use Tekstove\TekstoveBundle\Model\Entity\LyricRedirect as ChildLyricRedirect;
 use Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery as ChildLyricRedirectQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Users as ChildUsers;
+use Tekstove\TekstoveBundle\Model\Entity\UsersQuery as ChildUsersQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Lyric\Votes;
 use Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Lyric\Base\Votes as BaseVotes;
@@ -516,6 +518,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @var        boolean
      */
     protected $stilska;
+
+    /**
+     * @var        ChildUsers
+     */
+    protected $aUsers;
 
     /**
      * @var        ChildLanguages
@@ -2059,6 +2066,10 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->uploaded_by !== $v) {
             $this->uploaded_by = $v;
             $this->modifiedColumns[LyricTableMap::COL_UPLOADED_BY] = true;
+        }
+
+        if ($this->aUsers !== null && $this->aUsers->getId() !== $v) {
+            $this->aUsers = null;
         }
 
         return $this;
@@ -4071,6 +4082,9 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aUsers !== null && $this->uploaded_by !== $this->aUsers->getId()) {
+            $this->aUsers = null;
+        }
         if ($this->aLanguages !== null && $this->language !== $this->aLanguages->getId()) {
             $this->aLanguages = null;
         }
@@ -4113,6 +4127,7 @@ abstract class Lyric implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aUsers = null;
             $this->aLanguages = null;
             $this->collEditAddPrevods = null;
 
@@ -4229,6 +4244,13 @@ abstract class Lyric implements ActiveRecordInterface
             // were passed to this object by their corresponding set
             // method.  This object relates to these object(s) by a
             // foreign key reference.
+
+            if ($this->aUsers !== null) {
+                if ($this->aUsers->isModified() || $this->aUsers->isNew()) {
+                    $affectedRows += $this->aUsers->save($con);
+                }
+                $this->setUsers($this->aUsers);
+            }
 
             if ($this->aLanguages !== null) {
                 if ($this->aLanguages->isModified() || $this->aLanguages->isNew()) {
@@ -5213,6 +5235,21 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->aUsers) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'users';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'users';
+                        break;
+                    default:
+                        $key = 'Users';
+                }
+
+                $result[$key] = $this->aUsers->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
             if (null !== $this->aLanguages) {
 
                 switch ($keyType) {
@@ -6306,6 +6343,57 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildUsers object.
+     *
+     * @param  ChildUsers $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setUsers(ChildUsers $v = null)
+    {
+        if ($v === null) {
+            $this->setuploader(NULL);
+        } else {
+            $this->setuploader($v->getId());
+        }
+
+        $this->aUsers = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildUsers object, it will not be re-added.
+        if ($v !== null) {
+            $v->addlyric($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildUsers object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildUsers The associated ChildUsers object.
+     * @throws PropelException
+     */
+    public function getUsers(ConnectionInterface $con = null)
+    {
+        if ($this->aUsers === null && ($this->uploaded_by !== null)) {
+            $this->aUsers = ChildUsersQuery::create()->findPk($this->uploaded_by, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aUsers->addlyrics($this);
+             */
+        }
+
+        return $this->aUsers;
+    }
+
+    /**
      * Declares an association between this object and a ChildLanguages object.
      *
      * @param  ChildLanguages $v
@@ -6325,7 +6413,7 @@ abstract class Lyric implements ActiveRecordInterface
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the ChildLanguages object, it will not be re-added.
         if ($v !== null) {
-            $v->addlanguageggg($this);
+            $v->addlanguage($this);
         }
 
 
@@ -6349,7 +6437,7 @@ abstract class Lyric implements ActiveRecordInterface
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aLanguages->addlanguagegggs($this);
+                $this->aLanguages->addlanguages($this);
              */
         }
 
@@ -7520,8 +7608,11 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function clear()
     {
+        if (null !== $this->aUsers) {
+            $this->aUsers->removelyric($this);
+        }
         if (null !== $this->aLanguages) {
-            $this->aLanguages->removelanguageggg($this);
+            $this->aLanguages->removelanguage($this);
         }
         $this->id = null;
         $this->cache_title_full = null;
@@ -7651,6 +7742,7 @@ abstract class Lyric implements ActiveRecordInterface
         $this->collLyricRedirects = null;
         $this->collCommentss = null;
         $this->collVotess = null;
+        $this->aUsers = null;
         $this->aLanguages = null;
     }
 

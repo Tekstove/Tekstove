@@ -177,6 +177,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLyricQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
+ * @method     ChildLyricQuery leftJoinUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the Users relation
+ * @method     ChildLyricQuery rightJoinUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Users relation
+ * @method     ChildLyricQuery innerJoinUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the Users relation
+ *
+ * @method     ChildLyricQuery joinWithUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Users relation
+ *
+ * @method     ChildLyricQuery leftJoinWithUsers() Adds a LEFT JOIN clause and with to the query using the Users relation
+ * @method     ChildLyricQuery rightJoinWithUsers() Adds a RIGHT JOIN clause and with to the query using the Users relation
+ * @method     ChildLyricQuery innerJoinWithUsers() Adds a INNER JOIN clause and with to the query using the Users relation
+ *
  * @method     ChildLyricQuery leftJoinLanguages($relationAlias = null) Adds a LEFT JOIN clause to the query using the Languages relation
  * @method     ChildLyricQuery rightJoinLanguages($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Languages relation
  * @method     ChildLyricQuery innerJoinLanguages($relationAlias = null) Adds a INNER JOIN clause to the query using the Languages relation
@@ -247,7 +257,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithVotes() Adds a RIGHT JOIN clause and with to the query using the Votes relation
  * @method     ChildLyricQuery innerJoinWithVotes() Adds a INNER JOIN clause and with to the query using the Votes relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\UsersQuery|\Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
@@ -767,6 +777,8 @@ abstract class LyricQuery extends ModelCriteria
      * $query->filterByuploader(array(12, 34)); // WHERE uploaded_by IN (12, 34)
      * $query->filterByuploader(array('min' => 12)); // WHERE uploaded_by > 12
      * </code>
+     *
+     * @see       filterByUsers()
      *
      * @param     mixed $uploader The value to use as filter.
      *              Use scalar values for equality.
@@ -2874,6 +2886,83 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_STILSKA, $stilska, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Users object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Users|ObjectCollection $users The related object(s) to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByUsers($users, $comparison = null)
+    {
+        if ($users instanceof \Tekstove\TekstoveBundle\Model\Entity\Users) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_UPLOADED_BY, $users->getId(), $comparison);
+        } elseif ($users instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_UPLOADED_BY, $users->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByUsers() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Users or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Users relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinUsers($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Users');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Users');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Users relation Users object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\UsersQuery A secondary query class using the current class as primary query
+     */
+    public function useUsersQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinUsers($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Users', '\Tekstove\TekstoveBundle\Model\Entity\UsersQuery');
     }
 
     /**

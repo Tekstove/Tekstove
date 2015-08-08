@@ -4,7 +4,12 @@
         <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
         <column name="cache_title_full" phpName="cacheTitleFull" type="LONGVARCHAR" required="true"/>
         <column name="cache_title_short" phpName="cacheTitleShort" type="VARCHAR" size="280" required="true"/>
+        
         <column name="uploaded_by" phpName="uploader" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+        <foreign-key foreignTable="users" refPhpName="lyric">
+            <reference local="uploaded_by" foreign="id" />
+        </foreign-key>
+        
         <column name="text" phpName="Text" type="LONGVARCHAR" required="true"/>
         <column name="text_bg" phpName="textBg" type="LONGVARCHAR"/>
         <column name="artist1" phpName="Artist1" type="INTEGER" sqlType="int(11) unsigned" required="true"/>

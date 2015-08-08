@@ -78,8 +78,8 @@ abstract class Languages implements ActiveRecordInterface
     /**
      * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
      */
-    protected $colllanguagegggs;
-    protected $colllanguagegggsPartial;
+    protected $colllanguages;
+    protected $colllanguagesPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -93,7 +93,7 @@ abstract class Languages implements ActiveRecordInterface
      * An array of objects scheduled for deletion.
      * @var ObjectCollection|ChildLyric[]
      */
-    protected $languagegggsScheduledForDeletion = null;
+    protected $languagesScheduledForDeletion = null;
 
     /**
      * Initializes internal state of Tekstove\TekstoveBundle\Model\Entity\Base\Languages object.
@@ -482,7 +482,7 @@ abstract class Languages implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->colllanguagegggs = null;
+            $this->colllanguages = null;
 
         } // if (deep)
     }
@@ -594,18 +594,18 @@ abstract class Languages implements ActiveRecordInterface
                 $this->resetModified();
             }
 
-            if ($this->languagegggsScheduledForDeletion !== null) {
-                if (!$this->languagegggsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->languagegggsScheduledForDeletion as $languageggg) {
+            if ($this->languagesScheduledForDeletion !== null) {
+                if (!$this->languagesScheduledForDeletion->isEmpty()) {
+                    foreach ($this->languagesScheduledForDeletion as $language) {
                         // need to save related object because we set the relation to null
-                        $languageggg->save($con);
+                        $language->save($con);
                     }
-                    $this->languagegggsScheduledForDeletion = null;
+                    $this->languagesScheduledForDeletion = null;
                 }
             }
 
-            if ($this->colllanguagegggs !== null) {
-                foreach ($this->colllanguagegggs as $referrerFK) {
+            if ($this->colllanguages !== null) {
+                foreach ($this->colllanguages as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -768,7 +768,7 @@ abstract class Languages implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->colllanguagegggs) {
+            if (null !== $this->colllanguages) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
@@ -781,7 +781,7 @@ abstract class Languages implements ActiveRecordInterface
                         $key = 'Lyrics';
                 }
 
-                $result[$key] = $this->colllanguagegggs->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->colllanguages->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -995,9 +995,9 @@ abstract class Languages implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
-            foreach ($this->getlanguagegggs() as $relObj) {
+            foreach ($this->getlanguages() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addlanguageggg($relObj->copy($deepCopy));
+                    $copyObj->addlanguage($relObj->copy($deepCopy));
                 }
             }
 
@@ -1042,37 +1042,37 @@ abstract class Languages implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
-        if ('languageggg' == $relationName) {
-            return $this->initlanguagegggs();
+        if ('language' == $relationName) {
+            return $this->initlanguages();
         }
     }
 
     /**
-     * Clears out the colllanguagegggs collection
+     * Clears out the colllanguages collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addlanguagegggs()
+     * @see        addlanguages()
      */
-    public function clearlanguagegggs()
+    public function clearlanguages()
     {
-        $this->colllanguagegggs = null; // important to set this to NULL since that means it is uninitialized
+        $this->colllanguages = null; // important to set this to NULL since that means it is uninitialized
     }
 
     /**
-     * Reset is the colllanguagegggs collection loaded partially.
+     * Reset is the colllanguages collection loaded partially.
      */
-    public function resetPartiallanguagegggs($v = true)
+    public function resetPartiallanguages($v = true)
     {
-        $this->colllanguagegggsPartial = $v;
+        $this->colllanguagesPartial = $v;
     }
 
     /**
-     * Initializes the colllanguagegggs collection.
+     * Initializes the colllanguages collection.
      *
-     * By default this just sets the colllanguagegggs collection to an empty array (like clearcolllanguagegggs());
+     * By default this just sets the colllanguages collection to an empty array (like clearcolllanguages());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -1081,13 +1081,13 @@ abstract class Languages implements ActiveRecordInterface
      *
      * @return void
      */
-    public function initlanguagegggs($overrideExisting = true)
+    public function initlanguages($overrideExisting = true)
     {
-        if (null !== $this->colllanguagegggs && !$overrideExisting) {
+        if (null !== $this->colllanguages && !$overrideExisting) {
             return;
         }
-        $this->colllanguagegggs = new ObjectCollection();
-        $this->colllanguagegggs->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
+        $this->colllanguages = new ObjectCollection();
+        $this->colllanguages->setModel('\Tekstove\TekstoveBundle\Model\Entity\Lyric');
     }
 
     /**
@@ -1104,48 +1104,48 @@ abstract class Languages implements ActiveRecordInterface
      * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
      * @throws PropelException
      */
-    public function getlanguagegggs(Criteria $criteria = null, ConnectionInterface $con = null)
+    public function getlanguages(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        $partial = $this->colllanguagegggsPartial && !$this->isNew();
-        if (null === $this->colllanguagegggs || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->colllanguagegggs) {
+        $partial = $this->colllanguagesPartial && !$this->isNew();
+        if (null === $this->colllanguages || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->colllanguages) {
                 // return empty collection
-                $this->initlanguagegggs();
+                $this->initlanguages();
             } else {
-                $colllanguagegggs = ChildLyricQuery::create(null, $criteria)
+                $colllanguages = ChildLyricQuery::create(null, $criteria)
                     ->filterByLanguages($this)
                     ->find($con);
 
                 if (null !== $criteria) {
-                    if (false !== $this->colllanguagegggsPartial && count($colllanguagegggs)) {
-                        $this->initlanguagegggs(false);
+                    if (false !== $this->colllanguagesPartial && count($colllanguages)) {
+                        $this->initlanguages(false);
 
-                        foreach ($colllanguagegggs as $obj) {
-                            if (false == $this->colllanguagegggs->contains($obj)) {
-                                $this->colllanguagegggs->append($obj);
+                        foreach ($colllanguages as $obj) {
+                            if (false == $this->colllanguages->contains($obj)) {
+                                $this->colllanguages->append($obj);
                             }
                         }
 
-                        $this->colllanguagegggsPartial = true;
+                        $this->colllanguagesPartial = true;
                     }
 
-                    return $colllanguagegggs;
+                    return $colllanguages;
                 }
 
-                if ($partial && $this->colllanguagegggs) {
-                    foreach ($this->colllanguagegggs as $obj) {
+                if ($partial && $this->colllanguages) {
+                    foreach ($this->colllanguages as $obj) {
                         if ($obj->isNew()) {
-                            $colllanguagegggs[] = $obj;
+                            $colllanguages[] = $obj;
                         }
                     }
                 }
 
-                $this->colllanguagegggs = $colllanguagegggs;
-                $this->colllanguagegggsPartial = false;
+                $this->colllanguages = $colllanguages;
+                $this->colllanguagesPartial = false;
             }
         }
 
-        return $this->colllanguagegggs;
+        return $this->colllanguages;
     }
 
     /**
@@ -1154,29 +1154,29 @@ abstract class Languages implements ActiveRecordInterface
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $languagegggs A Propel collection.
+     * @param      Collection $languages A Propel collection.
      * @param      ConnectionInterface $con Optional connection object
      * @return $this|ChildLanguages The current object (for fluent API support)
      */
-    public function setlanguagegggs(Collection $languagegggs, ConnectionInterface $con = null)
+    public function setlanguages(Collection $languages, ConnectionInterface $con = null)
     {
-        /** @var ChildLyric[] $languagegggsToDelete */
-        $languagegggsToDelete = $this->getlanguagegggs(new Criteria(), $con)->diff($languagegggs);
+        /** @var ChildLyric[] $languagesToDelete */
+        $languagesToDelete = $this->getlanguages(new Criteria(), $con)->diff($languages);
 
 
-        $this->languagegggsScheduledForDeletion = $languagegggsToDelete;
+        $this->languagesScheduledForDeletion = $languagesToDelete;
 
-        foreach ($languagegggsToDelete as $languagegggRemoved) {
-            $languagegggRemoved->setLanguages(null);
+        foreach ($languagesToDelete as $languageRemoved) {
+            $languageRemoved->setLanguages(null);
         }
 
-        $this->colllanguagegggs = null;
-        foreach ($languagegggs as $languageggg) {
-            $this->addlanguageggg($languageggg);
+        $this->colllanguages = null;
+        foreach ($languages as $language) {
+            $this->addlanguage($language);
         }
 
-        $this->colllanguagegggs = $languagegggs;
-        $this->colllanguagegggsPartial = false;
+        $this->colllanguages = $languages;
+        $this->colllanguagesPartial = false;
 
         return $this;
     }
@@ -1190,16 +1190,16 @@ abstract class Languages implements ActiveRecordInterface
      * @return int             Count of related Lyric objects.
      * @throws PropelException
      */
-    public function countlanguagegggs(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    public function countlanguages(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        $partial = $this->colllanguagegggsPartial && !$this->isNew();
-        if (null === $this->colllanguagegggs || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->colllanguagegggs) {
+        $partial = $this->colllanguagesPartial && !$this->isNew();
+        if (null === $this->colllanguages || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->colllanguages) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getlanguagegggs());
+                return count($this->getlanguages());
             }
 
             $query = ChildLyricQuery::create(null, $criteria);
@@ -1212,7 +1212,7 @@ abstract class Languages implements ActiveRecordInterface
                 ->count($con);
         }
 
-        return count($this->colllanguagegggs);
+        return count($this->colllanguages);
     }
 
     /**
@@ -1222,47 +1222,72 @@ abstract class Languages implements ActiveRecordInterface
      * @param  ChildLyric $l ChildLyric
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Languages The current object (for fluent API support)
      */
-    public function addlanguageggg(ChildLyric $l)
+    public function addlanguage(ChildLyric $l)
     {
-        if ($this->colllanguagegggs === null) {
-            $this->initlanguagegggs();
-            $this->colllanguagegggsPartial = true;
+        if ($this->colllanguages === null) {
+            $this->initlanguages();
+            $this->colllanguagesPartial = true;
         }
 
-        if (!$this->colllanguagegggs->contains($l)) {
-            $this->doAddlanguageggg($l);
+        if (!$this->colllanguages->contains($l)) {
+            $this->doAddlanguage($l);
         }
 
         return $this;
     }
 
     /**
-     * @param ChildLyric $languageggg The ChildLyric object to add.
+     * @param ChildLyric $language The ChildLyric object to add.
      */
-    protected function doAddlanguageggg(ChildLyric $languageggg)
+    protected function doAddlanguage(ChildLyric $language)
     {
-        $this->colllanguagegggs[]= $languageggg;
-        $languageggg->setLanguages($this);
+        $this->colllanguages[]= $language;
+        $language->setLanguages($this);
     }
 
     /**
-     * @param  ChildLyric $languageggg The ChildLyric object to remove.
+     * @param  ChildLyric $language The ChildLyric object to remove.
      * @return $this|ChildLanguages The current object (for fluent API support)
      */
-    public function removelanguageggg(ChildLyric $languageggg)
+    public function removelanguage(ChildLyric $language)
     {
-        if ($this->getlanguagegggs()->contains($languageggg)) {
-            $pos = $this->colllanguagegggs->search($languageggg);
-            $this->colllanguagegggs->remove($pos);
-            if (null === $this->languagegggsScheduledForDeletion) {
-                $this->languagegggsScheduledForDeletion = clone $this->colllanguagegggs;
-                $this->languagegggsScheduledForDeletion->clear();
+        if ($this->getlanguages()->contains($language)) {
+            $pos = $this->colllanguages->search($language);
+            $this->colllanguages->remove($pos);
+            if (null === $this->languagesScheduledForDeletion) {
+                $this->languagesScheduledForDeletion = clone $this->colllanguages;
+                $this->languagesScheduledForDeletion->clear();
             }
-            $this->languagegggsScheduledForDeletion[]= $languageggg;
-            $languageggg->setLanguages(null);
+            $this->languagesScheduledForDeletion[]= $language;
+            $language->setLanguages(null);
         }
 
         return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Languages is new, it will return
+     * an empty collection; or if this Languages has previously
+     * been saved, it will retrieve related languages from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Languages.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
+     */
+    public function getlanguagesJoinUsers(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricQuery::create(null, $criteria);
+        $query->joinWith('Users', $joinBehavior);
+
+        return $this->getlanguages($query, $con);
     }
 
     /**
@@ -1292,14 +1317,14 @@ abstract class Languages implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->colllanguagegggs) {
-                foreach ($this->colllanguagegggs as $o) {
+            if ($this->colllanguages) {
+                foreach ($this->colllanguages as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
         } // if ($deep)
 
-        $this->colllanguagegggs = null;
+        $this->colllanguages = null;
     }
 
     /**

@@ -674,7 +674,11 @@ CREATE TABLE `lyric`
     INDEX `glasa` (`glasa`),
     INDEX `vidqna` (`vidqna`),
     INDEX `populqrnost` (`populqrnost`),
+    INDEX `lyric_fi_23acc4` (`uploaded_by`),
     INDEX `lyric_fi_39ca59` (`language`),
+    CONSTRAINT `lyric_fk_23acc4`
+        FOREIGN KEY (`uploaded_by`)
+        REFERENCES `users` (`id`),
     CONSTRAINT `lyric_fk_39ca59`
         FOREIGN KEY (`language`)
         REFERENCES `languages` (`id`)

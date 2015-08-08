@@ -36,30 +36,30 @@
                 <h1>
                     {% if (lyric.getArtist1) %}
                         <a href="{{ path('artistBrowse', { id: lyric.getArtist1.id }) }}">
-                            {{ lyric.getArtist1.getName|e }}
+                            {{ lyric.getArtist1.getName }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist2) %}
                         и <a href="{{ path('artistBrowse', {id:lyric.getArtist2.getId}) }}" title="">
-                            {{ lyric.getArtist2.getName|e }}
+                            {{ lyric.getArtist2.getName }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist3) %}
                         и <a href="{{ path('artistBrowse', {id:lyric.getArtist3.getId}) }}}">
-                            {{ lyric.getArtist3.getName|e }}
+                            {{ lyric.getArtist3.getName }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist4) %}
                         и <a href="{{ path('artistBrowse', {id:lyric.getArtist4.getId}) }}" title="">
-                            {{ lyric.getArtist4.getName|e }}
+                            {{ lyric.getArtist4.getName }}
                         </a>
                     {% endif %}
                     {% if (lyric.getArtist5) %}
                         и <a href="{{ path('artistBrowse', {id:lyric.getArtist5.getId}) }}" title="">
-                            {{ lyric.getArtist5.getName|e }}
+                            {{ lyric.getArtist5.getName }}
                         </a>
                     {% endif %}
-                    - {{ lyric.title|e }}
+                    - {{ lyric.title }}
                 </h1>
             </td>
             <td align="right">
@@ -101,12 +101,12 @@
 
     <div style="width:100%">
 
-        {% if (lyric.uploader) %}
+        {% if (lyric.users) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', { id:lyric.uploader.id }) }}">
-                        {{ lyric.uploader.username|e }}
+                    <a href="{{ path('userView', { id:lyric.users.id }) }}">
+                        {{ lyric.users.username }}
                     </a>
                 </b> 
             </div>
@@ -120,7 +120,7 @@
     @TODO
 
     {% if (lyric.languages) %}
-        на {{ lyric.languages.name|e }}
+        на {{ lyric.languages.name }}
     {% endif %}
 
     <br>
@@ -131,14 +131,14 @@
         <tr>
             <td style="background-color : #f5f5ff;padding:4px;" Valign="top">
                 <span id="text_glaven">
-                    {{ lyric.text|e|nl2br }}
+                    {{ lyric.text|nl2br }}
                 </span>
             </td>
 
             {% if (lyric.getTextBg) %}
                 <td style="background-color : #f5f5ff;padding:4px;" Valign="top">
                     <span id="text_glaven">
-                        {{ lyric.textBg|e|nl2br }}
+                        {{ lyric.textBg|nl2br }}
                     </span>
                 </td>
             {% endif %}
