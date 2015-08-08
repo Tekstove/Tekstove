@@ -7,6 +7,7 @@ use \PDO;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
@@ -32,6 +33,18 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LanguagesTableMap;
  * @method     ChildLanguagesQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildLanguagesQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLanguagesQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildLanguagesQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
+ * @method     ChildLanguagesQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
+ * @method     ChildLanguagesQuery innerJoinLyric($relationAlias = null) Adds a INNER JOIN clause to the query using the Lyric relation
+ *
+ * @method     ChildLanguagesQuery joinWithLyric($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Lyric relation
+ *
+ * @method     ChildLanguagesQuery leftJoinWithLyric() Adds a LEFT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLanguagesQuery rightJoinWithLyric() Adds a RIGHT JOIN clause and with to the query using the Lyric relation
+ * @method     ChildLanguagesQuery innerJoinWithLyric() Adds a INNER JOIN clause and with to the query using the Lyric relation
+ *
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\LyricQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLanguages findOne(ConnectionInterface $con = null) Return the first ChildLanguages matching the query
  * @method     ChildLanguages findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLanguages matching the query, or a new ChildLanguages object populated from the query conditions when no match is found
@@ -298,6 +311,79 @@ abstract class LanguagesQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LanguagesTableMap::COL_NAME, $name, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Lyric object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Lyric|ObjectCollection $lyric the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLanguagesQuery The current query, for fluid interface
+     */
+    public function filterByLyric($lyric, $comparison = null)
+    {
+        if ($lyric instanceof \Tekstove\TekstoveBundle\Model\Entity\Lyric) {
+            return $this
+                ->addUsingAlias(LanguagesTableMap::COL_ID, $lyric->getlanguage(), $comparison);
+        } elseif ($lyric instanceof ObjectCollection) {
+            return $this
+                ->useLyricQuery()
+                ->filterByPrimaryKeys($lyric->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyric() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Lyric or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Lyric relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLanguagesQuery The current query, for fluid interface
+     */
+    public function joinLyric($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Lyric');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Lyric');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Lyric relation Lyric object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LyricQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinLyric($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Lyric', '\Tekstove\TekstoveBundle\Model\Entity\LyricQuery');
     }
 
     /**

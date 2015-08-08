@@ -37,7 +37,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\UsersTableMap;
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Entity.Base
+* @package    propel.generator.Tekstove.TekstoveBundle.Model.Entity.Base
 */
 abstract class Users implements ActiveRecordInterface
 {

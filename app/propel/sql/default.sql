@@ -616,39 +616,6 @@ CREATE TABLE `today`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- users
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE `users`
-(
-    `username` VARCHAR(30) NOT NULL,
-    `password` VARCHAR(32) NOT NULL,
-    `password_mod` VARCHAR(32) NOT NULL,
-    `password_mod_coockie` VARCHAR(32) NOT NULL,
-    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-    `mail` VARCHAR(37) NOT NULL,
-    `class` INTEGER DEFAULT 0 NOT NULL,
-    `classCustomName` VARCHAR(255),
-    `avatar` VARCHAR(100),
-    `about` TEXT NOT NULL,
-    `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `pozdrav` int(11) unsigned NOT NULL,
-    `br_pesni` int(11) unsigned NOT NULL,
-    `rajdane` VARCHAR(8) NOT NULL,
-    `prevodi` int(10) unsigned NOT NULL,
-    `autoplay` smallint(1) unsigned DEFAULT 1 NOT NULL,
-    `skype` VARCHAR(50) NOT NULL,
-    `activity_points` int(10) unsigned NOT NULL,
-    `banned` DATETIME,
-    `chatMessages` int(10) unsigned DEFAULT 0 NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `username` (`username`),
-    UNIQUE INDEX `mail` (`mail`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- lyric
 -- ---------------------------------------------------------------------
 
@@ -689,7 +656,7 @@ CREATE TABLE `lyric`
     `stilraphiphop` TINYINT(1) NOT NULL,
     `stilhiphop` TINYINT(1) NOT NULL,
     `stileastcoast` TINYINT(1) NOT NULL,
-    `pee_se_na` tinyint(1) unsigned NOT NULL,
+    `language` tinyint(1) unsigned NOT NULL,
     `stilskit` TINYINT(1) NOT NULL,
     `stilelektronna` TINYINT(1) NOT NULL,
     `stilrok` TINYINT(1) NOT NULL,
@@ -738,7 +705,12 @@ CREATE TABLE `lyric`
     INDEX `artist5` (`artist5`),
     INDEX `glasa` (`glasa`),
     INDEX `vidqna` (`vidqna`),
-    INDEX `populqrnost` (`populqrnost`)
+    INDEX `populqrnost` (`populqrnost`),
+    INDEX `fi_ic_language_fk` (`language`),
+    CONSTRAINT `lyric_language_fk`
+        FOREIGN KEY (`language`)
+        REFERENCES `languages` (`id`)
+        ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -758,6 +730,39 @@ CREATE TABLE `lyric_votes`
         FOREIGN KEY (`za`)
         REFERENCES `lyric` (`id`)
         ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- users
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users`
+(
+    `username` VARCHAR(30) NOT NULL,
+    `password` VARCHAR(32) NOT NULL,
+    `password_mod` VARCHAR(32) NOT NULL,
+    `password_mod_coockie` VARCHAR(32) NOT NULL,
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `mail` VARCHAR(37) NOT NULL,
+    `class` INTEGER DEFAULT 0 NOT NULL,
+    `classCustomName` VARCHAR(255),
+    `avatar` VARCHAR(100),
+    `about` TEXT NOT NULL,
+    `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `pozdrav` int(11) unsigned NOT NULL,
+    `br_pesni` int(11) unsigned NOT NULL,
+    `rajdane` VARCHAR(8) NOT NULL,
+    `prevodi` int(10) unsigned NOT NULL,
+    `autoplay` smallint(1) unsigned DEFAULT 1 NOT NULL,
+    `skype` VARCHAR(50) NOT NULL,
+    `activity_points` int(10) unsigned NOT NULL,
+    `banned` DATETIME,
+    `chatMessages` int(10) unsigned DEFAULT 0 NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `username` (`username`),
+    UNIQUE INDEX `mail` (`mail`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

@@ -842,47 +842,6 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the prevodi column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByPrevodi(1234); // WHERE prevodi = 1234
-     * $query->filterByPrevodi(array(12, 34)); // WHERE prevodi IN (12, 34)
-     * $query->filterByPrevodi(array('min' => 12)); // WHERE prevodi > 12
-     * </code>
-     *
-     * @param     mixed $prevodi The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildUsersQuery The current query, for fluid interface
-     */
-    public function filterByPrevodi($prevodi = null, $comparison = null)
-    {
-        if (is_array($prevodi)) {
-            $useMinMax = false;
-            if (isset($prevodi['min'])) {
-                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($prevodi['max'])) {
-                $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(UsersTableMap::COL_PREVODI, $prevodi, $comparison);
-    }
-
-    /**
      * Filter the query on the autoplay column
      *
      * Example usage:

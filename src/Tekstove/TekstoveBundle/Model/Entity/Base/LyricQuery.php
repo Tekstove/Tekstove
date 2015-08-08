@@ -54,7 +54,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByStilraphiphop($order = Criteria::ASC) Order by the stilraphiphop column
  * @method     ChildLyricQuery orderByStilhiphop($order = Criteria::ASC) Order by the stilhiphop column
  * @method     ChildLyricQuery orderByStileastcoast($order = Criteria::ASC) Order by the stileastcoast column
- * @method     ChildLyricQuery orderBylanguage($order = Criteria::ASC) Order by the pee_se_na column
+ * @method     ChildLyricQuery orderBylanguage($order = Criteria::ASC) Order by the language column
  * @method     ChildLyricQuery orderByStilskit($order = Criteria::ASC) Order by the stilskit column
  * @method     ChildLyricQuery orderByStilelektronna($order = Criteria::ASC) Order by the stilelektronna column
  * @method     ChildLyricQuery orderByStilrok($order = Criteria::ASC) Order by the stilrok column
@@ -128,7 +128,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery groupByStilraphiphop() Group by the stilraphiphop column
  * @method     ChildLyricQuery groupByStilhiphop() Group by the stilhiphop column
  * @method     ChildLyricQuery groupByStileastcoast() Group by the stileastcoast column
- * @method     ChildLyricQuery groupBylanguage() Group by the pee_se_na column
+ * @method     ChildLyricQuery groupBylanguage() Group by the language column
  * @method     ChildLyricQuery groupByStilskit() Group by the stilskit column
  * @method     ChildLyricQuery groupByStilelektronna() Group by the stilelektronna column
  * @method     ChildLyricQuery groupByStilrok() Group by the stilrok column
@@ -176,6 +176,16 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildLyricQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLyricQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildLyricQuery leftJoinLanguages($relationAlias = null) Adds a LEFT JOIN clause to the query using the Languages relation
+ * @method     ChildLyricQuery rightJoinLanguages($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Languages relation
+ * @method     ChildLyricQuery innerJoinLanguages($relationAlias = null) Adds a INNER JOIN clause to the query using the Languages relation
+ *
+ * @method     ChildLyricQuery joinWithLanguages($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Languages relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLanguages() Adds a LEFT JOIN clause and with to the query using the Languages relation
+ * @method     ChildLyricQuery rightJoinWithLanguages() Adds a RIGHT JOIN clause and with to the query using the Languages relation
+ * @method     ChildLyricQuery innerJoinWithLanguages() Adds a INNER JOIN clause and with to the query using the Languages relation
  *
  * @method     ChildLyricQuery leftJoinComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the Comments relation
  * @method     ChildLyricQuery rightJoinComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Comments relation
@@ -237,7 +247,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithVotes() Adds a RIGHT JOIN clause and with to the query using the Votes relation
  * @method     ChildLyricQuery innerJoinWithVotes() Adds a INNER JOIN clause and with to the query using the Votes relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery|\Tekstove\TekstoveBundle\Model\Entity\CommentsQuery|\Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery|\Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric18Query|\Tekstove\TekstoveBundle\Model\Entity\LyricRedirectQuery|\Tekstove\TekstoveBundle\Model\Entity\Lyric\VotesQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
@@ -275,7 +285,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric findOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column
  * @method     ChildLyric findOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column
  * @method     ChildLyric findOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column
- * @method     ChildLyric findOneBylanguage(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column
+ * @method     ChildLyric findOneBylanguage(int $language) Return the first ChildLyric filtered by the language column
  * @method     ChildLyric findOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column
  * @method     ChildLyric findOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column
  * @method     ChildLyric findOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column
@@ -352,7 +362,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric requireOneByStilraphiphop(boolean $stilraphiphop) Return the first ChildLyric filtered by the stilraphiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilhiphop(boolean $stilhiphop) Return the first ChildLyric filtered by the stilhiphop column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStileastcoast(boolean $stileastcoast) Return the first ChildLyric filtered by the stileastcoast column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildLyric requireOneBylanguage(boolean $pee_se_na) Return the first ChildLyric filtered by the pee_se_na column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBylanguage(int $language) Return the first ChildLyric filtered by the language column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilskit(boolean $stilskit) Return the first ChildLyric filtered by the stilskit column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilelektronna(boolean $stilelektronna) Return the first ChildLyric filtered by the stilelektronna column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByStilrok(boolean $stilrok) Return the first ChildLyric filtered by the stilrok column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -427,7 +437,7 @@ use Tekstove\TekstoveBundle\Model\Entity\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findByStilraphiphop(boolean $stilraphiphop) Return ChildLyric objects filtered by the stilraphiphop column
  * @method     ChildLyric[]|ObjectCollection findByStilhiphop(boolean $stilhiphop) Return ChildLyric objects filtered by the stilhiphop column
  * @method     ChildLyric[]|ObjectCollection findByStileastcoast(boolean $stileastcoast) Return ChildLyric objects filtered by the stileastcoast column
- * @method     ChildLyric[]|ObjectCollection findBylanguage(boolean $pee_se_na) Return ChildLyric objects filtered by the pee_se_na column
+ * @method     ChildLyric[]|ObjectCollection findBylanguage(int $language) Return ChildLyric objects filtered by the language column
  * @method     ChildLyric[]|ObjectCollection findByStilskit(boolean $stilskit) Return ChildLyric objects filtered by the stilskit column
  * @method     ChildLyric[]|ObjectCollection findByStilelektronna(boolean $stilelektronna) Return ChildLyric objects filtered by the stilelektronna column
  * @method     ChildLyric[]|ObjectCollection findByStilrok(boolean $stilrok) Return ChildLyric objects filtered by the stilrok column
@@ -559,7 +569,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, cache_title_full, cache_title_short, uploaded_by, text, text_bg, artist1, artist2, artist3, artist4, artist5, artist6, title, album1, album2, video, video_vbox7, video_vbox7_orig, video_youtube, video_youtube_orig, video_metacafe, video_metacafe_orig, download, image, podnovena, ip_upload, dopylnitelnoinfo, glasa, views, popularity, stilraphiphop, stilhiphop, stileastcoast, pee_se_na, stilskit, stilelektronna, stilrok, stilrok_clas, stilrok_alt, stilrok_hard, stildisko, stillatam, stilsamba, stiltango, stilsalsa, stilklasi, stildetski, stilfolk, stilnarodna, stilchalga, stilpopfolk, stilmetal, stilmetal_heavy, stilmetal_power, stilmetal_death, stilmetal_nu, stilmetal_gothic, stilmetal_symphonic, stilsoundtrack, stildance, stilRnB, stilsoul, stilnew_rave, stilreggae, stilkantri, stilpunk, stilemo, stilbreakbeat, stilbigbeat, stiljaz, stilblus, stilelectronica, stilska FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, cache_title_full, cache_title_short, uploaded_by, text, text_bg, artist1, artist2, artist3, artist4, artist5, artist6, title, album1, album2, video, video_vbox7, video_vbox7_orig, video_youtube, video_youtube_orig, video_metacafe, video_metacafe_orig, download, image, podnovena, ip_upload, dopylnitelnoinfo, glasa, views, popularity, stilraphiphop, stilhiphop, stileastcoast, language, stilskit, stilelektronna, stilrok, stilrok_clas, stilrok_alt, stilrok_hard, stildisko, stillatam, stilsamba, stiltango, stilsalsa, stilklasi, stildetski, stilfolk, stilnarodna, stilchalga, stilpopfolk, stilmetal, stilmetal_heavy, stilmetal_power, stilmetal_death, stilmetal_nu, stilmetal_gothic, stilmetal_symphonic, stilsoundtrack, stildance, stilRnB, stilsoul, stilnew_rave, stilreggae, stilkantri, stilpunk, stilemo, stilbreakbeat, stilbigbeat, stiljaz, stilblus, stilelectronica, stilska FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -1771,30 +1781,46 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the pee_se_na column
+     * Filter the query on the language column
      *
      * Example usage:
      * <code>
-     * $query->filterBylanguage(true); // WHERE pee_se_na = true
-     * $query->filterBylanguage('yes'); // WHERE pee_se_na = true
+     * $query->filterBylanguage(1234); // WHERE language = 1234
+     * $query->filterBylanguage(array(12, 34)); // WHERE language IN (12, 34)
+     * $query->filterBylanguage(array('min' => 12)); // WHERE language > 12
      * </code>
      *
-     * @param     boolean|string $language The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @see       filterByLanguages()
+     *
+     * @param     mixed $language The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildLyricQuery The current query, for fluid interface
      */
     public function filterBylanguage($language = null, $comparison = null)
     {
-        if (is_string($language)) {
-            $language = in_array(strtolower($language), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        if (is_array($language)) {
+            $useMinMax = false;
+            if (isset($language['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($language['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
         }
 
-        return $this->addUsingAlias(LyricTableMap::COL_PEE_SE_NA, $language, $comparison);
+        return $this->addUsingAlias(LyricTableMap::COL_LANGUAGE, $language, $comparison);
     }
 
     /**
@@ -2848,6 +2874,83 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_STILSKA, $stilska, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Entity\Languages object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Entity\Languages|ObjectCollection $languages The related object(s) to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByLanguages($languages, $comparison = null)
+    {
+        if ($languages instanceof \Tekstove\TekstoveBundle\Model\Entity\Languages) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_LANGUAGE, $languages->getId(), $comparison);
+        } elseif ($languages instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_LANGUAGE, $languages->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByLanguages() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Entity\Languages or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Languages relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinLanguages($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Languages');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Languages');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Languages relation Languages object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery A secondary query class using the current class as primary query
+     */
+    public function useLanguagesQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinLanguages($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Languages', '\Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery');
     }
 
     /**

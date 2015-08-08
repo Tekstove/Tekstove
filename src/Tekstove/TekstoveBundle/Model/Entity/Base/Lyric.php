@@ -22,6 +22,8 @@ use Tekstove\TekstoveBundle\Model\Entity\Comments as ChildComments;
 use Tekstove\TekstoveBundle\Model\Entity\CommentsQuery as ChildCommentsQuery;
 use Tekstove\TekstoveBundle\Model\Entity\EditAddPrevod as ChildEditAddPrevod;
 use Tekstove\TekstoveBundle\Model\Entity\EditAddPrevodQuery as ChildEditAddPrevodQuery;
+use Tekstove\TekstoveBundle\Model\Entity\Languages as ChildLanguages;
+use Tekstove\TekstoveBundle\Model\Entity\LanguagesQuery as ChildLanguagesQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Liubimi as ChildLiubimi;
 use Tekstove\TekstoveBundle\Model\Entity\LiubimiQuery as ChildLiubimiQuery;
 use Tekstove\TekstoveBundle\Model\Entity\Lyric as ChildLyric;
@@ -276,10 +278,10 @@ abstract class Lyric implements ActiveRecordInterface
     protected $stileastcoast;
 
     /**
-     * The value for the pee_se_na field.
-     * @var        boolean
+     * The value for the language field.
+     * @var        int
      */
-    protected $pee_se_na;
+    protected $language;
 
     /**
      * The value for the stilskit field.
@@ -514,6 +516,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @var        boolean
      */
     protected $stilska;
+
+    /**
+     * @var        ChildLanguages
+     */
+    protected $aLanguages;
 
     /**
      * @var        ObjectCollection|ChildComments[] Collection to store aggregation of ChildComments objects.
@@ -1188,23 +1195,13 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Get the [pee_se_na] column value.
+     * Get the [language] column value.
      *
-     * @return boolean
+     * @return int
      */
     public function getlanguage()
     {
-        return $this->pee_se_na;
-    }
-
-    /**
-     * Get the [pee_se_na] column value.
-     *
-     * @return boolean
-     */
-    public function isLanguage()
-    {
-        return $this->getlanguage();
+        return $this->language;
     }
 
     /**
@@ -2672,28 +2669,24 @@ abstract class Lyric implements ActiveRecordInterface
     } // setStileastcoast()
 
     /**
-     * Sets the value of the [pee_se_na] column.
-     * Non-boolean arguments are converted using the following rules:
-     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * Set the value of [language] column.
      *
-     * @param  boolean|integer|string $v The new value
+     * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
      */
     public function setlanguage($v)
     {
         if ($v !== null) {
-            if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-            } else {
-                $v = (boolean) $v;
-            }
+            $v = (int) $v;
         }
 
-        if ($this->pee_se_na !== $v) {
-            $this->pee_se_na = $v;
-            $this->modifiedColumns[LyricTableMap::COL_PEE_SE_NA] = true;
+        if ($this->language !== $v) {
+            $this->language = $v;
+            $this->modifiedColumns[LyricTableMap::COL_LANGUAGE] = true;
+        }
+
+        if ($this->aLanguages !== null && $this->aLanguages->getId() !== $v) {
+            $this->aLanguages = null;
         }
 
         return $this;
@@ -3930,7 +3923,7 @@ abstract class Lyric implements ActiveRecordInterface
             $this->stileastcoast = (null !== $col) ? (boolean) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 33 + $startcol : LyricTableMap::translateFieldName('language', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->pee_se_na = (null !== $col) ? (boolean) $col : null;
+            $this->language = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 34 + $startcol : LyricTableMap::translateFieldName('Stilskit', TableMap::TYPE_PHPNAME, $indexType)];
             $this->stilskit = (null !== $col) ? (boolean) $col : null;
@@ -4078,6 +4071,9 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aLanguages !== null && $this->language !== $this->aLanguages->getId()) {
+            $this->aLanguages = null;
+        }
     } // ensureConsistency
 
     /**
@@ -4117,6 +4113,7 @@ abstract class Lyric implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aLanguages = null;
             $this->collCommentss = null;
 
             $this->collEditAddPrevods = null;
@@ -4227,6 +4224,18 @@ abstract class Lyric implements ActiveRecordInterface
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
+
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aLanguages !== null) {
+                if ($this->aLanguages->isModified() || $this->aLanguages->isNew()) {
+                    $affectedRows += $this->aLanguages->save($con);
+                }
+                $this->setLanguages($this->aLanguages);
+            }
 
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
@@ -4455,8 +4464,8 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_STILEASTCOAST)) {
             $modifiedColumns[':p' . $index++]  = 'stileastcoast';
         }
-        if ($this->isColumnModified(LyricTableMap::COL_PEE_SE_NA)) {
-            $modifiedColumns[':p' . $index++]  = 'pee_se_na';
+        if ($this->isColumnModified(LyricTableMap::COL_LANGUAGE)) {
+            $modifiedColumns[':p' . $index++]  = 'language';
         }
         if ($this->isColumnModified(LyricTableMap::COL_STILSKIT)) {
             $modifiedColumns[':p' . $index++]  = 'stilskit';
@@ -4685,8 +4694,8 @@ abstract class Lyric implements ActiveRecordInterface
                     case 'stileastcoast':
                         $stmt->bindValue($identifier, (int) $this->stileastcoast, PDO::PARAM_INT);
                         break;
-                    case 'pee_se_na':
-                        $stmt->bindValue($identifier, (int) $this->pee_se_na, PDO::PARAM_INT);
+                    case 'language':
+                        $stmt->bindValue($identifier, $this->language, PDO::PARAM_INT);
                         break;
                     case 'stilskit':
                         $stmt->bindValue($identifier, (int) $this->stilskit, PDO::PARAM_INT);
@@ -5204,6 +5213,21 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->aLanguages) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'languages';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'languages';
+                        break;
+                    default:
+                        $key = 'Languages';
+                }
+
+                $result[$key] = $this->aLanguages->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
             if (null !== $this->collCommentss) {
 
                 switch ($keyType) {
@@ -5932,8 +5956,8 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_STILEASTCOAST)) {
             $criteria->add(LyricTableMap::COL_STILEASTCOAST, $this->stileastcoast);
         }
-        if ($this->isColumnModified(LyricTableMap::COL_PEE_SE_NA)) {
-            $criteria->add(LyricTableMap::COL_PEE_SE_NA, $this->pee_se_na);
+        if ($this->isColumnModified(LyricTableMap::COL_LANGUAGE)) {
+            $criteria->add(LyricTableMap::COL_LANGUAGE, $this->language);
         }
         if ($this->isColumnModified(LyricTableMap::COL_STILSKIT)) {
             $criteria->add(LyricTableMap::COL_STILSKIT, $this->stilskit);
@@ -6279,6 +6303,57 @@ abstract class Lyric implements ActiveRecordInterface
         $this->copyInto($copyObj, $deepCopy);
 
         return $copyObj;
+    }
+
+    /**
+     * Declares an association between this object and a ChildLanguages object.
+     *
+     * @param  ChildLanguages $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Entity\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setLanguages(ChildLanguages $v = null)
+    {
+        if ($v === null) {
+            $this->setlanguage(NULL);
+        } else {
+            $this->setlanguage($v->getId());
+        }
+
+        $this->aLanguages = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildLanguages object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyric($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildLanguages object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildLanguages The associated ChildLanguages object.
+     * @throws PropelException
+     */
+    public function getLanguages(ConnectionInterface $con = null)
+    {
+        if ($this->aLanguages === null && ($this->language !== null)) {
+            $this->aLanguages = ChildLanguagesQuery::create()->findPk($this->language, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aLanguages->addLyrics($this);
+             */
+        }
+
+        return $this->aLanguages;
     }
 
 
@@ -7445,6 +7520,9 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function clear()
     {
+        if (null !== $this->aLanguages) {
+            $this->aLanguages->removeLyric($this);
+        }
         $this->id = null;
         $this->cache_title_full = null;
         $this->cache_title_short = null;
@@ -7478,7 +7556,7 @@ abstract class Lyric implements ActiveRecordInterface
         $this->stilraphiphop = null;
         $this->stilhiphop = null;
         $this->stileastcoast = null;
-        $this->pee_se_na = null;
+        $this->language = null;
         $this->stilskit = null;
         $this->stilelektronna = null;
         $this->stilrok = null;
@@ -7573,6 +7651,7 @@ abstract class Lyric implements ActiveRecordInterface
         $this->singleLyric18 = null;
         $this->collLyricRedirects = null;
         $this->collVotess = null;
+        $this->aLanguages = null;
     }
 
     /**

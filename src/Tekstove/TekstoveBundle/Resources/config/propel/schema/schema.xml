@@ -497,35 +497,9 @@
             <parameter name="Engine" value="InnoDB"/>
         </vendor>
     </table>
-    <table name="users" idMethod="native" phpName="Users">
-        <column name="username" phpName="Username" type="VARCHAR" size="30" required="true"/>
-        <column name="password" phpName="Password" type="VARCHAR" size="32" required="true"/>
-        <column name="password_mod" phpName="PasswordMod" type="VARCHAR" size="32" required="true"/>
-        <column name="password_mod_coockie" phpName="PasswordModCoockie" type="VARCHAR" size="32" required="true"/>
-        <column name="id" phpName="Id" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
-        <column name="mail" phpName="Mail" type="VARCHAR" size="37" required="true"/>
-        <column name="class" phpName="Class" type="INTEGER" required="true" defaultValue="0"/>
-        <column name="classCustomName" phpName="Classcustomname" type="VARCHAR" size="255"/>
-        <column name="avatar" phpName="Avatar" type="VARCHAR" size="100"/>
-        <column name="about" phpName="About" type="LONGVARCHAR" required="true"/>
-        <column name="reg_date" phpName="RegDate" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
-        <column name="pozdrav" phpName="Pozdrav" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="br_pesni" phpName="BrPesni" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
-        <column name="rajdane" phpName="Rajdane" type="VARCHAR" size="8" required="true"/>
-        <column name="prevodi" phpName="Prevodi" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
-        <column name="autoplay" phpName="Autoplay" type="SMALLINT" size="1" sqlType="smallint(1) unsigned" required="true" defaultValue="1"/>
-        <column name="skype" phpName="Skype" type="VARCHAR" size="50" required="true"/>
-        <column name="activity_points" phpName="ActivityPoints" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
-        <column name="banned" phpName="Banned" type="TIMESTAMP"/>
-        <column name="chatMessages" phpName="Chatmessages" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true" defaultValue="0"/>
-        <unique name="username">
-            <unique-column name="username"/>
-        </unique>
-        <unique name="mail">
-            <unique-column name="mail"/>
-        </unique>
-        <vendor type="mysql">
-            <parameter name="Engine" value="InnoDB"/>
-        </vendor>
-    </table>
+    
+    <external-schema
+        filename="/var/www/tekstoveSymfony/src/Tekstove/TekstoveBundle/Resources/config/propel/schema/tekstove/user.xml"
+    />
+    
 </database>
