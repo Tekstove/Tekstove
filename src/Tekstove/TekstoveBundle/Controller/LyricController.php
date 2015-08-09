@@ -20,9 +20,9 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $repo = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
+        $repo = $this->getDoctrine()->getRepository('TekstoveBundle:Lyric');
         
-        $lyric = $repo->findOneById($id);
+        $lyric = $repo->find($id);
         
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
             throw new \Exception('Unauthorised access!');

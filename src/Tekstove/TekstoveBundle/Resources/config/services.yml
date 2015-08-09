@@ -51,7 +51,7 @@ services:
             db: @tekstoveUsersManager
 
     security.access.post_voter:
-        class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\Lyric
+        class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
         public: false
         tags:
             - { name: security.voter }

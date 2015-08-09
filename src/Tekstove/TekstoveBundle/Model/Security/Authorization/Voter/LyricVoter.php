@@ -4,15 +4,16 @@ namespace Tekstove\TekstoveBundle\Model\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Tekstove\TekstoveBundle\Model;
+
+use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Entity\Lyric;
 
 /**
  * Description of Lyric
  *
  * @author potaka
  */
-class Lyric implements VoterInterface
+class LyricVoter implements VoterInterface
 {
     public function supportsAttribute($attribute)
     {
@@ -21,7 +22,7 @@ class Lyric implements VoterInterface
 
     public function supportsClass($class)
     {
-        if ($class instanceof Model\Entity\Lyric) {
+        if ($class instanceof Lyric) {
             return true;
         }
         
@@ -40,7 +41,7 @@ class Lyric implements VoterInterface
             case 'edit':
                 $user = $token->getUser();
                 /* @var $user Model\User */
-                if ($user instanceof Model\User && $user->getId() === $object->getUploader()) {
+                if ($user instanceof User && $user->getId() === $object->getUploader()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 

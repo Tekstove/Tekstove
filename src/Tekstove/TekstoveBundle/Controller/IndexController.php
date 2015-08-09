@@ -14,39 +14,30 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('TekstoveBundle:Lyric');
+        /* @var $repo \Tekstove\TekstoveBundle\Entity\LyricRepository */
         
-        $lastLyricQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
-        $lastLyricQuery->orderBy('id', \Propel\Runtime\ActiveQuery\Criteria::DESC);
-        $lastLyricQuery->limit(10);
-        $lastLyrics = $lastLyricQuery->find();
+        $latestQueryBuilder = $repo->createQueryBuilder('l');
+        $repo->filterPublicAvailable($latestQueryBuilder);
+        $latestQueryBuilder->addOrderBy('l.id', 'desc');
+        $latestQueryBuilder->setMaxResults(10);
+        $lastLyrics = $latestQueryBuilder->getQuery()->getResult();
         
-        $lastTranslatedQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
-        $lastTranslatedQuery->where("text_bg IS NOT NULL");
-        $lastTranslatedQuery->addDescendingOrderByColumn('id');
-        $lastTranslatedQuery->limit(10);
-        $lastTranslated = $lastTranslatedQuery->find();
+        $lastTranslatedQueryBuilder = $repo->createQueryBuilder('l');
+        $repo->filterPublicAvailable($lastTranslatedQueryBuilder);
+        $lastTranslatedQueryBuilder->setMaxResults(10);
+        $lastTranslatedQueryBuilder->andWhere($lastTranslatedQueryBuilder->expr()->isNotNull('l.textBg'));
+        // @TODO add order
+        $lastTranslated = $lastTranslatedQueryBuilder->getQuery()->getResult();
 
-        $popularQuery = \Tekstove\TekstoveBundle\Model\Entity\LyricQuery::create();
-        $popularQuery->addDescendingOrderByColumn('popularity');
-        $popularQuery->limit(10);
-        $popular = $popularQuery->find();
+        $popular = [];
         
-        $mostViewdQuery = LyricQuery::create();
-        $mostViewdQuery->addDescendingOrderByColumn('views');
-        $mostViewdQuery->limit(10);
-        $mostViewd = $mostViewdQuery->find();
+        $mostViewd = [];
         
-        $lastVotesQuery = LyricQuery::create();
-        $lastVotesQuery->distinct();
-        $lastVotesQuery->innerJoinVotes();
-        $lastVotesQuery->addDescendingOrderByColumn(\Tekstove\TekstoveBundle\Model\Entity\Lyric\Map\VotesTableMap::TABLE_NAME . '.id');
-        $lastVotesQuery->limit(10);
-        $lastVoted = $lastVotesQuery->find();
+        $lastVoted = [];
         
-        $albumQuery = \Tekstove\TekstoveBundle\Model\Entity\AlbumQuery::create();
-        $albumQuery->addDescendingOrderByColumn('id');
-        $albumQuery->limit(5);
-        $lastAlbums = $albumQuery->find();
+        $lastAlbums = [];
         
         return [
             'lastlyrics' => $lastLyrics,
