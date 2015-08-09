@@ -1,10 +1,9 @@
 <?php
 
 namespace Tekstove\TekstoveBundle\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Tekstove\TekstoveBundle\Model\Entity\LyricQuery;
 
 /**
  * @Template()
@@ -28,12 +27,22 @@ class IndexController extends Controller
         $repo->filterPublicAvailable($lastTranslatedQueryBuilder);
         $lastTranslatedQueryBuilder->setMaxResults(10);
         $lastTranslatedQueryBuilder->andWhere($lastTranslatedQueryBuilder->expr()->isNotNull('l.textBg'));
-        // @TODO add order
+        $lastTranslatedQueryBuilder->innerJoin('l.translations', 't');
+        $lastTranslatedQueryBuilder->groupBy('l.id');
+        $lastTranslatedQueryBuilder->orderBy('t.id', 'desc');
         $lastTranslated = $lastTranslatedQueryBuilder->getQuery()->getResult();
 
-        $popular = [];
+        $popularQueryBuilder = $repo->createQueryBuilder('l');
+        $repo->filterPublicAvailable($popularQueryBuilder);
+        $popularQueryBuilder->addOrderBy('l.popularity', 'desc');
+        $popularQueryBuilder->setMaxResults(10);
+        $popular = $popularQueryBuilder->getQuery()->getResult();
         
-        $mostViewd = [];
+        $mostViewedQb = $repo->createQueryBuilder('l');
+        $repo->filterPublicAvailable($mostViewedQb);
+        $mostViewedQb->addOrderBy('l.views', 'desc');
+        $mostViewedQb->setMaxResults(10);
+        $mostViewed = $mostViewedQb->getQuery()->getResult();
         
         $lastVoted = [];
         
@@ -43,7 +52,7 @@ class IndexController extends Controller
             'lastlyrics' => $lastLyrics,
             'lastTranslated' => $lastTranslated,
             'popular' => $popular,
-            'mostViewed' => $mostViewd,
+            'mostViewed' => $mostViewed,
             'lastVoted' => $lastVoted,
             'albums' => $lastAlbums,
         ];

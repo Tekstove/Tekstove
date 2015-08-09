@@ -39,6 +39,11 @@ class Lyric
     private $textBg;
     
     /**
+     * @ORM\OneToMany(targetEntity="Tekstove\TekstoveBundle\Entity\Lyric\Translation", mappedBy="lyric")
+     */
+    private $translations;
+    
+    /**
      * @ORM\Column(name="cache_title_short")
      */
     private $cacheTitleShort;
@@ -108,5 +113,9 @@ class Lyric
     
     public function getPopularity() {
         return $this->popularity;
+    }
+    
+    public function getTranslations() {
+        return $this->translations;
     }
 }
