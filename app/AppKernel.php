@@ -17,11 +17,15 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             
-            new Propel\PropelBundle\PropelBundle(),
-            
+            /*
+             * Vendor
+             */
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             
+            /*
+             * Local
+             */
             new Tekstove\TekstoveBundle\TekstoveBundle(),
         );
 

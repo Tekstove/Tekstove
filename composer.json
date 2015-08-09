@@ -10,7 +10,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.4",
         "symfony/symfony": "2.7.*",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/dbal": "<2.5",
@@ -22,8 +22,6 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         
-        "propel/propel": "2.*@dev",
-        "propel/propel-bundle": "2.*@dev",
         "excelwebzone/recaptcha-bundle": "1.*",
         "friendsofsymfony/jsrouting-bundle": "*"
     },
