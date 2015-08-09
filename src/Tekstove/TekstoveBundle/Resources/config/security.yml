@@ -1,13 +1,15 @@
 security:
     encoders:
-        Tekstove\TekstoveBundle\Model\User:
-            class: Tekstove\TekstoveBundle\Model\User
+        Tekstove\TekstoveBundle\Entity\User:
+            class: Tekstove\TekstoveBundle\Entity\User
             algorithm: md5
             encode_as_base64: false
             iterations: 1
     providers:
-        webservice:
-            id: tekstoveBundleUserProvider
+        localDb:
+            entity:
+                class: Tekstove\TekstoveBundle\Entity\User
+                property: username
     firewalls:
         secured_area:
             pattern:   ^/

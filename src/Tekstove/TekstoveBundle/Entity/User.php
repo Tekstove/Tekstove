@@ -1,15 +1,32 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-class User extends Entity implements \Symfony\Component\Security\Core\User\AdvancedUserInterface, \Serializable
+/**
+ * @ORM\Table(name="users")
+ * @ORM\Entity()
+ */
+class User implements AdvancedUserInterface, \Serializable
 {
 
-    private $manager;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     private $id;
+    /**
+     * @ORM\Column()
+     */
     private $username;
+    /**
+     * @ORM\Column()
+     */
     private $password;
     private $about;
     private $avatar;
@@ -17,17 +34,7 @@ class User extends Entity implements \Symfony\Component\Security\Core\User\Advan
     private $salt = '';
     private $roles = null;
 
-    public function __construct($data, User\Manager $manager) {
-        $this->manager = $manager;
-
-        if (is_array($data)) {
-            $this->id = (int) $data['id'];
-            $this->username = $data['username'];
-            $this->password = $data['password'];
-            $this->about = $data['about'];
-            $this->avatar = $data['avatar'];
-            $this->className = $data['classCustomName'];
-        }
+    public function __construct() {
     }
 
     public function getId() {
@@ -35,11 +42,7 @@ class User extends Entity implements \Symfony\Component\Security\Core\User\Advan
     }
 
     public function getRoles() {
-        if ($this->roles === null) {
-            $this->roles = $this->manager->getRoles($this);
-        }
-
-        return $this->roles;
+        return [];
     }
 
     public function getPassword() {
@@ -77,7 +80,7 @@ class User extends Entity implements \Symfony\Component\Security\Core\User\Advan
     }
 
     public function isEqualTo(UserInterface $user) {
-        if (!$user instanceof Tekstove\TekstoveBundle\Model\User) {
+        if (!$user instanceof User) {
             return false;
         }
 
@@ -98,7 +101,6 @@ class User extends Entity implements \Symfony\Component\Security\Core\User\Advan
 
     public function __sleep() {
         $this->getRoles();
-        $this->manager = null;
 
         return ['id', 'username', 'password', 'roles'];
     }
