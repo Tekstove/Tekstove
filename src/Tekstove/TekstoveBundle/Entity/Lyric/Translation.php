@@ -29,7 +29,7 @@ class Translation
     private $text;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Tekstove\TekstoveBundle\Entity\Lyric")
+     * @ORM\ManyToOne(targetEntity="Tekstove\TekstoveBundle\Entity\Lyric", inversedBy="translations")
      */
     private $lyric;
 
