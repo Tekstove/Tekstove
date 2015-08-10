@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Tekstove\TekstoveBundle\Form\LyricType;
+
 /**
  * Description of LyricController
  *
@@ -42,7 +44,8 @@ class LyricController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $lyric = $form->getData();
-            $lyric->save();
+            $this->getDoctrine()->getManager()->persist($lyric);
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
         
@@ -65,7 +68,7 @@ class LyricController extends Controller
     
     public function createCreateForm()
     {
-        $formType = new \Tekstove\TekstoveBundle\Form\Type\LyricType();
+        $formType = new LyricType();
         $form = $this->createForm($formType);
         $form->add('submit', 'submit');
         

@@ -58,6 +58,12 @@ class Lyric
      */
     private $popularity;
 
+    public function __construct() {
+        $this->views = 0;
+        $this->popularity = 0;
+    }
+
+    
     /**
      * Get id
      *
@@ -95,6 +101,10 @@ class Lyric
         return $this->text;
     }
     
+    public function setText($text) {
+        $this->text = $text;
+    }
+
     public function getTextBg() {
         return $this->textBg;
     }

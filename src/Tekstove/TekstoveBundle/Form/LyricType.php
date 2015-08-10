@@ -16,6 +16,7 @@ class LyricType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('text')
             ->add('cacheTitleShort')
         ;
     }
