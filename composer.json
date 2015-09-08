@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         
         "excelwebzone/recaptcha-bundle": "1.*",
-        "friendsofsymfony/jsrouting-bundle": "*"
+        "friendsofsymfony/jsrouting-bundle": "*",
+        "knplabs/knp-paginator-bundle": "2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
