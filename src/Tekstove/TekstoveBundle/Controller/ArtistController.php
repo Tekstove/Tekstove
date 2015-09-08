@@ -43,7 +43,7 @@ class ArtistController extends Controller
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1) /* page number */,
-                20 /* limit per page */
+            30 /* limit per page */
         );
 
         return [
