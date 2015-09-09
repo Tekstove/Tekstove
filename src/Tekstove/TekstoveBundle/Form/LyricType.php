@@ -33,9 +33,14 @@ class LyricType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Tekstove\TekstoveBundle\Entity\Lyric'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Tekstove\TekstoveBundle\Entity\Lyric',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                ]
+            )
+        );
     }
 
     /**

@@ -4,6 +4,8 @@ namespace Tekstove\TekstoveBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as SymfonyValidator;
+
 /**
  * Lyric
  *
@@ -25,11 +27,13 @@ class Lyric
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @SymfonyValidator\NotBlank()
      */
     private $title;
     
     /**
      * @ORM\Column()
+     * @SymfonyValidator\NotBlank()
      */
     private $text;
     
@@ -39,7 +43,7 @@ class Lyric
     private $textBg;
     
     /**
-     * @ORM\Column(name="extra_info")
+     * @ORM\Column(name="extra_info", nullable=true)
      */
     private $extraInfo;
     
