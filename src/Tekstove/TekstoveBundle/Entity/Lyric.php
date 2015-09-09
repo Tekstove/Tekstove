@@ -39,6 +39,11 @@ class Lyric
     private $textBg;
     
     /**
+     * @ORM\Column(name="extra_info")
+     */
+    private $extraInfo;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Tekstove\TekstoveBundle\Entity\Lyric\Translation", mappedBy="lyric")
      */
     private $translations;
@@ -109,6 +114,14 @@ class Lyric
         return $this->textBg;
     }
     
+    public function getExtraInfo() {
+        return $this->extraInfo;
+    }
+
+    public function setExtraInfo($extraInfo) {
+        $this->extraInfo = $extraInfo;
+    }
+            
     public function getCacheTitleShort() {
         return $this->cacheTitleShort;
     }

@@ -4,7 +4,7 @@ namespace Tekstove\TekstoveBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LyricType extends AbstractType
 {
@@ -17,14 +17,21 @@ class LyricType extends AbstractType
         $builder
             ->add('title')
             ->add('text')
-            ->add('cacheTitleShort')
+            ->add(
+                'textBg',
+                null,
+                [
+                    'label' => 'Bulgarian translation'
+                ]
+            )
+            ->add('extraInfo')
         ;
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Tekstove\TekstoveBundle\Entity\Lyric'
