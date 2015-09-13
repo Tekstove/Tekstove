@@ -55,8 +55,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
     
     public function setPassword($password) {
-        $passwordEncoded = md5($password);
-        $this->password = $passwordEncoded;
+        $this->password = $password;
     }
     
     public function getMail() {

@@ -67,10 +67,18 @@ class UserController extends Controller
         
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $lyric = $form->getData();
-                $this->getDoctrine()->getManager()->persist($lyric);
-                $this->getDoctrine()->getManager()->flush();
-                return $this->redirect('login');
+                $user = $form->getData();
+                $plainPasswordValue = $form->get('plain_password')->getData();
+                $hashedPassword = md5($plainPasswordValue);
+                $user->setPassword($hashedPassword);
+                try {
+                    $this->getDoctrine()->getManager()->persist($user);
+                    $this->getDoctrine()->getManager()->flush();
+                    return $this->redirect('login');
+                } catch (\Exception $e) {
+                    // @TODO handle validation for prepersist listeners
+                    throw $e;
+                }
             }
             
         return [
