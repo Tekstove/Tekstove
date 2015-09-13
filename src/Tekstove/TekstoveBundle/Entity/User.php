@@ -33,6 +33,9 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column()
      */
     private $mail;
+    /**
+     * @ORM\Column()
+     */
     private $about;
     private $avatar;
     private $className;

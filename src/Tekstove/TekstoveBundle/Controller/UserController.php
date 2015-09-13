@@ -12,6 +12,13 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class UserController extends Controller
 {
+    
+    private function getDefaultRepo()
+    {
+        $repo = $this->getDoctrine()->getRepository('TekstoveBundle:User');
+        return $repo;
+    }
+    
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
@@ -88,8 +95,7 @@ class UserController extends Controller
     
     public function viewAction($id)
     {
-        $userManager = $this->get('tekstoveUsersManager');
-        $user = $userManager->findById($id);
+        $user = $this->getDefaultRepo()->find($id);
         return [
             'user' => $user,
         ];
