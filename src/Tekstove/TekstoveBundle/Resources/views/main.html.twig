@@ -29,6 +29,25 @@
             };
         </script>
 
+        <style>
+            .t-nopadding {
+                padding: 0;
+            }
+            
+            .t-nomargin {
+                margin: 0;
+            }
+            
+            .t-menu-horizontal {
+                background: black;
+            }
+            
+            .t-menu-horizontal a, .t-menu-horizontal a:visited {
+                color: white;
+            }
+            
+        </style>
+        
         <script type="text/javascript" src="//s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
         <!-- End Cookie Consent plugin -->
 
@@ -43,8 +62,8 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="container-fluid top-menu">
-                <div class="col-md-6">
+            <div class="row top-menu">
+                <div class="col-md-6 t-nomargin t-nopadding">
                     <div class="top-menu-home">
                         <div class="menu_logo">
                             <a title="Начална страница" href="/">
@@ -75,16 +94,17 @@
                 <div class="col-md-2">
                     <div class="top-menu-container">
                         <span class="top_menu_gore_dqsno">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Изпрати Tекст</a><br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Изпрати Албум</del></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Прати Tекст</a>&nbsp;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Прати Албум</del></a>
                         </span>
                     </div>
                 </div>
             </div>
 
             <nav>
-                <div class="container-fluid">
+                <div class="row t-menu-horizontal">
                     <div class="col-md-5">
+                        &nbsp;&nbsp;&nbsp;
                         <a href="{{ path('index') }}">Начало</a>&nbsp;
                         <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;
                         <a href="#"><del>Албуми</del></a>&nbsp;
@@ -110,7 +130,7 @@
                 </div>
             </nav>
 
-            <div class="container-fluid">
+            <div class="row">
                 <div class="prelivane_bukvi_header"></div>
                 <div class="bukvi" id="bukvi_bg"></div>
             </div>
