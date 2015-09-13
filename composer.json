@@ -22,7 +22,7 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         
-        "excelwebzone/recaptcha-bundle": "1.*",
+        "excelwebzone/recaptcha-bundle": "2.3.*@dev",
         "friendsofsymfony/jsrouting-bundle": "*",
         "knplabs/knp-paginator-bundle": "2.*"
     },

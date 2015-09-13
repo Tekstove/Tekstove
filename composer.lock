@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fbf05b84adf74a1a4be231ffddcd7252",
+    "hash": "a5bb3b6653a7015652c15b08ba3aea4b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -704,21 +704,21 @@
         },
         {
             "name": "excelwebzone/recaptcha-bundle",
-            "version": "v1.4.1",
+            "version": "2.3.x-dev",
             "target-dir": "EWZ/Bundle/RecaptchaBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "3ebd8fec320c5346814601086894f79c141dd077"
+                "reference": "6bb253a48f7d601d4b1191dbf43091e294f2436e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/3ebd8fec320c5346814601086894f79c141dd077",
-                "reference": "3ebd8fec320c5346814601086894f79c141dd077",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/6bb253a48f7d601d4b1191dbf43091e294f2436e",
+                "reference": "6bb253a48f7d601d4b1191dbf43091e294f2436e",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "~2.4"
+                "symfony/framework-bundle": "2.*"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -742,7 +742,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2015-07-31 23:57:07"
+            "time": "2015-01-21 15:08:30"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -1898,7 +1898,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "excelwebzone/recaptcha-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

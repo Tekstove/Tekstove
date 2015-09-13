@@ -28,6 +28,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column()
      */
     private $password;
+    
+    /**
+     * @ORM\Column()
+     */
+    private $mail;
     private $about;
     private $avatar;
     private $className;
@@ -48,6 +53,19 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPassword() {
         return $this->password;
     }
+    
+    public function setPassword($password) {
+        $passwordEncoded = md5($password);
+        $this->password = $passwordEncoded;
+    }
+    
+    public function getMail() {
+        return $this->mail;
+    }
+    
+    public function setMail($mail) {
+        $this->mail = $mail;
+    }
 
     public function getSalt() {
         return $this->salt;
@@ -57,6 +75,10 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->username;
     }
     
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+        
     public function getAbout() {
         return $this->about;
     }

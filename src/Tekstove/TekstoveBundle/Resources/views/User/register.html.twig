@@ -1,10 +1,6 @@
 {% extends 'TekstoveBundle::main.html.twig' %}
 
 {% block content %}
-    {% if error %}
-        {{ error|e }}
-    {% endif %}
-    
     {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.password) }}
