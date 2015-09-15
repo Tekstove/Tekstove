@@ -7,7 +7,7 @@ before_script:
   - mv app/config/parameters_travis.yml app/config/parameters.yml
   - mysql -e 'create database tekstove_lyric;'
   - composer self-update
-  - composer install --prefer-dist
+  - composer install
 
 script:
     - app/console doctrine:mapping:info
