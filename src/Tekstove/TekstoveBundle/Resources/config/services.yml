@@ -3,55 +3,8 @@ parameters:
     tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
     
 services:
-    tekstoveDb:
-        class: Tekstove\TekstoveBundle\Model\Db\Db
-        arguments:
-            db_name: "%database_name%"
-            user: "%database_user%"
-            password: "%database_password%"
-            host: "%database_host%"
-            charset: "UTF8"
-            port: "%database_port%"
-    tekstoveLyricManager:
-        class: Tekstove\TekstoveBundle\Model\Lyric\Manager
-        arguments:
-            db: @tekstoveDb
-        calls:
-            - [setAcl, ["@security.context"]]
-            - [setEventDispatcher, [@event_dispatcher]]
-            - [addEventSubscribers]
-            - [setArtistManager, [@tekstoveArtistManager]]
-            - [setUserManager, [@tekstoveUsersManager]]
-            - [setLanguageManager, [@tekstoveLanguageManager]]
-            
-    tekstoveArtistManager:
-        class: Tekstove\TekstoveBundle\Model\Artist\Manager
-        arguments:
-            db: @tekstoveDb
-    tekstoveVoteManager:
-        class: Tekstove\TekstoveBundle\Model\Lyric\Vote\Manager
-        arguments:
-            db: @tekstoveDb
-    tekstoveAlbumManager:
-        class: Tekstove\TekstoveBundle\Model\Album\Manager
-        arguments:
-            db: @tekstoveDb
-            artistManager: @tekstoveArtistManager
-    tekstoveUsersManager:
-        class: Tekstove\TekstoveBundle\Model\User\Manager
-        arguments:
-            db: @tekstoveDb
-    tekstoveLanguageManager:
-        class: Tekstove\TekstoveBundle\Model\Lyric\Language\Manager
-        arguments:
-            db: @tekstoveDb
-    tekstoveBundleUserProvider:
-        class: "%tekstoveBundleUserProvider.class%"
-        arguments:
-            db: @tekstoveUsersManager
-
     security.access.post_voter:
-        class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\Lyric
+        class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
         public: false
         tags:
             - { name: security.voter }

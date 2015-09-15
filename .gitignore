@@ -1,15 +1,11 @@
-nbproject/
-composer.lock
-vendor/
-app/cache/*
-app/logs/*
-app/config/parameters.yml
-app/bootstrap.php.cache
-web/bundles
-web/js/fos_js_routes.js
+/nbproject
+/vendor
+/app/cache/*
+/app/logs/*
+/app/config/parameters.yml
+/app/bootstrap.php.cache
+/web/bundles
+/web/js/fos_js_routes.js
 
 /app/scripts/migrations/vendor
 /app/scripts/migrations/phinx.yml
-
-# temporary fix for propel bundle bug
-/Tekstove

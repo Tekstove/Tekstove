@@ -12,6 +12,13 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class UserController extends Controller
 {
+    
+    private function getDefaultRepo()
+    {
+        $repo = $this->getDoctrine()->getRepository('TekstoveBundle:User');
+        return $repo;
+    }
+    
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
@@ -39,54 +46,56 @@ class UserController extends Controller
             );
     }
     
-    public function registerAction(Request $request)
+    protected function createRegisterForm()
     {
-        $error = null;
+        $form = $this->createForm(
+            new \Tekstove\TekstoveBundle\Form\UserType(),
+            null,
+            [
+                'action' => $this->generateUrl('register'),
+            ]
+        );
         
-        $formBuilder = $this->createFormBuilder([]);
-        $formBuilder->add('username', 'text');
-        $formBuilder->add('password', 'password');
-        $formBuilder->add('password2', 'password');
-        $formBuilder->add('mail', 'email');
         $recaptchaOptions = [
             'mapped'      => false,
             'constraints' => [
                 new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True,
             ],
         ];
-        $formBuilder->add('recaptcha', 'ewz_recaptcha', $recaptchaOptions);
-        $formBuilder->add('register', 'submit');
+        $form->add('recaptcha', 'ewz_recaptcha', $recaptchaOptions);
+        $form->add('register', 'submit');
         
-        $form = $formBuilder->getForm();
-        /* @var $form \Symfony\Component\Form\Form */
+        return $form;
+    }
+    
+    public function registerAction(Request $request)
+    {
+        $form = $this->createRegisterForm();
         
-        if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            if (false === $form->isValid()) {
-                $form->getErrors();
-            }
-            $userManager = $this->get('tekstoveUsersManager');
-            /* @var $userManager \Tekstove\TekstoveBundle\Model\User\Manager */
-            try {
-                $requestData = $request->request->all();
-                $user = $userManager->register($requestData['form']);
-                return $this->redirect('login');
-            } catch (\Tekstove\TekstoveBundle\Model\User\Exception\Validation $e) {
-                $error = $e->getMessage();
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $plainPasswordValue = $form->get('plain_password')->getData();
+                $hashedPassword = md5($plainPasswordValue);
+                $user->setPassword($hashedPassword);
+                try {
+                    $this->getDoctrine()->getManager()->persist($user);
+                    $this->getDoctrine()->getManager()->flush();
+                    return $this->redirect('login');
+                } catch (\Exception $e) {
+                    // @TODO handle validation for prepersist listeners
+                    throw $e;
+                }
             }
             
-        }
-        
         return [
-            'error' => $error,
             'form' => $form->createView(),
         ];
     }
     
     public function viewAction($id)
     {
-        $userManager = $this->get('tekstoveUsersManager');
-        $user = $userManager->findById($id);
+        $user = $this->getDefaultRepo()->find($id);
         return [
             'user' => $user,
         ];
