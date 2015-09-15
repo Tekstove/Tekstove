@@ -13,5 +13,5 @@ script:
     - app/console doctrine:mapping:info
 
 notifications:
-    on_success: always
+    on_success: never
     on_failure: always
