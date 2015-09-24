@@ -53,6 +53,12 @@ class Lyric
     private $translations;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Tekstove\TekstoveBundle\Entity\User")
+     * @ORM\JoinColumn(name="uploaded_by", referencedColumnName="id", nullable=true)
+     */
+    private $uploadedBy;
+    
+    /**
      * @ORM\Column(name="cache_title_short")
      */
     private $cacheTitleShort;
@@ -144,5 +150,13 @@ class Lyric
     
     public function getTranslations() {
         return $this->translations;
+    }
+    
+    public function getUploadedBy() {
+        return $this->uploadedBy;
+    }
+    
+    public function setUploadedBy($uploadedBy) {
+        $this->uploadedBy = $uploadedBy;
     }
 }

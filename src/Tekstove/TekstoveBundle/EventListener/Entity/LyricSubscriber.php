@@ -5,7 +5,10 @@ namespace Tekstove\TekstoveBundle\EventListener\Entity;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+
 use Tekstove\TekstoveBundle\Entity\Lyric;
+use Tekstove\TekstoveBundle\Entity\User;
 
 /**
  * Description of LyricSubscriber
@@ -15,6 +18,18 @@ use Tekstove\TekstoveBundle\Entity\Lyric;
 class LyricSubscriber implements EventSubscriber
 {
 
+    private $tokenStorage;
+    
+    public function __construct(TokenStorage $tokenStorage) {
+        $this->tokenStorage = $tokenStorage;
+    }
+    
+    private function getUser()
+    {
+        return $this->tokenStorage->getToken()->getUser();
+    }
+
+    
     public function getSubscribedEvents()
     {
         return array(
@@ -28,6 +43,11 @@ class LyricSubscriber implements EventSubscriber
         $entity = $args->getEntity();
         if ($entity instanceof Lyric) {
             $this->updateCache($entity);
+        }
+        
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $entity->setUploadedBy($user);
         }
     }
 

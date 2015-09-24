@@ -17,7 +17,6 @@
                     {% if (is_granted('edit_video', lyric)) %}
                         &nbsp;&nbsp;<a href="#">@Смени клипа</a>
                     {% endif %}
-                    
                 </div>
             </td>
         </tr>
@@ -98,19 +97,17 @@
 
 
 
-    <div style="width:100%">
-
-        {#{% if (lyric.users) %}
+    <div class="row">
+        {% if (lyric.uploadedBy) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', { id:lyric.users.id }) }}">
-                        {{ lyric.users.username }}
+                    <a href="{{ path('userView', { id:lyric.uploadedBy.id }) }}">
+                        {{ lyric.uploadedBy.username }}
                     </a>
                 </b> 
             </div>
-        {% endif %}#}
-
+        {% endif %}
     </div>
 
     <br/>

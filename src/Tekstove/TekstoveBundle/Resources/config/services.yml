@@ -10,5 +10,6 @@ services:
             - { name: security.voter }
     tekstove.entity.lyric.subscriber:
         class: Tekstove\TekstoveBundle\EventListener\Entity\LyricSubscriber
+        arguments: [@security.token_storage]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
