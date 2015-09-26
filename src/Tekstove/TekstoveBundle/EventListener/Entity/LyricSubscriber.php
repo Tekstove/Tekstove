@@ -24,6 +24,10 @@ class LyricSubscriber implements EventSubscriber
         $this->tokenStorage = $tokenStorage;
     }
     
+    /**
+     * 
+     * @return User|string
+     */
     private function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();

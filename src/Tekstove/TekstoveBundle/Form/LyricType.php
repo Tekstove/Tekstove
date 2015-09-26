@@ -26,6 +26,14 @@ class LyricType extends AbstractType
             )
             ->add('extraInfo')
         ;
+        
+        $builder->add(
+            'videoYoutube',
+            null,
+            [
+                'label' => 'youtube video',
+            ]
+        );
     }
     
     /**

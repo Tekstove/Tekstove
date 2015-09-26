@@ -5,30 +5,4 @@
 
     
     {{ form_end(form) }}
-    
-    <script>
-        
-        
-        
-        $(function() {
-            $('#form_submit').click(function() {
-                $.blockUI({
-                    centerY: 0,
-                    message: '<br/>зареждам...<br/>'
-                }); 
-                var data = $('#lyric_form').serialize();
-                $.ajax({
-                    url: "{{ path('lyricAddPostJson') }}",
-                    data: data,
-                    dataType: 'json',
-                    type: 'POST'
-                }).success(function(data) {
-                    window.location.href = Routing.generate('lyricView', {id:data.lyric.id});
-                    return true;
-                });
-            });
-        });
-        
-    </script>
-    
 {% endblock %}

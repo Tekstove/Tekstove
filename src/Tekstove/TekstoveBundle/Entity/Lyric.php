@@ -59,6 +59,11 @@ class Lyric
     private $uploadedBy;
     
     /**
+     * @ORM\Column()
+     */
+    private $videoYoutube;
+    
+    /**
      * @ORM\Column(name="cache_title_short")
      */
     private $cacheTitleShort;
@@ -158,5 +163,13 @@ class Lyric
     
     public function setUploadedBy($uploadedBy) {
         $this->uploadedBy = $uploadedBy;
+    }
+    
+    public function getVideoYoutube() {
+        return $this->videoYoutube;
+    }
+
+    public function setVideoYoutube($videoYoutube) {
+        $this->videoYoutube = $videoYoutube;
     }
 }

@@ -21,7 +21,6 @@ class AppKernel extends Kernel
              * Vendor
              */
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             
             /*
