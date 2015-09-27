@@ -1,3 +1,7 @@
+jQuery(function () {
+    jQuery('.t-selectSmart').select2();
+});
+
 $.ajaxSetup({
     error: function (xhr, status, error) {
         if (xhr.status === 400) {

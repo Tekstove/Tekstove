@@ -39,7 +39,15 @@ class LyricType extends AbstractType
                 ->add('videoVbox7')
         ;
         
-        $builder->add('languages');
+        $builder->add(
+            'languages',
+            null,
+            [
+                'attr' => [
+                    'class' => 't-selectSmart',
+                ]
+            ]
+        );
     }
     
     /**
