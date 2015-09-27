@@ -34,6 +34,10 @@ class LyricType extends AbstractType
                 'label' => 'youtube video',
             ]
         );
+        
+        $builder->add('videoMetacafe')
+                ->add('videoVbox7')
+        ;
     }
     
     /**

@@ -64,6 +64,16 @@ class Lyric
     private $videoYoutube;
     
     /**
+     * @ORM\Column(name="video_metacafe")
+     */
+    private $videoMetaCafe;
+    
+    /**
+     * @ORM\Column(name="video_vbox7");
+     */
+    private $videoVbox7;
+    
+    /**
      * @ORM\Column(name="cache_title_short")
      */
     private $cacheTitleShort;
@@ -171,5 +181,21 @@ class Lyric
 
     public function setVideoYoutube($videoYoutube) {
         $this->videoYoutube = $videoYoutube;
+    }
+    
+    public function getVideoMetaCafe() {
+        return $this->videoMetaCafe;
+    }
+
+    public function setVideoMetaCafe($videoMetaCafe) {
+        $this->videoMetaCafe = $videoMetaCafe;
+    }
+    
+    public function getVideoVbox7() {
+        return $this->videoVbox7;
+    }
+
+    public function setVideoVbox7($videoVbox7) {
+        $this->videoVbox7 = $videoVbox7;
     }
 }
