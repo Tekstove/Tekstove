@@ -59,7 +59,7 @@ class Lyric
     private $uploadedBy;
     
     /**
-     * @ORM\Column()
+     * @ORM\Column(name="video_youtube")
      */
     private $videoYoutube;
     
