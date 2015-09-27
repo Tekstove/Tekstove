@@ -16,10 +16,10 @@ class LyricType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('text')
+            ->add('text', 'textarea')
             ->add(
                 'textBg',
-                null,
+                'textarea',
                 [
                     'label' => 'Bulgarian translation'
                 ]
@@ -38,6 +38,8 @@ class LyricType extends AbstractType
         $builder->add('videoMetacafe')
                 ->add('videoVbox7')
         ;
+        
+        $builder->add('languages');
     }
     
     /**

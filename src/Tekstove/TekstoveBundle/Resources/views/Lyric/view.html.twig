@@ -115,9 +115,17 @@
     Маркирана като:
     @TODO
 
-    {#{% if (lyric.languages) %}
-        на {{ lyric.languages.name }}
-    {% endif %}#}
+    <div class="row">
+        {% if lyric.languages is not empty %}
+            езици:
+            {% for language in lyric.languages %}
+                {{ language.name }}
+                {% if not loop.last %}
+                    ,
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
 
     <br>
     <a name="prevod" id="prevod"></a>

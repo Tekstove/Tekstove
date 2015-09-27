@@ -3,6 +3,7 @@
 namespace Tekstove\TekstoveBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\Validator\Constraints as SymfonyValidator;
 
@@ -53,6 +54,11 @@ class Lyric
     private $translations;
     
     /**
+     * @ORM\ManyToMany(targetEntity="Tekstove\TekstoveBundle\Entity\Language")
+     */
+    private $languages;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Tekstove\TekstoveBundle\Entity\User")
      * @ORM\JoinColumn(name="uploaded_by", referencedColumnName="id", nullable=true)
      */
@@ -91,6 +97,7 @@ class Lyric
     public function __construct() {
         $this->views = 0;
         $this->popularity = 0;
+        $this->languages = new ArrayCollection();
     }
 
     
@@ -197,5 +204,17 @@ class Lyric
 
     public function setVideoVbox7($videoVbox7) {
         $this->videoVbox7 = $videoVbox7;
+    }
+    
+    public function getLanguages() {
+        return $this->languages;
+    }
+    
+    public function addLanguage($language) {
+        $this->languages[] = $language;
+    }
+    
+    public function removeLanguage($language) {
+        $this->languages->removeElement($language);
     }
 }
