@@ -64,18 +64,16 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row top-menu">
+            <div class="row t-top-menu">
                 <div class="col-md-6 t-nomargin t-nopadding">
-                    <div class="top-menu-home">
-                        <div class="menu_logo">
-                            <a title="Начална страница" href="/">
-                                <img alt="Начало" src="/bundles/tekstove/images/logo_1.jpg">
-                            </a>
-                        </div>
+                    <div class="t-top-menu-right">
+                        <a title="Начална страница" href="/">
+                            <img alt="Начало" src="/bundles/tekstove/images/logo_1.jpg">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="top-menu-container">
+                    <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">Начало</a><br/>
                             &nbsp;&nbsp;<a href="#" rel="search"><del>Разгледай</del></a><br/>
@@ -85,7 +83,7 @@
                 </div>
                 <div class="col-md-2">
 
-                    <div class="top-menu-container">
+                    <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" rel="search"><del>Търсачка</del></a><br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Форум</del></a><br/>
@@ -94,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="top-menu-container">
+                    <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Прати Tекст</a>&nbsp;<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Прати Албум</del></a>
@@ -133,8 +131,9 @@
             </nav>
 
             <div class="row">
-                <div class="prelivane_bukvi_header"></div>
-                <div class="bukvi" id="bukvi_bg"></div>
+                <div class="t-top-letters-above"></div>
+                <div class="t-letters" id="bukvi_bg"></div>
+                <div class="t-top-letters-below"></div>
             </div>
 
             <div class="container-fluid">
@@ -213,7 +212,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 t-content">
                     {% block content %}{% endblock %}
                 </div>
 
