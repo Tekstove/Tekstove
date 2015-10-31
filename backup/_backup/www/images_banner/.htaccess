@@ -1,3 +1,0 @@
-<filesmatch "\.(jpg|jpeg|png|gif)$">
-Header set Cache-Control "max-age=3456000, public"
-</filesmatch>
