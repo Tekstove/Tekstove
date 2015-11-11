@@ -59,7 +59,7 @@ class LyricTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 1;
+    const NUM_COLUMNS = 5;
 
     /**
      * The number of lazy-loaded columns
@@ -69,12 +69,32 @@ class LyricTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 1;
+    const NUM_HYDRATE_COLUMNS = 5;
 
     /**
      * the column name for the id field
      */
     const COL_ID = 'lyric.id';
+
+    /**
+     * the column name for the title field
+     */
+    const COL_TITLE = 'lyric.title';
+
+    /**
+     * the column name for the text field
+     */
+    const COL_TEXT = 'lyric.text';
+
+    /**
+     * the column name for the views field
+     */
+    const COL_VIEWS = 'lyric.views';
+
+    /**
+     * the column name for the popularity field
+     */
+    const COL_POPULARITY = 'lyric.popularity';
 
     /**
      * The default string format for model objects of the related table
@@ -88,11 +108,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', ),
-        self::TYPE_CAMELNAME     => array('id', ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, ),
-        self::TYPE_FIELDNAME     => array('id', ),
-        self::TYPE_NUM           => array(0, )
+        self::TYPE_PHPNAME       => array('Id', 'Title', 'Text', 'Views', 'Popularity', ),
+        self::TYPE_CAMELNAME     => array('id', 'title', 'text', 'views', 'popularity', ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_TITLE, LyricTableMap::COL_TEXT, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, ),
+        self::TYPE_FIELDNAME     => array('id', 'title', 'text', 'views', 'popularity', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /**
@@ -102,11 +122,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, ),
-        self::TYPE_NUM           => array(0, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Text' => 2, 'Views' => 3, 'Popularity' => 4, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'views' => 3, 'popularity' => 4, ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_TITLE => 1, LyricTableMap::COL_TEXT => 2, LyricTableMap::COL_VIEWS => 3, LyricTableMap::COL_POPULARITY => 4, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'views' => 3, 'popularity' => 4, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
     /**
@@ -127,6 +147,10 @@ class LyricTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addColumn('title', 'Title', 'VARCHAR', false, 255, null);
+        $this->addColumn('text', 'Text', 'VARCHAR', false, 255, null);
+        $this->addColumn('views', 'Views', 'INTEGER', false, null, null);
+        $this->addColumn('popularity', 'Popularity', 'INTEGER', false, null, null);
     } // initialize()
 
     /**
@@ -278,8 +302,16 @@ class LyricTableMap extends TableMap
     {
         if (null === $alias) {
             $criteria->addSelectColumn(LyricTableMap::COL_ID);
+            $criteria->addSelectColumn(LyricTableMap::COL_TITLE);
+            $criteria->addSelectColumn(LyricTableMap::COL_TEXT);
+            $criteria->addSelectColumn(LyricTableMap::COL_VIEWS);
+            $criteria->addSelectColumn(LyricTableMap::COL_POPULARITY);
         } else {
             $criteria->addSelectColumn($alias . '.id');
+            $criteria->addSelectColumn($alias . '.title');
+            $criteria->addSelectColumn($alias . '.text');
+            $criteria->addSelectColumn($alias . '.views');
+            $criteria->addSelectColumn($alias . '.popularity');
         }
     }
 

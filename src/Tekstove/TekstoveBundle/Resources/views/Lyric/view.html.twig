@@ -98,7 +98,8 @@
 
 
     <div class="row">
-        {% if (lyric.uploadedBy) %}
+        {# @TODO @FIX @FIXME       #}
+        {% if (false and lyric.uploadedBy) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
@@ -116,6 +117,7 @@
     @TODO
 
     <div class="row">
+        {# @TODO @FIX @FIXME       #}
         {% if lyric.languages is not empty %}
             езици:
             {% for language in lyric.languages %}

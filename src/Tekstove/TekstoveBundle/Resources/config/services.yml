@@ -3,8 +3,10 @@ parameters:
     tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
     
 services:
-    tekstove.propel.user_query:
+    tekstove.model.user.query:
         class:   Tekstove\TekstoveBundle\Model\UserQuery
+    tekstove.model.lyric.query:
+        class:   Tekstove\TekstoveBundle\Model\LyricQuery
     
     security.access.post_voter:
         class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
@@ -18,4 +20,4 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
     tekstove.provider.user:
         class: Tekstove\TekstoveBundle\Model\User\Provider
-        arguments: [@tekstove.propel.user_query]
+        arguments: [@tekstove.model.user.query]

@@ -2,108 +2,10 @@
 
 namespace Tekstove\TekstoveBundle\Model;
 
-use Tekstove\TekstoveBundle\Model\Artist;
-use Tekstove\TekstoveBundle\Model\Lyric\Exception;
+use Tekstove\TekstoveBundle\Model\Base\Lyric as BaseLyric;
 
-class Lyric extends Entity
+class Lyric extends BaseLyric
 {
-
-    private $id;
-    private $zaglavie_palno;
-    private $zaglavie_sakrateno;
-    private $upId;
-    private $text;
-    private $text_bg;
-    private $artist1;
-    private $artist2;
-    private $artist3;
-    private $artist4;
-    private $artist5;
-    private $artist6;
-    private $title;
-    private $album1;
-    private $album2;
-    private $video;
-    private $video_vbox7;
-    private $video_vbox7_orig;
-    private $video_youtube;
-    private $video_youtube_orig;
-    private $video_metacafe;
-    private $video_metacafe_orig;
-    private $image;
-    private $podnovena;
-    private $ip_upload;
-    private $dopylnitelnoinfo;
-    private $glasa;
-    private $views;
-    private $popularity;
-    private $language;
-    private $languageId;
-    private $stil;
-    private $cenzora;
-    private $download;
-    private $manager;
-
-    /**
-     * 
-     * @param type $a
-     * @param Manager $lyricManager
-     * @throws Exception
-     * @throws Tekstove\LyricException
-     */
-    function __construct($a, Lyric\Manager $lyricManager) {
-        $this->manager = $lyricManager;
-        
-        if (is_array($a)) {
-            $this->id = (int) $a['id'];
-
-            $this->video = $a['video']; // strib
-            $this->video_vbox7 = $a['video_vbox7']; // strib
-            $this->video_vbox7_orig = $a['video_vbox7_orig']; // strib
-            $this->video_youtube = $a['video_youtube'];
-            $this->video_youtube_orig = $a['video_youtube_orig'];
-            $this->video_metacafe = $a['video_metacafe'];
-
-            $this->zaglavie_palno = $a['zaglavie_palno'];
-            $this->zaglavie_sakrateno = $a['zaglavie_sakrateno'];
-
-            $this->artist1 = $a['artist1'];
-            $this->artist2 = $a['artist2'];
-            $this->artist3 = $a['artist3'];
-            $this->artist4 = $a['artist4'];
-            $this->artist5 = $a['artist5'];
-            $this->artist6 = $a['artist6'];
-
-            $this->title = $a['title'];
-            $this->text = $a['text'];
-            $this->text_bg = $a['text_bg'];
-
-            $this->album1 = (int) $a['album1'];
-            $this->album2 = (int) $a['album2'];
-
-            $this->dopylnitelnoinfo = $a['dopylnitelnoinfo'];
-
-            $this->download = $a['download'];
-
-            $this->image = $a['image'];
-            $this->glasa = $a['glasa'];
-            $this->languageId = (int) $a['pee_se_na'];
-
-            $this->podnovena = $a['podnovena'];
-            $this->popularity = $a['popularity'];
-            $this->views = $a['views'];
-
-            $this->upId = (int) $a['up_id'];
-
-            $this->ip_upload = $a['ip_upload'];
-        } elseif ($a === null) {
-            // new lyric
-        } else {
-            throw new Exception('not implemented');
-        }
-
-    }
-
     public function getStil() {
         return $this->stil;
     }
@@ -153,8 +55,8 @@ class Lyric extends Entity
     }
 
     public function getTextBg() {
-        $return = $this->text_bg;
-        return $return;
+        //  @TODO @FIX @FIXME
+        return null;
     }
 
     public function getArtist1() {
@@ -283,22 +185,10 @@ class Lyric extends Entity
         return $this->popularity;
     }
 
-    public function getLanguageId() {
-        return $this->languageId;
-    }
-    
-    public function getLanguage() {
-        if ($this->language) {
-            $return = $this->language;
-        }
-        elseif (!$this->getLanguageId()) {
-            $return = null;
-        } else {
-            $return = $this->manager->getLanguage($this->getLanguageId());
-            $this->language = $return;
-        }
-        
-        return $return;
+    public function getLanguages()
+    {
+      // # @TODO @FIX @FIXME
+        return [];
     }
 
     public function getDownload() {

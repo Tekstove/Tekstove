@@ -67,6 +67,34 @@ abstract class Lyric implements ActiveRecordInterface
     protected $id;
 
     /**
+     * The value for the title field.
+     *
+     * @var        string
+     */
+    protected $title;
+
+    /**
+     * The value for the text field.
+     *
+     * @var        string
+     */
+    protected $text;
+
+    /**
+     * The value for the views field.
+     *
+     * @var        int
+     */
+    protected $views;
+
+    /**
+     * The value for the popularity field.
+     *
+     * @var        int
+     */
+    protected $popularity;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -307,6 +335,46 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
+     * Get the [title] column value.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get the [text] column value.
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Get the [views] column value.
+     *
+     * @return int
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get the [popularity] column value.
+     *
+     * @return int
+     */
+    public function getPopularity()
+    {
+        return $this->popularity;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -325,6 +393,86 @@ abstract class Lyric implements ActiveRecordInterface
 
         return $this;
     } // setId()
+
+    /**
+     * Set the value of [title] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setTitle($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->title !== $v) {
+            $this->title = $v;
+            $this->modifiedColumns[LyricTableMap::COL_TITLE] = true;
+        }
+
+        return $this;
+    } // setTitle()
+
+    /**
+     * Set the value of [text] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setText($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->text !== $v) {
+            $this->text = $v;
+            $this->modifiedColumns[LyricTableMap::COL_TEXT] = true;
+        }
+
+        return $this;
+    } // setText()
+
+    /**
+     * Set the value of [views] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setViews($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->views !== $v) {
+            $this->views = $v;
+            $this->modifiedColumns[LyricTableMap::COL_VIEWS] = true;
+        }
+
+        return $this;
+    } // setViews()
+
+    /**
+     * Set the value of [popularity] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setPopularity($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->popularity !== $v) {
+            $this->popularity = $v;
+            $this->modifiedColumns[LyricTableMap::COL_POPULARITY] = true;
+        }
+
+        return $this;
+    } // setPopularity()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -364,6 +512,18 @@ abstract class Lyric implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LyricTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LyricTableMap::translateFieldName('Title', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->title = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricTableMap::translateFieldName('Text', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->text = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LyricTableMap::translateFieldName('Views', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->views = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->popularity = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -372,7 +532,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 1; // 1 = LyricTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = LyricTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric'), 0, $e);
@@ -572,6 +732,18 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
+        if ($this->isColumnModified(LyricTableMap::COL_TITLE)) {
+            $modifiedColumns[':p' . $index++]  = 'title';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_TEXT)) {
+            $modifiedColumns[':p' . $index++]  = 'text';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
+            $modifiedColumns[':p' . $index++]  = 'views';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
+            $modifiedColumns[':p' . $index++]  = 'popularity';
+        }
 
         $sql = sprintf(
             'INSERT INTO lyric (%s) VALUES (%s)',
@@ -585,6 +757,18 @@ abstract class Lyric implements ActiveRecordInterface
                 switch ($columnName) {
                     case 'id':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
+                        break;
+                    case 'title':
+                        $stmt->bindValue($identifier, $this->title, PDO::PARAM_STR);
+                        break;
+                    case 'text':
+                        $stmt->bindValue($identifier, $this->text, PDO::PARAM_STR);
+                        break;
+                    case 'views':
+                        $stmt->bindValue($identifier, $this->views, PDO::PARAM_INT);
+                        break;
+                    case 'popularity':
+                        $stmt->bindValue($identifier, $this->popularity, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -651,6 +835,18 @@ abstract class Lyric implements ActiveRecordInterface
             case 0:
                 return $this->getId();
                 break;
+            case 1:
+                return $this->getTitle();
+                break;
+            case 2:
+                return $this->getText();
+                break;
+            case 3:
+                return $this->getViews();
+                break;
+            case 4:
+                return $this->getPopularity();
+                break;
             default:
                 return null;
                 break;
@@ -681,6 +877,10 @@ abstract class Lyric implements ActiveRecordInterface
         $keys = LyricTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
+            $keys[1] => $this->getTitle(),
+            $keys[2] => $this->getText(),
+            $keys[3] => $this->getViews(),
+            $keys[4] => $this->getPopularity(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -723,6 +923,18 @@ abstract class Lyric implements ActiveRecordInterface
             case 0:
                 $this->setId($value);
                 break;
+            case 1:
+                $this->setTitle($value);
+                break;
+            case 2:
+                $this->setText($value);
+                break;
+            case 3:
+                $this->setViews($value);
+                break;
+            case 4:
+                $this->setPopularity($value);
+                break;
         } // switch()
 
         return $this;
@@ -751,6 +963,18 @@ abstract class Lyric implements ActiveRecordInterface
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
+        }
+        if (array_key_exists($keys[1], $arr)) {
+            $this->setTitle($arr[$keys[1]]);
+        }
+        if (array_key_exists($keys[2], $arr)) {
+            $this->setText($arr[$keys[2]]);
+        }
+        if (array_key_exists($keys[3], $arr)) {
+            $this->setViews($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setPopularity($arr[$keys[4]]);
         }
     }
 
@@ -795,6 +1019,18 @@ abstract class Lyric implements ActiveRecordInterface
 
         if ($this->isColumnModified(LyricTableMap::COL_ID)) {
             $criteria->add(LyricTableMap::COL_ID, $this->id);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_TITLE)) {
+            $criteria->add(LyricTableMap::COL_TITLE, $this->title);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_TEXT)) {
+            $criteria->add(LyricTableMap::COL_TEXT, $this->text);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
+            $criteria->add(LyricTableMap::COL_VIEWS, $this->views);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
+            $criteria->add(LyricTableMap::COL_POPULARITY, $this->popularity);
         }
 
         return $criteria;
@@ -882,6 +1118,10 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setTitle($this->getTitle());
+        $copyObj->setText($this->getText());
+        $copyObj->setViews($this->getViews());
+        $copyObj->setPopularity($this->getPopularity());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -918,6 +1158,10 @@ abstract class Lyric implements ActiveRecordInterface
     public function clear()
     {
         $this->id = null;
+        $this->title = null;
+        $this->text = null;
+        $this->views = null;
+        $this->popularity = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

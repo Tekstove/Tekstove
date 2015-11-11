@@ -20,8 +20,16 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  *
  *
  * @method     ChildLyricQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildLyricQuery orderByTitle($order = Criteria::ASC) Order by the title column
+ * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
+ * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
+ * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
  *
  * @method     ChildLyricQuery groupById() Group by the id column
+ * @method     ChildLyricQuery groupByTitle() Group by the title column
+ * @method     ChildLyricQuery groupByText() Group by the text column
+ * @method     ChildLyricQuery groupByViews() Group by the views column
+ * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
  *
  * @method     ChildLyricQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildLyricQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -34,15 +42,27 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
  *
- * @method     ChildLyric findOneById(int $id) Return the first ChildLyric filtered by the id column *
+ * @method     ChildLyric findOneById(int $id) Return the first ChildLyric filtered by the id column
+ * @method     ChildLyric findOneByTitle(string $title) Return the first ChildLyric filtered by the title column
+ * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
+ * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
+ * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column *
 
  * @method     ChildLyric requirePk($key, ConnectionInterface $con = null) Return the ChildLyric by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildLyric requireOneById(int $id) Return the first ChildLyric filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByTitle(string $title) Return the first ChildLyric filtered by the title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildLyric[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildLyric objects based on current ModelCriteria
  * @method     ChildLyric[]|ObjectCollection findById(int $id) Return ChildLyric objects filtered by the id column
+ * @method     ChildLyric[]|ObjectCollection findByTitle(string $title) Return ChildLyric objects filtered by the title column
+ * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
+ * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
+ * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
  * @method     ChildLyric[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -135,7 +155,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, title, text, views, popularity FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -264,6 +284,146 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_ID, $id, $comparison);
+    }
+
+    /**
+     * Filter the query on the title column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByTitle('fooValue');   // WHERE title = 'fooValue'
+     * $query->filterByTitle('%fooValue%'); // WHERE title LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $title The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByTitle($title = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($title)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $title)) {
+                $title = str_replace('*', '%', $title);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_TITLE, $title, $comparison);
+    }
+
+    /**
+     * Filter the query on the text column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByText('fooValue');   // WHERE text = 'fooValue'
+     * $query->filterByText('%fooValue%'); // WHERE text LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $text The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByText($text = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($text)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $text)) {
+                $text = str_replace('*', '%', $text);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_TEXT, $text, $comparison);
+    }
+
+    /**
+     * Filter the query on the views column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByViews(1234); // WHERE views = 1234
+     * $query->filterByViews(array(12, 34)); // WHERE views IN (12, 34)
+     * $query->filterByViews(array('min' => 12)); // WHERE views > 12
+     * </code>
+     *
+     * @param     mixed $views The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByViews($views = null, $comparison = null)
+    {
+        if (is_array($views)) {
+            $useMinMax = false;
+            if (isset($views['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_VIEWS, $views['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($views['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_VIEWS, $views['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_VIEWS, $views, $comparison);
+    }
+
+    /**
+     * Filter the query on the popularity column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPopularity(1234); // WHERE popularity = 1234
+     * $query->filterByPopularity(array(12, 34)); // WHERE popularity IN (12, 34)
+     * $query->filterByPopularity(array('min' => 12)); // WHERE popularity > 12
+     * </code>
+     *
+     * @param     mixed $popularity The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByPopularity($popularity = null, $comparison = null)
+    {
+        if (is_array($popularity)) {
+            $useMinMax = false;
+            if (isset($popularity['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($popularity['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity, $comparison);
     }
 
     /**

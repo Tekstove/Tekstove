@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 use Tekstove\TekstoveBundle\Model\User;
-use Tekstove\TekstoveBundle\Entity\Lyric;
+use Tekstove\TekstoveBundle\Model\Lyric;
 
 /**
  * Description of Lyric
@@ -41,7 +41,8 @@ class LyricVoter implements VoterInterface
             case 'edit':
                 $user = $token->getUser();
                 /* @var $user Model\User */
-                if ($user instanceof User && $user->getId() === $object->getUploader()) {
+                // @TODO @FIX @ FIXME
+                if (0 && $user instanceof User && $user->getId() === $object->getUploader()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 
