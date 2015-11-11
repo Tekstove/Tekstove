@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             /*
              * Vendor
              */
+            new Propel\PropelBundle\PropelBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             

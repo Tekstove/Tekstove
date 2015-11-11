@@ -3,6 +3,9 @@ parameters:
     tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
     
 services:
+    tekstove.propel.user_query:
+        class:   Tekstove\TekstoveBundle\Model\UserQuery
+    
     security.access.post_voter:
         class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
         public: false
@@ -13,3 +16,6 @@ services:
         arguments: [@security.token_storage]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+    tekstove.provider.user:
+        class: Tekstove\TekstoveBundle\Model\User\Provider
+        arguments: [@tekstove.propel.user_query]

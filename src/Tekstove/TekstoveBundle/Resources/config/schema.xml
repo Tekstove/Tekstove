@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Tekstove\TekstoveBundle\Model" defaultIdMethod="native">
+    <table name="user">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="username" type="varchar" primaryString="1" size="100" />
+        <column name="password" type="varchar" required="true" />
+    </table>
+    
+    <table name="lyric">
+        <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true" />
+    </table>
+</database>
