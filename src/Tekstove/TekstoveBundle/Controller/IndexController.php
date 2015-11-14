@@ -13,36 +13,13 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('TekstoveBundle:Lyric');
-        /* @var $repo \Tekstove\TekstoveBundle\Entity\LyricRepository */
+        $lastLyrics = [];
         
-        $latestQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($latestQueryBuilder);
-        $latestQueryBuilder->addOrderBy('l.id', 'desc');
-        $latestQueryBuilder->setMaxResults(10);
-        $lastLyrics = $latestQueryBuilder->getQuery()->getResult();
-        
-        $lastTranslatedQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($lastTranslatedQueryBuilder);
-        $lastTranslatedQueryBuilder->setMaxResults(10);
-        $lastTranslatedQueryBuilder->andWhere($lastTranslatedQueryBuilder->expr()->isNotNull('l.textBg'));
-        $lastTranslatedQueryBuilder->innerJoin('l.translations', 't');
-        $lastTranslatedQueryBuilder->groupBy('l.id');
-        $lastTranslatedQueryBuilder->orderBy('t.id', 'desc');
-        $lastTranslated = $lastTranslatedQueryBuilder->getQuery()->getResult();
+        $lastTranslated = [];
 
-        $popularQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($popularQueryBuilder);
-        $popularQueryBuilder->addOrderBy('l.popularity', 'desc');
-        $popularQueryBuilder->setMaxResults(10);
-        $popular = $popularQueryBuilder->getQuery()->getResult();
+        $popular = [];
         
-        $mostViewedQb = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($mostViewedQb);
-        $mostViewedQb->addOrderBy('l.views', 'desc');
-        $mostViewedQb->setMaxResults(10);
-        $mostViewed = $mostViewedQb->getQuery()->getResult();
+        $mostViewed = [];
         
         $lastVoted = [];
         

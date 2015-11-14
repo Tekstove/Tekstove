@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Tekstove\TekstoveBundle\Form\LyricType;
+use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\Form\Type\LyricType;
 
 /**
  * Description of LyricController
@@ -40,12 +41,12 @@ class LyricController extends Controller
      */
     public function addHtmlAction(Request $request)
     {
-        $form = $this->createCreateForm();
+        $lyric = new Lyric();
+        $form = $this->createCreateForm($lyric);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $lyric = $form->getData();
-            $this->getDoctrine()->getManager()->persist($lyric);
-            $this->getDoctrine()->getManager()->flush();
+//            var_dump($lyric); die;
+            $lyric->save();
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
         
@@ -57,19 +58,25 @@ class LyricController extends Controller
     /**
      * @Template()
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        $form = $this->createCreateForm();
+        $lyric = new Lyric();
+        $form = $this->createCreateForm($lyric);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
         
         return [
             'form' => $form->createView(),
         ];
     }
     
-    public function createCreateForm()
+    public function createCreateForm(Lyric $lyric)
     {
         $formType = new LyricType();
-        $form = $this->createForm($formType);
+        $form = $this->createForm($formType, $lyric);
         $form->add('submit', 'submit');
         
         return $form;
