@@ -45,7 +45,6 @@ class LyricController extends Controller
         $form = $this->createCreateForm($lyric);
         $form->handleRequest($request);
         if ($form->isValid()) {
-//            var_dump($lyric); die;
             $lyric->save();
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
