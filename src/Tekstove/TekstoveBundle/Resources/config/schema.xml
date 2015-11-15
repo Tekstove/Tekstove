@@ -11,7 +11,7 @@
         <column name="title" type="varchar" />
         <column name="text" type="varchar" />
 <!--        tableMapName doesn't work-->
-        <!--<column name="textBg" tableMapName="text_bg" type="varchar" />-->
+        <column name="text_bg" phpName="textBg" type="varchar" />
         
         <column name="views" type="integer" />
         <column name="popularity" type="integer" />

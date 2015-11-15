@@ -19,6 +19,7 @@ class LyricType extends BaseAbstractType
     {
         $builder->add('title');
         $builder->add('text');
+        $builder->add('textBg');
         $builder->add('views');
         $builder->add('popularity');
     }

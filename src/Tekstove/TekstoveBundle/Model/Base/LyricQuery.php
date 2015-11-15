@@ -22,12 +22,14 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildLyricQuery orderByTitle($order = Criteria::ASC) Order by the title column
  * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
+ * @method     ChildLyricQuery orderBytextBg($order = Criteria::ASC) Order by the text_bg column
  * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
  * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
  *
  * @method     ChildLyricQuery groupById() Group by the id column
  * @method     ChildLyricQuery groupByTitle() Group by the title column
  * @method     ChildLyricQuery groupByText() Group by the text column
+ * @method     ChildLyricQuery groupBytextBg() Group by the text_bg column
  * @method     ChildLyricQuery groupByViews() Group by the views column
  * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
  *
@@ -45,6 +47,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric findOneById(int $id) Return the first ChildLyric filtered by the id column
  * @method     ChildLyric findOneByTitle(string $title) Return the first ChildLyric filtered by the title column
  * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
+ * @method     ChildLyric findOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
  * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
  * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column *
 
@@ -54,6 +57,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric requireOneById(int $id) Return the first ChildLyric filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByTitle(string $title) Return the first ChildLyric filtered by the title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -61,6 +65,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findById(int $id) Return ChildLyric objects filtered by the id column
  * @method     ChildLyric[]|ObjectCollection findByTitle(string $title) Return ChildLyric objects filtered by the title column
  * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
+ * @method     ChildLyric[]|ObjectCollection findBytextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
  * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
  * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
  * @method     ChildLyric[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -155,7 +160,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, title, text, views, popularity FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, title, text, text_bg, views, popularity FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -342,6 +347,35 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_TEXT, $text, $comparison);
+    }
+
+    /**
+     * Filter the query on the text_bg column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBytextBg('fooValue');   // WHERE text_bg = 'fooValue'
+     * $query->filterBytextBg('%fooValue%'); // WHERE text_bg LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $textBg The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterBytextBg($textBg = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($textBg)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $textBg)) {
+                $textBg = str_replace('*', '%', $textBg);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_TEXT_BG, $textBg, $comparison);
     }
 
     /**
