@@ -22,21 +22,21 @@ use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
 use Tekstove\TekstoveBundle\Model\LyricLanguage as ChildLyricLanguage;
 use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
-use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
+use Tekstove\TekstoveBundle\Model\Map\LanguageTableMap;
 
 /**
- * Base class that represents a row from the 'lyric' table.
+ * Base class that represents a row from the 'language' table.
  *
  *
  *
 * @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Base
 */
-abstract class Lyric implements ActiveRecordInterface
+abstract class Language implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\LyricTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\LanguageTableMap';
 
 
     /**
@@ -73,46 +73,11 @@ abstract class Lyric implements ActiveRecordInterface
     protected $id;
 
     /**
-     * The value for the title field.
+     * The value for the name field.
      *
      * @var        string
      */
-    protected $title;
-
-    /**
-     * The value for the text field.
-     *
-     * @var        string
-     */
-    protected $text;
-
-    /**
-     * The value for the text_bg field.
-     *
-     * @var        string
-     */
-    protected $text_bg;
-
-    /**
-     * The value for the cache_title_short field.
-     *
-     * @var        string
-     */
-    protected $cache_title_short;
-
-    /**
-     * The value for the views field.
-     *
-     * @var        int
-     */
-    protected $views;
-
-    /**
-     * The value for the popularity field.
-     *
-     * @var        int
-     */
-    protected $popularity;
+    protected $name;
 
     /**
      * @var        ObjectCollection|ChildLyricLanguage[] Collection to store aggregation of ChildLyricLanguage objects.
@@ -121,14 +86,14 @@ abstract class Lyric implements ActiveRecordInterface
     protected $collLyricLanguagesPartial;
 
     /**
-     * @var        ObjectCollection|ChildLanguage[] Cross Collection to store aggregation of ChildLanguage objects.
+     * @var        ObjectCollection|ChildLyric[] Cross Collection to store aggregation of ChildLyric objects.
      */
-    protected $collLanguages;
+    protected $collLyrics;
 
     /**
      * @var bool
      */
-    protected $collLanguagesPartial;
+    protected $collLyricsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -140,9 +105,9 @@ abstract class Lyric implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildLanguage[]
+     * @var ObjectCollection|ChildLyric[]
      */
-    protected $languagesScheduledForDeletion = null;
+    protected $lyricsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -151,7 +116,7 @@ abstract class Lyric implements ActiveRecordInterface
     protected $lyricLanguagesScheduledForDeletion = null;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\Lyric object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\Language object.
      */
     public function __construct()
     {
@@ -246,9 +211,9 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Lyric</code> instance.  If
-     * <code>obj</code> is an instance of <code>Lyric</code>, delegates to
-     * <code>equals(Lyric)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>Language</code> instance.  If
+     * <code>obj</code> is an instance of <code>Language</code>, delegates to
+     * <code>equals(Language)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -314,7 +279,7 @@ abstract class Lyric implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Lyric The current object, for fluid interface
+     * @return $this|Language The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -383,70 +348,20 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Get the [title] column value.
+     * Get the [name] column value.
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
-    }
-
-    /**
-     * Get the [text] column value.
-     *
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * Get the [text_bg] column value.
-     *
-     * @return string
-     */
-    public function gettextBg()
-    {
-        return $this->text_bg;
-    }
-
-    /**
-     * Get the [cache_title_short] column value.
-     *
-     * @return string
-     */
-    public function getcacheTitleShort()
-    {
-        return $this->cache_title_short;
-    }
-
-    /**
-     * Get the [views] column value.
-     *
-     * @return int
-     */
-    public function getViews()
-    {
-        return $this->views;
-    }
-
-    /**
-     * Get the [popularity] column value.
-     *
-     * @return int
-     */
-    public function getPopularity()
-    {
-        return $this->popularity;
+        return $this->name;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -456,131 +371,31 @@ abstract class Lyric implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[LyricTableMap::COL_ID] = true;
+            $this->modifiedColumns[LanguageTableMap::COL_ID] = true;
         }
 
         return $this;
     } // setId()
 
     /**
-     * Set the value of [title] column.
+     * Set the value of [name] column.
      *
      * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language The current object (for fluent API support)
      */
-    public function setTitle($v)
+    public function setName($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->title !== $v) {
-            $this->title = $v;
-            $this->modifiedColumns[LyricTableMap::COL_TITLE] = true;
+        if ($this->name !== $v) {
+            $this->name = $v;
+            $this->modifiedColumns[LanguageTableMap::COL_NAME] = true;
         }
 
         return $this;
-    } // setTitle()
-
-    /**
-     * Set the value of [text] column.
-     *
-     * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
-     */
-    public function setText($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->text !== $v) {
-            $this->text = $v;
-            $this->modifiedColumns[LyricTableMap::COL_TEXT] = true;
-        }
-
-        return $this;
-    } // setText()
-
-    /**
-     * Set the value of [text_bg] column.
-     *
-     * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
-     */
-    public function settextBg($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->text_bg !== $v) {
-            $this->text_bg = $v;
-            $this->modifiedColumns[LyricTableMap::COL_TEXT_BG] = true;
-        }
-
-        return $this;
-    } // settextBg()
-
-    /**
-     * Set the value of [cache_title_short] column.
-     *
-     * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
-     */
-    public function setcacheTitleShort($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->cache_title_short !== $v) {
-            $this->cache_title_short = $v;
-            $this->modifiedColumns[LyricTableMap::COL_CACHE_TITLE_SHORT] = true;
-        }
-
-        return $this;
-    } // setcacheTitleShort()
-
-    /**
-     * Set the value of [views] column.
-     *
-     * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
-     */
-    public function setViews($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->views !== $v) {
-            $this->views = $v;
-            $this->modifiedColumns[LyricTableMap::COL_VIEWS] = true;
-        }
-
-        return $this;
-    } // setViews()
-
-    /**
-     * Set the value of [popularity] column.
-     *
-     * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
-     */
-    public function setPopularity($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->popularity !== $v) {
-            $this->popularity = $v;
-            $this->modifiedColumns[LyricTableMap::COL_POPULARITY] = true;
-        }
-
-        return $this;
-    } // setPopularity()
+    } // setName()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -618,26 +433,11 @@ abstract class Lyric implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LyricTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LanguageTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LyricTableMap::translateFieldName('Title', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->title = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricTableMap::translateFieldName('Text', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->text = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LyricTableMap::translateFieldName('textBg', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->text_bg = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : LyricTableMap::translateFieldName('cacheTitleShort', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->cache_title_short = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : LyricTableMap::translateFieldName('Views', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->views = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->popularity = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LanguageTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->name = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -646,10 +446,10 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = LyricTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 2; // 2 = LanguageTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Language'), 0, $e);
         }
     }
 
@@ -691,13 +491,13 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(LyricTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(LanguageTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildLyricQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildLanguageQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -709,7 +509,7 @@ abstract class Lyric implements ActiveRecordInterface
 
             $this->collLyricLanguages = null;
 
-            $this->collLanguages = null;
+            $this->collLyrics = null;
         } // if (deep)
     }
 
@@ -719,8 +519,8 @@ abstract class Lyric implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Lyric::setDeleted()
-     * @see Lyric::isDeleted()
+     * @see Language::setDeleted()
+     * @see Language::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -729,11 +529,11 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LanguageTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildLyricQuery::create()
+            $deleteQuery = ChildLanguageQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -764,7 +564,7 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LanguageTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -783,7 +583,7 @@ abstract class Lyric implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                LyricTableMap::addInstanceToPool($this);
+                LanguageTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -820,14 +620,14 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->resetModified();
             }
 
-            if ($this->languagesScheduledForDeletion !== null) {
-                if (!$this->languagesScheduledForDeletion->isEmpty()) {
+            if ($this->lyricsScheduledForDeletion !== null) {
+                if (!$this->lyricsScheduledForDeletion->isEmpty()) {
                     $pks = array();
-                    foreach ($this->languagesScheduledForDeletion as $entry) {
+                    foreach ($this->lyricsScheduledForDeletion as $entry) {
                         $entryPk = [];
 
-                        $entryPk[0] = $this->getId();
-                        $entryPk[1] = $entry->getId();
+                        $entryPk[1] = $this->getId();
+                        $entryPk[0] = $entry->getId();
                         $pks[] = $entryPk;
                     }
 
@@ -835,15 +635,15 @@ abstract class Lyric implements ActiveRecordInterface
                         ->filterByPrimaryKeys($pks)
                         ->delete($con);
 
-                    $this->languagesScheduledForDeletion = null;
+                    $this->lyricsScheduledForDeletion = null;
                 }
 
             }
 
-            if ($this->collLanguages) {
-                foreach ($this->collLanguages as $language) {
-                    if (!$language->isDeleted() && ($language->isNew() || $language->isModified())) {
-                        $language->save($con);
+            if ($this->collLyrics) {
+                foreach ($this->collLyrics as $lyric) {
+                    if (!$lyric->isDeleted() && ($lyric->isNew() || $lyric->isModified())) {
+                        $lyric->save($con);
                     }
                 }
             }
@@ -886,36 +686,21 @@ abstract class Lyric implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[LyricTableMap::COL_ID] = true;
+        $this->modifiedColumns[LanguageTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LyricTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LanguageTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(LyricTableMap::COL_ID)) {
+        if ($this->isColumnModified(LanguageTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(LyricTableMap::COL_TITLE)) {
-            $modifiedColumns[':p' . $index++]  = 'title';
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_TEXT)) {
-            $modifiedColumns[':p' . $index++]  = 'text';
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_TEXT_BG)) {
-            $modifiedColumns[':p' . $index++]  = 'text_bg';
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_CACHE_TITLE_SHORT)) {
-            $modifiedColumns[':p' . $index++]  = 'cache_title_short';
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
-            $modifiedColumns[':p' . $index++]  = 'views';
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
-            $modifiedColumns[':p' . $index++]  = 'popularity';
+        if ($this->isColumnModified(LanguageTableMap::COL_NAME)) {
+            $modifiedColumns[':p' . $index++]  = 'name';
         }
 
         $sql = sprintf(
-            'INSERT INTO lyric (%s) VALUES (%s)',
+            'INSERT INTO language (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -927,23 +712,8 @@ abstract class Lyric implements ActiveRecordInterface
                     case 'id':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'title':
-                        $stmt->bindValue($identifier, $this->title, PDO::PARAM_STR);
-                        break;
-                    case 'text':
-                        $stmt->bindValue($identifier, $this->text, PDO::PARAM_STR);
-                        break;
-                    case 'text_bg':
-                        $stmt->bindValue($identifier, $this->text_bg, PDO::PARAM_STR);
-                        break;
-                    case 'cache_title_short':
-                        $stmt->bindValue($identifier, $this->cache_title_short, PDO::PARAM_STR);
-                        break;
-                    case 'views':
-                        $stmt->bindValue($identifier, $this->views, PDO::PARAM_INT);
-                        break;
-                    case 'popularity':
-                        $stmt->bindValue($identifier, $this->popularity, PDO::PARAM_INT);
+                    case 'name':
+                        $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -991,7 +761,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = LyricTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LanguageTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -1011,22 +781,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return $this->getId();
                 break;
             case 1:
-                return $this->getTitle();
-                break;
-            case 2:
-                return $this->getText();
-                break;
-            case 3:
-                return $this->gettextBg();
-                break;
-            case 4:
-                return $this->getcacheTitleShort();
-                break;
-            case 5:
-                return $this->getViews();
-                break;
-            case 6:
-                return $this->getPopularity();
+                return $this->getName();
                 break;
             default:
                 return null;
@@ -1052,19 +807,14 @@ abstract class Lyric implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
-        if (isset($alreadyDumpedObjects['Lyric'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['Language'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Lyric'][$this->hashCode()] = true;
-        $keys = LyricTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['Language'][$this->hashCode()] = true;
+        $keys = LanguageTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getTitle(),
-            $keys[2] => $this->getText(),
-            $keys[3] => $this->gettextBg(),
-            $keys[4] => $this->getcacheTitleShort(),
-            $keys[5] => $this->getViews(),
-            $keys[6] => $this->getPopularity(),
+            $keys[1] => $this->getName(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1101,11 +851,11 @@ abstract class Lyric implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = LyricTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LanguageTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1116,7 +866,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language
      */
     public function setByPosition($pos, $value)
     {
@@ -1125,22 +875,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $this->setTitle($value);
-                break;
-            case 2:
-                $this->setText($value);
-                break;
-            case 3:
-                $this->settextBg($value);
-                break;
-            case 4:
-                $this->setcacheTitleShort($value);
-                break;
-            case 5:
-                $this->setViews($value);
-                break;
-            case 6:
-                $this->setPopularity($value);
+                $this->setName($value);
                 break;
         } // switch()
 
@@ -1166,28 +901,13 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = LyricTableMap::getFieldNames($keyType);
+        $keys = LanguageTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setTitle($arr[$keys[1]]);
-        }
-        if (array_key_exists($keys[2], $arr)) {
-            $this->setText($arr[$keys[2]]);
-        }
-        if (array_key_exists($keys[3], $arr)) {
-            $this->settextBg($arr[$keys[3]]);
-        }
-        if (array_key_exists($keys[4], $arr)) {
-            $this->setcacheTitleShort($arr[$keys[4]]);
-        }
-        if (array_key_exists($keys[5], $arr)) {
-            $this->setViews($arr[$keys[5]]);
-        }
-        if (array_key_exists($keys[6], $arr)) {
-            $this->setPopularity($arr[$keys[6]]);
+            $this->setName($arr[$keys[1]]);
         }
     }
 
@@ -1208,7 +928,7 @@ abstract class Lyric implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1228,28 +948,13 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(LyricTableMap::DATABASE_NAME);
+        $criteria = new Criteria(LanguageTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(LyricTableMap::COL_ID)) {
-            $criteria->add(LyricTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(LanguageTableMap::COL_ID)) {
+            $criteria->add(LanguageTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(LyricTableMap::COL_TITLE)) {
-            $criteria->add(LyricTableMap::COL_TITLE, $this->title);
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_TEXT)) {
-            $criteria->add(LyricTableMap::COL_TEXT, $this->text);
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_TEXT_BG)) {
-            $criteria->add(LyricTableMap::COL_TEXT_BG, $this->text_bg);
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_CACHE_TITLE_SHORT)) {
-            $criteria->add(LyricTableMap::COL_CACHE_TITLE_SHORT, $this->cache_title_short);
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_VIEWS)) {
-            $criteria->add(LyricTableMap::COL_VIEWS, $this->views);
-        }
-        if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
-            $criteria->add(LyricTableMap::COL_POPULARITY, $this->popularity);
+        if ($this->isColumnModified(LanguageTableMap::COL_NAME)) {
+            $criteria->add(LanguageTableMap::COL_NAME, $this->name);
         }
 
         return $criteria;
@@ -1267,8 +972,8 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildLyricQuery::create();
-        $criteria->add(LyricTableMap::COL_ID, $this->id);
+        $criteria = ChildLanguageQuery::create();
+        $criteria->add(LanguageTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1330,19 +1035,14 @@ abstract class Lyric implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Lyric (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Language (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setTitle($this->getTitle());
-        $copyObj->setText($this->getText());
-        $copyObj->settextBg($this->gettextBg());
-        $copyObj->setcacheTitleShort($this->getcacheTitleShort());
-        $copyObj->setViews($this->getViews());
-        $copyObj->setPopularity($this->getPopularity());
+        $copyObj->setName($this->getName());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1372,7 +1072,7 @@ abstract class Lyric implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\Lyric Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Language Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1450,7 +1150,7 @@ abstract class Lyric implements ActiveRecordInterface
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildLyric is new, it will return
+     * If this ChildLanguage is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
@@ -1467,7 +1167,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->initLyricLanguages();
             } else {
                 $collLyricLanguages = ChildLyricLanguageQuery::create(null, $criteria)
-                    ->filterByLyric($this)
+                    ->filterByLanguage($this)
                     ->find($con);
 
                 if (null !== $criteria) {
@@ -1510,7 +1210,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param      Collection $lyricLanguages A Propel collection.
      * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildLyric The current object (for fluent API support)
+     * @return $this|ChildLanguage The current object (for fluent API support)
      */
     public function setLyricLanguages(Collection $lyricLanguages, ConnectionInterface $con = null)
     {
@@ -1524,7 +1224,7 @@ abstract class Lyric implements ActiveRecordInterface
         $this->lyricLanguagesScheduledForDeletion = clone $lyricLanguagesToDelete;
 
         foreach ($lyricLanguagesToDelete as $lyricLanguageRemoved) {
-            $lyricLanguageRemoved->setLyric(null);
+            $lyricLanguageRemoved->setLanguage(null);
         }
 
         $this->collLyricLanguages = null;
@@ -1565,7 +1265,7 @@ abstract class Lyric implements ActiveRecordInterface
             }
 
             return $query
-                ->filterByLyric($this)
+                ->filterByLanguage($this)
                 ->count($con);
         }
 
@@ -1577,7 +1277,7 @@ abstract class Lyric implements ActiveRecordInterface
      * through the ChildLyricLanguage foreign key attribute.
      *
      * @param  ChildLyricLanguage $l ChildLyricLanguage
-     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Language The current object (for fluent API support)
      */
     public function addLyricLanguage(ChildLyricLanguage $l)
     {
@@ -1599,12 +1299,12 @@ abstract class Lyric implements ActiveRecordInterface
     protected function doAddLyricLanguage(ChildLyricLanguage $lyricLanguage)
     {
         $this->collLyricLanguages[]= $lyricLanguage;
-        $lyricLanguage->setLyric($this);
+        $lyricLanguage->setLanguage($this);
     }
 
     /**
      * @param  ChildLyricLanguage $lyricLanguage The ChildLyricLanguage object to remove.
-     * @return $this|ChildLyric The current object (for fluent API support)
+     * @return $this|ChildLanguage The current object (for fluent API support)
      */
     public function removeLyricLanguage(ChildLyricLanguage $lyricLanguage)
     {
@@ -1616,7 +1316,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->lyricLanguagesScheduledForDeletion->clear();
             }
             $this->lyricLanguagesScheduledForDeletion[]= clone $lyricLanguage;
-            $lyricLanguage->setLyric(null);
+            $lyricLanguage->setLanguage(null);
         }
 
         return $this;
@@ -1626,204 +1326,204 @@ abstract class Lyric implements ActiveRecordInterface
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Lyric is new, it will return
-     * an empty collection; or if this Lyric has previously
+     * Otherwise if this Language is new, it will return
+     * an empty collection; or if this Language has previously
      * been saved, it will retrieve related LyricLanguages from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Lyric.
+     * actually need in Language.
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildLyricLanguage[] List of ChildLyricLanguage objects
      */
-    public function getLyricLanguagesJoinLanguage(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    public function getLyricLanguagesJoinLyric(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
         $query = ChildLyricLanguageQuery::create(null, $criteria);
-        $query->joinWith('Language', $joinBehavior);
+        $query->joinWith('Lyric', $joinBehavior);
 
         return $this->getLyricLanguages($query, $con);
     }
 
     /**
-     * Clears out the collLanguages collection
+     * Clears out the collLyrics collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addLanguages()
+     * @see        addLyrics()
      */
-    public function clearLanguages()
+    public function clearLyrics()
     {
-        $this->collLanguages = null; // important to set this to NULL since that means it is uninitialized
+        $this->collLyrics = null; // important to set this to NULL since that means it is uninitialized
     }
 
     /**
-     * Initializes the collLanguages crossRef collection.
+     * Initializes the collLyrics crossRef collection.
      *
-     * By default this just sets the collLanguages collection to an empty collection (like clearLanguages());
+     * By default this just sets the collLyrics collection to an empty collection (like clearLyrics());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
      * @return void
      */
-    public function initLanguages()
+    public function initLyrics()
     {
-        $this->collLanguages = new ObjectCollection();
-        $this->collLanguagesPartial = true;
+        $this->collLyrics = new ObjectCollection();
+        $this->collLyricsPartial = true;
 
-        $this->collLanguages->setModel('\Tekstove\TekstoveBundle\Model\Language');
+        $this->collLyrics->setModel('\Tekstove\TekstoveBundle\Model\Lyric');
     }
 
     /**
-     * Checks if the collLanguages collection is loaded.
+     * Checks if the collLyrics collection is loaded.
      *
      * @return bool
      */
-    public function isLanguagesLoaded()
+    public function isLyricsLoaded()
     {
-        return null !== $this->collLanguages;
+        return null !== $this->collLyrics;
     }
 
     /**
-     * Gets a collection of ChildLanguage objects related by a many-to-many relationship
+     * Gets a collection of ChildLyric objects related by a many-to-many relationship
      * to the current object by way of the lyric_language cross-reference table.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildLyric is new, it will return
+     * If this ChildLanguage is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param      Criteria $criteria Optional query object to filter the query
      * @param      ConnectionInterface $con Optional connection object
      *
-     * @return ObjectCollection|ChildLanguage[] List of ChildLanguage objects
+     * @return ObjectCollection|ChildLyric[] List of ChildLyric objects
      */
-    public function getLanguages(Criteria $criteria = null, ConnectionInterface $con = null)
+    public function getLyrics(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        $partial = $this->collLanguagesPartial && !$this->isNew();
-        if (null === $this->collLanguages || null !== $criteria || $partial) {
+        $partial = $this->collLyricsPartial && !$this->isNew();
+        if (null === $this->collLyrics || null !== $criteria || $partial) {
             if ($this->isNew()) {
                 // return empty collection
-                if (null === $this->collLanguages) {
-                    $this->initLanguages();
+                if (null === $this->collLyrics) {
+                    $this->initLyrics();
                 }
             } else {
 
-                $query = ChildLanguageQuery::create(null, $criteria)
-                    ->filterByLyric($this);
-                $collLanguages = $query->find($con);
+                $query = ChildLyricQuery::create(null, $criteria)
+                    ->filterByLanguage($this);
+                $collLyrics = $query->find($con);
                 if (null !== $criteria) {
-                    return $collLanguages;
+                    return $collLyrics;
                 }
 
-                if ($partial && $this->collLanguages) {
+                if ($partial && $this->collLyrics) {
                     //make sure that already added objects gets added to the list of the database.
-                    foreach ($this->collLanguages as $obj) {
-                        if (!$collLanguages->contains($obj)) {
-                            $collLanguages[] = $obj;
+                    foreach ($this->collLyrics as $obj) {
+                        if (!$collLyrics->contains($obj)) {
+                            $collLyrics[] = $obj;
                         }
                     }
                 }
 
-                $this->collLanguages = $collLanguages;
-                $this->collLanguagesPartial = false;
+                $this->collLyrics = $collLyrics;
+                $this->collLyricsPartial = false;
             }
         }
 
-        return $this->collLanguages;
+        return $this->collLyrics;
     }
 
     /**
-     * Sets a collection of Language objects related by a many-to-many relationship
+     * Sets a collection of Lyric objects related by a many-to-many relationship
      * to the current object by way of the lyric_language cross-reference table.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param  Collection $languages A Propel collection.
+     * @param  Collection $lyrics A Propel collection.
      * @param  ConnectionInterface $con Optional connection object
-     * @return $this|ChildLyric The current object (for fluent API support)
+     * @return $this|ChildLanguage The current object (for fluent API support)
      */
-    public function setLanguages(Collection $languages, ConnectionInterface $con = null)
+    public function setLyrics(Collection $lyrics, ConnectionInterface $con = null)
     {
-        $this->clearLanguages();
-        $currentLanguages = $this->getLanguages();
+        $this->clearLyrics();
+        $currentLyrics = $this->getLyrics();
 
-        $languagesScheduledForDeletion = $currentLanguages->diff($languages);
+        $lyricsScheduledForDeletion = $currentLyrics->diff($lyrics);
 
-        foreach ($languagesScheduledForDeletion as $toDelete) {
-            $this->removeLanguage($toDelete);
+        foreach ($lyricsScheduledForDeletion as $toDelete) {
+            $this->removeLyric($toDelete);
         }
 
-        foreach ($languages as $language) {
-            if (!$currentLanguages->contains($language)) {
-                $this->doAddLanguage($language);
+        foreach ($lyrics as $lyric) {
+            if (!$currentLyrics->contains($lyric)) {
+                $this->doAddLyric($lyric);
             }
         }
 
-        $this->collLanguagesPartial = false;
-        $this->collLanguages = $languages;
+        $this->collLyricsPartial = false;
+        $this->collLyrics = $lyrics;
 
         return $this;
     }
 
     /**
-     * Gets the number of Language objects related by a many-to-many relationship
+     * Gets the number of Lyric objects related by a many-to-many relationship
      * to the current object by way of the lyric_language cross-reference table.
      *
      * @param      Criteria $criteria Optional query object to filter the query
      * @param      boolean $distinct Set to true to force count distinct
      * @param      ConnectionInterface $con Optional connection object
      *
-     * @return int the number of related Language objects
+     * @return int the number of related Lyric objects
      */
-    public function countLanguages(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    public function countLyrics(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        $partial = $this->collLanguagesPartial && !$this->isNew();
-        if (null === $this->collLanguages || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collLanguages) {
+        $partial = $this->collLyricsPartial && !$this->isNew();
+        if (null === $this->collLyrics || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyrics) {
                 return 0;
             } else {
 
                 if ($partial && !$criteria) {
-                    return count($this->getLanguages());
+                    return count($this->getLyrics());
                 }
 
-                $query = ChildLanguageQuery::create(null, $criteria);
+                $query = ChildLyricQuery::create(null, $criteria);
                 if ($distinct) {
                     $query->distinct();
                 }
 
                 return $query
-                    ->filterByLyric($this)
+                    ->filterByLanguage($this)
                     ->count($con);
             }
         } else {
-            return count($this->collLanguages);
+            return count($this->collLyrics);
         }
     }
 
     /**
-     * Associate a ChildLanguage to this object
+     * Associate a ChildLyric to this object
      * through the lyric_language cross reference table.
      *
-     * @param ChildLanguage $language
-     * @return ChildLyric The current object (for fluent API support)
+     * @param ChildLyric $lyric
+     * @return ChildLanguage The current object (for fluent API support)
      */
-    public function addLanguage(ChildLanguage $language)
+    public function addLyric(ChildLyric $lyric)
     {
-        if ($this->collLanguages === null) {
-            $this->initLanguages();
+        if ($this->collLyrics === null) {
+            $this->initLyrics();
         }
 
-        if (!$this->getLanguages()->contains($language)) {
+        if (!$this->getLyrics()->contains($lyric)) {
             // only add it if the **same** object is not already associated
-            $this->collLanguages->push($language);
-            $this->doAddLanguage($language);
+            $this->collLyrics->push($lyric);
+            $this->doAddLyric($lyric);
         }
 
         return $this;
@@ -1831,58 +1531,58 @@ abstract class Lyric implements ActiveRecordInterface
 
     /**
      *
-     * @param ChildLanguage $language
+     * @param ChildLyric $lyric
      */
-    protected function doAddLanguage(ChildLanguage $language)
+    protected function doAddLyric(ChildLyric $lyric)
     {
         $lyricLanguage = new ChildLyricLanguage();
 
-        $lyricLanguage->setLanguage($language);
+        $lyricLanguage->setLyric($lyric);
 
-        $lyricLanguage->setLyric($this);
+        $lyricLanguage->setLanguage($this);
 
         $this->addLyricLanguage($lyricLanguage);
 
         // set the back reference to this object directly as using provided method either results
         // in endless loop or in multiple relations
-        if (!$language->isLyricsLoaded()) {
-            $language->initLyrics();
-            $language->getLyrics()->push($this);
-        } elseif (!$language->getLyrics()->contains($this)) {
-            $language->getLyrics()->push($this);
+        if (!$lyric->isLanguagesLoaded()) {
+            $lyric->initLanguages();
+            $lyric->getLanguages()->push($this);
+        } elseif (!$lyric->getLanguages()->contains($this)) {
+            $lyric->getLanguages()->push($this);
         }
 
     }
 
     /**
-     * Remove language of this object
+     * Remove lyric of this object
      * through the lyric_language cross reference table.
      *
-     * @param ChildLanguage $language
-     * @return ChildLyric The current object (for fluent API support)
+     * @param ChildLyric $lyric
+     * @return ChildLanguage The current object (for fluent API support)
      */
-    public function removeLanguage(ChildLanguage $language)
+    public function removeLyric(ChildLyric $lyric)
     {
-        if ($this->getLanguages()->contains($language)) { $lyricLanguage = new ChildLyricLanguage();
+        if ($this->getLyrics()->contains($lyric)) { $lyricLanguage = new ChildLyricLanguage();
 
-            $lyricLanguage->setLanguage($language);
-            if ($language->isLyricsLoaded()) {
+            $lyricLanguage->setLyric($lyric);
+            if ($lyric->isLanguagesLoaded()) {
                 //remove the back reference if available
-                $language->getLyrics()->removeObject($this);
+                $lyric->getLanguages()->removeObject($this);
             }
 
-            $lyricLanguage->setLyric($this);
+            $lyricLanguage->setLanguage($this);
             $this->removeLyricLanguage(clone $lyricLanguage);
             $lyricLanguage->clear();
 
-            $this->collLanguages->remove($this->collLanguages->search($language));
+            $this->collLyrics->remove($this->collLyrics->search($lyric));
 
-            if (null === $this->languagesScheduledForDeletion) {
-                $this->languagesScheduledForDeletion = clone $this->collLanguages;
-                $this->languagesScheduledForDeletion->clear();
+            if (null === $this->lyricsScheduledForDeletion) {
+                $this->lyricsScheduledForDeletion = clone $this->collLyrics;
+                $this->lyricsScheduledForDeletion->clear();
             }
 
-            $this->languagesScheduledForDeletion->push($language);
+            $this->lyricsScheduledForDeletion->push($lyric);
         }
 
 
@@ -1897,12 +1597,7 @@ abstract class Lyric implements ActiveRecordInterface
     public function clear()
     {
         $this->id = null;
-        $this->title = null;
-        $this->text = null;
-        $this->text_bg = null;
-        $this->cache_title_short = null;
-        $this->views = null;
-        $this->popularity = null;
+        $this->name = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1926,15 +1621,15 @@ abstract class Lyric implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collLanguages) {
-                foreach ($this->collLanguages as $o) {
+            if ($this->collLyrics) {
+                foreach ($this->collLyrics as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
         } // if ($deep)
 
         $this->collLyricLanguages = null;
-        $this->collLanguages = null;
+        $this->collLyrics = null;
     }
 
     /**
@@ -1944,7 +1639,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(LyricTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(LanguageTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

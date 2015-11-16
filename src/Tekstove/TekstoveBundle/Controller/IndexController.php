@@ -2,6 +2,7 @@
 
 namespace Tekstove\TekstoveBundle\Controller;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -13,9 +14,20 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $lastLyrics = [];
         
-        $lastTranslated = [];
+        $lyricQuery = $this->get('tekstove.model.lyric.query');
+        /* @var $lyricQuery \Tekstove\TekstoveBundle\Model\LyricQuery */
+        $newestQuery = $lyricQuery->create();
+        /* @var $newestQuery \Tekstove\TekstoveBundle\Model\LyricQuery */
+        $newestQuery->orderById(Criteria::DESC);
+        $newestQuery->limit(10);
+        $lastLyrics = $newestQuery->find();
+        
+        $lastTranslatedQuery = $lyricQuery->create();
+        $lastTranslatedQuery->filterByText(null, Criteria::ISNOTNULL);
+        $lastTranslatedQuery->orderById(Criteria::DESC);
+        $lastTranslatedQuery->limit(10);
+        $lastTranslated = $lastTranslatedQuery->find();
 
         $popular = [];
         

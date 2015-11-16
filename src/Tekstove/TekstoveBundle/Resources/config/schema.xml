@@ -10,10 +10,27 @@
         <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true" />
         <column name="title" type="varchar" />
         <column name="text" type="varchar" />
-<!--        tableMapName doesn't work-->
         <column name="text_bg" phpName="textBg" type="varchar" />
         
+        <column name="cache_title_short" phpName="cacheTitleShort" type="varchar"/>
         <column name="views" type="integer" />
         <column name="popularity" type="integer" />
     </table>
+    
+    <table name="lyric_language" isCrossRef="true">
+        <column name="lyric_id" type="integer" primaryKey="true"/>
+        <column name="language_id" type="integer" primaryKey="true"/>
+        <foreign-key foreignTable="lyric">
+            <reference local="lyric_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="language">
+            <reference local="language_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
+    <table name="language">
+        <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
+         <column name="name" type="varchar" />
+    </table>
+
 </database>

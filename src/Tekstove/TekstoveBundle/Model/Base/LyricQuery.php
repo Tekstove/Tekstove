@@ -7,6 +7,7 @@ use \PDO;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
@@ -23,6 +24,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByTitle($order = Criteria::ASC) Order by the title column
  * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
  * @method     ChildLyricQuery orderBytextBg($order = Criteria::ASC) Order by the text_bg column
+ * @method     ChildLyricQuery orderBycacheTitleShort($order = Criteria::ASC) Order by the cache_title_short column
  * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
  * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
  *
@@ -30,6 +32,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery groupByTitle() Group by the title column
  * @method     ChildLyricQuery groupByText() Group by the text column
  * @method     ChildLyricQuery groupBytextBg() Group by the text_bg column
+ * @method     ChildLyricQuery groupBycacheTitleShort() Group by the cache_title_short column
  * @method     ChildLyricQuery groupByViews() Group by the views column
  * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
  *
@@ -41,6 +44,18 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLyricQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
+ * @method     ChildLyricQuery leftJoinLyricLanguage($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricLanguage relation
+ * @method     ChildLyricQuery rightJoinLyricLanguage($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricLanguage relation
+ * @method     ChildLyricQuery innerJoinLyricLanguage($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricLanguage relation
+ *
+ * @method     ChildLyricQuery joinWithLyricLanguage($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricLanguage relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLyricLanguage() Adds a LEFT JOIN clause and with to the query using the LyricLanguage relation
+ * @method     ChildLyricQuery rightJoinWithLyricLanguage() Adds a RIGHT JOIN clause and with to the query using the LyricLanguage relation
+ * @method     ChildLyricQuery innerJoinWithLyricLanguage() Adds a INNER JOIN clause and with to the query using the LyricLanguage relation
+ *
+ * @method     \Tekstove\TekstoveBundle\Model\LyricLanguageQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
  *
@@ -48,6 +63,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric findOneByTitle(string $title) Return the first ChildLyric filtered by the title column
  * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
  * @method     ChildLyric findOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
+ * @method     ChildLyric findOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column
  * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
  * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column *
 
@@ -58,6 +74,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric requireOneByTitle(string $title) Return the first ChildLyric filtered by the title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -66,6 +83,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findByTitle(string $title) Return ChildLyric objects filtered by the title column
  * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
  * @method     ChildLyric[]|ObjectCollection findBytextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
+ * @method     ChildLyric[]|ObjectCollection findBycacheTitleShort(string $cache_title_short) Return ChildLyric objects filtered by the cache_title_short column
  * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
  * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
  * @method     ChildLyric[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -160,7 +178,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, title, text, text_bg, views, popularity FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, title, text, text_bg, cache_title_short, views, popularity FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -379,6 +397,35 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the cache_title_short column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBycacheTitleShort('fooValue');   // WHERE cache_title_short = 'fooValue'
+     * $query->filterBycacheTitleShort('%fooValue%'); // WHERE cache_title_short LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $cacheTitleShort The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterBycacheTitleShort($cacheTitleShort = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($cacheTitleShort)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $cacheTitleShort)) {
+                $cacheTitleShort = str_replace('*', '%', $cacheTitleShort);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_CACHE_TITLE_SHORT, $cacheTitleShort, $comparison);
+    }
+
+    /**
      * Filter the query on the views column
      *
      * Example usage:
@@ -458,6 +505,96 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricLanguage object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\LyricLanguage|ObjectCollection $lyricLanguage the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByLyricLanguage($lyricLanguage, $comparison = null)
+    {
+        if ($lyricLanguage instanceof \Tekstove\TekstoveBundle\Model\LyricLanguage) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_ID, $lyricLanguage->getLyricId(), $comparison);
+        } elseif ($lyricLanguage instanceof ObjectCollection) {
+            return $this
+                ->useLyricLanguageQuery()
+                ->filterByPrimaryKeys($lyricLanguage->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricLanguage() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricLanguage or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricLanguage relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinLyricLanguage($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricLanguage');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricLanguage');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricLanguage relation LyricLanguage object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\LyricLanguageQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricLanguageQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinLyricLanguage($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricLanguage', '\Tekstove\TekstoveBundle\Model\LyricLanguageQuery');
+    }
+
+    /**
+     * Filter the query by a related Language object
+     * using the lyric_language table as cross reference
+     *
+     * @param Language $language the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByLanguage($language, $comparison = Criteria::EQUAL)
+    {
+        return $this
+            ->useLyricLanguageQuery()
+            ->filterByLanguage($language, $comparison)
+            ->endUse();
     }
 
     /**
