@@ -22,6 +22,8 @@ use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
 use Tekstove\TekstoveBundle\Model\LyricLanguage as ChildLyricLanguage;
 use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
+use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
+use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
 use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
 
 /**
@@ -121,6 +123,12 @@ abstract class Lyric implements ActiveRecordInterface
     protected $collLyricLanguagesPartial;
 
     /**
+     * @var        ObjectCollection|ChildLyricVote[] Collection to store aggregation of ChildLyricVote objects.
+     */
+    protected $collLyricVotes;
+    protected $collLyricVotesPartial;
+
+    /**
      * @var        ObjectCollection|ChildLanguage[] Cross Collection to store aggregation of ChildLanguage objects.
      */
     protected $collLanguages;
@@ -149,6 +157,12 @@ abstract class Lyric implements ActiveRecordInterface
      * @var ObjectCollection|ChildLyricLanguage[]
      */
     protected $lyricLanguagesScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyricVote[]
+     */
+    protected $lyricVotesScheduledForDeletion = null;
 
     /**
      * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\Lyric object.
@@ -709,6 +723,8 @@ abstract class Lyric implements ActiveRecordInterface
 
             $this->collLyricLanguages = null;
 
+            $this->collLyricVotes = null;
+
             $this->collLanguages = null;
         } // if (deep)
     }
@@ -860,6 +876,24 @@ abstract class Lyric implements ActiveRecordInterface
 
             if ($this->collLyricLanguages !== null) {
                 foreach ($this->collLyricLanguages as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->lyricVotesScheduledForDeletion !== null) {
+                if (!$this->lyricVotesScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricVotesScheduledForDeletion as $lyricVote) {
+                        // need to save related object because we set the relation to null
+                        $lyricVote->save($con);
+                    }
+                    $this->lyricVotesScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricVotes !== null) {
+                foreach ($this->collLyricVotes as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1086,6 +1120,21 @@ abstract class Lyric implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collLyricLanguages->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricVotes) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyricVotes';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyric_votes';
+                        break;
+                    default:
+                        $key = 'LyricVotes';
+                }
+
+                $result[$key] = $this->collLyricVotes->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1355,6 +1404,12 @@ abstract class Lyric implements ActiveRecordInterface
                 }
             }
 
+            foreach ($this->getLyricVotes() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricVote($relObj->copy($deepCopy));
+                }
+            }
+
         } // if ($deepCopy)
 
         if ($makeNew) {
@@ -1398,6 +1453,9 @@ abstract class Lyric implements ActiveRecordInterface
     {
         if ('LyricLanguage' == $relationName) {
             return $this->initLyricLanguages();
+        }
+        if ('LyricVote' == $relationName) {
+            return $this->initLyricVotes();
         }
     }
 
@@ -1645,6 +1703,249 @@ abstract class Lyric implements ActiveRecordInterface
         $query->joinWith('Language', $joinBehavior);
 
         return $this->getLyricLanguages($query, $con);
+    }
+
+    /**
+     * Clears out the collLyricVotes collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricVotes()
+     */
+    public function clearLyricVotes()
+    {
+        $this->collLyricVotes = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricVotes collection loaded partially.
+     */
+    public function resetPartialLyricVotes($v = true)
+    {
+        $this->collLyricVotesPartial = $v;
+    }
+
+    /**
+     * Initializes the collLyricVotes collection.
+     *
+     * By default this just sets the collLyricVotes collection to an empty array (like clearcollLyricVotes());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricVotes($overrideExisting = true)
+    {
+        if (null !== $this->collLyricVotes && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricVotes = new ObjectCollection();
+        $this->collLyricVotes->setModel('\Tekstove\TekstoveBundle\Model\LyricVote');
+    }
+
+    /**
+     * Gets an array of ChildLyricVote objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildLyric is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyricVote[] List of ChildLyricVote objects
+     * @throws PropelException
+     */
+    public function getLyricVotes(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricVotesPartial && !$this->isNew();
+        if (null === $this->collLyricVotes || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricVotes) {
+                // return empty collection
+                $this->initLyricVotes();
+            } else {
+                $collLyricVotes = ChildLyricVoteQuery::create(null, $criteria)
+                    ->filterByLyric($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricVotesPartial && count($collLyricVotes)) {
+                        $this->initLyricVotes(false);
+
+                        foreach ($collLyricVotes as $obj) {
+                            if (false == $this->collLyricVotes->contains($obj)) {
+                                $this->collLyricVotes->append($obj);
+                            }
+                        }
+
+                        $this->collLyricVotesPartial = true;
+                    }
+
+                    return $collLyricVotes;
+                }
+
+                if ($partial && $this->collLyricVotes) {
+                    foreach ($this->collLyricVotes as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricVotes[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricVotes = $collLyricVotes;
+                $this->collLyricVotesPartial = false;
+            }
+        }
+
+        return $this->collLyricVotes;
+    }
+
+    /**
+     * Sets a collection of ChildLyricVote objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricVotes A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildLyric The current object (for fluent API support)
+     */
+    public function setLyricVotes(Collection $lyricVotes, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyricVote[] $lyricVotesToDelete */
+        $lyricVotesToDelete = $this->getLyricVotes(new Criteria(), $con)->diff($lyricVotes);
+
+
+        $this->lyricVotesScheduledForDeletion = $lyricVotesToDelete;
+
+        foreach ($lyricVotesToDelete as $lyricVoteRemoved) {
+            $lyricVoteRemoved->setLyric(null);
+        }
+
+        $this->collLyricVotes = null;
+        foreach ($lyricVotes as $lyricVote) {
+            $this->addLyricVote($lyricVote);
+        }
+
+        $this->collLyricVotes = $lyricVotes;
+        $this->collLyricVotesPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related LyricVote objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related LyricVote objects.
+     * @throws PropelException
+     */
+    public function countLyricVotes(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricVotesPartial && !$this->isNew();
+        if (null === $this->collLyricVotes || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricVotes) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricVotes());
+            }
+
+            $query = ChildLyricVoteQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByLyric($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricVotes);
+    }
+
+    /**
+     * Method called to associate a ChildLyricVote object to this object
+     * through the ChildLyricVote foreign key attribute.
+     *
+     * @param  ChildLyricVote $l ChildLyricVote
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function addLyricVote(ChildLyricVote $l)
+    {
+        if ($this->collLyricVotes === null) {
+            $this->initLyricVotes();
+            $this->collLyricVotesPartial = true;
+        }
+
+        if (!$this->collLyricVotes->contains($l)) {
+            $this->doAddLyricVote($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyricVote $lyricVote The ChildLyricVote object to add.
+     */
+    protected function doAddLyricVote(ChildLyricVote $lyricVote)
+    {
+        $this->collLyricVotes[]= $lyricVote;
+        $lyricVote->setLyric($this);
+    }
+
+    /**
+     * @param  ChildLyricVote $lyricVote The ChildLyricVote object to remove.
+     * @return $this|ChildLyric The current object (for fluent API support)
+     */
+    public function removeLyricVote(ChildLyricVote $lyricVote)
+    {
+        if ($this->getLyricVotes()->contains($lyricVote)) {
+            $pos = $this->collLyricVotes->search($lyricVote);
+            $this->collLyricVotes->remove($pos);
+            if (null === $this->lyricVotesScheduledForDeletion) {
+                $this->lyricVotesScheduledForDeletion = clone $this->collLyricVotes;
+                $this->lyricVotesScheduledForDeletion->clear();
+            }
+            $this->lyricVotesScheduledForDeletion[]= $lyricVote;
+            $lyricVote->setLyric(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Lyric is new, it will return
+     * an empty collection; or if this Lyric has previously
+     * been saved, it will retrieve related LyricVotes from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Lyric.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyricVote[] List of ChildLyricVote objects
+     */
+    public function getLyricVotesJoinUser(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricVoteQuery::create(null, $criteria);
+        $query->joinWith('User', $joinBehavior);
+
+        return $this->getLyricVotes($query, $con);
     }
 
     /**
@@ -1926,6 +2227,11 @@ abstract class Lyric implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collLyricVotes) {
+                foreach ($this->collLyricVotes as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collLanguages) {
                 foreach ($this->collLanguages as $o) {
                     $o->clearAllReferences($deep);
@@ -1934,6 +2240,7 @@ abstract class Lyric implements ActiveRecordInterface
         } // if ($deep)
 
         $this->collLyricLanguages = null;
+        $this->collLyricVotes = null;
         $this->collLanguages = null;
     }
 

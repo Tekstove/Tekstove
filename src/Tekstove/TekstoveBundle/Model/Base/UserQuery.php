@@ -7,6 +7,7 @@ use \PDO;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
@@ -34,6 +35,18 @@ use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
  * @method     ChildUserQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildUserQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildUserQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildUserQuery leftJoinLyricVote($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricVote relation
+ * @method     ChildUserQuery rightJoinLyricVote($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricVote relation
+ * @method     ChildUserQuery innerJoinLyricVote($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricVote relation
+ *
+ * @method     ChildUserQuery joinWithLyricVote($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricVote relation
+ *
+ * @method     ChildUserQuery leftJoinWithLyricVote() Adds a LEFT JOIN clause and with to the query using the LyricVote relation
+ * @method     ChildUserQuery rightJoinWithLyricVote() Adds a RIGHT JOIN clause and with to the query using the LyricVote relation
+ * @method     ChildUserQuery innerJoinWithLyricVote() Adds a INNER JOIN clause and with to the query using the LyricVote relation
+ *
+ * @method     \Tekstove\TekstoveBundle\Model\LyricVoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUser findOne(ConnectionInterface $con = null) Return the first ChildUser matching the query
  * @method     ChildUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
@@ -332,6 +345,79 @@ abstract class UserQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(UserTableMap::COL_PASSWORD, $password, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricVote object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\LyricVote|ObjectCollection $lyricVote the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildUserQuery The current query, for fluid interface
+     */
+    public function filterByLyricVote($lyricVote, $comparison = null)
+    {
+        if ($lyricVote instanceof \Tekstove\TekstoveBundle\Model\LyricVote) {
+            return $this
+                ->addUsingAlias(UserTableMap::COL_ID, $lyricVote->getUserId(), $comparison);
+        } elseif ($lyricVote instanceof ObjectCollection) {
+            return $this
+                ->useLyricVoteQuery()
+                ->filterByPrimaryKeys($lyricVote->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricVote() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricVote or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricVote relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildUserQuery The current query, for fluid interface
+     */
+    public function joinLyricVote($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricVote');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricVote');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricVote relation LyricVote object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\LyricVoteQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricVoteQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricVote($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricVote', '\Tekstove\TekstoveBundle\Model\LyricVoteQuery');
     }
 
     /**

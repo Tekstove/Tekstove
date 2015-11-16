@@ -28,9 +28,21 @@
         </foreign-key>
     </table>
     
-    <table name="language">
+    <table name="language" readOnly="true">
         <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
-         <column name="name" type="varchar" />
+        <column name="name" type="varchar" />
+    </table>
+    
+    <table name="lyric_vote">
+        <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
+        <column name="lyric_id" type="integer" />
+        <column name="user_id" type="integer" />
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="lyric">
+            <reference local="lyric_id" foreign="id" />
+        </foreign-key>
     </table>
 
 </database>
