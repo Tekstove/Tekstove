@@ -59,7 +59,7 @@ class LyricTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class LyricTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
@@ -90,6 +90,11 @@ class LyricTableMap extends TableMap
      * the column name for the text_bg field
      */
     const COL_TEXT_BG = 'lyric.text_bg';
+
+    /**
+     * the column name for the user_id field
+     */
+    const COL_USER_ID = 'lyric.user_id';
 
     /**
      * the column name for the cache_title_short field
@@ -118,11 +123,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Title', 'Text', 'textBg', 'cacheTitleShort', 'Views', 'Popularity', ),
-        self::TYPE_CAMELNAME     => array('id', 'title', 'text', 'textBg', 'cacheTitleShort', 'views', 'popularity', ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_TITLE, LyricTableMap::COL_TEXT, LyricTableMap::COL_TEXT_BG, LyricTableMap::COL_CACHE_TITLE_SHORT, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, ),
-        self::TYPE_FIELDNAME     => array('id', 'title', 'text', 'text_bg', 'cache_title_short', 'views', 'popularity', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id', 'Title', 'Text', 'textBg', 'userId', 'cacheTitleShort', 'Views', 'Popularity', ),
+        self::TYPE_CAMELNAME     => array('id', 'title', 'text', 'textBg', 'userId', 'cacheTitleShort', 'views', 'popularity', ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_TITLE, LyricTableMap::COL_TEXT, LyricTableMap::COL_TEXT_BG, LyricTableMap::COL_USER_ID, LyricTableMap::COL_CACHE_TITLE_SHORT, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, ),
+        self::TYPE_FIELDNAME     => array('id', 'title', 'text', 'text_bg', 'user_id', 'cache_title_short', 'views', 'popularity', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -132,11 +137,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Text' => 2, 'textBg' => 3, 'cacheTitleShort' => 4, 'Views' => 5, 'Popularity' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'textBg' => 3, 'cacheTitleShort' => 4, 'views' => 5, 'popularity' => 6, ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_TITLE => 1, LyricTableMap::COL_TEXT => 2, LyricTableMap::COL_TEXT_BG => 3, LyricTableMap::COL_CACHE_TITLE_SHORT => 4, LyricTableMap::COL_VIEWS => 5, LyricTableMap::COL_POPULARITY => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'text_bg' => 3, 'cache_title_short' => 4, 'views' => 5, 'popularity' => 6, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Text' => 2, 'textBg' => 3, 'userId' => 4, 'cacheTitleShort' => 5, 'Views' => 6, 'Popularity' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'textBg' => 3, 'userId' => 4, 'cacheTitleShort' => 5, 'views' => 6, 'popularity' => 7, ),
+        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_TITLE => 1, LyricTableMap::COL_TEXT => 2, LyricTableMap::COL_TEXT_BG => 3, LyricTableMap::COL_USER_ID => 4, LyricTableMap::COL_CACHE_TITLE_SHORT => 5, LyricTableMap::COL_VIEWS => 6, LyricTableMap::COL_POPULARITY => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'text_bg' => 3, 'user_id' => 4, 'cache_title_short' => 5, 'views' => 6, 'popularity' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -160,6 +165,7 @@ class LyricTableMap extends TableMap
         $this->addColumn('title', 'Title', 'VARCHAR', false, 255, null);
         $this->addColumn('text', 'Text', 'VARCHAR', false, 255, null);
         $this->addColumn('text_bg', 'textBg', 'VARCHAR', false, 255, null);
+        $this->addForeignKey('user_id', 'userId', 'INTEGER', 'user', 'id', false, null, null);
         $this->addColumn('cache_title_short', 'cacheTitleShort', 'VARCHAR', false, 255, null);
         $this->addColumn('views', 'Views', 'INTEGER', false, null, null);
         $this->addColumn('popularity', 'Popularity', 'INTEGER', false, null, null);
@@ -170,6 +176,13 @@ class LyricTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('User', '\\Tekstove\\TekstoveBundle\\Model\\User', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
         $this->addRelation('LyricLanguage', '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
@@ -332,6 +345,7 @@ class LyricTableMap extends TableMap
             $criteria->addSelectColumn(LyricTableMap::COL_TITLE);
             $criteria->addSelectColumn(LyricTableMap::COL_TEXT);
             $criteria->addSelectColumn(LyricTableMap::COL_TEXT_BG);
+            $criteria->addSelectColumn(LyricTableMap::COL_USER_ID);
             $criteria->addSelectColumn(LyricTableMap::COL_CACHE_TITLE_SHORT);
             $criteria->addSelectColumn(LyricTableMap::COL_VIEWS);
             $criteria->addSelectColumn(LyricTableMap::COL_POPULARITY);
@@ -340,6 +354,7 @@ class LyricTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.title');
             $criteria->addSelectColumn($alias . '.text');
             $criteria->addSelectColumn($alias . '.text_bg');
+            $criteria->addSelectColumn($alias . '.user_id');
             $criteria->addSelectColumn($alias . '.cache_title_short');
             $criteria->addSelectColumn($alias . '.views');
             $criteria->addSelectColumn($alias . '.popularity');

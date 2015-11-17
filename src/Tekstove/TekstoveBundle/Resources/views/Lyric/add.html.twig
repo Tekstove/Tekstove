@@ -1,15 +1,9 @@
 {% extends 'TekstoveBundle::main.html.twig' %}
 {% block content %}
     {{ form_start(form) }}
-        {#
         {{ form_row(form.title) }}
         {{ form_row(form.text) }}
         {{ form_row(form.textBg) }}
-        {{ form_row(form.extraInfo) }}
-        <div class="clearfix"></div>
-        {{ form_row(form.videoYoutube) }}
-        #}
-
-    
+        {{ form_row(form.languages) }}
     {{ form_end(form) }}
 {% endblock %}

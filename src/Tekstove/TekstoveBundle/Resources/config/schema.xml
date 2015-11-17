@@ -11,6 +11,10 @@
         <column name="title" type="varchar" />
         <column name="text" type="varchar" />
         <column name="text_bg" phpName="textBg" type="varchar" />
+        <column name="user_id" phpName="userId" type="integer" />
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
         
         <column name="cache_title_short" phpName="cacheTitleShort" type="varchar"/>
         <column name="views" type="integer" />

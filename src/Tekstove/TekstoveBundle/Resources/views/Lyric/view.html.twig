@@ -98,13 +98,12 @@
 
 
     <div class="row">
-        {# @TODO @FIX @FIXME       #}
-        {% if (false and lyric.uploadedBy) %}
+        {% if (lyric.getUser) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', { id:lyric.uploadedBy.id }) }}">
-                        {{ lyric.uploadedBy.username }}
+                    <a href="{{ path('userView', { id:lyric.getUser.id }) }}">
+                        {{ lyric.getUser.username }}
                     </a>
                 </b> 
             </div>

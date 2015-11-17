@@ -24,6 +24,8 @@ use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
 use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
 use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\User as ChildUser;
+use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
 use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
 
 /**
@@ -96,6 +98,13 @@ abstract class Lyric implements ActiveRecordInterface
     protected $text_bg;
 
     /**
+     * The value for the user_id field.
+     *
+     * @var        int
+     */
+    protected $user_id;
+
+    /**
      * The value for the cache_title_short field.
      *
      * @var        string
@@ -115,6 +124,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @var        int
      */
     protected $popularity;
+
+    /**
+     * @var        ChildUser
+     */
+    protected $aUser;
 
     /**
      * @var        ObjectCollection|ChildLyricLanguage[] Collection to store aggregation of ChildLyricLanguage objects.
@@ -380,9 +394,12 @@ abstract class Lyric implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        foreach($cls->getProperties() as $property) {
+        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
+
+        foreach($serializableProperties as $property) {
             $propertyNames[] = $property->getName();
         }
+
         return $propertyNames;
     }
 
@@ -424,6 +441,16 @@ abstract class Lyric implements ActiveRecordInterface
     public function gettextBg()
     {
         return $this->text_bg;
+    }
+
+    /**
+     * Get the [user_id] column value.
+     *
+     * @return int
+     */
+    public function getuserId()
+    {
+        return $this->user_id;
     }
 
     /**
@@ -537,6 +564,30 @@ abstract class Lyric implements ActiveRecordInterface
     } // settextBg()
 
     /**
+     * Set the value of [user_id] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setuserId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->user_id !== $v) {
+            $this->user_id = $v;
+            $this->modifiedColumns[LyricTableMap::COL_USER_ID] = true;
+        }
+
+        if ($this->aUser !== null && $this->aUser->getId() !== $v) {
+            $this->aUser = null;
+        }
+
+        return $this;
+    } // setuserId()
+
+    /**
      * Set the value of [cache_title_short] column.
      *
      * @param string $v new value
@@ -644,13 +695,16 @@ abstract class Lyric implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LyricTableMap::translateFieldName('textBg', TableMap::TYPE_PHPNAME, $indexType)];
             $this->text_bg = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : LyricTableMap::translateFieldName('cacheTitleShort', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : LyricTableMap::translateFieldName('userId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->user_id = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : LyricTableMap::translateFieldName('cacheTitleShort', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cache_title_short = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : LyricTableMap::translateFieldName('Views', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : LyricTableMap::translateFieldName('Views', TableMap::TYPE_PHPNAME, $indexType)];
             $this->views = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
             $this->popularity = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -660,7 +714,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = LyricTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = LyricTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric'), 0, $e);
@@ -682,6 +736,9 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aUser !== null && $this->user_id !== $this->aUser->getId()) {
+            $this->aUser = null;
+        }
     } // ensureConsistency
 
     /**
@@ -721,6 +778,7 @@ abstract class Lyric implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aUser = null;
             $this->collLyricLanguages = null;
 
             $this->collLyricVotes = null;
@@ -824,6 +882,18 @@ abstract class Lyric implements ActiveRecordInterface
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
+
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aUser !== null) {
+                if ($this->aUser->isModified() || $this->aUser->isNew()) {
+                    $affectedRows += $this->aUser->save($con);
+                }
+                $this->setUser($this->aUser);
+            }
 
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
@@ -938,6 +1008,9 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_TEXT_BG)) {
             $modifiedColumns[':p' . $index++]  = 'text_bg';
         }
+        if ($this->isColumnModified(LyricTableMap::COL_USER_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'user_id';
+        }
         if ($this->isColumnModified(LyricTableMap::COL_CACHE_TITLE_SHORT)) {
             $modifiedColumns[':p' . $index++]  = 'cache_title_short';
         }
@@ -969,6 +1042,9 @@ abstract class Lyric implements ActiveRecordInterface
                         break;
                     case 'text_bg':
                         $stmt->bindValue($identifier, $this->text_bg, PDO::PARAM_STR);
+                        break;
+                    case 'user_id':
+                        $stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
                         break;
                     case 'cache_title_short':
                         $stmt->bindValue($identifier, $this->cache_title_short, PDO::PARAM_STR);
@@ -1054,12 +1130,15 @@ abstract class Lyric implements ActiveRecordInterface
                 return $this->gettextBg();
                 break;
             case 4:
-                return $this->getcacheTitleShort();
+                return $this->getuserId();
                 break;
             case 5:
-                return $this->getViews();
+                return $this->getcacheTitleShort();
                 break;
             case 6:
+                return $this->getViews();
+                break;
+            case 7:
                 return $this->getPopularity();
                 break;
             default:
@@ -1096,9 +1175,10 @@ abstract class Lyric implements ActiveRecordInterface
             $keys[1] => $this->getTitle(),
             $keys[2] => $this->getText(),
             $keys[3] => $this->gettextBg(),
-            $keys[4] => $this->getcacheTitleShort(),
-            $keys[5] => $this->getViews(),
-            $keys[6] => $this->getPopularity(),
+            $keys[4] => $this->getuserId(),
+            $keys[5] => $this->getcacheTitleShort(),
+            $keys[6] => $this->getViews(),
+            $keys[7] => $this->getPopularity(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1106,6 +1186,21 @@ abstract class Lyric implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->aUser) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'user';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'user';
+                        break;
+                    default:
+                        $key = 'User';
+                }
+
+                $result[$key] = $this->aUser->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
             if (null !== $this->collLyricLanguages) {
 
                 switch ($keyType) {
@@ -1183,12 +1278,15 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->settextBg($value);
                 break;
             case 4:
-                $this->setcacheTitleShort($value);
+                $this->setuserId($value);
                 break;
             case 5:
-                $this->setViews($value);
+                $this->setcacheTitleShort($value);
                 break;
             case 6:
+                $this->setViews($value);
+                break;
+            case 7:
                 $this->setPopularity($value);
                 break;
         } // switch()
@@ -1230,13 +1328,16 @@ abstract class Lyric implements ActiveRecordInterface
             $this->settextBg($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setcacheTitleShort($arr[$keys[4]]);
+            $this->setuserId($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setViews($arr[$keys[5]]);
+            $this->setcacheTitleShort($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setPopularity($arr[$keys[6]]);
+            $this->setViews($arr[$keys[6]]);
+        }
+        if (array_key_exists($keys[7], $arr)) {
+            $this->setPopularity($arr[$keys[7]]);
         }
     }
 
@@ -1290,6 +1391,9 @@ abstract class Lyric implements ActiveRecordInterface
         }
         if ($this->isColumnModified(LyricTableMap::COL_TEXT_BG)) {
             $criteria->add(LyricTableMap::COL_TEXT_BG, $this->text_bg);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_USER_ID)) {
+            $criteria->add(LyricTableMap::COL_USER_ID, $this->user_id);
         }
         if ($this->isColumnModified(LyricTableMap::COL_CACHE_TITLE_SHORT)) {
             $criteria->add(LyricTableMap::COL_CACHE_TITLE_SHORT, $this->cache_title_short);
@@ -1389,6 +1493,7 @@ abstract class Lyric implements ActiveRecordInterface
         $copyObj->setTitle($this->getTitle());
         $copyObj->setText($this->getText());
         $copyObj->settextBg($this->gettextBg());
+        $copyObj->setuserId($this->getuserId());
         $copyObj->setcacheTitleShort($this->getcacheTitleShort());
         $copyObj->setViews($this->getViews());
         $copyObj->setPopularity($this->getPopularity());
@@ -1438,6 +1543,57 @@ abstract class Lyric implements ActiveRecordInterface
         $this->copyInto($copyObj, $deepCopy);
 
         return $copyObj;
+    }
+
+    /**
+     * Declares an association between this object and a ChildUser object.
+     *
+     * @param  ChildUser $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setUser(ChildUser $v = null)
+    {
+        if ($v === null) {
+            $this->setuserId(NULL);
+        } else {
+            $this->setuserId($v->getId());
+        }
+
+        $this->aUser = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildUser object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyric($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildUser object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildUser The associated ChildUser object.
+     * @throws PropelException
+     */
+    public function getUser(ConnectionInterface $con = null)
+    {
+        if ($this->aUser === null && ($this->user_id !== null)) {
+            $this->aUser = ChildUserQuery::create()->findPk($this->user_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aUser->addLyrics($this);
+             */
+        }
+
+        return $this->aUser;
     }
 
 
@@ -2197,10 +2353,14 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function clear()
     {
+        if (null !== $this->aUser) {
+            $this->aUser->removeLyric($this);
+        }
         $this->id = null;
         $this->title = null;
         $this->text = null;
         $this->text_bg = null;
+        $this->user_id = null;
         $this->cache_title_short = null;
         $this->views = null;
         $this->popularity = null;
@@ -2242,6 +2402,7 @@ abstract class Lyric implements ActiveRecordInterface
         $this->collLyricLanguages = null;
         $this->collLyricVotes = null;
         $this->collLanguages = null;
+        $this->aUser = null;
     }
 
     /**

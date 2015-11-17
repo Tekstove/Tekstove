@@ -24,6 +24,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery orderByTitle($order = Criteria::ASC) Order by the title column
  * @method     ChildLyricQuery orderByText($order = Criteria::ASC) Order by the text column
  * @method     ChildLyricQuery orderBytextBg($order = Criteria::ASC) Order by the text_bg column
+ * @method     ChildLyricQuery orderByuserId($order = Criteria::ASC) Order by the user_id column
  * @method     ChildLyricQuery orderBycacheTitleShort($order = Criteria::ASC) Order by the cache_title_short column
  * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
  * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
@@ -32,6 +33,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery groupByTitle() Group by the title column
  * @method     ChildLyricQuery groupByText() Group by the text column
  * @method     ChildLyricQuery groupBytextBg() Group by the text_bg column
+ * @method     ChildLyricQuery groupByuserId() Group by the user_id column
  * @method     ChildLyricQuery groupBycacheTitleShort() Group by the cache_title_short column
  * @method     ChildLyricQuery groupByViews() Group by the views column
  * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
@@ -43,6 +45,16 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildLyricQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildLyricQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildLyricQuery leftJoinUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the User relation
+ * @method     ChildLyricQuery rightJoinUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the User relation
+ * @method     ChildLyricQuery innerJoinUser($relationAlias = null) Adds a INNER JOIN clause to the query using the User relation
+ *
+ * @method     ChildLyricQuery joinWithUser($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the User relation
+ *
+ * @method     ChildLyricQuery leftJoinWithUser() Adds a LEFT JOIN clause and with to the query using the User relation
+ * @method     ChildLyricQuery rightJoinWithUser() Adds a RIGHT JOIN clause and with to the query using the User relation
+ * @method     ChildLyricQuery innerJoinWithUser() Adds a INNER JOIN clause and with to the query using the User relation
  *
  * @method     ChildLyricQuery leftJoinLyricLanguage($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricLanguage relation
  * @method     ChildLyricQuery rightJoinLyricLanguage($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricLanguage relation
@@ -64,7 +76,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithLyricVote() Adds a RIGHT JOIN clause and with to the query using the LyricVote relation
  * @method     ChildLyricQuery innerJoinWithLyricVote() Adds a INNER JOIN clause and with to the query using the LyricVote relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\LyricLanguageQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\UserQuery|\Tekstove\TekstoveBundle\Model\LyricLanguageQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
@@ -73,6 +85,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric findOneByTitle(string $title) Return the first ChildLyric filtered by the title column
  * @method     ChildLyric findOneByText(string $text) Return the first ChildLyric filtered by the text column
  * @method     ChildLyric findOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column
+ * @method     ChildLyric findOneByuserId(int $user_id) Return the first ChildLyric filtered by the user_id column
  * @method     ChildLyric findOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column
  * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
  * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column *
@@ -84,6 +97,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric requireOneByTitle(string $title) Return the first ChildLyric filtered by the title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByText(string $text) Return the first ChildLyric filtered by the text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneBytextBg(string $text_bg) Return the first ChildLyric filtered by the text_bg column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByuserId(int $user_id) Return the first ChildLyric filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -93,6 +107,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findByTitle(string $title) Return ChildLyric objects filtered by the title column
  * @method     ChildLyric[]|ObjectCollection findByText(string $text) Return ChildLyric objects filtered by the text column
  * @method     ChildLyric[]|ObjectCollection findBytextBg(string $text_bg) Return ChildLyric objects filtered by the text_bg column
+ * @method     ChildLyric[]|ObjectCollection findByuserId(int $user_id) Return ChildLyric objects filtered by the user_id column
  * @method     ChildLyric[]|ObjectCollection findBycacheTitleShort(string $cache_title_short) Return ChildLyric objects filtered by the cache_title_short column
  * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
  * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
@@ -188,7 +203,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, title, text, text_bg, cache_title_short, views, popularity FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, title, text, text_bg, user_id, cache_title_short, views, popularity FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -407,6 +422,49 @@ abstract class LyricQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the user_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByuserId(1234); // WHERE user_id = 1234
+     * $query->filterByuserId(array(12, 34)); // WHERE user_id IN (12, 34)
+     * $query->filterByuserId(array('min' => 12)); // WHERE user_id > 12
+     * </code>
+     *
+     * @see       filterByUser()
+     *
+     * @param     mixed $userId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByuserId($userId = null, $comparison = null)
+    {
+        if (is_array($userId)) {
+            $useMinMax = false;
+            if (isset($userId['min'])) {
+                $this->addUsingAlias(LyricTableMap::COL_USER_ID, $userId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($userId['max'])) {
+                $this->addUsingAlias(LyricTableMap::COL_USER_ID, $userId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_USER_ID, $userId, $comparison);
+    }
+
+    /**
      * Filter the query on the cache_title_short column
      *
      * Example usage:
@@ -515,6 +573,83 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\User object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\User|ObjectCollection $user The related object(s) to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByUser($user, $comparison = null)
+    {
+        if ($user instanceof \Tekstove\TekstoveBundle\Model\User) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_USER_ID, $user->getId(), $comparison);
+        } elseif ($user instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_USER_ID, $user->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\User or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the User relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinUser($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('User');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'User');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the User relation User object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\UserQuery A secondary query class using the current class as primary query
+     */
+    public function useUserQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinUser($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'User', '\Tekstove\TekstoveBundle\Model\UserQuery');
     }
 
     /**

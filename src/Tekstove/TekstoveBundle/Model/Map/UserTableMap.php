@@ -147,6 +147,13 @@ class UserTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('Lyric', '\\Tekstove\\TekstoveBundle\\Model\\Lyric', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, 'Lyrics', false);
         $this->addRelation('LyricVote', '\\Tekstove\\TekstoveBundle\\Model\\LyricVote', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
