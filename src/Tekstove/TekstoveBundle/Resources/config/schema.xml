@@ -19,6 +19,11 @@
         <column name="cache_title_short" phpName="cacheTitleShort" type="varchar"/>
         <column name="views" type="integer" />
         <column name="popularity" type="integer" />
+        
+        <behavior name="validate">
+            <parameter name="textValidationNotEmpty" value="{column: text, validator: NotBlank}" />
+            <parameter name="titleValidationNotEmpty" value="{column: title, validator: NotBlank}" />
+        </behavior>
     </table>
     
     <table name="lyric_language" isCrossRef="true">
