@@ -18,6 +18,8 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
+use Tekstove\TekstoveBundle\Model\LyricTranslation as ChildLyricTranslation;
+use Tekstove\TekstoveBundle\Model\LyricTranslationQuery as ChildLyricTranslationQuery;
 use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
 use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
@@ -87,10 +89,44 @@ abstract class User implements ActiveRecordInterface
     protected $password;
 
     /**
+     * The value for the mail field.
+     *
+     * @var        string
+     */
+    protected $mail;
+
+    /**
+     * The value for the avatar field.
+     *
+     * @var        string
+     */
+    protected $avatar;
+
+    /**
+     * The value for the about field.
+     *
+     * @var        string
+     */
+    protected $about;
+
+    /**
+     * The value for the autoplay field.
+     *
+     * @var        int
+     */
+    protected $autoplay;
+
+    /**
      * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
      */
     protected $collLyrics;
     protected $collLyricsPartial;
+
+    /**
+     * @var        ObjectCollection|ChildLyricTranslation[] Collection to store aggregation of ChildLyricTranslation objects.
+     */
+    protected $collLyricTranslations;
+    protected $collLyricTranslationsPartial;
 
     /**
      * @var        ObjectCollection|ChildLyricVote[] Collection to store aggregation of ChildLyricVote objects.
@@ -111,6 +147,12 @@ abstract class User implements ActiveRecordInterface
      * @var ObjectCollection|ChildLyric[]
      */
     protected $lyricsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildLyricTranslation[]
+     */
+    protected $lyricTranslationsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -371,6 +413,46 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
+     * Get the [mail] column value.
+     *
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Get the [avatar] column value.
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Get the [about] column value.
+     *
+     * @return string
+     */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * Get the [autoplay] column value.
+     *
+     * @return int
+     */
+    public function getAutoplay()
+    {
+        return $this->autoplay;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -431,6 +513,86 @@ abstract class User implements ActiveRecordInterface
     } // setPassword()
 
     /**
+     * Set the value of [mail] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function setMail($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->mail !== $v) {
+            $this->mail = $v;
+            $this->modifiedColumns[UserTableMap::COL_MAIL] = true;
+        }
+
+        return $this;
+    } // setMail()
+
+    /**
+     * Set the value of [avatar] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function setAvatar($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->avatar !== $v) {
+            $this->avatar = $v;
+            $this->modifiedColumns[UserTableMap::COL_AVATAR] = true;
+        }
+
+        return $this;
+    } // setAvatar()
+
+    /**
+     * Set the value of [about] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function setAbout($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->about !== $v) {
+            $this->about = $v;
+            $this->modifiedColumns[UserTableMap::COL_ABOUT] = true;
+        }
+
+        return $this;
+    } // setAbout()
+
+    /**
+     * Set the value of [autoplay] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function setAutoplay($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->autoplay !== $v) {
+            $this->autoplay = $v;
+            $this->modifiedColumns[UserTableMap::COL_AUTOPLAY] = true;
+        }
+
+        return $this;
+    } // setAutoplay()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -474,6 +636,18 @@ abstract class User implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UserTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
             $this->password = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UserTableMap::translateFieldName('Mail', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->mail = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UserTableMap::translateFieldName('Avatar', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->avatar = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UserTableMap::translateFieldName('About', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->about = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UserTableMap::translateFieldName('Autoplay', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->autoplay = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -482,7 +656,7 @@ abstract class User implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 3; // 3 = UserTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = UserTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\User'), 0, $e);
@@ -544,6 +718,8 @@ abstract class User implements ActiveRecordInterface
         if ($deep) {  // also de-associate any related objects?
 
             $this->collLyrics = null;
+
+            $this->collLyricTranslations = null;
 
             $this->collLyricVotes = null;
 
@@ -675,6 +851,24 @@ abstract class User implements ActiveRecordInterface
                 }
             }
 
+            if ($this->lyricTranslationsScheduledForDeletion !== null) {
+                if (!$this->lyricTranslationsScheduledForDeletion->isEmpty()) {
+                    foreach ($this->lyricTranslationsScheduledForDeletion as $lyricTranslation) {
+                        // need to save related object because we set the relation to null
+                        $lyricTranslation->save($con);
+                    }
+                    $this->lyricTranslationsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collLyricTranslations !== null) {
+                foreach ($this->collLyricTranslations as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
             if ($this->lyricVotesScheduledForDeletion !== null) {
                 if (!$this->lyricVotesScheduledForDeletion->isEmpty()) {
                     foreach ($this->lyricVotesScheduledForDeletion as $lyricVote) {
@@ -728,6 +922,18 @@ abstract class User implements ActiveRecordInterface
         if ($this->isColumnModified(UserTableMap::COL_PASSWORD)) {
             $modifiedColumns[':p' . $index++]  = 'password';
         }
+        if ($this->isColumnModified(UserTableMap::COL_MAIL)) {
+            $modifiedColumns[':p' . $index++]  = 'mail';
+        }
+        if ($this->isColumnModified(UserTableMap::COL_AVATAR)) {
+            $modifiedColumns[':p' . $index++]  = 'avatar';
+        }
+        if ($this->isColumnModified(UserTableMap::COL_ABOUT)) {
+            $modifiedColumns[':p' . $index++]  = 'about';
+        }
+        if ($this->isColumnModified(UserTableMap::COL_AUTOPLAY)) {
+            $modifiedColumns[':p' . $index++]  = 'autoplay';
+        }
 
         $sql = sprintf(
             'INSERT INTO user (%s) VALUES (%s)',
@@ -747,6 +953,18 @@ abstract class User implements ActiveRecordInterface
                         break;
                     case 'password':
                         $stmt->bindValue($identifier, $this->password, PDO::PARAM_STR);
+                        break;
+                    case 'mail':
+                        $stmt->bindValue($identifier, $this->mail, PDO::PARAM_STR);
+                        break;
+                    case 'avatar':
+                        $stmt->bindValue($identifier, $this->avatar, PDO::PARAM_STR);
+                        break;
+                    case 'about':
+                        $stmt->bindValue($identifier, $this->about, PDO::PARAM_STR);
+                        break;
+                    case 'autoplay':
+                        $stmt->bindValue($identifier, $this->autoplay, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -819,6 +1037,18 @@ abstract class User implements ActiveRecordInterface
             case 2:
                 return $this->getPassword();
                 break;
+            case 3:
+                return $this->getMail();
+                break;
+            case 4:
+                return $this->getAvatar();
+                break;
+            case 5:
+                return $this->getAbout();
+                break;
+            case 6:
+                return $this->getAutoplay();
+                break;
             default:
                 return null;
                 break;
@@ -852,6 +1082,10 @@ abstract class User implements ActiveRecordInterface
             $keys[0] => $this->getId(),
             $keys[1] => $this->getUsername(),
             $keys[2] => $this->getPassword(),
+            $keys[3] => $this->getMail(),
+            $keys[4] => $this->getAvatar(),
+            $keys[5] => $this->getAbout(),
+            $keys[6] => $this->getAutoplay(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -873,6 +1107,21 @@ abstract class User implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collLyrics->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collLyricTranslations) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyricTranslations';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyric_translations';
+                        break;
+                    default:
+                        $key = 'LyricTranslations';
+                }
+
+                $result[$key] = $this->collLyricTranslations->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collLyricVotes) {
 
@@ -932,6 +1181,18 @@ abstract class User implements ActiveRecordInterface
             case 2:
                 $this->setPassword($value);
                 break;
+            case 3:
+                $this->setMail($value);
+                break;
+            case 4:
+                $this->setAvatar($value);
+                break;
+            case 5:
+                $this->setAbout($value);
+                break;
+            case 6:
+                $this->setAutoplay($value);
+                break;
         } // switch()
 
         return $this;
@@ -966,6 +1227,18 @@ abstract class User implements ActiveRecordInterface
         }
         if (array_key_exists($keys[2], $arr)) {
             $this->setPassword($arr[$keys[2]]);
+        }
+        if (array_key_exists($keys[3], $arr)) {
+            $this->setMail($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setAvatar($arr[$keys[4]]);
+        }
+        if (array_key_exists($keys[5], $arr)) {
+            $this->setAbout($arr[$keys[5]]);
+        }
+        if (array_key_exists($keys[6], $arr)) {
+            $this->setAutoplay($arr[$keys[6]]);
         }
     }
 
@@ -1016,6 +1289,18 @@ abstract class User implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UserTableMap::COL_PASSWORD)) {
             $criteria->add(UserTableMap::COL_PASSWORD, $this->password);
+        }
+        if ($this->isColumnModified(UserTableMap::COL_MAIL)) {
+            $criteria->add(UserTableMap::COL_MAIL, $this->mail);
+        }
+        if ($this->isColumnModified(UserTableMap::COL_AVATAR)) {
+            $criteria->add(UserTableMap::COL_AVATAR, $this->avatar);
+        }
+        if ($this->isColumnModified(UserTableMap::COL_ABOUT)) {
+            $criteria->add(UserTableMap::COL_ABOUT, $this->about);
+        }
+        if ($this->isColumnModified(UserTableMap::COL_AUTOPLAY)) {
+            $criteria->add(UserTableMap::COL_AUTOPLAY, $this->autoplay);
         }
 
         return $criteria;
@@ -1105,6 +1390,10 @@ abstract class User implements ActiveRecordInterface
     {
         $copyObj->setUsername($this->getUsername());
         $copyObj->setPassword($this->getPassword());
+        $copyObj->setMail($this->getMail());
+        $copyObj->setAvatar($this->getAvatar());
+        $copyObj->setAbout($this->getAbout());
+        $copyObj->setAutoplay($this->getAutoplay());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1114,6 +1403,12 @@ abstract class User implements ActiveRecordInterface
             foreach ($this->getLyrics() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addLyric($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getLyricTranslations() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addLyricTranslation($relObj->copy($deepCopy));
                 }
             }
 
@@ -1166,6 +1461,9 @@ abstract class User implements ActiveRecordInterface
     {
         if ('Lyric' == $relationName) {
             return $this->initLyrics();
+        }
+        if ('LyricTranslation' == $relationName) {
+            return $this->initLyricTranslations();
         }
         if ('LyricVote' == $relationName) {
             return $this->initLyricVotes();
@@ -1388,6 +1686,249 @@ abstract class User implements ActiveRecordInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Clears out the collLyricTranslations collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addLyricTranslations()
+     */
+    public function clearLyricTranslations()
+    {
+        $this->collLyricTranslations = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collLyricTranslations collection loaded partially.
+     */
+    public function resetPartialLyricTranslations($v = true)
+    {
+        $this->collLyricTranslationsPartial = $v;
+    }
+
+    /**
+     * Initializes the collLyricTranslations collection.
+     *
+     * By default this just sets the collLyricTranslations collection to an empty array (like clearcollLyricTranslations());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initLyricTranslations($overrideExisting = true)
+    {
+        if (null !== $this->collLyricTranslations && !$overrideExisting) {
+            return;
+        }
+        $this->collLyricTranslations = new ObjectCollection();
+        $this->collLyricTranslations->setModel('\Tekstove\TekstoveBundle\Model\LyricTranslation');
+    }
+
+    /**
+     * Gets an array of ChildLyricTranslation objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUser is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildLyricTranslation[] List of ChildLyricTranslation objects
+     * @throws PropelException
+     */
+    public function getLyricTranslations(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricTranslationsPartial && !$this->isNew();
+        if (null === $this->collLyricTranslations || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collLyricTranslations) {
+                // return empty collection
+                $this->initLyricTranslations();
+            } else {
+                $collLyricTranslations = ChildLyricTranslationQuery::create(null, $criteria)
+                    ->filterByUser($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collLyricTranslationsPartial && count($collLyricTranslations)) {
+                        $this->initLyricTranslations(false);
+
+                        foreach ($collLyricTranslations as $obj) {
+                            if (false == $this->collLyricTranslations->contains($obj)) {
+                                $this->collLyricTranslations->append($obj);
+                            }
+                        }
+
+                        $this->collLyricTranslationsPartial = true;
+                    }
+
+                    return $collLyricTranslations;
+                }
+
+                if ($partial && $this->collLyricTranslations) {
+                    foreach ($this->collLyricTranslations as $obj) {
+                        if ($obj->isNew()) {
+                            $collLyricTranslations[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collLyricTranslations = $collLyricTranslations;
+                $this->collLyricTranslationsPartial = false;
+            }
+        }
+
+        return $this->collLyricTranslations;
+    }
+
+    /**
+     * Sets a collection of ChildLyricTranslation objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $lyricTranslations A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function setLyricTranslations(Collection $lyricTranslations, ConnectionInterface $con = null)
+    {
+        /** @var ChildLyricTranslation[] $lyricTranslationsToDelete */
+        $lyricTranslationsToDelete = $this->getLyricTranslations(new Criteria(), $con)->diff($lyricTranslations);
+
+
+        $this->lyricTranslationsScheduledForDeletion = $lyricTranslationsToDelete;
+
+        foreach ($lyricTranslationsToDelete as $lyricTranslationRemoved) {
+            $lyricTranslationRemoved->setUser(null);
+        }
+
+        $this->collLyricTranslations = null;
+        foreach ($lyricTranslations as $lyricTranslation) {
+            $this->addLyricTranslation($lyricTranslation);
+        }
+
+        $this->collLyricTranslations = $lyricTranslations;
+        $this->collLyricTranslationsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related LyricTranslation objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related LyricTranslation objects.
+     * @throws PropelException
+     */
+    public function countLyricTranslations(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collLyricTranslationsPartial && !$this->isNew();
+        if (null === $this->collLyricTranslations || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collLyricTranslations) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getLyricTranslations());
+            }
+
+            $query = ChildLyricTranslationQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUser($this)
+                ->count($con);
+        }
+
+        return count($this->collLyricTranslations);
+    }
+
+    /**
+     * Method called to associate a ChildLyricTranslation object to this object
+     * through the ChildLyricTranslation foreign key attribute.
+     *
+     * @param  ChildLyricTranslation $l ChildLyricTranslation
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function addLyricTranslation(ChildLyricTranslation $l)
+    {
+        if ($this->collLyricTranslations === null) {
+            $this->initLyricTranslations();
+            $this->collLyricTranslationsPartial = true;
+        }
+
+        if (!$this->collLyricTranslations->contains($l)) {
+            $this->doAddLyricTranslation($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildLyricTranslation $lyricTranslation The ChildLyricTranslation object to add.
+     */
+    protected function doAddLyricTranslation(ChildLyricTranslation $lyricTranslation)
+    {
+        $this->collLyricTranslations[]= $lyricTranslation;
+        $lyricTranslation->setUser($this);
+    }
+
+    /**
+     * @param  ChildLyricTranslation $lyricTranslation The ChildLyricTranslation object to remove.
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function removeLyricTranslation(ChildLyricTranslation $lyricTranslation)
+    {
+        if ($this->getLyricTranslations()->contains($lyricTranslation)) {
+            $pos = $this->collLyricTranslations->search($lyricTranslation);
+            $this->collLyricTranslations->remove($pos);
+            if (null === $this->lyricTranslationsScheduledForDeletion) {
+                $this->lyricTranslationsScheduledForDeletion = clone $this->collLyricTranslations;
+                $this->lyricTranslationsScheduledForDeletion->clear();
+            }
+            $this->lyricTranslationsScheduledForDeletion[]= $lyricTranslation;
+            $lyricTranslation->setUser(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this User is new, it will return
+     * an empty collection; or if this User has previously
+     * been saved, it will retrieve related LyricTranslations from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in User.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildLyricTranslation[] List of ChildLyricTranslation objects
+     */
+    public function getLyricTranslationsJoinLyric(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildLyricTranslationQuery::create(null, $criteria);
+        $query->joinWith('Lyric', $joinBehavior);
+
+        return $this->getLyricTranslations($query, $con);
     }
 
     /**
@@ -1643,6 +2184,10 @@ abstract class User implements ActiveRecordInterface
         $this->id = null;
         $this->username = null;
         $this->password = null;
+        $this->mail = null;
+        $this->avatar = null;
+        $this->about = null;
+        $this->autoplay = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1666,6 +2211,11 @@ abstract class User implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collLyricTranslations) {
+                foreach ($this->collLyricTranslations as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collLyricVotes) {
                 foreach ($this->collLyricVotes as $o) {
                     $o->clearAllReferences($deep);
@@ -1674,6 +2224,7 @@ abstract class User implements ActiveRecordInterface
         } // if ($deep)
 
         $this->collLyrics = null;
+        $this->collLyricTranslations = null;
         $this->collLyricVotes = null;
     }
 

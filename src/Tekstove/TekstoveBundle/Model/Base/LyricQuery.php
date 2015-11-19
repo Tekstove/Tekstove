@@ -74,6 +74,16 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithLyricLanguage() Adds a RIGHT JOIN clause and with to the query using the LyricLanguage relation
  * @method     ChildLyricQuery innerJoinWithLyricLanguage() Adds a INNER JOIN clause and with to the query using the LyricLanguage relation
  *
+ * @method     ChildLyricQuery leftJoinLyricTranslation($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricTranslation relation
+ * @method     ChildLyricQuery rightJoinLyricTranslation($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricTranslation relation
+ * @method     ChildLyricQuery innerJoinLyricTranslation($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricTranslation relation
+ *
+ * @method     ChildLyricQuery joinWithLyricTranslation($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the LyricTranslation relation
+ *
+ * @method     ChildLyricQuery leftJoinWithLyricTranslation() Adds a LEFT JOIN clause and with to the query using the LyricTranslation relation
+ * @method     ChildLyricQuery rightJoinWithLyricTranslation() Adds a RIGHT JOIN clause and with to the query using the LyricTranslation relation
+ * @method     ChildLyricQuery innerJoinWithLyricTranslation() Adds a INNER JOIN clause and with to the query using the LyricTranslation relation
+ *
  * @method     ChildLyricQuery leftJoinLyricVote($relationAlias = null) Adds a LEFT JOIN clause to the query using the LyricVote relation
  * @method     ChildLyricQuery rightJoinLyricVote($relationAlias = null) Adds a RIGHT JOIN clause to the query using the LyricVote relation
  * @method     ChildLyricQuery innerJoinLyricVote($relationAlias = null) Adds a INNER JOIN clause to the query using the LyricVote relation
@@ -84,7 +94,7 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery rightJoinWithLyricVote() Adds a RIGHT JOIN clause and with to the query using the LyricVote relation
  * @method     ChildLyricQuery innerJoinWithLyricVote() Adds a INNER JOIN clause and with to the query using the LyricVote relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\UserQuery|\Tekstove\TekstoveBundle\Model\LyricLanguageQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\UserQuery|\Tekstove\TekstoveBundle\Model\LyricLanguageQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLyric findOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query
  * @method     ChildLyric findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLyric matching the query, or a new ChildLyric object populated from the query conditions when no match is found
@@ -859,6 +869,79 @@ abstract class LyricQuery extends ModelCriteria
         return $this
             ->joinLyricLanguage($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'LyricLanguage', '\Tekstove\TekstoveBundle\Model\LyricLanguageQuery');
+    }
+
+    /**
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricTranslation object
+     *
+     * @param \Tekstove\TekstoveBundle\Model\LyricTranslation|ObjectCollection $lyricTranslation the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByLyricTranslation($lyricTranslation, $comparison = null)
+    {
+        if ($lyricTranslation instanceof \Tekstove\TekstoveBundle\Model\LyricTranslation) {
+            return $this
+                ->addUsingAlias(LyricTableMap::COL_ID, $lyricTranslation->getLyricId(), $comparison);
+        } elseif ($lyricTranslation instanceof ObjectCollection) {
+            return $this
+                ->useLyricTranslationQuery()
+                ->filterByPrimaryKeys($lyricTranslation->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByLyricTranslation() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricTranslation or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the LyricTranslation relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function joinLyricTranslation($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('LyricTranslation');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'LyricTranslation');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the LyricTranslation relation LyricTranslation object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Tekstove\TekstoveBundle\Model\LyricTranslationQuery A secondary query class using the current class as primary query
+     */
+    public function useLyricTranslationQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLyricTranslation($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'LyricTranslation', '\Tekstove\TekstoveBundle\Model\LyricTranslationQuery');
     }
 
     /**

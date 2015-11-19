@@ -4,6 +4,11 @@
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="username" type="varchar" primaryString="1" size="100" />
         <column name="password" type="varchar" required="true" />
+        <column name="mail" type="varchar" required="true" />
+        <column name="avatar" type="varchar" />
+        <column name="about" type="varchar" />
+        <!-- should be php bool -->
+        <column name="autoplay" type="smallint" />
     </table>
     
     <table name="lyric">
@@ -44,6 +49,20 @@
         </foreign-key>
     </table>
     
+    <table name="lyric_translation">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" />
+        <column name="lyric_id" type="integer"/>
+        <column name="user_id" type="integer"/>
+        <column name="text" type="varchar"/>
+        
+        <foreign-key foreignTable="lyric">
+            <reference local="lyric_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
     <table name="language" readOnly="true">
         <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
         <column name="name" type="varchar" />
@@ -58,6 +77,16 @@
         </foreign-key>
         <foreign-key foreignTable="lyric">
             <reference local="lyric_id" foreign="id" />
+        </foreign-key>
+    </table>
+    
+    <table name="artist">
+        <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" />
+        <column name="user_id" type="integer" />
+        <!-- Add forbidden, redirect_toArtist -->
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
         </foreign-key>
     </table>
 

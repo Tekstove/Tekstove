@@ -214,6 +214,13 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'LyricLanguages', false);
+        $this->addRelation('LyricTranslation', '\\Tekstove\\TekstoveBundle\\Model\\LyricTranslation', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':lyric_id',
+    1 => ':id',
+  ),
+), null, null, 'LyricTranslations', false);
         $this->addRelation('LyricVote', '\\Tekstove\\TekstoveBundle\\Model\\LyricVote', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
