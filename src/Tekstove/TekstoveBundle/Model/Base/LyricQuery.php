@@ -28,6 +28,10 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery orderBycacheTitleShort($order = Criteria::ASC) Order by the cache_title_short column
  * @method     ChildLyricQuery orderByViews($order = Criteria::ASC) Order by the views column
  * @method     ChildLyricQuery orderByPopularity($order = Criteria::ASC) Order by the popularity column
+ * @method     ChildLyricQuery orderByvideoYoutube($order = Criteria::ASC) Order by the video_youtube column
+ * @method     ChildLyricQuery orderByvideoVbox7($order = Criteria::ASC) Order by the video_vbox7 column
+ * @method     ChildLyricQuery orderByvideoMetacafe($order = Criteria::ASC) Order by the video_metacafe column
+ * @method     ChildLyricQuery orderBydownload($order = Criteria::ASC) Order by the download column
  *
  * @method     ChildLyricQuery groupById() Group by the id column
  * @method     ChildLyricQuery groupByTitle() Group by the title column
@@ -37,6 +41,10 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyricQuery groupBycacheTitleShort() Group by the cache_title_short column
  * @method     ChildLyricQuery groupByViews() Group by the views column
  * @method     ChildLyricQuery groupByPopularity() Group by the popularity column
+ * @method     ChildLyricQuery groupByvideoYoutube() Group by the video_youtube column
+ * @method     ChildLyricQuery groupByvideoVbox7() Group by the video_vbox7 column
+ * @method     ChildLyricQuery groupByvideoMetacafe() Group by the video_metacafe column
+ * @method     ChildLyricQuery groupBydownload() Group by the download column
  *
  * @method     ChildLyricQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildLyricQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -88,7 +96,11 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric findOneByuserId(int $user_id) Return the first ChildLyric filtered by the user_id column
  * @method     ChildLyric findOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column
  * @method     ChildLyric findOneByViews(int $views) Return the first ChildLyric filtered by the views column
- * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column *
+ * @method     ChildLyric findOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column
+ * @method     ChildLyric findOneByvideoYoutube(string $video_youtube) Return the first ChildLyric filtered by the video_youtube column
+ * @method     ChildLyric findOneByvideoVbox7(string $video_vbox7) Return the first ChildLyric filtered by the video_vbox7 column
+ * @method     ChildLyric findOneByvideoMetacafe(string $video_metacafe) Return the first ChildLyric filtered by the video_metacafe column
+ * @method     ChildLyric findOneBydownload(string $download) Return the first ChildLyric filtered by the download column *
 
  * @method     ChildLyric requirePk($key, ConnectionInterface $con = null) Return the ChildLyric by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOne(ConnectionInterface $con = null) Return the first ChildLyric matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -101,6 +113,10 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric requireOneBycacheTitleShort(string $cache_title_short) Return the first ChildLyric filtered by the cache_title_short column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByViews(int $views) Return the first ChildLyric filtered by the views column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildLyric requireOneByPopularity(int $popularity) Return the first ChildLyric filtered by the popularity column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByvideoYoutube(string $video_youtube) Return the first ChildLyric filtered by the video_youtube column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByvideoVbox7(string $video_vbox7) Return the first ChildLyric filtered by the video_vbox7 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneByvideoMetacafe(string $video_metacafe) Return the first ChildLyric filtered by the video_metacafe column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildLyric requireOneBydownload(string $download) Return the first ChildLyric filtered by the download column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildLyric[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildLyric objects based on current ModelCriteria
  * @method     ChildLyric[]|ObjectCollection findById(int $id) Return ChildLyric objects filtered by the id column
@@ -111,6 +127,10 @@ use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
  * @method     ChildLyric[]|ObjectCollection findBycacheTitleShort(string $cache_title_short) Return ChildLyric objects filtered by the cache_title_short column
  * @method     ChildLyric[]|ObjectCollection findByViews(int $views) Return ChildLyric objects filtered by the views column
  * @method     ChildLyric[]|ObjectCollection findByPopularity(int $popularity) Return ChildLyric objects filtered by the popularity column
+ * @method     ChildLyric[]|ObjectCollection findByvideoYoutube(string $video_youtube) Return ChildLyric objects filtered by the video_youtube column
+ * @method     ChildLyric[]|ObjectCollection findByvideoVbox7(string $video_vbox7) Return ChildLyric objects filtered by the video_vbox7 column
+ * @method     ChildLyric[]|ObjectCollection findByvideoMetacafe(string $video_metacafe) Return ChildLyric objects filtered by the video_metacafe column
+ * @method     ChildLyric[]|ObjectCollection findBydownload(string $download) Return ChildLyric objects filtered by the download column
  * @method     ChildLyric[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -203,7 +223,7 @@ abstract class LyricQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, title, text, text_bg, user_id, cache_title_short, views, popularity FROM lyric WHERE id = :p0';
+        $sql = 'SELECT id, title, text, text_bg, user_id, cache_title_short, views, popularity, video_youtube, video_vbox7, video_metacafe, download FROM lyric WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -573,6 +593,122 @@ abstract class LyricQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(LyricTableMap::COL_POPULARITY, $popularity, $comparison);
+    }
+
+    /**
+     * Filter the query on the video_youtube column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByvideoYoutube('fooValue');   // WHERE video_youtube = 'fooValue'
+     * $query->filterByvideoYoutube('%fooValue%'); // WHERE video_youtube LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $videoYoutube The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByvideoYoutube($videoYoutube = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($videoYoutube)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $videoYoutube)) {
+                $videoYoutube = str_replace('*', '%', $videoYoutube);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_VIDEO_YOUTUBE, $videoYoutube, $comparison);
+    }
+
+    /**
+     * Filter the query on the video_vbox7 column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByvideoVbox7('fooValue');   // WHERE video_vbox7 = 'fooValue'
+     * $query->filterByvideoVbox7('%fooValue%'); // WHERE video_vbox7 LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $videoVbox7 The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByvideoVbox7($videoVbox7 = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($videoVbox7)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $videoVbox7)) {
+                $videoVbox7 = str_replace('*', '%', $videoVbox7);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_VIDEO_VBOX7, $videoVbox7, $comparison);
+    }
+
+    /**
+     * Filter the query on the video_metacafe column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByvideoMetacafe('fooValue');   // WHERE video_metacafe = 'fooValue'
+     * $query->filterByvideoMetacafe('%fooValue%'); // WHERE video_metacafe LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $videoMetacafe The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterByvideoMetacafe($videoMetacafe = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($videoMetacafe)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $videoMetacafe)) {
+                $videoMetacafe = str_replace('*', '%', $videoMetacafe);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_VIDEO_METACAFE, $videoMetacafe, $comparison);
+    }
+
+    /**
+     * Filter the query on the download column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBydownload('fooValue');   // WHERE download = 'fooValue'
+     * $query->filterBydownload('%fooValue%'); // WHERE download LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $download The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildLyricQuery The current query, for fluid interface
+     */
+    public function filterBydownload($download = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($download)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $download)) {
+                $download = str_replace('*', '%', $download);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(LyricTableMap::COL_DOWNLOAD, $download, $comparison);
     }
 
     /**

@@ -334,12 +334,9 @@ abstract class User implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
-
-        foreach($serializableProperties as $property) {
+        foreach($cls->getProperties() as $property) {
             $propertyNames[] = $property->getName();
         }
-
         return $propertyNames;
     }
 

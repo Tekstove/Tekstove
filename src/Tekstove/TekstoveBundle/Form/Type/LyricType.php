@@ -30,6 +30,12 @@ class LyricType extends BaseAbstractType
                 ],
             ]
         );
+        
+        $builder->add('videoYoutube');
+        $builder->add('videoVbox7');
+        $builder->add('videoMetacafe');
+        
+        $builder->add('download');
     }
     
     /**

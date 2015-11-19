@@ -21,6 +21,12 @@
         <column name="views" type="integer" />
         <column name="popularity" type="integer" />
         
+        <column name="video_youtube" type="varchar" phpName="videoYoutube" />
+        <column name="video_vbox7" type="varchar" phpName="videoVbox7" />
+        <column name="video_metacafe" type="varchar" phpName="videoMetacafe" />
+
+        <column name="download" type="varchar" phpName="download" />
+        
         <behavior name="validate">
             <parameter name="textValidationNotEmpty" value="{column: text, validator: NotBlank}" />
             <parameter name="titleValidationNotEmpty" value="{column: title, validator: NotBlank}" />

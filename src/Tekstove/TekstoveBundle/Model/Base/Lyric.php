@@ -136,6 +136,34 @@ abstract class Lyric implements ActiveRecordInterface
     protected $popularity;
 
     /**
+     * The value for the video_youtube field.
+     *
+     * @var        string
+     */
+    protected $video_youtube;
+
+    /**
+     * The value for the video_vbox7 field.
+     *
+     * @var        string
+     */
+    protected $video_vbox7;
+
+    /**
+     * The value for the video_metacafe field.
+     *
+     * @var        string
+     */
+    protected $video_metacafe;
+
+    /**
+     * The value for the download field.
+     *
+     * @var        string
+     */
+    protected $download;
+
+    /**
      * @var        ChildUser
      */
     protected $aUser;
@@ -421,12 +449,9 @@ abstract class Lyric implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
-
-        foreach($serializableProperties as $property) {
+        foreach($cls->getProperties() as $property) {
             $propertyNames[] = $property->getName();
         }
-
         return $propertyNames;
     }
 
@@ -508,6 +533,46 @@ abstract class Lyric implements ActiveRecordInterface
     public function getPopularity()
     {
         return $this->popularity;
+    }
+
+    /**
+     * Get the [video_youtube] column value.
+     *
+     * @return string
+     */
+    public function getvideoYoutube()
+    {
+        return $this->video_youtube;
+    }
+
+    /**
+     * Get the [video_vbox7] column value.
+     *
+     * @return string
+     */
+    public function getvideoVbox7()
+    {
+        return $this->video_vbox7;
+    }
+
+    /**
+     * Get the [video_metacafe] column value.
+     *
+     * @return string
+     */
+    public function getvideoMetacafe()
+    {
+        return $this->video_metacafe;
+    }
+
+    /**
+     * Get the [download] column value.
+     *
+     * @return string
+     */
+    public function getdownload()
+    {
+        return $this->download;
     }
 
     /**
@@ -675,6 +740,86 @@ abstract class Lyric implements ActiveRecordInterface
     } // setPopularity()
 
     /**
+     * Set the value of [video_youtube] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setvideoYoutube($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->video_youtube !== $v) {
+            $this->video_youtube = $v;
+            $this->modifiedColumns[LyricTableMap::COL_VIDEO_YOUTUBE] = true;
+        }
+
+        return $this;
+    } // setvideoYoutube()
+
+    /**
+     * Set the value of [video_vbox7] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setvideoVbox7($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->video_vbox7 !== $v) {
+            $this->video_vbox7 = $v;
+            $this->modifiedColumns[LyricTableMap::COL_VIDEO_VBOX7] = true;
+        }
+
+        return $this;
+    } // setvideoVbox7()
+
+    /**
+     * Set the value of [video_metacafe] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setvideoMetacafe($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->video_metacafe !== $v) {
+            $this->video_metacafe = $v;
+            $this->modifiedColumns[LyricTableMap::COL_VIDEO_METACAFE] = true;
+        }
+
+        return $this;
+    } // setvideoMetacafe()
+
+    /**
+     * Set the value of [download] column.
+     *
+     * @param string $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
+     */
+    public function setdownload($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->download !== $v) {
+            $this->download = $v;
+            $this->modifiedColumns[LyricTableMap::COL_DOWNLOAD] = true;
+        }
+
+        return $this;
+    } // setdownload()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -733,6 +878,18 @@ abstract class Lyric implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : LyricTableMap::translateFieldName('Popularity', TableMap::TYPE_PHPNAME, $indexType)];
             $this->popularity = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : LyricTableMap::translateFieldName('videoYoutube', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->video_youtube = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : LyricTableMap::translateFieldName('videoVbox7', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->video_vbox7 = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : LyricTableMap::translateFieldName('videoMetacafe', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->video_metacafe = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : LyricTableMap::translateFieldName('download', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->download = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -741,7 +898,7 @@ abstract class Lyric implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 8; // 8 = LyricTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 12; // 12 = LyricTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric'), 0, $e);
@@ -1047,6 +1204,18 @@ abstract class Lyric implements ActiveRecordInterface
         if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
             $modifiedColumns[':p' . $index++]  = 'popularity';
         }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_YOUTUBE)) {
+            $modifiedColumns[':p' . $index++]  = 'video_youtube';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_VBOX7)) {
+            $modifiedColumns[':p' . $index++]  = 'video_vbox7';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_METACAFE)) {
+            $modifiedColumns[':p' . $index++]  = 'video_metacafe';
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_DOWNLOAD)) {
+            $modifiedColumns[':p' . $index++]  = 'download';
+        }
 
         $sql = sprintf(
             'INSERT INTO lyric (%s) VALUES (%s)',
@@ -1081,6 +1250,18 @@ abstract class Lyric implements ActiveRecordInterface
                         break;
                     case 'popularity':
                         $stmt->bindValue($identifier, $this->popularity, PDO::PARAM_INT);
+                        break;
+                    case 'video_youtube':
+                        $stmt->bindValue($identifier, $this->video_youtube, PDO::PARAM_STR);
+                        break;
+                    case 'video_vbox7':
+                        $stmt->bindValue($identifier, $this->video_vbox7, PDO::PARAM_STR);
+                        break;
+                    case 'video_metacafe':
+                        $stmt->bindValue($identifier, $this->video_metacafe, PDO::PARAM_STR);
+                        break;
+                    case 'download':
+                        $stmt->bindValue($identifier, $this->download, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1168,6 +1349,18 @@ abstract class Lyric implements ActiveRecordInterface
             case 7:
                 return $this->getPopularity();
                 break;
+            case 8:
+                return $this->getvideoYoutube();
+                break;
+            case 9:
+                return $this->getvideoVbox7();
+                break;
+            case 10:
+                return $this->getvideoMetacafe();
+                break;
+            case 11:
+                return $this->getdownload();
+                break;
             default:
                 return null;
                 break;
@@ -1206,6 +1399,10 @@ abstract class Lyric implements ActiveRecordInterface
             $keys[5] => $this->getcacheTitleShort(),
             $keys[6] => $this->getViews(),
             $keys[7] => $this->getPopularity(),
+            $keys[8] => $this->getvideoYoutube(),
+            $keys[9] => $this->getvideoVbox7(),
+            $keys[10] => $this->getvideoMetacafe(),
+            $keys[11] => $this->getdownload(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1316,6 +1513,18 @@ abstract class Lyric implements ActiveRecordInterface
             case 7:
                 $this->setPopularity($value);
                 break;
+            case 8:
+                $this->setvideoYoutube($value);
+                break;
+            case 9:
+                $this->setvideoVbox7($value);
+                break;
+            case 10:
+                $this->setvideoMetacafe($value);
+                break;
+            case 11:
+                $this->setdownload($value);
+                break;
         } // switch()
 
         return $this;
@@ -1365,6 +1574,18 @@ abstract class Lyric implements ActiveRecordInterface
         }
         if (array_key_exists($keys[7], $arr)) {
             $this->setPopularity($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setvideoYoutube($arr[$keys[8]]);
+        }
+        if (array_key_exists($keys[9], $arr)) {
+            $this->setvideoVbox7($arr[$keys[9]]);
+        }
+        if (array_key_exists($keys[10], $arr)) {
+            $this->setvideoMetacafe($arr[$keys[10]]);
+        }
+        if (array_key_exists($keys[11], $arr)) {
+            $this->setdownload($arr[$keys[11]]);
         }
     }
 
@@ -1430,6 +1651,18 @@ abstract class Lyric implements ActiveRecordInterface
         }
         if ($this->isColumnModified(LyricTableMap::COL_POPULARITY)) {
             $criteria->add(LyricTableMap::COL_POPULARITY, $this->popularity);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_YOUTUBE)) {
+            $criteria->add(LyricTableMap::COL_VIDEO_YOUTUBE, $this->video_youtube);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_VBOX7)) {
+            $criteria->add(LyricTableMap::COL_VIDEO_VBOX7, $this->video_vbox7);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_VIDEO_METACAFE)) {
+            $criteria->add(LyricTableMap::COL_VIDEO_METACAFE, $this->video_metacafe);
+        }
+        if ($this->isColumnModified(LyricTableMap::COL_DOWNLOAD)) {
+            $criteria->add(LyricTableMap::COL_DOWNLOAD, $this->download);
         }
 
         return $criteria;
@@ -1524,6 +1757,10 @@ abstract class Lyric implements ActiveRecordInterface
         $copyObj->setcacheTitleShort($this->getcacheTitleShort());
         $copyObj->setViews($this->getViews());
         $copyObj->setPopularity($this->getPopularity());
+        $copyObj->setvideoYoutube($this->getvideoYoutube());
+        $copyObj->setvideoVbox7($this->getvideoVbox7());
+        $copyObj->setvideoMetacafe($this->getvideoMetacafe());
+        $copyObj->setdownload($this->getdownload());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2391,6 +2628,10 @@ abstract class Lyric implements ActiveRecordInterface
         $this->cache_title_short = null;
         $this->views = null;
         $this->popularity = null;
+        $this->video_youtube = null;
+        $this->video_vbox7 = null;
+        $this->video_metacafe = null;
+        $this->download = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
