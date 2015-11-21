@@ -12,7 +12,7 @@ class EventDispacherFactory {
     {
         $dispacher = new EventDispacher();
         // add events!
-        $testEvent = new \Tekstove\TekstoveBundle\EventListener\Entity\LyricSubscriber();
+        $testEvent = new \Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricTitleCacheSubscriber();
         $dispacher->addSubscriber($testEvent);
         return $dispacher;
     }

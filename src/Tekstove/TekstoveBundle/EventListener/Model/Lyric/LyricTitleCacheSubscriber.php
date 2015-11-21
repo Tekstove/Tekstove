@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\EventListener\Entity;
+namespace Tekstove\TekstoveBundle\EventListener\Model\Lyric;
 
 use Tekstove\TekstoveBundle\Model\Lyric;
 
@@ -9,7 +9,7 @@ use Tekstove\TekstoveBundle\Model\Lyric;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class LyricSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
+class LyricTitleCacheSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
 
     public function __construct() {
@@ -31,6 +31,6 @@ class LyricSubscriber implements \Symfony\Component\EventDispatcher\EventSubscri
     {
         $cacheTitleShort = '';
         $cacheTitleShort .= $lyric->getTitle();
-        $lyric->setCacheTitleShort($cacheTitleShort);
+        $lyric->setcacheTitleShort($cacheTitleShort);
     }
 }
