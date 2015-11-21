@@ -10,16 +10,18 @@ services:
     tekstove.model.artist.query:
         class: Tekstove\TekstoveBundle\Model\ArtistQuery
     
+    tekstove.event_dispacher.factory:
+        class: Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacherFactory
+        arguments: []
+    tekstove.event_dispacher:
+        class: Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacher
+        factory: [@tekstove.event_dispacher.factory, createDispacher]
+    
     security.access.post_voter:
         class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
         public: false
         tags:
             - { name: security.voter }
-    tekstove.entity.lyric.subscriber:
-        class: Tekstove\TekstoveBundle\EventListener\Entity\LyricSubscriber
-        arguments: [@security.token_storage]
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
     tekstove.provider.user:
         class: Tekstove\TekstoveBundle\Model\User\Provider
         arguments: [@tekstove.model.user.query]

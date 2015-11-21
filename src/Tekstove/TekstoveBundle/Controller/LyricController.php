@@ -46,7 +46,7 @@ class LyricController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
                 // shoud be get from services
-                $eventDispacher = new \Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacher();
+                $eventDispacher = $this->get('tekstove.event_dispacher');
                 $lyric->setEventDispacher($eventDispacher);
                 $lyric->save();
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);

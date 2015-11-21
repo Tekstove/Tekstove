@@ -15,52 +15,22 @@ use Tekstove\TekstoveBundle\Entity\User;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class LyricSubscriber implements EventSubscriber
+class LyricSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
 
-    private $tokenStorage;
-    
-    public function __construct(TokenStorage $tokenStorage) {
-        $this->tokenStorage = $tokenStorage;
+    public function __construct() {
     }
     
-    /**
-     * 
-     * @return User|string
-     */
-    private function getUser()
-    {
-        return $this->tokenStorage->getToken()->getUser();
-    }
-
-    
-    public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(
-            'prePersist',
-            'preUpdate',
+            'tekstove.lyric.save' => 'saveEvent',
         );
     }
-
-    public function prePersist(LifecycleEventArgs $args)
+    
+    public function saveEvent()
     {
-        $entity = $args->getEntity();
-        if ($entity instanceof Lyric) {
-            $this->updateCache($entity);
-        }
-        
-        $user = $this->getUser();
-        if ($user instanceof User) {
-            $entity->setUploadedBy($user);
-        }
-    }
-
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if ($entity instanceof Lyric) {
-            $this->updateCache($entity);
-        }
+        throw new \Exception('test events');
     }
 
     public function updateCache(Lyric $lyric)
