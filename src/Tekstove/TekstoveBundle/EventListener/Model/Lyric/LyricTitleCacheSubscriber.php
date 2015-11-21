@@ -12,9 +12,6 @@ use Tekstove\TekstoveBundle\Model\Lyric;
 class LyricTitleCacheSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
 
-    public function __construct() {
-    }
-    
     public static function getSubscribedEvents()
     {
         return array(
@@ -22,9 +19,11 @@ class LyricTitleCacheSubscriber implements \Symfony\Component\EventDispatcher\Ev
         );
     }
     
-    public function saveEvent()
+    public function saveEvent(\Tekstove\TekstoveBundle\Model\EventDispatcher\Event $event)
     {
-        throw new \Exception('test events');
+        $lyric = $event->getSubject();
+        $this->updateCache($lyric);
+    
     }
 
     public function updateCache(Lyric $lyric)
