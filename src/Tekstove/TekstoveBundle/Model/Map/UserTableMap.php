@@ -192,6 +192,13 @@ class UserTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'LyricVotes', false);
+        $this->addRelation('Artist', '\\Tekstove\\TekstoveBundle\\Model\\Artist', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, 'Artists', false);
     } // buildRelations()
 
     /**

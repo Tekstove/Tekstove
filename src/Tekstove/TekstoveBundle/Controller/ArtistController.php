@@ -10,14 +10,6 @@ class ArtistController extends Controller
 {
 
     /**
-     * @return \Tekstove\TekstoveBundle\Entity\ArtistRepository
-     */
-    private function getDefaultRepo() {
-        $repo = $this->getDoctrine()->getRepository('TekstoveBundle:Artist');
-        return $repo;
-    }
-
-    /**
      * @Template()
      */
     public function browseAction($id) {
@@ -34,14 +26,13 @@ class ArtistController extends Controller
      * @Template()
      */
     public function listAction($letter, Request $request) {
-        $repo = $this->getDefaultRepo();
-        $queryBuilder = $repo->createQueryBuilder('a');
-        $queryBuilder->andWhere('a.name LIKE :letter');
-        $queryBuilder->setParameter('letter', $letter . '%');
-
+        $artistRepo = $this->get('tekstove.model.artist.query');
+        $artistQuery = $artistRepo->create();
+        /* @var $artistQuery \Tekstove\TekstoveBundle\Model\ArtistQuery */
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $queryBuilder,
+            $artistQuery,
             $request->query->getInt('page', 1) /* page number */,
             30 /* limit per page */
         );

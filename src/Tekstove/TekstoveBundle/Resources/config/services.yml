@@ -7,6 +7,8 @@ services:
         class:   Tekstove\TekstoveBundle\Model\UserQuery
     tekstove.model.lyric.query:
         class:   Tekstove\TekstoveBundle\Model\LyricQuery
+    tekstove.model.artist.query:
+        class: Tekstove\TekstoveBundle\Model\ArtistQuery
     
     security.access.post_voter:
         class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter

@@ -29,6 +29,7 @@ class IndexController extends Controller
         $lastTranslatedQuery->limit(10);
         $lastTranslated = $lastTranslatedQuery->find();
 
+        
         $popular = [];
         
         $mostViewed = [];

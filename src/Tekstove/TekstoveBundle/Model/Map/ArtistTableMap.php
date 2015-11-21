@@ -11,12 +11,12 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
-use Tekstove\TekstoveBundle\Model\Lyric;
-use Tekstove\TekstoveBundle\Model\LyricQuery;
+use Tekstove\TekstoveBundle\Model\Artist;
+use Tekstove\TekstoveBundle\Model\ArtistQuery;
 
 
 /**
- * This class defines the structure of the 'lyric' table.
+ * This class defines the structure of the 'artist' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Tekstove\TekstoveBundle\Model\LyricQuery;
  * (i.e. if it's a text column type).
  *
  */
-class LyricTableMap extends TableMap
+class ArtistTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class LyricTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Map.LyricTableMap';
+    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Map.ArtistTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +44,22 @@ class LyricTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'lyric';
+    const TABLE_NAME = 'artist';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Lyric';
+    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Artist';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Lyric';
+    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.Artist';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 13;
+    const NUM_COLUMNS = 3;
 
     /**
      * The number of lazy-loaded columns
@@ -69,72 +69,22 @@ class LyricTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 13;
+    const NUM_HYDRATE_COLUMNS = 3;
 
     /**
      * the column name for the id field
      */
-    const COL_ID = 'lyric.id';
+    const COL_ID = 'artist.id';
 
     /**
-     * the column name for the title field
+     * the column name for the name field
      */
-    const COL_TITLE = 'lyric.title';
-
-    /**
-     * the column name for the text field
-     */
-    const COL_TEXT = 'lyric.text';
-
-    /**
-     * the column name for the text_bg field
-     */
-    const COL_TEXT_BG = 'lyric.text_bg';
+    const COL_NAME = 'artist.name';
 
     /**
      * the column name for the user_id field
      */
-    const COL_USER_ID = 'lyric.user_id';
-
-    /**
-     * the column name for the cache_title_short field
-     */
-    const COL_CACHE_TITLE_SHORT = 'lyric.cache_title_short';
-
-    /**
-     * the column name for the views field
-     */
-    const COL_VIEWS = 'lyric.views';
-
-    /**
-     * the column name for the popularity field
-     */
-    const COL_POPULARITY = 'lyric.popularity';
-
-    /**
-     * the column name for the votesCount field
-     */
-    const COL_VOTESCOUNT = 'lyric.votesCount';
-
-    /**
-     * the column name for the video_youtube field
-     */
-    const COL_VIDEO_YOUTUBE = 'lyric.video_youtube';
-
-    /**
-     * the column name for the video_vbox7 field
-     */
-    const COL_VIDEO_VBOX7 = 'lyric.video_vbox7';
-
-    /**
-     * the column name for the video_metacafe field
-     */
-    const COL_VIDEO_METACAFE = 'lyric.video_metacafe';
-
-    /**
-     * the column name for the download field
-     */
-    const COL_DOWNLOAD = 'lyric.download';
+    const COL_USER_ID = 'artist.user_id';
 
     /**
      * The default string format for model objects of the related table
@@ -148,11 +98,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Title', 'Text', 'textBg', 'userId', 'cacheTitleShort', 'Views', 'Popularity', 'Votescount', 'videoYoutube', 'videoVbox7', 'videoMetacafe', 'download', ),
-        self::TYPE_CAMELNAME     => array('id', 'title', 'text', 'textBg', 'userId', 'cacheTitleShort', 'views', 'popularity', 'votescount', 'videoYoutube', 'videoVbox7', 'videoMetacafe', 'download', ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID, LyricTableMap::COL_TITLE, LyricTableMap::COL_TEXT, LyricTableMap::COL_TEXT_BG, LyricTableMap::COL_USER_ID, LyricTableMap::COL_CACHE_TITLE_SHORT, LyricTableMap::COL_VIEWS, LyricTableMap::COL_POPULARITY, LyricTableMap::COL_VOTESCOUNT, LyricTableMap::COL_VIDEO_YOUTUBE, LyricTableMap::COL_VIDEO_VBOX7, LyricTableMap::COL_VIDEO_METACAFE, LyricTableMap::COL_DOWNLOAD, ),
-        self::TYPE_FIELDNAME     => array('id', 'title', 'text', 'text_bg', 'user_id', 'cache_title_short', 'views', 'popularity', 'votesCount', 'video_youtube', 'video_vbox7', 'video_metacafe', 'download', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'UserId', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'userId', ),
+        self::TYPE_COLNAME       => array(ArtistTableMap::COL_ID, ArtistTableMap::COL_NAME, ArtistTableMap::COL_USER_ID, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'user_id', ),
+        self::TYPE_NUM           => array(0, 1, 2, )
     );
 
     /**
@@ -162,11 +112,11 @@ class LyricTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Text' => 2, 'textBg' => 3, 'userId' => 4, 'cacheTitleShort' => 5, 'Views' => 6, 'Popularity' => 7, 'Votescount' => 8, 'videoYoutube' => 9, 'videoVbox7' => 10, 'videoMetacafe' => 11, 'download' => 12, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'textBg' => 3, 'userId' => 4, 'cacheTitleShort' => 5, 'views' => 6, 'popularity' => 7, 'votescount' => 8, 'videoYoutube' => 9, 'videoVbox7' => 10, 'videoMetacafe' => 11, 'download' => 12, ),
-        self::TYPE_COLNAME       => array(LyricTableMap::COL_ID => 0, LyricTableMap::COL_TITLE => 1, LyricTableMap::COL_TEXT => 2, LyricTableMap::COL_TEXT_BG => 3, LyricTableMap::COL_USER_ID => 4, LyricTableMap::COL_CACHE_TITLE_SHORT => 5, LyricTableMap::COL_VIEWS => 6, LyricTableMap::COL_POPULARITY => 7, LyricTableMap::COL_VOTESCOUNT => 8, LyricTableMap::COL_VIDEO_YOUTUBE => 9, LyricTableMap::COL_VIDEO_VBOX7 => 10, LyricTableMap::COL_VIDEO_METACAFE => 11, LyricTableMap::COL_DOWNLOAD => 12, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'text' => 2, 'text_bg' => 3, 'user_id' => 4, 'cache_title_short' => 5, 'views' => 6, 'popularity' => 7, 'votesCount' => 8, 'video_youtube' => 9, 'video_vbox7' => 10, 'video_metacafe' => 11, 'download' => 12, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'UserId' => 2, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'userId' => 2, ),
+        self::TYPE_COLNAME       => array(ArtistTableMap::COL_ID => 0, ArtistTableMap::COL_NAME => 1, ArtistTableMap::COL_USER_ID => 2, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'user_id' => 2, ),
+        self::TYPE_NUM           => array(0, 1, 2, )
     );
 
     /**
@@ -179,26 +129,16 @@ class LyricTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('lyric');
-        $this->setPhpName('Lyric');
+        $this->setName('artist');
+        $this->setPhpName('Artist');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Lyric');
+        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Artist');
         $this->setPackage('src.Tekstove.TekstoveBundle.Model');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('title', 'Title', 'VARCHAR', false, 255, null);
-        $this->addColumn('text', 'Text', 'VARCHAR', false, 255, null);
-        $this->addColumn('text_bg', 'textBg', 'VARCHAR', false, 255, null);
-        $this->addForeignKey('user_id', 'userId', 'INTEGER', 'user', 'id', false, null, null);
-        $this->addColumn('cache_title_short', 'cacheTitleShort', 'VARCHAR', false, 255, null);
-        $this->addColumn('views', 'Views', 'INTEGER', false, null, null);
-        $this->addColumn('popularity', 'Popularity', 'INTEGER', false, null, null);
-        $this->addColumn('votesCount', 'Votescount', 'INTEGER', false, null, null);
-        $this->addColumn('video_youtube', 'videoYoutube', 'VARCHAR', false, 255, null);
-        $this->addColumn('video_vbox7', 'videoVbox7', 'VARCHAR', false, 255, null);
-        $this->addColumn('video_metacafe', 'videoMetacafe', 'VARCHAR', false, 255, null);
-        $this->addColumn('download', 'download', 'VARCHAR', false, 255, null);
+        $this->addColumn('name', 'Name', 'VARCHAR', false, 255, null);
+        $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'user', 'id', false, null, null);
     } // initialize()
 
     /**
@@ -213,42 +153,7 @@ class LyricTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('LyricLanguage', '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':lyric_id',
-    1 => ':id',
-  ),
-), null, null, 'LyricLanguages', false);
-        $this->addRelation('LyricTranslation', '\\Tekstove\\TekstoveBundle\\Model\\LyricTranslation', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':lyric_id',
-    1 => ':id',
-  ),
-), null, null, 'LyricTranslations', false);
-        $this->addRelation('LyricVote', '\\Tekstove\\TekstoveBundle\\Model\\LyricVote', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':lyric_id',
-    1 => ':id',
-  ),
-), null, null, 'LyricVotes', false);
-        $this->addRelation('Language', '\\Tekstove\\TekstoveBundle\\Model\\Language', RelationMap::MANY_TO_MANY, array(), null, null, 'Languages');
     } // buildRelations()
-
-    /**
-     *
-     * Gets the list of behaviors registered for this table
-     *
-     * @return array Associative array (name => parameters) of behaviors
-     */
-    public function getBehaviors()
-    {
-        return array(
-            'validate' => array('textValidationNotEmpty' => array ('column' => 'text','validator' => 'NotBlank',), 'titleValidationNotEmpty' => array ('column' => 'title','validator' => 'NotBlank',), ),
-        );
-    } // getBehaviors()
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -307,7 +212,7 @@ class LyricTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? LyricTableMap::CLASS_DEFAULT : LyricTableMap::OM_CLASS;
+        return $withPrefix ? ArtistTableMap::CLASS_DEFAULT : ArtistTableMap::OM_CLASS;
     }
 
     /**
@@ -321,22 +226,22 @@ class LyricTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Lyric object, last column rank)
+     * @return array           (Artist object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = LyricTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = LyricTableMap::getInstanceFromPool($key))) {
+        $key = ArtistTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = ArtistTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + LyricTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + ArtistTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = LyricTableMap::OM_CLASS;
-            /** @var Lyric $obj */
+            $cls = ArtistTableMap::OM_CLASS;
+            /** @var Artist $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            LyricTableMap::addInstanceToPool($obj, $key);
+            ArtistTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -359,18 +264,18 @@ class LyricTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = LyricTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = LyricTableMap::getInstanceFromPool($key))) {
+            $key = ArtistTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = ArtistTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Lyric $obj */
+                /** @var Artist $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                LyricTableMap::addInstanceToPool($obj, $key);
+                ArtistTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -391,33 +296,13 @@ class LyricTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(LyricTableMap::COL_ID);
-            $criteria->addSelectColumn(LyricTableMap::COL_TITLE);
-            $criteria->addSelectColumn(LyricTableMap::COL_TEXT);
-            $criteria->addSelectColumn(LyricTableMap::COL_TEXT_BG);
-            $criteria->addSelectColumn(LyricTableMap::COL_USER_ID);
-            $criteria->addSelectColumn(LyricTableMap::COL_CACHE_TITLE_SHORT);
-            $criteria->addSelectColumn(LyricTableMap::COL_VIEWS);
-            $criteria->addSelectColumn(LyricTableMap::COL_POPULARITY);
-            $criteria->addSelectColumn(LyricTableMap::COL_VOTESCOUNT);
-            $criteria->addSelectColumn(LyricTableMap::COL_VIDEO_YOUTUBE);
-            $criteria->addSelectColumn(LyricTableMap::COL_VIDEO_VBOX7);
-            $criteria->addSelectColumn(LyricTableMap::COL_VIDEO_METACAFE);
-            $criteria->addSelectColumn(LyricTableMap::COL_DOWNLOAD);
+            $criteria->addSelectColumn(ArtistTableMap::COL_ID);
+            $criteria->addSelectColumn(ArtistTableMap::COL_NAME);
+            $criteria->addSelectColumn(ArtistTableMap::COL_USER_ID);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.title');
-            $criteria->addSelectColumn($alias . '.text');
-            $criteria->addSelectColumn($alias . '.text_bg');
+            $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.user_id');
-            $criteria->addSelectColumn($alias . '.cache_title_short');
-            $criteria->addSelectColumn($alias . '.views');
-            $criteria->addSelectColumn($alias . '.popularity');
-            $criteria->addSelectColumn($alias . '.votesCount');
-            $criteria->addSelectColumn($alias . '.video_youtube');
-            $criteria->addSelectColumn($alias . '.video_vbox7');
-            $criteria->addSelectColumn($alias . '.video_metacafe');
-            $criteria->addSelectColumn($alias . '.download');
         }
     }
 
@@ -430,7 +315,7 @@ class LyricTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(LyricTableMap::DATABASE_NAME)->getTable(LyricTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(ArtistTableMap::DATABASE_NAME)->getTable(ArtistTableMap::TABLE_NAME);
     }
 
     /**
@@ -438,16 +323,16 @@ class LyricTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(LyricTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(LyricTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new LyricTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(ArtistTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(ArtistTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new ArtistTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Lyric or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Artist or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Lyric object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Artist object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -458,27 +343,27 @@ class LyricTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Lyric) { // it's a model object
+        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Artist) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(LyricTableMap::DATABASE_NAME);
-            $criteria->add(LyricTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(ArtistTableMap::DATABASE_NAME);
+            $criteria->add(ArtistTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = LyricQuery::create()->mergeWith($criteria);
+        $query = ArtistQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            LyricTableMap::clearInstancePool();
+            ArtistTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                LyricTableMap::removeInstanceFromPool($singleval);
+                ArtistTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -486,20 +371,20 @@ class LyricTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the lyric table.
+     * Deletes all rows from the artist table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return LyricQuery::create()->doDeleteAll($con);
+        return ArtistQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Lyric or Criteria object.
+     * Performs an INSERT on the database, given a Artist or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Lyric object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Artist object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -508,22 +393,22 @@ class LyricTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(ArtistTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Lyric object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Artist object
         }
 
-        if ($criteria->containsKey(LyricTableMap::COL_ID) && $criteria->keyContainsValue(LyricTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.LyricTableMap::COL_ID.')');
+        if ($criteria->containsKey(ArtistTableMap::COL_ID) && $criteria->keyContainsValue(ArtistTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ArtistTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = LyricQuery::create()->mergeWith($criteria);
+        $query = ArtistQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -532,7 +417,7 @@ class LyricTableMap extends TableMap
         });
     }
 
-} // LyricTableMap
+} // ArtistTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-LyricTableMap::buildTableMap();
+ArtistTableMap::buildTableMap();

@@ -2,10 +2,10 @@
 
 namespace Tekstove\TekstoveBundle\Model;
 
-use Tekstove\TekstoveBundle\Model\Base\LyricQuery as BaseLyricQuery;
+use Tekstove\TekstoveBundle\Model\Base\ArtistQuery as BaseArtistQuery;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'lyric' table.
+ * Skeleton subclass for performing query and update operations on the 'artist' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Tekstove\TekstoveBundle\Model\Base\LyricQuery as BaseLyricQuery;
  * long as it does not already exist in the output directory.
  *
  */
-class LyricQuery extends BaseLyricQuery
+class ArtistQuery extends BaseArtistQuery
 {
-    
+
 }

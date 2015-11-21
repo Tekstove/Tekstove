@@ -8,17 +8,39 @@ use Propel\Runtime\Connection\ConnectionInterface;
 
 class Lyric extends BaseLyric
 {
+    private $eventManager;
+    
     public function preSave(ConnectionInterface $con = null)
     {
         if (!$this->validate()) {
             throw new ValidationException('validation failed');
         }
+        
+        $this->notifyPreSave($this);
+        
         return parent::preSave($con);
     }
     
-    public function getCacheVotes()
+    /**
+     * 
+     * @return EventDispatcher\EventDispacher
+     */
+    private function getEventDispacher()
     {
-        // @TODO @FIXME
-        return '@TODO';
+        if ($this->eventManager === null) {
+            throw new \Exception('eventDispacher not set');
+        }
+        return $this->eventManager;
     }
+    
+    function setEventDispacher($eventManager) {
+        $this->eventManager = $eventManager;
+    }
+
+    private function notifyPreSave(Lyric $lyric)
+    {
+        $event = new EventDispatcher\Event($lyric);
+        $this->getEventDispacher()->dispatch('tekstove.lyric.save', $event);
+    }
+    
 }

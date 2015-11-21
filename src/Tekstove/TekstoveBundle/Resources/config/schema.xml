@@ -25,6 +25,7 @@
         <column name="cache_title_short" phpName="cacheTitleShort" type="varchar"/>
         <column name="views" type="integer" />
         <column name="popularity" type="integer" />
+        <column name="votesCount" type="integer" />
         
         <column name="video_youtube" type="varchar" phpName="videoYoutube" />
         <column name="video_vbox7" type="varchar" phpName="videoVbox7" />
