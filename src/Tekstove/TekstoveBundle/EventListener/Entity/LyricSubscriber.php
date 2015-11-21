@@ -2,13 +2,7 @@
 
 namespace Tekstove\TekstoveBundle\EventListener\Entity;
 
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-
-use Tekstove\TekstoveBundle\Entity\Lyric;
-use Tekstove\TekstoveBundle\Entity\User;
+use Tekstove\TekstoveBundle\Model\Lyric;
 
 /**
  * Description of LyricSubscriber
