@@ -20,7 +20,13 @@ class LyricType extends BaseAbstractType
     {
         $builder->add('title');
         $builder->add('text');
-        $builder->add('textBg');
+        $builder->add(
+            'textBg',
+            null,
+            [
+                'label' => 'Translation'
+            ]
+        );
         $builder->add(
             'languages',
             null,
@@ -35,7 +41,13 @@ class LyricType extends BaseAbstractType
         $builder->add('videoVbox7');
         $builder->add('videoMetacafe');
         
-        $builder->add('download');
+        $builder->add(
+            'download',
+            null,
+            [
+                'label' => 'Download link',
+            ]
+        );
     }
     
     /**
