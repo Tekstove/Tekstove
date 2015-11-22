@@ -27,6 +27,7 @@
         <a href="#">
             текстове популярни напоследък  -- Топ 100
         </a>
+        <br />
         {% for lyric in popular %}
             <a href="{{ path('lyricView', {id:lyric.id}) }}">
                 {{ lyric.cacheTitleShort }}
@@ -38,6 +39,7 @@
         <a href="#">
             <b>най-преглеждани текстове</b>&nbsp;&nbsp;--&nbsp;&nbsp;Топ 100
         </a>
+        <br />
         {% for lyric in mostViewed %}
             <a href="{{ path('lyricView', {id:lyric.id}) }}">
                 {{ lyric.cacheTitleShort }}

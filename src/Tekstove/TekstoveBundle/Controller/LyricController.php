@@ -23,8 +23,7 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $lyricQuery = $this->get('tekstove.model.lyric.query');
-        /* @var $lyricQuery \Tekstove\TekstoveBundle\Model\LyricQuery */
+        $lyricQuery = new \Tekstove\TekstoveBundle\Model\LyricQuery();
         $lyric = $lyricQuery->findOneById($id);
         
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
