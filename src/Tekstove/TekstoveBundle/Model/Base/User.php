@@ -16,6 +16,18 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use Symfony\Component\Validator\ConstraintValidatorFactory;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\DefaultTranslator;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Context\ExecutionContextFactory;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Mapping\ClassMetadataFactory;
+use Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader;
+use Symfony\Component\Validator\Validator\LegacyValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Tekstove\TekstoveBundle\Model\Album as ChildAlbum;
+use Tekstove\TekstoveBundle\Model\AlbumQuery as ChildAlbumQuery;
 use Tekstove\TekstoveBundle\Model\Artist as ChildArtist;
 use Tekstove\TekstoveBundle\Model\ArtistQuery as ChildArtistQuery;
 use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
@@ -143,12 +155,35 @@ abstract class User implements ActiveRecordInterface
     protected $collArtistsPartial;
 
     /**
+     * @var        ObjectCollection|ChildAlbum[] Collection to store aggregation of ChildAlbum objects.
+     */
+    protected $collAlbums;
+    protected $collAlbumsPartial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
      * @var boolean
      */
     protected $alreadyInSave = false;
+
+    // validate behavior
+
+    /**
+     * Flag to prevent endless validation loop, if this object is referenced
+     * by another object which falls in this transaction.
+     * @var        boolean
+     */
+    protected $alreadyInValidation = false;
+
+    /**
+     * ConstraintViolationList object
+     *
+     * @see     http://api.symfony.com/2.0/Symfony/Component/Validator/ConstraintViolationList.html
+     * @var     ConstraintViolationList
+     */
+    protected $validationFailures;
 
     /**
      * An array of objects scheduled for deletion.
@@ -173,6 +208,12 @@ abstract class User implements ActiveRecordInterface
      * @var ObjectCollection|ChildArtist[]
      */
     protected $artistsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildAlbum[]
+     */
+    protected $albumsScheduledForDeletion = null;
 
     /**
      * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\User object.
@@ -742,6 +783,8 @@ abstract class User implements ActiveRecordInterface
 
             $this->collArtists = null;
 
+            $this->collAlbums = null;
+
         } // if (deep)
     }
 
@@ -918,6 +961,24 @@ abstract class User implements ActiveRecordInterface
 
             if ($this->collArtists !== null) {
                 foreach ($this->collArtists as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->albumsScheduledForDeletion !== null) {
+                if (!$this->albumsScheduledForDeletion->isEmpty()) {
+                    foreach ($this->albumsScheduledForDeletion as $album) {
+                        // need to save related object because we set the relation to null
+                        $album->save($con);
+                    }
+                    $this->albumsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collAlbums !== null) {
+                foreach ($this->collAlbums as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1189,6 +1250,21 @@ abstract class User implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collArtists->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collAlbums) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'albums';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'albums';
+                        break;
+                    default:
+                        $key = 'Albums';
+                }
+
+                $result[$key] = $this->collAlbums->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1476,6 +1552,12 @@ abstract class User implements ActiveRecordInterface
                 }
             }
 
+            foreach ($this->getAlbums() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addAlbum($relObj->copy($deepCopy));
+                }
+            }
+
         } // if ($deepCopy)
 
         if ($makeNew) {
@@ -1528,6 +1610,9 @@ abstract class User implements ActiveRecordInterface
         }
         if ('Artist' == $relationName) {
             return $this->initArtists();
+        }
+        if ('Album' == $relationName) {
+            return $this->initAlbums();
         }
     }
 
@@ -2454,6 +2539,224 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collAlbums collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addAlbums()
+     */
+    public function clearAlbums()
+    {
+        $this->collAlbums = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collAlbums collection loaded partially.
+     */
+    public function resetPartialAlbums($v = true)
+    {
+        $this->collAlbumsPartial = $v;
+    }
+
+    /**
+     * Initializes the collAlbums collection.
+     *
+     * By default this just sets the collAlbums collection to an empty array (like clearcollAlbums());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initAlbums($overrideExisting = true)
+    {
+        if (null !== $this->collAlbums && !$overrideExisting) {
+            return;
+        }
+        $this->collAlbums = new ObjectCollection();
+        $this->collAlbums->setModel('\Tekstove\TekstoveBundle\Model\Album');
+    }
+
+    /**
+     * Gets an array of ChildAlbum objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUser is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildAlbum[] List of ChildAlbum objects
+     * @throws PropelException
+     */
+    public function getAlbums(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collAlbumsPartial && !$this->isNew();
+        if (null === $this->collAlbums || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collAlbums) {
+                // return empty collection
+                $this->initAlbums();
+            } else {
+                $collAlbums = ChildAlbumQuery::create(null, $criteria)
+                    ->filterByUser($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collAlbumsPartial && count($collAlbums)) {
+                        $this->initAlbums(false);
+
+                        foreach ($collAlbums as $obj) {
+                            if (false == $this->collAlbums->contains($obj)) {
+                                $this->collAlbums->append($obj);
+                            }
+                        }
+
+                        $this->collAlbumsPartial = true;
+                    }
+
+                    return $collAlbums;
+                }
+
+                if ($partial && $this->collAlbums) {
+                    foreach ($this->collAlbums as $obj) {
+                        if ($obj->isNew()) {
+                            $collAlbums[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collAlbums = $collAlbums;
+                $this->collAlbumsPartial = false;
+            }
+        }
+
+        return $this->collAlbums;
+    }
+
+    /**
+     * Sets a collection of ChildAlbum objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $albums A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function setAlbums(Collection $albums, ConnectionInterface $con = null)
+    {
+        /** @var ChildAlbum[] $albumsToDelete */
+        $albumsToDelete = $this->getAlbums(new Criteria(), $con)->diff($albums);
+
+
+        $this->albumsScheduledForDeletion = $albumsToDelete;
+
+        foreach ($albumsToDelete as $albumRemoved) {
+            $albumRemoved->setUser(null);
+        }
+
+        $this->collAlbums = null;
+        foreach ($albums as $album) {
+            $this->addAlbum($album);
+        }
+
+        $this->collAlbums = $albums;
+        $this->collAlbumsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Album objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Album objects.
+     * @throws PropelException
+     */
+    public function countAlbums(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collAlbumsPartial && !$this->isNew();
+        if (null === $this->collAlbums || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collAlbums) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getAlbums());
+            }
+
+            $query = ChildAlbumQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUser($this)
+                ->count($con);
+        }
+
+        return count($this->collAlbums);
+    }
+
+    /**
+     * Method called to associate a ChildAlbum object to this object
+     * through the ChildAlbum foreign key attribute.
+     *
+     * @param  ChildAlbum $l ChildAlbum
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function addAlbum(ChildAlbum $l)
+    {
+        if ($this->collAlbums === null) {
+            $this->initAlbums();
+            $this->collAlbumsPartial = true;
+        }
+
+        if (!$this->collAlbums->contains($l)) {
+            $this->doAddAlbum($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildAlbum $album The ChildAlbum object to add.
+     */
+    protected function doAddAlbum(ChildAlbum $album)
+    {
+        $this->collAlbums[]= $album;
+        $album->setUser($this);
+    }
+
+    /**
+     * @param  ChildAlbum $album The ChildAlbum object to remove.
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function removeAlbum(ChildAlbum $album)
+    {
+        if ($this->getAlbums()->contains($album)) {
+            $pos = $this->collAlbums->search($album);
+            $this->collAlbums->remove($pos);
+            if (null === $this->albumsScheduledForDeletion) {
+                $this->albumsScheduledForDeletion = clone $this->collAlbums;
+                $this->albumsScheduledForDeletion->clear();
+            }
+            $this->albumsScheduledForDeletion[]= $album;
+            $album->setUser(null);
+        }
+
+        return $this;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -2505,12 +2808,18 @@ abstract class User implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collAlbums) {
+                foreach ($this->collAlbums as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
         $this->collLyrics = null;
         $this->collLyricTranslations = null;
         $this->collLyricVotes = null;
         $this->collArtists = null;
+        $this->collAlbums = null;
     }
 
     /**
@@ -2521,6 +2830,123 @@ abstract class User implements ActiveRecordInterface
     public function __toString()
     {
         return (string) $this->getUsername();
+    }
+
+    // validate behavior
+
+    /**
+     * Configure validators constraints. The Validator object uses this method
+     * to perform object validation.
+     *
+     * @param ClassMetadata $metadata
+     */
+    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('mail', new Email());
+    }
+
+    /**
+     * Validates the object and all objects related to this table.
+     *
+     * @see        getValidationFailures()
+     * @param      object $validator A Validator class instance
+     * @return     boolean Whether all objects pass validation.
+     */
+    public function validate(ValidatorInterface $validator = null)
+    {
+        if (null === $validator) {
+            if(class_exists('Symfony\\Component\\Validator\\Validator\\LegacyValidator')){
+                $validator = new LegacyValidator(
+                            new ExecutionContextFactory(new DefaultTranslator()),
+                            new ClassMetaDataFactory(new StaticMethodLoader()),
+                            new ConstraintValidatorFactory()
+                );
+            }else{
+                $validator = new Validator(
+                            new ClassMetadataFactory(new StaticMethodLoader()),
+                            new ConstraintValidatorFactory(),
+                            new DefaultTranslator()
+                );
+            }
+        }
+
+        $failureMap = new ConstraintViolationList();
+
+        if (!$this->alreadyInValidation) {
+            $this->alreadyInValidation = true;
+            $retval = null;
+
+
+            $retval = $validator->validate($this);
+            if (count($retval) > 0) {
+                $failureMap->addAll($retval);
+            }
+
+            if (null !== $this->collLyrics) {
+                foreach ($this->collLyrics as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collLyricTranslations) {
+                foreach ($this->collLyricTranslations as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collLyricVotes) {
+                foreach ($this->collLyricVotes as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collArtists) {
+                foreach ($this->collArtists as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collAlbums) {
+                foreach ($this->collAlbums as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+
+            $this->alreadyInValidation = false;
+        }
+
+        $this->validationFailures = $failureMap;
+
+        return (Boolean) (!(count($this->validationFailures) > 0));
+
+    }
+
+    /**
+     * Gets any ConstraintViolation objects that resulted from last call to validate().
+     *
+     *
+     * @return     object ConstraintViolationList
+     * @see        validate()
+     */
+    public function getValidationFailures()
+    {
+        return $this->validationFailures;
     }
 
     /**

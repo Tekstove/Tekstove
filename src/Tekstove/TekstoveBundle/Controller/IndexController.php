@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Tekstove\TekstoveBundle\Model\LyricQuery;
+use Tekstove\TekstoveBundle\Model\AlbumQuery;
 
 /**
  * @Template()
@@ -42,7 +43,12 @@ class IndexController extends Controller
         
         $lastVoted = [];
         
-        $lastAlbums = [];
+        $favoritesRandom = [];
+        
+        $albumsQuery = new AlbumQuery();
+        $albumsQuery->orderById();
+        $albumsQuery->limit(5);
+        $lastAlbums = $albumsQuery->find();
         
         return [
             'lastlyrics' => $lastLyrics,
@@ -50,6 +56,7 @@ class IndexController extends Controller
             'popular' => $popular,
             'mostViewed' => $mostViewed,
             'lastVoted' => $lastVoted,
+            'favoritesRandom' => $favoritesRandom,
             'albums' => $lastAlbums,
         ];
     }

@@ -2,82 +2,116 @@
 
 {% block content %}
     <div class="col-md-6">
-        най-нови текстове
-        <br/>
-        {% for lyric in lastlyrics %}
-            <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                {{ lyric.cacheTitleShort }}
-            </a>
-            <br />
-        {% endfor %}
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                най-нови текстове
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in lastlyrics %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br/>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div class="">най-нови преводи</div>
-        {% for lyric in lastTranslated %}
-            <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                {{ lyric.cacheTitleShort }}
-            </a>
-            <br />
-        {% endfor %}
+    <div class="col-md-6 ">
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                най-нови преводи
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in lastTranslated %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    
+
     <div class="clearfix"></div>
-    
+
     <div class="col-md-6">
-        <a href="#">
-            текстове популярни напоследък  -- Топ 100
-        </a>
-        <br />
-        {% for lyric in popular %}
-            <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                {{ lyric.cacheTitleShort }}
-            </a>
-            <br />
-        {% endfor %}
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                <a href="#">
+                    текстове популярни напоследък  -- Топ 100
+                </a>
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in popular %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
-        <a href="#">
-            <b>най-преглеждани текстове</b>&nbsp;&nbsp;--&nbsp;&nbsp;Топ 100
-        </a>
-        <br />
-        {% for lyric in mostViewed %}
-            <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                {{ lyric.cacheTitleShort }}
-            </a>
-            <br />
-        {% endfor %}
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                <a href="#">
+                    <b>най-преглеждани текстове</b>&nbsp;&nbsp;&nbsp;&nbsp;Топ 100
+                </a>
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in mostViewed %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    
+
     <div class="clearfix"></div>
-    
+
     <div class="col-md-6">
-        <a href="#">
-            последно гласувани&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;&nbsp;100 последни
-        </a>
-        {% for lyric in lastVoted %}
-            <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                {{ lyric.cacheTitleShort }}
-            </a>
-            <br />
-        {% endfor %}
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                <a href="#">
+                    последно гласувани&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 последни
+                </a>
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in lastVoted %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
     <div class="col-md-6">
-        <div class="">произволни текстове от любими</div>
-        @Todo
+        <div class="t-index-lyrics-block-container">
+            <div class="t-index-lyrics-block-header">
+                произволни текстове от любими
+            </div>
+            <div class="t-index-lyrics-block-lyrics-container">
+                {% for lyric in favoritesRandom %}
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 t-index-albums-container">
         <i><b>най-нови албуми</b></i><br>
         <table class="albums" style="text-align: center;">
             <tr>
                 {% for album in albums %}
                     <td class="albumstd" style="text-align: center;">
-                        @todo <a href="#{{ album.id|e }}">
+                        <a href="#{{ album.id }}">
                             <b>
-                                {% if album.artist1 is not empty %}
-                                    {{ album.artist1.name|e }}
-                                    <br>
-                                {% endif %}
                                 {{ album.name|e }}
                                 <br />
                                 <i>({{ album.year|e }})</i>

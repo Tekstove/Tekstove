@@ -2,10 +2,10 @@
 
 namespace Tekstove\TekstoveBundle\Model;
 
-use Tekstove\TekstoveBundle\Model\Base\Album as BaseAlbum;
+use Tekstove\TekstoveBundle\Model\Base\AlbumQuery as BaseAlbumQuery;
 
 /**
- * Skeleton subclass for representing a row from the 'album' table.
+ * Skeleton subclass for performing query and update operations on the 'album' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Tekstove\TekstoveBundle\Model\Base\Album as BaseAlbum;
  * long as it does not already exist in the output directory.
  *
  */
-class Album extends BaseAlbum
+class AlbumQuery extends BaseAlbumQuery
 {
 
 }

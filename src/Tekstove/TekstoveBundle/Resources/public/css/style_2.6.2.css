@@ -77,6 +77,31 @@ a:visited, a:active, a{
     text-decoration:none;
 }
 
+.t-index-lyrics-block-container {
+    border: 1px solid black;
+    border-radius: 7px;
+    margin-top: 5px;
+}
+
+.t-index-lyrics-block-container:nth-child(2) {
+    margin-left: 3px;
+}
+
+.t-index-lyrics-block-header {
+    font-weight: bold;
+}
+
+.t-index-lyrics-block-lyrics-container {
+    text-align: center;
+}
+
+.t-index-albums-container{
+    border: 1px solid black;
+    border-radius: 7px;
+    margin-top: 5px;
+    
+}
+
 .browse_glasuvai_buton{
     background:url('/bundles/tekstove/images/glasuvai.jpg');
     width:82px;

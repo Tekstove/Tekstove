@@ -9,6 +9,10 @@
         <column name="about" type="varchar" />
         <!-- should be php bool -->
         <column name="autoplay" type="smallint" />
+        
+        <behavior name="validate">
+            <parameter name="emailValid" value="{column: mail, validator: Email}" />
+        </behavior>
     </table>
     
     <table name="lyric">
@@ -86,6 +90,17 @@
         <column name="name" type="varchar" />
         <column name="user_id" type="integer" />
         <!-- Add forbidden, redirect_toArtist -->
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+    </table>
+    
+    <table name="album">
+        <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" />
+        <column name="year" type="integer" />
+        <column name="image" type="varchar" />
+        <column name="user_id" type="integer" />
         <foreign-key foreignTable="user">
             <reference local="user_id" foreign="id" />
         </foreign-key>
