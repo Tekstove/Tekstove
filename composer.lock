@@ -1201,12 +1201,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/propelorm/Propel2.git",
-                "reference": "a21912fc3daff453bbd871a13bc003c0a84f40ec"
+                "reference": "bab00213c535142f699e17cd75df185580491552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/a21912fc3daff453bbd871a13bc003c0a84f40ec",
-                "reference": "a21912fc3daff453bbd871a13bc003c0a84f40ec",
+                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/bab00213c535142f699e17cd75df185580491552",
+                "reference": "bab00213c535142f699e17cd75df185580491552",
                 "shasum": ""
             },
             "require": {
@@ -1258,7 +1258,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-11-17 13:29:00"
+            "time": "2015-11-21 02:23:23"
         },
         {
             "name": "propel/propel-bundle",
