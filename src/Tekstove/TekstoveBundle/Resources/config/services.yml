@@ -16,6 +16,7 @@ services:
     tekstove.event_dispacher:
         class: Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacher
         factory: [@tekstove.event_dispacher.factory, createDispacher]
+        arguments: [@service_container]
     
     security.access.post_voter:
         class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
