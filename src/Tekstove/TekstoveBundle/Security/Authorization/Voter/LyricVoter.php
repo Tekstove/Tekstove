@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Security\Authorization\Voter;
+namespace Tekstove\TekstoveBundle\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -42,7 +42,7 @@ class LyricVoter implements VoterInterface
                 $user = $token->getUser();
                 /* @var $user Model\User */
                 // @TODO @FIX @ FIXME
-                if (0 && $user instanceof User && $user->getId() === $object->getUploader()) {
+                if ($user instanceof User && $user->getId() === $object->getUserId()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 

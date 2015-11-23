@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Tekstove\TekstoveBundle\Model\Lyric;
 use Tekstove\TekstoveBundle\Form\Type\LyricType;
+use Tekstove\TekstoveBundle\Model\LyricQuery;
 
 /**
  * Description of LyricController
@@ -23,7 +24,7 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $lyricQuery = new \Tekstove\TekstoveBundle\Model\LyricQuery();
+        $lyricQuery = new LyricQuery();
         $lyric = $lyricQuery->findOneById($id);
         
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
@@ -44,7 +45,6 @@ class LyricController extends Controller
         $form = $this->createCreateForm($lyric);
         $form->handleRequest($request);
         if ($form->isValid()) {
-                // shoud be get from services
                 $eventDispacher = $this->get('tekstove.event_dispacher');
                 $lyric->setEventDispacher($eventDispacher);
                 $lyric->save();
@@ -83,30 +83,33 @@ class LyricController extends Controller
         return $form;
     }
     
-    public function addJsonAction(Request $request)
+    public function createEditForm(Lyric $lyric)
     {
-        throw new \Exception('deprecated');
+        $formType = new LyricType();
+        $form = $this->createForm($formType, $lyric);
+        $form->add('submit', 'submit');
+        
+        return $form;
     }
     
     /**
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
-        $lyricManager = $this->get('tekstoveLyricManager');
-        /* @var $lyricManager \Tekstove\TekstoveBundle\Model\Lyric\Manager */
+        $lyricQuery = new LyricQuery();
         
-        $lyric = $lyricManager->getById($id);
-        /* @var $lyric \Tekstove\TekstoveBundle\Model\Lyric */
+        $lyric = $lyricQuery->findOneById($id);
         
-        $formBuilder = $this->getLyricFormBuilder();
+        $form = $this->createEditForm($lyric);
         
-        $form = $formBuilder->getForm();
-        
-        $form->get('title')
-                ->setData($lyric->getTitle());
-        $form->get('text')
-                ->setData($lyric->getText());
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+                $eventDispacher = $this->get('tekstove.event_dispacher');
+                $lyric->setEventDispacher($eventDispacher);
+                $lyric->save();
+            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
+        }
         
         return [
             'form' => $form->createView(),
