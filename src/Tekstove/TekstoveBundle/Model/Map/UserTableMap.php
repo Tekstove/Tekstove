@@ -217,7 +217,7 @@ class UserTableMap extends TableMap
     public function getBehaviors()
     {
         return array(
-            'validate' => array('emailValid' => array ('column' => 'mail','validator' => 'Email',), ),
+            'validate' => array('emailValid' => array ('column' => 'mail','validator' => 'Email',), 'uniqueEmail' => array ('column' => 'mail','validator' => 'Unique',), 'uniqueUsername' => array ('column' => 'username','validator' => 'Unique',), ),
         );
     } // getBehaviors()
 
