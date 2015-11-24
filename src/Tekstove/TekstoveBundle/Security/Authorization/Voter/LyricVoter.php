@@ -41,7 +41,6 @@ class LyricVoter implements VoterInterface
             case 'edit':
                 $user = $token->getUser();
                 /* @var $user Model\User */
-                // @TODO @FIX @ FIXME
                 if ($user instanceof User && $user->getId() === $object->getUserId()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
              * Local
              */
             new Tekstove\TekstoveBundle\TekstoveBundle(),
+            new KnpPaginatorAdapterPropel2Bundle\KnpPaginatorAdapterPropel2Bundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

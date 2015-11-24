@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
+use Tekstove\TekstoveBundle\Model\ArtistQuery;
+
 class ArtistController extends Controller
 {
 
@@ -26,11 +28,10 @@ class ArtistController extends Controller
      * @Template()
      */
     public function listAction($letter, Request $request) {
-        $artistRepo = $this->get('tekstove.model.artist.query');
-        $artistQuery = $artistRepo->create();
-        /* @var $artistQuery \Tekstove\TekstoveBundle\Model\ArtistQuery */
-        
+        $artistQuery = new ArtistQuery();
+        $artistQuery->filterByName($letter . '%', \Propel\Runtime\ActiveQuery\Criteria::LIKE);
         $paginator = $this->get('knp_paginator');
+        /* @var $paginator \Knp\Component\Pager\Paginator */
         $pagination = $paginator->paginate(
             $artistQuery,
             $request->query->getInt('page', 1) /* page number */,
