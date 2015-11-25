@@ -31,6 +31,7 @@ class LyricType extends BaseAbstractType
             'languages',
             null,
             [
+                'choice_label' => 'name',
                 'attr' => [
                     'class' => 't-selectSmart',
                 ],
