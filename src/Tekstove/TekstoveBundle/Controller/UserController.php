@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Model\UserQuery;
 
 /**
  * Description of UserController
@@ -99,7 +100,8 @@ class UserController extends Controller
     
     public function viewAction($id)
     {
-        $user = $this->getDefaultRepo()->find($id);
+        $userQuery = new \Tekstove\TekstoveBundle\Model\UserQuery();
+        $user = $userQuery->findOneById($id);
         return [
             'user' => $user,
         ];

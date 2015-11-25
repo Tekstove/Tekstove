@@ -1,7 +1,9 @@
 {% extends 'TekstoveBundle::main.html.twig' %}
 {% block content %}
 
-    {{ user.username|e }}
+    <h1>
+        {{ user.username|e }}
+    </h1>
     
     {% if (user.avatar) %}
         <br/>

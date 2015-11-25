@@ -15,11 +15,14 @@ class ArtistController extends Controller
      * @Template()
      */
     public function browseAction($id) {
-        $lyricRepo = $this->getDoctrine()->getRepository('TekstoveBundle:Lyric');
-        // @TODO
-        $lyrics = $lyricRepo->find(5);
+        $artistQuery = new ArtistQuery();
+        $artist = $artistQuery->findOneById($id);
+        $lyrics = [];
+        $albums = [];
         return [
+            'artist' => $artist,
             'lyrics' => $lyrics,
+            'albums' => $albums,
         ];
     }
 
