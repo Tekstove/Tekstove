@@ -106,7 +106,7 @@ class LyricController extends Controller
             throw new NotFoundHttpException('Lyric not found');
         }
         
-        if (!$this->isGranted('lyric_edit', $lyric)) {
+        if (!$this->isGranted('edit', $lyric)) {
             throw new AccessDeniedHttpException();
         }
         

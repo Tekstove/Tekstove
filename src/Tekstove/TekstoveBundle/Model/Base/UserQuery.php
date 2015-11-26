@@ -44,25 +44,15 @@ use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
  * @method     ChildUserQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildUserQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildUserQuery leftJoinPermissionUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionUser relation
- * @method     ChildUserQuery rightJoinPermissionUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionUser relation
- * @method     ChildUserQuery innerJoinPermissionUser($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionUser relation
+ * @method     ChildUserQuery leftJoinPermissionGroupUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroupUser relation
+ * @method     ChildUserQuery rightJoinPermissionGroupUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroupUser relation
+ * @method     ChildUserQuery innerJoinPermissionGroupUser($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroupUser relation
  *
- * @method     ChildUserQuery joinWithPermissionUser($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionUser relation
+ * @method     ChildUserQuery joinWithPermissionGroupUser($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionGroupUser relation
  *
- * @method     ChildUserQuery leftJoinWithPermissionUser() Adds a LEFT JOIN clause and with to the query using the PermissionUser relation
- * @method     ChildUserQuery rightJoinWithPermissionUser() Adds a RIGHT JOIN clause and with to the query using the PermissionUser relation
- * @method     ChildUserQuery innerJoinWithPermissionUser() Adds a INNER JOIN clause and with to the query using the PermissionUser relation
- *
- * @method     ChildUserQuery leftJoinPermissionGroupUsers($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroupUsers relation
- * @method     ChildUserQuery rightJoinPermissionGroupUsers($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroupUsers relation
- * @method     ChildUserQuery innerJoinPermissionGroupUsers($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroupUsers relation
- *
- * @method     ChildUserQuery joinWithPermissionGroupUsers($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionGroupUsers relation
- *
- * @method     ChildUserQuery leftJoinWithPermissionGroupUsers() Adds a LEFT JOIN clause and with to the query using the PermissionGroupUsers relation
- * @method     ChildUserQuery rightJoinWithPermissionGroupUsers() Adds a RIGHT JOIN clause and with to the query using the PermissionGroupUsers relation
- * @method     ChildUserQuery innerJoinWithPermissionGroupUsers() Adds a INNER JOIN clause and with to the query using the PermissionGroupUsers relation
+ * @method     ChildUserQuery leftJoinWithPermissionGroupUser() Adds a LEFT JOIN clause and with to the query using the PermissionGroupUser relation
+ * @method     ChildUserQuery rightJoinWithPermissionGroupUser() Adds a RIGHT JOIN clause and with to the query using the PermissionGroupUser relation
+ * @method     ChildUserQuery innerJoinWithPermissionGroupUser() Adds a INNER JOIN clause and with to the query using the PermissionGroupUser relation
  *
  * @method     ChildUserQuery leftJoinLyric($relationAlias = null) Adds a LEFT JOIN clause to the query using the Lyric relation
  * @method     ChildUserQuery rightJoinLyric($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Lyric relation
@@ -114,7 +104,7 @@ use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
  * @method     ChildUserQuery rightJoinWithAlbum() Adds a RIGHT JOIN clause and with to the query using the Album relation
  * @method     ChildUserQuery innerJoinWithAlbum() Adds a INNER JOIN clause and with to the query using the Album relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\PermissionUserQuery|\Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUser findOne(ConnectionInterface $con = null) Return the first ChildUser matching the query
  * @method     ChildUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
@@ -556,40 +546,40 @@ abstract class UserQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionUser object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionGroupUser object
      *
-     * @param \Tekstove\TekstoveBundle\Model\PermissionUser|ObjectCollection $permissionUser the related object to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\PermissionGroupUser|ObjectCollection $permissionGroupUser the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUserQuery The current query, for fluid interface
      */
-    public function filterByPermissionUser($permissionUser, $comparison = null)
+    public function filterByPermissionGroupUser($permissionGroupUser, $comparison = null)
     {
-        if ($permissionUser instanceof \Tekstove\TekstoveBundle\Model\PermissionUser) {
+        if ($permissionGroupUser instanceof \Tekstove\TekstoveBundle\Model\PermissionGroupUser) {
             return $this
-                ->addUsingAlias(UserTableMap::COL_ID, $permissionUser->getUserId(), $comparison);
-        } elseif ($permissionUser instanceof ObjectCollection) {
+                ->addUsingAlias(UserTableMap::COL_ID, $permissionGroupUser->getUserId(), $comparison);
+        } elseif ($permissionGroupUser instanceof ObjectCollection) {
             return $this
-                ->usePermissionUserQuery()
-                ->filterByPrimaryKeys($permissionUser->getPrimaryKeys())
+                ->usePermissionGroupUserQuery()
+                ->filterByPrimaryKeys($permissionGroupUser->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByPermissionUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionUser or Collection');
+            throw new PropelException('filterByPermissionGroupUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionGroupUser or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the PermissionUser relation
+     * Adds a JOIN clause to the query using the PermissionGroupUser relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUserQuery The current query, for fluid interface
      */
-    public function joinPermissionUser($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinPermissionGroupUser($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PermissionUser');
+        $relationMap = $tableMap->getRelation('PermissionGroupUser');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -604,14 +594,14 @@ abstract class UserQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'PermissionUser');
+            $this->addJoinObject($join, 'PermissionGroupUser');
         }
 
         return $this;
     }
 
     /**
-     * Use the PermissionUser relation PermissionUser object
+     * Use the PermissionGroupUser relation PermissionGroupUser object
      *
      * @see useQuery()
      *
@@ -619,86 +609,13 @@ abstract class UserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\PermissionUserQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery A secondary query class using the current class as primary query
      */
-    public function usePermissionUserQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function usePermissionGroupUserQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPermissionUser($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PermissionUser', '\Tekstove\TekstoveBundle\Model\PermissionUserQuery');
-    }
-
-    /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionGroupUsers object
-     *
-     * @param \Tekstove\TekstoveBundle\Model\PermissionGroupUsers|ObjectCollection $permissionGroupUsers the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ChildUserQuery The current query, for fluid interface
-     */
-    public function filterByPermissionGroupUsers($permissionGroupUsers, $comparison = null)
-    {
-        if ($permissionGroupUsers instanceof \Tekstove\TekstoveBundle\Model\PermissionGroupUsers) {
-            return $this
-                ->addUsingAlias(UserTableMap::COL_ID, $permissionGroupUsers->getUserId(), $comparison);
-        } elseif ($permissionGroupUsers instanceof ObjectCollection) {
-            return $this
-                ->usePermissionGroupUsersQuery()
-                ->filterByPrimaryKeys($permissionGroupUsers->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByPermissionGroupUsers() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionGroupUsers or Collection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the PermissionGroupUsers relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return $this|ChildUserQuery The current query, for fluid interface
-     */
-    public function joinPermissionGroupUsers($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('PermissionGroupUsers');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'PermissionGroupUsers');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the PermissionGroupUsers relation PermissionGroupUsers object
-     *
-     * @see useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery A secondary query class using the current class as primary query
-     */
-    public function usePermissionGroupUsersQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinPermissionGroupUsers($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroupUsers', '\Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery');
+            ->joinPermissionGroupUser($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroupUser', '\Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery');
     }
 
     /**

@@ -171,20 +171,13 @@ class UserTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PermissionUser', '\\Tekstove\\TekstoveBundle\\Model\\PermissionUser', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('PermissionGroupUser', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupUser', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':user_id',
     1 => ':id',
   ),
-), null, null, 'PermissionUsers', false);
-        $this->addRelation('PermissionGroupUsers', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupUsers', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':user_id',
-    1 => ':id',
-  ),
-), null, null, 'PermissionGroupUserss', false);
+), null, null, 'PermissionGroupUsers', false);
         $this->addRelation('Lyric', '\\Tekstove\\TekstoveBundle\\Model\\Lyric', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
