@@ -15,7 +15,11 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use Tekstove\TekstoveBundle\Model\Permission as ChildPermission;
+use Tekstove\TekstoveBundle\Model\PermissionGroup as ChildPermissionGroup;
 use Tekstove\TekstoveBundle\Model\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
+use Tekstove\TekstoveBundle\Model\PermissionGroupQuery as ChildPermissionGroupQuery;
+use Tekstove\TekstoveBundle\Model\PermissionQuery as ChildPermissionQuery;
 use Tekstove\TekstoveBundle\Model\Map\PermissionGroupPermissionTableMap;
 
 /**
@@ -72,6 +76,16 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @var        int
      */
     protected $permission_id;
+
+    /**
+     * @var        ChildPermissionGroup
+     */
+    protected $aPermissionGroup;
+
+    /**
+     * @var        ChildPermission
+     */
+    protected $aPermission;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -343,6 +357,10 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             $this->modifiedColumns[PermissionGroupPermissionTableMap::COL_GROUP_ID] = true;
         }
 
+        if ($this->aPermissionGroup !== null && $this->aPermissionGroup->getId() !== $v) {
+            $this->aPermissionGroup = null;
+        }
+
         return $this;
     } // setGroupId()
 
@@ -361,6 +379,10 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         if ($this->permission_id !== $v) {
             $this->permission_id = $v;
             $this->modifiedColumns[PermissionGroupPermissionTableMap::COL_PERMISSION_ID] = true;
+        }
+
+        if ($this->aPermission !== null && $this->aPermission->getId() !== $v) {
+            $this->aPermission = null;
         }
 
         return $this;
@@ -437,6 +459,12 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aPermissionGroup !== null && $this->group_id !== $this->aPermissionGroup->getId()) {
+            $this->aPermissionGroup = null;
+        }
+        if ($this->aPermission !== null && $this->permission_id !== $this->aPermission->getId()) {
+            $this->aPermission = null;
+        }
     } // ensureConsistency
 
     /**
@@ -476,6 +504,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aPermissionGroup = null;
+            $this->aPermission = null;
         } // if (deep)
     }
 
@@ -574,6 +604,25 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
+
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aPermissionGroup !== null) {
+                if ($this->aPermissionGroup->isModified() || $this->aPermissionGroup->isNew()) {
+                    $affectedRows += $this->aPermissionGroup->save($con);
+                }
+                $this->setPermissionGroup($this->aPermissionGroup);
+            }
+
+            if ($this->aPermission !== null) {
+                if ($this->aPermission->isModified() || $this->aPermission->isNew()) {
+                    $affectedRows += $this->aPermission->save($con);
+                }
+                $this->setPermission($this->aPermission);
+            }
 
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
@@ -709,10 +758,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      *                    Defaults to TableMap::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
      * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
+     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
+    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
         if (isset($alreadyDumpedObjects['PermissionGroupPermission'][$this->hashCode()])) {
@@ -729,6 +779,38 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             $result[$key] = $virtualColumn;
         }
 
+        if ($includeForeignObjects) {
+            if (null !== $this->aPermissionGroup) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'permissionGroup';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'permission_group';
+                        break;
+                    default:
+                        $key = 'PermissionGroup';
+                }
+
+                $result[$key] = $this->aPermissionGroup->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aPermission) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'permission';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'permission';
+                        break;
+                    default:
+                        $key = 'Permission';
+                }
+
+                $result[$key] = $this->aPermission->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+        }
 
         return $result;
     }
@@ -881,8 +963,22 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         $validPk = null !== $this->getGroupId() &&
             null !== $this->getPermissionId();
 
-        $validPrimaryKeyFKs = 0;
+        $validPrimaryKeyFKs = 2;
         $primaryKeyFKs = [];
+
+        //relation permission_group_permission_fk_a78f71 to table permission_group
+        if ($this->aPermissionGroup && $hash = spl_object_hash($this->aPermissionGroup)) {
+            $primaryKeyFKs[] = $hash;
+        } else {
+            $validPrimaryKeyFKs = false;
+        }
+
+        //relation permission_group_permission_fk_2b894c to table permission
+        if ($this->aPermission && $hash = spl_object_hash($this->aPermission)) {
+            $primaryKeyFKs[] = $hash;
+        } else {
+            $validPrimaryKeyFKs = false;
+        }
 
         if ($validPk) {
             return crc32(json_encode($this->getPrimaryKey(), JSON_UNESCAPED_UNICODE));
@@ -971,12 +1067,120 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildPermissionGroup object.
+     *
+     * @param  ChildPermissionGroup $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPermissionGroup(ChildPermissionGroup $v = null)
+    {
+        if ($v === null) {
+            $this->setGroupId(NULL);
+        } else {
+            $this->setGroupId($v->getId());
+        }
+
+        $this->aPermissionGroup = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPermissionGroup object, it will not be re-added.
+        if ($v !== null) {
+            $v->addPermissionGroupPermission($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPermissionGroup object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPermissionGroup The associated ChildPermissionGroup object.
+     * @throws PropelException
+     */
+    public function getPermissionGroup(ConnectionInterface $con = null)
+    {
+        if ($this->aPermissionGroup === null && ($this->group_id !== null)) {
+            $this->aPermissionGroup = ChildPermissionGroupQuery::create()->findPk($this->group_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPermissionGroup->addPermissionGroupPermissions($this);
+             */
+        }
+
+        return $this->aPermissionGroup;
+    }
+
+    /**
+     * Declares an association between this object and a ChildPermission object.
+     *
+     * @param  ChildPermission $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPermission(ChildPermission $v = null)
+    {
+        if ($v === null) {
+            $this->setPermissionId(NULL);
+        } else {
+            $this->setPermissionId($v->getId());
+        }
+
+        $this->aPermission = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildPermission object, it will not be re-added.
+        if ($v !== null) {
+            $v->addPermissionGroupPermission($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildPermission object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildPermission The associated ChildPermission object.
+     * @throws PropelException
+     */
+    public function getPermission(ConnectionInterface $con = null)
+    {
+        if ($this->aPermission === null && ($this->permission_id !== null)) {
+            $this->aPermission = ChildPermissionQuery::create()->findPk($this->permission_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPermission->addPermissionGroupPermissions($this);
+             */
+        }
+
+        return $this->aPermission;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
      */
     public function clear()
     {
+        if (null !== $this->aPermissionGroup) {
+            $this->aPermissionGroup->removePermissionGroupPermission($this);
+        }
+        if (null !== $this->aPermission) {
+            $this->aPermission->removePermissionGroupPermission($this);
+        }
         $this->group_id = null;
         $this->permission_id = null;
         $this->alreadyInSave = false;
@@ -999,6 +1203,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
+        $this->aPermissionGroup = null;
+        $this->aPermission = null;
     }
 
     /**

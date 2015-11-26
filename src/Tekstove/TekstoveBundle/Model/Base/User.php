@@ -37,6 +37,10 @@ use Tekstove\TekstoveBundle\Model\LyricTranslation as ChildLyricTranslation;
 use Tekstove\TekstoveBundle\Model\LyricTranslationQuery as ChildLyricTranslationQuery;
 use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
 use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\PermissionGroupUsers as ChildPermissionGroupUsers;
+use Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery as ChildPermissionGroupUsersQuery;
+use Tekstove\TekstoveBundle\Model\PermissionUser as ChildPermissionUser;
+use Tekstove\TekstoveBundle\Model\PermissionUserQuery as ChildPermissionUserQuery;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
 use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
 use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
@@ -132,6 +136,18 @@ abstract class User implements ActiveRecordInterface
     protected $autoplay;
 
     /**
+     * @var        ObjectCollection|ChildPermissionUser[] Collection to store aggregation of ChildPermissionUser objects.
+     */
+    protected $collPermissionUsers;
+    protected $collPermissionUsersPartial;
+
+    /**
+     * @var        ObjectCollection|ChildPermissionGroupUsers[] Collection to store aggregation of ChildPermissionGroupUsers objects.
+     */
+    protected $collPermissionGroupUserss;
+    protected $collPermissionGroupUserssPartial;
+
+    /**
      * @var        ObjectCollection|ChildLyric[] Collection to store aggregation of ChildLyric objects.
      */
     protected $collLyrics;
@@ -185,6 +201,18 @@ abstract class User implements ActiveRecordInterface
      * @var     ConstraintViolationList
      */
     protected $validationFailures;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildPermissionUser[]
+     */
+    protected $permissionUsersScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildPermissionGroupUsers[]
+     */
+    protected $permissionGroupUserssScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -776,6 +804,10 @@ abstract class User implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->collPermissionUsers = null;
+
+            $this->collPermissionGroupUserss = null;
+
             $this->collLyrics = null;
 
             $this->collLyricTranslations = null;
@@ -894,6 +926,40 @@ abstract class User implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
+            }
+
+            if ($this->permissionUsersScheduledForDeletion !== null) {
+                if (!$this->permissionUsersScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\PermissionUserQuery::create()
+                        ->filterByPrimaryKeys($this->permissionUsersScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->permissionUsersScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collPermissionUsers !== null) {
+                foreach ($this->collPermissionUsers as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->permissionGroupUserssScheduledForDeletion !== null) {
+                if (!$this->permissionGroupUserssScheduledForDeletion->isEmpty()) {
+                    \Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery::create()
+                        ->filterByPrimaryKeys($this->permissionGroupUserssScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->permissionGroupUserssScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collPermissionGroupUserss !== null) {
+                foreach ($this->collPermissionGroupUserss as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             if ($this->lyricsScheduledForDeletion !== null) {
@@ -1192,6 +1258,36 @@ abstract class User implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->collPermissionUsers) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'permissionUsers';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'permission_users';
+                        break;
+                    default:
+                        $key = 'PermissionUsers';
+                }
+
+                $result[$key] = $this->collPermissionUsers->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collPermissionGroupUserss) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'permissionGroupUserss';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'permission_group_userss';
+                        break;
+                    default:
+                        $key = 'PermissionGroupUserss';
+                }
+
+                $result[$key] = $this->collPermissionGroupUserss->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
             if (null !== $this->collLyrics) {
 
                 switch ($keyType) {
@@ -1529,6 +1625,18 @@ abstract class User implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
+            foreach ($this->getPermissionUsers() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addPermissionUser($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getPermissionGroupUserss() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addPermissionGroupUsers($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getLyrics() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addLyric($relObj->copy($deepCopy));
@@ -1600,6 +1708,12 @@ abstract class User implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
+        if ('PermissionUser' == $relationName) {
+            return $this->initPermissionUsers();
+        }
+        if ('PermissionGroupUsers' == $relationName) {
+            return $this->initPermissionGroupUserss();
+        }
         if ('Lyric' == $relationName) {
             return $this->initLyrics();
         }
@@ -1615,6 +1729,498 @@ abstract class User implements ActiveRecordInterface
         if ('Album' == $relationName) {
             return $this->initAlbums();
         }
+    }
+
+    /**
+     * Clears out the collPermissionUsers collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addPermissionUsers()
+     */
+    public function clearPermissionUsers()
+    {
+        $this->collPermissionUsers = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collPermissionUsers collection loaded partially.
+     */
+    public function resetPartialPermissionUsers($v = true)
+    {
+        $this->collPermissionUsersPartial = $v;
+    }
+
+    /**
+     * Initializes the collPermissionUsers collection.
+     *
+     * By default this just sets the collPermissionUsers collection to an empty array (like clearcollPermissionUsers());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initPermissionUsers($overrideExisting = true)
+    {
+        if (null !== $this->collPermissionUsers && !$overrideExisting) {
+            return;
+        }
+        $this->collPermissionUsers = new ObjectCollection();
+        $this->collPermissionUsers->setModel('\Tekstove\TekstoveBundle\Model\PermissionUser');
+    }
+
+    /**
+     * Gets an array of ChildPermissionUser objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUser is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildPermissionUser[] List of ChildPermissionUser objects
+     * @throws PropelException
+     */
+    public function getPermissionUsers(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collPermissionUsersPartial && !$this->isNew();
+        if (null === $this->collPermissionUsers || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collPermissionUsers) {
+                // return empty collection
+                $this->initPermissionUsers();
+            } else {
+                $collPermissionUsers = ChildPermissionUserQuery::create(null, $criteria)
+                    ->filterByUser($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collPermissionUsersPartial && count($collPermissionUsers)) {
+                        $this->initPermissionUsers(false);
+
+                        foreach ($collPermissionUsers as $obj) {
+                            if (false == $this->collPermissionUsers->contains($obj)) {
+                                $this->collPermissionUsers->append($obj);
+                            }
+                        }
+
+                        $this->collPermissionUsersPartial = true;
+                    }
+
+                    return $collPermissionUsers;
+                }
+
+                if ($partial && $this->collPermissionUsers) {
+                    foreach ($this->collPermissionUsers as $obj) {
+                        if ($obj->isNew()) {
+                            $collPermissionUsers[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collPermissionUsers = $collPermissionUsers;
+                $this->collPermissionUsersPartial = false;
+            }
+        }
+
+        return $this->collPermissionUsers;
+    }
+
+    /**
+     * Sets a collection of ChildPermissionUser objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $permissionUsers A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function setPermissionUsers(Collection $permissionUsers, ConnectionInterface $con = null)
+    {
+        /** @var ChildPermissionUser[] $permissionUsersToDelete */
+        $permissionUsersToDelete = $this->getPermissionUsers(new Criteria(), $con)->diff($permissionUsers);
+
+
+        //since at least one column in the foreign key is at the same time a PK
+        //we can not just set a PK to NULL in the lines below. We have to store
+        //a backup of all values, so we are able to manipulate these items based on the onDelete value later.
+        $this->permissionUsersScheduledForDeletion = clone $permissionUsersToDelete;
+
+        foreach ($permissionUsersToDelete as $permissionUserRemoved) {
+            $permissionUserRemoved->setUser(null);
+        }
+
+        $this->collPermissionUsers = null;
+        foreach ($permissionUsers as $permissionUser) {
+            $this->addPermissionUser($permissionUser);
+        }
+
+        $this->collPermissionUsers = $permissionUsers;
+        $this->collPermissionUsersPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related PermissionUser objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related PermissionUser objects.
+     * @throws PropelException
+     */
+    public function countPermissionUsers(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collPermissionUsersPartial && !$this->isNew();
+        if (null === $this->collPermissionUsers || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collPermissionUsers) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getPermissionUsers());
+            }
+
+            $query = ChildPermissionUserQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUser($this)
+                ->count($con);
+        }
+
+        return count($this->collPermissionUsers);
+    }
+
+    /**
+     * Method called to associate a ChildPermissionUser object to this object
+     * through the ChildPermissionUser foreign key attribute.
+     *
+     * @param  ChildPermissionUser $l ChildPermissionUser
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function addPermissionUser(ChildPermissionUser $l)
+    {
+        if ($this->collPermissionUsers === null) {
+            $this->initPermissionUsers();
+            $this->collPermissionUsersPartial = true;
+        }
+
+        if (!$this->collPermissionUsers->contains($l)) {
+            $this->doAddPermissionUser($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildPermissionUser $permissionUser The ChildPermissionUser object to add.
+     */
+    protected function doAddPermissionUser(ChildPermissionUser $permissionUser)
+    {
+        $this->collPermissionUsers[]= $permissionUser;
+        $permissionUser->setUser($this);
+    }
+
+    /**
+     * @param  ChildPermissionUser $permissionUser The ChildPermissionUser object to remove.
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function removePermissionUser(ChildPermissionUser $permissionUser)
+    {
+        if ($this->getPermissionUsers()->contains($permissionUser)) {
+            $pos = $this->collPermissionUsers->search($permissionUser);
+            $this->collPermissionUsers->remove($pos);
+            if (null === $this->permissionUsersScheduledForDeletion) {
+                $this->permissionUsersScheduledForDeletion = clone $this->collPermissionUsers;
+                $this->permissionUsersScheduledForDeletion->clear();
+            }
+            $this->permissionUsersScheduledForDeletion[]= clone $permissionUser;
+            $permissionUser->setUser(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this User is new, it will return
+     * an empty collection; or if this User has previously
+     * been saved, it will retrieve related PermissionUsers from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in User.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildPermissionUser[] List of ChildPermissionUser objects
+     */
+    public function getPermissionUsersJoinPermission(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildPermissionUserQuery::create(null, $criteria);
+        $query->joinWith('Permission', $joinBehavior);
+
+        return $this->getPermissionUsers($query, $con);
+    }
+
+    /**
+     * Clears out the collPermissionGroupUserss collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addPermissionGroupUserss()
+     */
+    public function clearPermissionGroupUserss()
+    {
+        $this->collPermissionGroupUserss = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collPermissionGroupUserss collection loaded partially.
+     */
+    public function resetPartialPermissionGroupUserss($v = true)
+    {
+        $this->collPermissionGroupUserssPartial = $v;
+    }
+
+    /**
+     * Initializes the collPermissionGroupUserss collection.
+     *
+     * By default this just sets the collPermissionGroupUserss collection to an empty array (like clearcollPermissionGroupUserss());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initPermissionGroupUserss($overrideExisting = true)
+    {
+        if (null !== $this->collPermissionGroupUserss && !$overrideExisting) {
+            return;
+        }
+        $this->collPermissionGroupUserss = new ObjectCollection();
+        $this->collPermissionGroupUserss->setModel('\Tekstove\TekstoveBundle\Model\PermissionGroupUsers');
+    }
+
+    /**
+     * Gets an array of ChildPermissionGroupUsers objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUser is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildPermissionGroupUsers[] List of ChildPermissionGroupUsers objects
+     * @throws PropelException
+     */
+    public function getPermissionGroupUserss(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collPermissionGroupUserssPartial && !$this->isNew();
+        if (null === $this->collPermissionGroupUserss || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collPermissionGroupUserss) {
+                // return empty collection
+                $this->initPermissionGroupUserss();
+            } else {
+                $collPermissionGroupUserss = ChildPermissionGroupUsersQuery::create(null, $criteria)
+                    ->filterByUser($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collPermissionGroupUserssPartial && count($collPermissionGroupUserss)) {
+                        $this->initPermissionGroupUserss(false);
+
+                        foreach ($collPermissionGroupUserss as $obj) {
+                            if (false == $this->collPermissionGroupUserss->contains($obj)) {
+                                $this->collPermissionGroupUserss->append($obj);
+                            }
+                        }
+
+                        $this->collPermissionGroupUserssPartial = true;
+                    }
+
+                    return $collPermissionGroupUserss;
+                }
+
+                if ($partial && $this->collPermissionGroupUserss) {
+                    foreach ($this->collPermissionGroupUserss as $obj) {
+                        if ($obj->isNew()) {
+                            $collPermissionGroupUserss[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collPermissionGroupUserss = $collPermissionGroupUserss;
+                $this->collPermissionGroupUserssPartial = false;
+            }
+        }
+
+        return $this->collPermissionGroupUserss;
+    }
+
+    /**
+     * Sets a collection of ChildPermissionGroupUsers objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $permissionGroupUserss A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function setPermissionGroupUserss(Collection $permissionGroupUserss, ConnectionInterface $con = null)
+    {
+        /** @var ChildPermissionGroupUsers[] $permissionGroupUserssToDelete */
+        $permissionGroupUserssToDelete = $this->getPermissionGroupUserss(new Criteria(), $con)->diff($permissionGroupUserss);
+
+
+        //since at least one column in the foreign key is at the same time a PK
+        //we can not just set a PK to NULL in the lines below. We have to store
+        //a backup of all values, so we are able to manipulate these items based on the onDelete value later.
+        $this->permissionGroupUserssScheduledForDeletion = clone $permissionGroupUserssToDelete;
+
+        foreach ($permissionGroupUserssToDelete as $permissionGroupUsersRemoved) {
+            $permissionGroupUsersRemoved->setUser(null);
+        }
+
+        $this->collPermissionGroupUserss = null;
+        foreach ($permissionGroupUserss as $permissionGroupUsers) {
+            $this->addPermissionGroupUsers($permissionGroupUsers);
+        }
+
+        $this->collPermissionGroupUserss = $permissionGroupUserss;
+        $this->collPermissionGroupUserssPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related PermissionGroupUsers objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related PermissionGroupUsers objects.
+     * @throws PropelException
+     */
+    public function countPermissionGroupUserss(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collPermissionGroupUserssPartial && !$this->isNew();
+        if (null === $this->collPermissionGroupUserss || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collPermissionGroupUserss) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getPermissionGroupUserss());
+            }
+
+            $query = ChildPermissionGroupUsersQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUser($this)
+                ->count($con);
+        }
+
+        return count($this->collPermissionGroupUserss);
+    }
+
+    /**
+     * Method called to associate a ChildPermissionGroupUsers object to this object
+     * through the ChildPermissionGroupUsers foreign key attribute.
+     *
+     * @param  ChildPermissionGroupUsers $l ChildPermissionGroupUsers
+     * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
+     */
+    public function addPermissionGroupUsers(ChildPermissionGroupUsers $l)
+    {
+        if ($this->collPermissionGroupUserss === null) {
+            $this->initPermissionGroupUserss();
+            $this->collPermissionGroupUserssPartial = true;
+        }
+
+        if (!$this->collPermissionGroupUserss->contains($l)) {
+            $this->doAddPermissionGroupUsers($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildPermissionGroupUsers $permissionGroupUsers The ChildPermissionGroupUsers object to add.
+     */
+    protected function doAddPermissionGroupUsers(ChildPermissionGroupUsers $permissionGroupUsers)
+    {
+        $this->collPermissionGroupUserss[]= $permissionGroupUsers;
+        $permissionGroupUsers->setUser($this);
+    }
+
+    /**
+     * @param  ChildPermissionGroupUsers $permissionGroupUsers The ChildPermissionGroupUsers object to remove.
+     * @return $this|ChildUser The current object (for fluent API support)
+     */
+    public function removePermissionGroupUsers(ChildPermissionGroupUsers $permissionGroupUsers)
+    {
+        if ($this->getPermissionGroupUserss()->contains($permissionGroupUsers)) {
+            $pos = $this->collPermissionGroupUserss->search($permissionGroupUsers);
+            $this->collPermissionGroupUserss->remove($pos);
+            if (null === $this->permissionGroupUserssScheduledForDeletion) {
+                $this->permissionGroupUserssScheduledForDeletion = clone $this->collPermissionGroupUserss;
+                $this->permissionGroupUserssScheduledForDeletion->clear();
+            }
+            $this->permissionGroupUserssScheduledForDeletion[]= clone $permissionGroupUsers;
+            $permissionGroupUsers->setUser(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this User is new, it will return
+     * an empty collection; or if this User has previously
+     * been saved, it will retrieve related PermissionGroupUserss from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in User.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildPermissionGroupUsers[] List of ChildPermissionGroupUsers objects
+     */
+    public function getPermissionGroupUserssJoinPermissionGroup(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildPermissionGroupUsersQuery::create(null, $criteria);
+        $query->joinWith('PermissionGroup', $joinBehavior);
+
+        return $this->getPermissionGroupUserss($query, $con);
     }
 
     /**
@@ -2789,6 +3395,16 @@ abstract class User implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collPermissionUsers) {
+                foreach ($this->collPermissionUsers as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collPermissionGroupUserss) {
+                foreach ($this->collPermissionGroupUserss as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collLyrics) {
                 foreach ($this->collLyrics as $o) {
                     $o->clearAllReferences($deep);
@@ -2816,6 +3432,8 @@ abstract class User implements ActiveRecordInterface
             }
         } // if ($deep)
 
+        $this->collPermissionUsers = null;
+        $this->collPermissionGroupUserss = null;
         $this->collLyrics = null;
         $this->collLyricTranslations = null;
         $this->collLyricVotes = null;
@@ -2885,6 +3503,24 @@ abstract class User implements ActiveRecordInterface
                 $failureMap->addAll($retval);
             }
 
+            if (null !== $this->collPermissionUsers) {
+                foreach ($this->collPermissionUsers as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collPermissionGroupUserss) {
+                foreach ($this->collPermissionGroupUserss as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
             if (null !== $this->collLyrics) {
                 foreach ($this->collLyrics as $referrerFK) {
                     if (method_exists($referrerFK, 'validate')) {

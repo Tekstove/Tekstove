@@ -146,6 +146,20 @@ class PermissionGroupTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('PermissionGroupPermission', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupPermission', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':group_id',
+    1 => ':id',
+  ),
+), null, null, 'PermissionGroupPermissions', false);
+        $this->addRelation('PermissionGroupUsers', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupUsers', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':group_id',
+    1 => ':id',
+  ),
+), null, null, 'PermissionGroupUserss', false);
     } // buildRelations()
 
     /**

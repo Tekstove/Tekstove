@@ -72,14 +72,14 @@ class PermissionUserTableMap extends TableMap
     const NUM_HYDRATE_COLUMNS = 2;
 
     /**
-     * the column name for the permission_id field
-     */
-    const COL_PERMISSION_ID = 'permission_user.permission_id';
-
-    /**
      * the column name for the user_id field
      */
     const COL_USER_ID = 'permission_user.user_id';
+
+    /**
+     * the column name for the permission_id field
+     */
+    const COL_PERMISSION_ID = 'permission_user.permission_id';
 
     /**
      * The default string format for model objects of the related table
@@ -93,10 +93,10 @@ class PermissionUserTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('PermissionId', 'UserId', ),
-        self::TYPE_CAMELNAME     => array('permissionId', 'userId', ),
-        self::TYPE_COLNAME       => array(PermissionUserTableMap::COL_PERMISSION_ID, PermissionUserTableMap::COL_USER_ID, ),
-        self::TYPE_FIELDNAME     => array('permission_id', 'user_id', ),
+        self::TYPE_PHPNAME       => array('UserId', 'PermissionId', ),
+        self::TYPE_CAMELNAME     => array('userId', 'permissionId', ),
+        self::TYPE_COLNAME       => array(PermissionUserTableMap::COL_USER_ID, PermissionUserTableMap::COL_PERMISSION_ID, ),
+        self::TYPE_FIELDNAME     => array('user_id', 'permission_id', ),
         self::TYPE_NUM           => array(0, 1, )
     );
 
@@ -107,10 +107,10 @@ class PermissionUserTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('PermissionId' => 0, 'UserId' => 1, ),
-        self::TYPE_CAMELNAME     => array('permissionId' => 0, 'userId' => 1, ),
-        self::TYPE_COLNAME       => array(PermissionUserTableMap::COL_PERMISSION_ID => 0, PermissionUserTableMap::COL_USER_ID => 1, ),
-        self::TYPE_FIELDNAME     => array('permission_id' => 0, 'user_id' => 1, ),
+        self::TYPE_PHPNAME       => array('UserId' => 0, 'PermissionId' => 1, ),
+        self::TYPE_CAMELNAME     => array('userId' => 0, 'permissionId' => 1, ),
+        self::TYPE_COLNAME       => array(PermissionUserTableMap::COL_USER_ID => 0, PermissionUserTableMap::COL_PERMISSION_ID => 1, ),
+        self::TYPE_FIELDNAME     => array('user_id' => 0, 'permission_id' => 1, ),
         self::TYPE_NUM           => array(0, 1, )
     );
 
@@ -131,8 +131,8 @@ class PermissionUserTableMap extends TableMap
         $this->setPackage('src.Tekstove.TekstoveBundle.Model');
         $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('permission_id', 'PermissionId', 'INTEGER', true, null, null);
-        $this->addPrimaryKey('user_id', 'UserId', 'INTEGER', true, null, null);
+        $this->addForeignPrimaryKey('user_id', 'UserId', 'INTEGER' , 'user', 'id', true, null, null);
+        $this->addForeignPrimaryKey('permission_id', 'PermissionId', 'INTEGER' , 'permission', 'id', true, null, null);
     } // initialize()
 
     /**
@@ -140,6 +140,20 @@ class PermissionUserTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('User', '\\Tekstove\\TekstoveBundle\\Model\\User', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('Permission', '\\Tekstove\\TekstoveBundle\\Model\\Permission', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':permission_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
     } // buildRelations()
 
     /**
@@ -157,7 +171,7 @@ class PermissionUserTableMap extends TableMap
     {
         if (Propel::isInstancePoolingEnabled()) {
             if (null === $key) {
-                $key = serialize(array((string) $obj->getPermissionId(), (string) $obj->getUserId()));
+                $key = serialize(array((string) $obj->getUserId(), (string) $obj->getPermissionId()));
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -177,7 +191,7 @@ class PermissionUserTableMap extends TableMap
     {
         if (Propel::isInstancePoolingEnabled() && null !== $value) {
             if (is_object($value) && $value instanceof \Tekstove\TekstoveBundle\Model\PermissionUser) {
-                $key = serialize(array((string) $value->getPermissionId(), (string) $value->getUserId()));
+                $key = serialize(array((string) $value->getUserId(), (string) $value->getPermissionId()));
 
             } elseif (is_array($value) && count($value) === 2) {
                 // assume we've been passed a primary key";
@@ -211,11 +225,11 @@ class PermissionUserTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)] === null) {
             return null;
         }
 
-        return serialize(array((string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)], (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)]));
+        return serialize(array((string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)], (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)]));
     }
 
     /**
@@ -237,12 +251,12 @@ class PermissionUserTableMap extends TableMap
         $pks[] = (int) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
-                : self::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)
+                : self::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)
         ];
         $pks[] = (int) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 1 + $offset
-                : self::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)
+                : self::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)
         ];
 
         return $pks;
@@ -345,11 +359,11 @@ class PermissionUserTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(PermissionUserTableMap::COL_PERMISSION_ID);
             $criteria->addSelectColumn(PermissionUserTableMap::COL_USER_ID);
+            $criteria->addSelectColumn(PermissionUserTableMap::COL_PERMISSION_ID);
         } else {
-            $criteria->addSelectColumn($alias . '.permission_id');
             $criteria->addSelectColumn($alias . '.user_id');
+            $criteria->addSelectColumn($alias . '.permission_id');
         }
     }
 
@@ -408,8 +422,8 @@ class PermissionUserTableMap extends TableMap
                 $values = array($values);
             }
             foreach ($values as $value) {
-                $criterion = $criteria->getNewCriterion(PermissionUserTableMap::COL_PERMISSION_ID, $value[0]);
-                $criterion->addAnd($criteria->getNewCriterion(PermissionUserTableMap::COL_USER_ID, $value[1]));
+                $criterion = $criteria->getNewCriterion(PermissionUserTableMap::COL_USER_ID, $value[0]);
+                $criterion->addAnd($criteria->getNewCriterion(PermissionUserTableMap::COL_PERMISSION_ID, $value[1]));
                 $criteria->addOr($criterion);
             }
         }

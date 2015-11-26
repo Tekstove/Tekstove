@@ -11,99 +11,99 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\PermissionUser as ChildPermissionUser;
-use Tekstove\TekstoveBundle\Model\PermissionUserQuery as ChildPermissionUserQuery;
-use Tekstove\TekstoveBundle\Model\Map\PermissionUserTableMap;
+use Tekstove\TekstoveBundle\Model\PermissionGroupUsers as ChildPermissionGroupUsers;
+use Tekstove\TekstoveBundle\Model\PermissionGroupUsersQuery as ChildPermissionGroupUsersQuery;
+use Tekstove\TekstoveBundle\Model\Map\PermissionGroupUsersTableMap;
 
 /**
- * Base class that represents a query for the 'permission_user' table.
+ * Base class that represents a query for the 'permission_group_users' table.
  *
  *
  *
- * @method     ChildPermissionUserQuery orderByUserId($order = Criteria::ASC) Order by the user_id column
- * @method     ChildPermissionUserQuery orderByPermissionId($order = Criteria::ASC) Order by the permission_id column
+ * @method     ChildPermissionGroupUsersQuery orderByUserId($order = Criteria::ASC) Order by the user_id column
+ * @method     ChildPermissionGroupUsersQuery orderByGroupId($order = Criteria::ASC) Order by the group_id column
  *
- * @method     ChildPermissionUserQuery groupByUserId() Group by the user_id column
- * @method     ChildPermissionUserQuery groupByPermissionId() Group by the permission_id column
+ * @method     ChildPermissionGroupUsersQuery groupByUserId() Group by the user_id column
+ * @method     ChildPermissionGroupUsersQuery groupByGroupId() Group by the group_id column
  *
- * @method     ChildPermissionUserQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     ChildPermissionUserQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     ChildPermissionUserQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     ChildPermissionGroupUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     ChildPermissionGroupUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     ChildPermissionGroupUsersQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildPermissionUserQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
- * @method     ChildPermissionUserQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
- * @method     ChildPermissionUserQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ * @method     ChildPermissionGroupUsersQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
+ * @method     ChildPermissionGroupUsersQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
+ * @method     ChildPermissionGroupUsersQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
- * @method     ChildPermissionUserQuery leftJoinUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the User relation
- * @method     ChildPermissionUserQuery rightJoinUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the User relation
- * @method     ChildPermissionUserQuery innerJoinUser($relationAlias = null) Adds a INNER JOIN clause to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery leftJoinUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinUser($relationAlias = null) Adds a INNER JOIN clause to the query using the User relation
  *
- * @method     ChildPermissionUserQuery joinWithUser($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery joinWithUser($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the User relation
  *
- * @method     ChildPermissionUserQuery leftJoinWithUser() Adds a LEFT JOIN clause and with to the query using the User relation
- * @method     ChildPermissionUserQuery rightJoinWithUser() Adds a RIGHT JOIN clause and with to the query using the User relation
- * @method     ChildPermissionUserQuery innerJoinWithUser() Adds a INNER JOIN clause and with to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery leftJoinWithUser() Adds a LEFT JOIN clause and with to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinWithUser() Adds a RIGHT JOIN clause and with to the query using the User relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinWithUser() Adds a INNER JOIN clause and with to the query using the User relation
  *
- * @method     ChildPermissionUserQuery leftJoinPermission($relationAlias = null) Adds a LEFT JOIN clause to the query using the Permission relation
- * @method     ChildPermissionUserQuery rightJoinPermission($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Permission relation
- * @method     ChildPermissionUserQuery innerJoinPermission($relationAlias = null) Adds a INNER JOIN clause to the query using the Permission relation
+ * @method     ChildPermissionGroupUsersQuery leftJoinPermissionGroup($relationAlias = null) Adds a LEFT JOIN clause to the query using the PermissionGroup relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinPermissionGroup($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PermissionGroup relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinPermissionGroup($relationAlias = null) Adds a INNER JOIN clause to the query using the PermissionGroup relation
  *
- * @method     ChildPermissionUserQuery joinWithPermission($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Permission relation
+ * @method     ChildPermissionGroupUsersQuery joinWithPermissionGroup($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the PermissionGroup relation
  *
- * @method     ChildPermissionUserQuery leftJoinWithPermission() Adds a LEFT JOIN clause and with to the query using the Permission relation
- * @method     ChildPermissionUserQuery rightJoinWithPermission() Adds a RIGHT JOIN clause and with to the query using the Permission relation
- * @method     ChildPermissionUserQuery innerJoinWithPermission() Adds a INNER JOIN clause and with to the query using the Permission relation
+ * @method     ChildPermissionGroupUsersQuery leftJoinWithPermissionGroup() Adds a LEFT JOIN clause and with to the query using the PermissionGroup relation
+ * @method     ChildPermissionGroupUsersQuery rightJoinWithPermissionGroup() Adds a RIGHT JOIN clause and with to the query using the PermissionGroup relation
+ * @method     ChildPermissionGroupUsersQuery innerJoinWithPermissionGroup() Adds a INNER JOIN clause and with to the query using the PermissionGroup relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\UserQuery|\Tekstove\TekstoveBundle\Model\PermissionQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\UserQuery|\Tekstove\TekstoveBundle\Model\PermissionGroupQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
- * @method     ChildPermissionUser findOne(ConnectionInterface $con = null) Return the first ChildPermissionUser matching the query
- * @method     ChildPermissionUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPermissionUser matching the query, or a new ChildPermissionUser object populated from the query conditions when no match is found
+ * @method     ChildPermissionGroupUsers findOne(ConnectionInterface $con = null) Return the first ChildPermissionGroupUsers matching the query
+ * @method     ChildPermissionGroupUsers findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPermissionGroupUsers matching the query, or a new ChildPermissionGroupUsers object populated from the query conditions when no match is found
  *
- * @method     ChildPermissionUser findOneByUserId(int $user_id) Return the first ChildPermissionUser filtered by the user_id column
- * @method     ChildPermissionUser findOneByPermissionId(int $permission_id) Return the first ChildPermissionUser filtered by the permission_id column *
+ * @method     ChildPermissionGroupUsers findOneByUserId(int $user_id) Return the first ChildPermissionGroupUsers filtered by the user_id column
+ * @method     ChildPermissionGroupUsers findOneByGroupId(int $group_id) Return the first ChildPermissionGroupUsers filtered by the group_id column *
 
- * @method     ChildPermissionUser requirePk($key, ConnectionInterface $con = null) Return the ChildPermissionUser by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildPermissionUser requireOne(ConnectionInterface $con = null) Return the first ChildPermissionUser matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPermissionGroupUsers requirePk($key, ConnectionInterface $con = null) Return the ChildPermissionGroupUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPermissionGroupUsers requireOne(ConnectionInterface $con = null) Return the first ChildPermissionGroupUsers matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildPermissionUser requireOneByUserId(int $user_id) Return the first ChildPermissionUser filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildPermissionUser requireOneByPermissionId(int $permission_id) Return the first ChildPermissionUser filtered by the permission_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPermissionGroupUsers requireOneByUserId(int $user_id) Return the first ChildPermissionGroupUsers filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPermissionGroupUsers requireOneByGroupId(int $group_id) Return the first ChildPermissionGroupUsers filtered by the group_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildPermissionUser[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPermissionUser objects based on current ModelCriteria
- * @method     ChildPermissionUser[]|ObjectCollection findByUserId(int $user_id) Return ChildPermissionUser objects filtered by the user_id column
- * @method     ChildPermissionUser[]|ObjectCollection findByPermissionId(int $permission_id) Return ChildPermissionUser objects filtered by the permission_id column
- * @method     ChildPermissionUser[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
+ * @method     ChildPermissionGroupUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPermissionGroupUsers objects based on current ModelCriteria
+ * @method     ChildPermissionGroupUsers[]|ObjectCollection findByUserId(int $user_id) Return ChildPermissionGroupUsers objects filtered by the user_id column
+ * @method     ChildPermissionGroupUsers[]|ObjectCollection findByGroupId(int $group_id) Return ChildPermissionGroupUsers objects filtered by the group_id column
+ * @method     ChildPermissionGroupUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
-abstract class PermissionUserQuery extends ModelCriteria
+abstract class PermissionGroupUsersQuery extends ModelCriteria
 {
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Base\PermissionUserQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Base\PermissionGroupUsersQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\PermissionUser', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupUsers', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new ChildPermissionUserQuery object.
+     * Returns a new ChildPermissionGroupUsersQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
      * @param     Criteria $criteria Optional Criteria to build the query from
      *
-     * @return ChildPermissionUserQuery
+     * @return ChildPermissionGroupUsersQuery
      */
     public static function create($modelAlias = null, Criteria $criteria = null)
     {
-        if ($criteria instanceof ChildPermissionUserQuery) {
+        if ($criteria instanceof ChildPermissionGroupUsersQuery) {
             return $criteria;
         }
-        $query = new ChildPermissionUserQuery();
+        $query = new ChildPermissionGroupUsersQuery();
         if (null !== $modelAlias) {
             $query->setModelAlias($modelAlias);
         }
@@ -123,22 +123,22 @@ abstract class PermissionUserQuery extends ModelCriteria
      * $obj = $c->findPk(array(12, 34), $con);
      * </code>
      *
-     * @param array[$user_id, $permission_id] $key Primary key to use for the query
+     * @param array[$user_id, $group_id] $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
-     * @return ChildPermissionUser|array|mixed the result, formatted by the current formatter
+     * @return ChildPermissionGroupUsers|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, ConnectionInterface $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = PermissionUserTableMap::getInstanceFromPool(serialize(array((string) $key[0], (string) $key[1]))))) && !$this->formatter) {
+        if ((null !== ($obj = PermissionGroupUsersTableMap::getInstanceFromPool(serialize(array((string) $key[0], (string) $key[1]))))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(PermissionUserTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(PermissionGroupUsersTableMap::DATABASE_NAME);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -159,11 +159,11 @@ abstract class PermissionUserQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildPermissionUser A model object, or null if the key is not found
+     * @return ChildPermissionGroupUsers A model object, or null if the key is not found
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT user_id, permission_id FROM permission_user WHERE user_id = :p0 AND permission_id = :p1';
+        $sql = 'SELECT user_id, group_id FROM permission_group_users WHERE user_id = :p0 AND group_id = :p1';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key[0], PDO::PARAM_INT);
@@ -175,10 +175,10 @@ abstract class PermissionUserQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-            /** @var ChildPermissionUser $obj */
-            $obj = new ChildPermissionUser();
+            /** @var ChildPermissionGroupUsers $obj */
+            $obj = new ChildPermissionGroupUsers();
             $obj->hydrate($row);
-            PermissionUserTableMap::addInstanceToPool($obj, serialize(array((string) $key[0], (string) $key[1])));
+            PermissionGroupUsersTableMap::addInstanceToPool($obj, serialize(array((string) $key[0], (string) $key[1])));
         }
         $stmt->closeCursor();
 
@@ -191,7 +191,7 @@ abstract class PermissionUserQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return ChildPermissionUser|array|mixed the result, formatted by the current formatter
+     * @return ChildPermissionGroupUsers|array|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, ConnectionInterface $con)
     {
@@ -233,12 +233,12 @@ abstract class PermissionUserQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
-        $this->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $key[0], Criteria::EQUAL);
-        $this->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $key[1], Criteria::EQUAL);
+        $this->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $key[0], Criteria::EQUAL);
+        $this->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $key[1], Criteria::EQUAL);
 
         return $this;
     }
@@ -248,7 +248,7 @@ abstract class PermissionUserQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
@@ -256,8 +256,8 @@ abstract class PermissionUserQuery extends ModelCriteria
             return $this->add(null, '1<>1', Criteria::CUSTOM);
         }
         foreach ($keys as $key) {
-            $cton0 = $this->getNewCriterion(PermissionUserTableMap::COL_USER_ID, $key[0], Criteria::EQUAL);
-            $cton1 = $this->getNewCriterion(PermissionUserTableMap::COL_PERMISSION_ID, $key[1], Criteria::EQUAL);
+            $cton0 = $this->getNewCriterion(PermissionGroupUsersTableMap::COL_USER_ID, $key[0], Criteria::EQUAL);
+            $cton1 = $this->getNewCriterion(PermissionGroupUsersTableMap::COL_GROUP_ID, $key[1], Criteria::EQUAL);
             $cton0->addAnd($cton1);
             $this->addOr($cton0);
         }
@@ -283,18 +283,18 @@ abstract class PermissionUserQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
     public function filterByUserId($userId = null, $comparison = null)
     {
         if (is_array($userId)) {
             $useMinMax = false;
             if (isset($userId['min'])) {
-                $this->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $userId['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $userId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($userId['max'])) {
-                $this->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $userId['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $userId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -305,39 +305,39 @@ abstract class PermissionUserQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $userId, $comparison);
+        return $this->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $userId, $comparison);
     }
 
     /**
-     * Filter the query on the permission_id column
+     * Filter the query on the group_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPermissionId(1234); // WHERE permission_id = 1234
-     * $query->filterByPermissionId(array(12, 34)); // WHERE permission_id IN (12, 34)
-     * $query->filterByPermissionId(array('min' => 12)); // WHERE permission_id > 12
+     * $query->filterByGroupId(1234); // WHERE group_id = 1234
+     * $query->filterByGroupId(array(12, 34)); // WHERE group_id IN (12, 34)
+     * $query->filterByGroupId(array('min' => 12)); // WHERE group_id > 12
      * </code>
      *
-     * @see       filterByPermission()
+     * @see       filterByPermissionGroup()
      *
-     * @param     mixed $permissionId The value to use as filter.
+     * @param     mixed $groupId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
-    public function filterByPermissionId($permissionId = null, $comparison = null)
+    public function filterByGroupId($groupId = null, $comparison = null)
     {
-        if (is_array($permissionId)) {
+        if (is_array($groupId)) {
             $useMinMax = false;
-            if (isset($permissionId['min'])) {
-                $this->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $permissionId['min'], Criteria::GREATER_EQUAL);
+            if (isset($groupId['min'])) {
+                $this->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $groupId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($permissionId['max'])) {
-                $this->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $permissionId['max'], Criteria::LESS_EQUAL);
+            if (isset($groupId['max'])) {
+                $this->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $groupId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -348,7 +348,7 @@ abstract class PermissionUserQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $permissionId, $comparison);
+        return $this->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $groupId, $comparison);
     }
 
     /**
@@ -359,20 +359,20 @@ abstract class PermissionUserQuery extends ModelCriteria
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildPermissionUserQuery The current query, for fluid interface
+     * @return ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
     public function filterByUser($user, $comparison = null)
     {
         if ($user instanceof \Tekstove\TekstoveBundle\Model\User) {
             return $this
-                ->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $user->getId(), $comparison);
+                ->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $user->getId(), $comparison);
         } elseif ($user instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(PermissionUserTableMap::COL_USER_ID, $user->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(PermissionGroupUsersTableMap::COL_USER_ID, $user->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\User or Collection');
         }
@@ -384,7 +384,7 @@ abstract class PermissionUserQuery extends ModelCriteria
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
     public function joinUser($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
@@ -429,44 +429,44 @@ abstract class PermissionUserQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Permission object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionGroup object
      *
-     * @param \Tekstove\TekstoveBundle\Model\Permission|ObjectCollection $permission The related object(s) to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\PermissionGroup|ObjectCollection $permissionGroup The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
-     * @return ChildPermissionUserQuery The current query, for fluid interface
+     * @return ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
-    public function filterByPermission($permission, $comparison = null)
+    public function filterByPermissionGroup($permissionGroup, $comparison = null)
     {
-        if ($permission instanceof \Tekstove\TekstoveBundle\Model\Permission) {
+        if ($permissionGroup instanceof \Tekstove\TekstoveBundle\Model\PermissionGroup) {
             return $this
-                ->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $permission->getId(), $comparison);
-        } elseif ($permission instanceof ObjectCollection) {
+                ->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $permissionGroup->getId(), $comparison);
+        } elseif ($permissionGroup instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(PermissionUserTableMap::COL_PERMISSION_ID, $permission->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(PermissionGroupUsersTableMap::COL_GROUP_ID, $permissionGroup->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPermission() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Permission or Collection');
+            throw new PropelException('filterByPermissionGroup() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionGroup or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Permission relation
+     * Adds a JOIN clause to the query using the PermissionGroup relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
-    public function joinPermission($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinPermissionGroup($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Permission');
+        $relationMap = $tableMap->getRelation('PermissionGroup');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -481,14 +481,14 @@ abstract class PermissionUserQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Permission');
+            $this->addJoinObject($join, 'PermissionGroup');
         }
 
         return $this;
     }
 
     /**
-     * Use the Permission relation Permission object
+     * Use the PermissionGroup relation PermissionGroup object
      *
      * @see useQuery()
      *
@@ -496,27 +496,27 @@ abstract class PermissionUserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\PermissionQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupQuery A secondary query class using the current class as primary query
      */
-    public function usePermissionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function usePermissionGroupQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPermission($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Permission', '\Tekstove\TekstoveBundle\Model\PermissionQuery');
+            ->joinPermissionGroup($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroup', '\Tekstove\TekstoveBundle\Model\PermissionGroupQuery');
     }
 
     /**
      * Exclude object from result
      *
-     * @param   ChildPermissionUser $permissionUser Object to remove from the list of results
+     * @param   ChildPermissionGroupUsers $permissionGroupUsers Object to remove from the list of results
      *
-     * @return $this|ChildPermissionUserQuery The current query, for fluid interface
+     * @return $this|ChildPermissionGroupUsersQuery The current query, for fluid interface
      */
-    public function prune($permissionUser = null)
+    public function prune($permissionGroupUsers = null)
     {
-        if ($permissionUser) {
-            $this->addCond('pruneCond0', $this->getAliasedColName(PermissionUserTableMap::COL_USER_ID), $permissionUser->getUserId(), Criteria::NOT_EQUAL);
-            $this->addCond('pruneCond1', $this->getAliasedColName(PermissionUserTableMap::COL_PERMISSION_ID), $permissionUser->getPermissionId(), Criteria::NOT_EQUAL);
+        if ($permissionGroupUsers) {
+            $this->addCond('pruneCond0', $this->getAliasedColName(PermissionGroupUsersTableMap::COL_USER_ID), $permissionGroupUsers->getUserId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond1', $this->getAliasedColName(PermissionGroupUsersTableMap::COL_GROUP_ID), $permissionGroupUsers->getGroupId(), Criteria::NOT_EQUAL);
             $this->combine(array('pruneCond0', 'pruneCond1'), Criteria::LOGICAL_OR);
         }
 
@@ -524,7 +524,7 @@ abstract class PermissionUserQuery extends ModelCriteria
     }
 
     /**
-     * Deletes all rows from the permission_user table.
+     * Deletes all rows from the permission_group_users table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
@@ -532,7 +532,7 @@ abstract class PermissionUserQuery extends ModelCriteria
     public function doDeleteAll(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionUserTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupUsersTableMap::DATABASE_NAME);
         }
 
         // use transaction because $criteria could contain info
@@ -543,8 +543,8 @@ abstract class PermissionUserQuery extends ModelCriteria
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            PermissionUserTableMap::clearInstancePool();
-            PermissionUserTableMap::clearRelatedInstancePool();
+            PermissionGroupUsersTableMap::clearInstancePool();
+            PermissionGroupUsersTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
@@ -562,26 +562,26 @@ abstract class PermissionUserQuery extends ModelCriteria
     public function delete(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionUserTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupUsersTableMap::DATABASE_NAME);
         }
 
         $criteria = $this;
 
         // Set the correct dbName
-        $criteria->setDbName(PermissionUserTableMap::DATABASE_NAME);
+        $criteria->setDbName(PermissionGroupUsersTableMap::DATABASE_NAME);
 
         // use transaction because $criteria could contain info
         // for more than one table or we could emulating ON DELETE CASCADE, etc.
         return $con->transaction(function () use ($con, $criteria) {
             $affectedRows = 0; // initialize var to track total num of affected rows
 
-            PermissionUserTableMap::removeInstanceFromPool($criteria);
+            PermissionGroupUsersTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
-            PermissionUserTableMap::clearRelatedInstancePool();
+            PermissionGroupUsersTableMap::clearRelatedInstancePool();
 
             return $affectedRows;
         });
     }
 
-} // PermissionUserQuery
+} // PermissionGroupUsersQuery

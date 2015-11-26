@@ -131,8 +131,8 @@ class PermissionGroupPermissionTableMap extends TableMap
         $this->setPackage('src.Tekstove.TekstoveBundle.Model');
         $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('group_id', 'GroupId', 'INTEGER', true, null, null);
-        $this->addPrimaryKey('permission_id', 'PermissionId', 'INTEGER', true, null, null);
+        $this->addForeignPrimaryKey('group_id', 'GroupId', 'INTEGER' , 'permission_group', 'id', true, null, null);
+        $this->addForeignPrimaryKey('permission_id', 'PermissionId', 'INTEGER' , 'permission', 'id', true, null, null);
     } // initialize()
 
     /**
@@ -140,6 +140,20 @@ class PermissionGroupPermissionTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('PermissionGroup', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroup', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':group_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
+        $this->addRelation('Permission', '\\Tekstove\\TekstoveBundle\\Model\\Permission', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':permission_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
     } // buildRelations()
 
     /**
