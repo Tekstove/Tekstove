@@ -22,9 +22,11 @@ use Tekstove\TekstoveBundle\Model\Map\PermissionTableMap;
  *
  * @method     ChildPermissionQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildPermissionQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     ChildPermissionQuery orderByValue($order = Criteria::ASC) Order by the value column
  *
  * @method     ChildPermissionQuery groupById() Group by the id column
  * @method     ChildPermissionQuery groupByName() Group by the name column
+ * @method     ChildPermissionQuery groupByValue() Group by the value column
  *
  * @method     ChildPermissionQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildPermissionQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -60,17 +62,20 @@ use Tekstove\TekstoveBundle\Model\Map\PermissionTableMap;
  * @method     ChildPermission findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPermission matching the query, or a new ChildPermission object populated from the query conditions when no match is found
  *
  * @method     ChildPermission findOneById(int $id) Return the first ChildPermission filtered by the id column
- * @method     ChildPermission findOneByName(string $name) Return the first ChildPermission filtered by the name column *
+ * @method     ChildPermission findOneByName(string $name) Return the first ChildPermission filtered by the name column
+ * @method     ChildPermission findOneByValue(int $value) Return the first ChildPermission filtered by the value column *
 
  * @method     ChildPermission requirePk($key, ConnectionInterface $con = null) Return the ChildPermission by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPermission requireOne(ConnectionInterface $con = null) Return the first ChildPermission matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildPermission requireOneById(int $id) Return the first ChildPermission filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPermission requireOneByName(string $name) Return the first ChildPermission filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPermission requireOneByValue(int $value) Return the first ChildPermission filtered by the value column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildPermission[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPermission objects based on current ModelCriteria
  * @method     ChildPermission[]|ObjectCollection findById(int $id) Return ChildPermission objects filtered by the id column
  * @method     ChildPermission[]|ObjectCollection findByName(string $name) Return ChildPermission objects filtered by the name column
+ * @method     ChildPermission[]|ObjectCollection findByValue(int $value) Return ChildPermission objects filtered by the value column
  * @method     ChildPermission[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -163,7 +168,7 @@ abstract class PermissionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, name FROM permission WHERE id = :p0';
+        $sql = 'SELECT id, name, value FROM permission WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -321,6 +326,47 @@ abstract class PermissionQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PermissionTableMap::COL_NAME, $name, $comparison);
+    }
+
+    /**
+     * Filter the query on the value column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByValue(1234); // WHERE value = 1234
+     * $query->filterByValue(array(12, 34)); // WHERE value IN (12, 34)
+     * $query->filterByValue(array('min' => 12)); // WHERE value > 12
+     * </code>
+     *
+     * @param     mixed $value The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildPermissionQuery The current query, for fluid interface
+     */
+    public function filterByValue($value = null, $comparison = null)
+    {
+        if (is_array($value)) {
+            $useMinMax = false;
+            if (isset($value['min'])) {
+                $this->addUsingAlias(PermissionTableMap::COL_VALUE, $value['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($value['max'])) {
+                $this->addUsingAlias(PermissionTableMap::COL_VALUE, $value['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PermissionTableMap::COL_VALUE, $value, $comparison);
     }
 
     /**

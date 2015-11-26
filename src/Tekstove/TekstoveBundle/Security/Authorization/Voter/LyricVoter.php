@@ -40,16 +40,19 @@ class LyricVoter implements VoterInterface
         switch ($attributes[0]) {
             case 'edit':
                 $user = $token->getUser();
+                
+                if (!$user instanceof User) {
+                    return VoterInterface::ACCESS_DENIED;
+                }
+                
                 /* @var $user Model\User */
-                if ($user instanceof User && $user->getId() === $object->getUserId()) {
+                if ($user->getId() === $object->getUserId()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 
-                foreach ($token->getRoles() as $role) {
-                    /* @var $role Model\User\Role */
-                    if ($role->isAllowed('lyric_edit')) {
-                        return VoterInterface::ACCESS_GRANTED;
-                    }
+                $permissionValue = $user->getPermission('lyric_edit');
+                if ($permissionValue) {
+                    return VoterInterface::ACCESS_GRANTED;
                 }
             
                 

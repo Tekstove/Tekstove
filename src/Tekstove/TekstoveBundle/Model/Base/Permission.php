@@ -80,6 +80,13 @@ abstract class Permission implements ActiveRecordInterface
     protected $name;
 
     /**
+     * The value for the value field.
+     *
+     * @var        int
+     */
+    protected $value;
+
+    /**
      * @var        ObjectCollection|ChildPermissionUser[] Collection to store aggregation of ChildPermissionUser objects.
      */
     protected $collPermissionUsers;
@@ -357,6 +364,16 @@ abstract class Permission implements ActiveRecordInterface
     }
 
     /**
+     * Get the [value] column value.
+     *
+     * @return int
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -395,6 +412,26 @@ abstract class Permission implements ActiveRecordInterface
 
         return $this;
     } // setName()
+
+    /**
+     * Set the value of [value] column.
+     *
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Permission The current object (for fluent API support)
+     */
+    public function setValue($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->value !== $v) {
+            $this->value = $v;
+            $this->modifiedColumns[PermissionTableMap::COL_VALUE] = true;
+        }
+
+        return $this;
+    } // setValue()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -437,6 +474,9 @@ abstract class Permission implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : PermissionTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
             $this->name = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : PermissionTableMap::translateFieldName('Value', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->value = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -445,7 +485,7 @@ abstract class Permission implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 2; // 2 = PermissionTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = PermissionTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Permission'), 0, $e);
@@ -686,6 +726,9 @@ abstract class Permission implements ActiveRecordInterface
         if ($this->isColumnModified(PermissionTableMap::COL_NAME)) {
             $modifiedColumns[':p' . $index++]  = 'name';
         }
+        if ($this->isColumnModified(PermissionTableMap::COL_VALUE)) {
+            $modifiedColumns[':p' . $index++]  = 'value';
+        }
 
         $sql = sprintf(
             'INSERT INTO permission (%s) VALUES (%s)',
@@ -702,6 +745,9 @@ abstract class Permission implements ActiveRecordInterface
                         break;
                     case 'name':
                         $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+                        break;
+                    case 'value':
+                        $stmt->bindValue($identifier, $this->value, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -771,6 +817,9 @@ abstract class Permission implements ActiveRecordInterface
             case 1:
                 return $this->getName();
                 break;
+            case 2:
+                return $this->getValue();
+                break;
             default:
                 return null;
                 break;
@@ -803,6 +852,7 @@ abstract class Permission implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
+            $keys[2] => $this->getValue(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -880,6 +930,9 @@ abstract class Permission implements ActiveRecordInterface
             case 1:
                 $this->setName($value);
                 break;
+            case 2:
+                $this->setValue($value);
+                break;
         } // switch()
 
         return $this;
@@ -911,6 +964,9 @@ abstract class Permission implements ActiveRecordInterface
         }
         if (array_key_exists($keys[1], $arr)) {
             $this->setName($arr[$keys[1]]);
+        }
+        if (array_key_exists($keys[2], $arr)) {
+            $this->setValue($arr[$keys[2]]);
         }
     }
 
@@ -958,6 +1014,9 @@ abstract class Permission implements ActiveRecordInterface
         }
         if ($this->isColumnModified(PermissionTableMap::COL_NAME)) {
             $criteria->add(PermissionTableMap::COL_NAME, $this->name);
+        }
+        if ($this->isColumnModified(PermissionTableMap::COL_VALUE)) {
+            $criteria->add(PermissionTableMap::COL_VALUE, $this->value);
         }
 
         return $criteria;
@@ -1046,6 +1105,7 @@ abstract class Permission implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setName($this->getName());
+        $copyObj->setValue($this->getValue());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1614,6 +1674,7 @@ abstract class Permission implements ActiveRecordInterface
     {
         $this->id = null;
         $this->name = null;
+        $this->value = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

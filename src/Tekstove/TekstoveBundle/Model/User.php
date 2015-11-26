@@ -23,6 +23,26 @@ class User extends BaseUser implements UserInterface
         
     }
 
+    public function getPermission($name)
+    {
+        foreach ($this->getPermissionUsers() as $permissionUser) {
+            $permission = $permissionUser->getPermission();
+            if ($permission->getName() === $name) {
+                return $permission->getValue();
+            }
+        }
+        
+        foreach ($this->getPermissionGroupUserss() as $permissionGroup) {
+            $group = $permissionGroup->getPermissionGroup();
+            foreach($group->getPermissionGroupPermissions() as $groupPermission) {
+                $permissionName = $groupPermission->getPermission()->getName();
+                if ($permissionName === $name) {
+                    return $groupPermission->getPermission()->getValue();
+                }
+            }
+        }
+    }
+    
     public function getRoles()
     {
         return [];

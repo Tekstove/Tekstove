@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Tekstove\TekstoveBundle\Model\Lyric;
 use Tekstove\TekstoveBundle\Form\Type\LyricType;
@@ -100,6 +102,13 @@ class LyricController extends Controller
         $lyricQuery = new LyricQuery();
         
         $lyric = $lyricQuery->findOneById($id);
+        if (!$lyric) {
+            throw new NotFoundHttpException('Lyric not found');
+        }
+        
+        if (!$this->isGranted('lyric_edit', $lyric)) {
+            throw new AccessDeniedHttpException();
+        }
         
         $form = $this->createEditForm($lyric);
         

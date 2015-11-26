@@ -20,6 +20,7 @@
     <table name="permission">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" />
+        <column name="value" type="integer" />
     </table>
 
     <table name="permission_user">
