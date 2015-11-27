@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Acl;
 
-use Tekstove\TekstoveBundle\Model\Base\PermissionGroupPermission as BasePermissionGroupPermission;
+use Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupPermission as BasePermissionGroupPermission;
 
 /**
  * Skeleton subclass for representing a row from the 'permission_group_permission' table.

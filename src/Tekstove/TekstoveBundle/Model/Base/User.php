@@ -37,10 +37,11 @@ use Tekstove\TekstoveBundle\Model\LyricTranslation as ChildLyricTranslation;
 use Tekstove\TekstoveBundle\Model\LyricTranslationQuery as ChildLyricTranslationQuery;
 use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
 use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
-use Tekstove\TekstoveBundle\Model\PermissionGroupUser as ChildPermissionGroupUser;
-use Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery as ChildPermissionGroupUserQuery;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
 use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupUser as BasePermissionGroupUser;
 use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
 
 /**
@@ -134,7 +135,7 @@ abstract class User implements ActiveRecordInterface
     protected $autoplay;
 
     /**
-     * @var        ObjectCollection|ChildPermissionGroupUser[] Collection to store aggregation of ChildPermissionGroupUser objects.
+     * @var        ObjectCollection|PermissionGroupUser[] Collection to store aggregation of PermissionGroupUser objects.
      */
     protected $collPermissionGroupUsers;
     protected $collPermissionGroupUsersPartial;
@@ -196,7 +197,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildPermissionGroupUser[]
+     * @var ObjectCollection|PermissionGroupUser[]
      */
     protected $permissionGroupUsersScheduledForDeletion = null;
 
@@ -914,7 +915,7 @@ abstract class User implements ActiveRecordInterface
 
             if ($this->permissionGroupUsersScheduledForDeletion !== null) {
                 if (!$this->permissionGroupUsersScheduledForDeletion->isEmpty()) {
-                    \Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery::create()
+                    \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery::create()
                         ->filterByPrimaryKeys($this->permissionGroupUsersScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
                     $this->permissionGroupUsersScheduledForDeletion = null;
@@ -1714,11 +1715,11 @@ abstract class User implements ActiveRecordInterface
             return;
         }
         $this->collPermissionGroupUsers = new ObjectCollection();
-        $this->collPermissionGroupUsers->setModel('\Tekstove\TekstoveBundle\Model\PermissionGroupUser');
+        $this->collPermissionGroupUsers->setModel('\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser');
     }
 
     /**
-     * Gets an array of ChildPermissionGroupUser objects which contain a foreign key that references this object.
+     * Gets an array of PermissionGroupUser objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -1728,7 +1729,7 @@ abstract class User implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildPermissionGroupUser[] List of ChildPermissionGroupUser objects
+     * @return ObjectCollection|PermissionGroupUser[] List of PermissionGroupUser objects
      * @throws PropelException
      */
     public function getPermissionGroupUsers(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -1739,7 +1740,7 @@ abstract class User implements ActiveRecordInterface
                 // return empty collection
                 $this->initPermissionGroupUsers();
             } else {
-                $collPermissionGroupUsers = ChildPermissionGroupUserQuery::create(null, $criteria)
+                $collPermissionGroupUsers = PermissionGroupUserQuery::create(null, $criteria)
                     ->filterByUser($this)
                     ->find($con);
 
@@ -1776,7 +1777,7 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of ChildPermissionGroupUser objects related by a one-to-many relationship
+     * Sets a collection of PermissionGroupUser objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -1787,7 +1788,7 @@ abstract class User implements ActiveRecordInterface
      */
     public function setPermissionGroupUsers(Collection $permissionGroupUsers, ConnectionInterface $con = null)
     {
-        /** @var ChildPermissionGroupUser[] $permissionGroupUsersToDelete */
+        /** @var PermissionGroupUser[] $permissionGroupUsersToDelete */
         $permissionGroupUsersToDelete = $this->getPermissionGroupUsers(new Criteria(), $con)->diff($permissionGroupUsers);
 
 
@@ -1812,12 +1813,12 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related PermissionGroupUser objects.
+     * Returns the number of related BasePermissionGroupUser objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related PermissionGroupUser objects.
+     * @return int             Count of related BasePermissionGroupUser objects.
      * @throws PropelException
      */
     public function countPermissionGroupUsers(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -1832,7 +1833,7 @@ abstract class User implements ActiveRecordInterface
                 return count($this->getPermissionGroupUsers());
             }
 
-            $query = ChildPermissionGroupUserQuery::create(null, $criteria);
+            $query = PermissionGroupUserQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1846,13 +1847,13 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a ChildPermissionGroupUser object to this object
-     * through the ChildPermissionGroupUser foreign key attribute.
+     * Method called to associate a PermissionGroupUser object to this object
+     * through the PermissionGroupUser foreign key attribute.
      *
-     * @param  ChildPermissionGroupUser $l ChildPermissionGroupUser
+     * @param  PermissionGroupUser $l PermissionGroupUser
      * @return $this|\Tekstove\TekstoveBundle\Model\User The current object (for fluent API support)
      */
-    public function addPermissionGroupUser(ChildPermissionGroupUser $l)
+    public function addPermissionGroupUser(PermissionGroupUser $l)
     {
         if ($this->collPermissionGroupUsers === null) {
             $this->initPermissionGroupUsers();
@@ -1867,19 +1868,19 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildPermissionGroupUser $permissionGroupUser The ChildPermissionGroupUser object to add.
+     * @param PermissionGroupUser $permissionGroupUser The PermissionGroupUser object to add.
      */
-    protected function doAddPermissionGroupUser(ChildPermissionGroupUser $permissionGroupUser)
+    protected function doAddPermissionGroupUser(PermissionGroupUser $permissionGroupUser)
     {
         $this->collPermissionGroupUsers[]= $permissionGroupUser;
         $permissionGroupUser->setUser($this);
     }
 
     /**
-     * @param  ChildPermissionGroupUser $permissionGroupUser The ChildPermissionGroupUser object to remove.
+     * @param  PermissionGroupUser $permissionGroupUser The PermissionGroupUser object to remove.
      * @return $this|ChildUser The current object (for fluent API support)
      */
-    public function removePermissionGroupUser(ChildPermissionGroupUser $permissionGroupUser)
+    public function removePermissionGroupUser(PermissionGroupUser $permissionGroupUser)
     {
         if ($this->getPermissionGroupUsers()->contains($permissionGroupUser)) {
             $pos = $this->collPermissionGroupUsers->search($permissionGroupUser);
@@ -1910,11 +1911,11 @@ abstract class User implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildPermissionGroupUser[] List of ChildPermissionGroupUser objects
+     * @return ObjectCollection|PermissionGroupUser[] List of PermissionGroupUser objects
      */
     public function getPermissionGroupUsersJoinPermissionGroup(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = ChildPermissionGroupUserQuery::create(null, $criteria);
+        $query = PermissionGroupUserQuery::create(null, $criteria);
         $query->joinWith('PermissionGroup', $joinBehavior);
 
         return $this->getPermissionGroupUsers($query, $con);

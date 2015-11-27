@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Acl\Base;
 
 use \Exception;
 use \PDO;
@@ -11,10 +11,9 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\PermissionGroupPermission as ChildPermissionGroupPermission;
-use Tekstove\TekstoveBundle\Model\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
-use Tekstove\TekstoveBundle\Model\Acl\Permission;
-use Tekstove\TekstoveBundle\Model\Map\PermissionGroupPermissionTableMap;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission as ChildPermissionGroupPermission;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
+use Tekstove\TekstoveBundle\Model\Acl\Map\PermissionGroupPermissionTableMap;
 
 /**
  * Base class that represents a query for the 'permission_group_permission' table.
@@ -55,7 +54,7 @@ use Tekstove\TekstoveBundle\Model\Map\PermissionGroupPermissionTableMap;
  * @method     ChildPermissionGroupPermissionQuery rightJoinWithPermission() Adds a RIGHT JOIN clause and with to the query using the Permission relation
  * @method     ChildPermissionGroupPermissionQuery innerJoinWithPermission() Adds a INNER JOIN clause and with to the query using the Permission relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\PermissionGroupQuery|\Tekstove\TekstoveBundle\Model\Acl\PermissionQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupQuery|\Tekstove\TekstoveBundle\Model\Acl\PermissionQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildPermissionGroupPermission findOne(ConnectionInterface $con = null) Return the first ChildPermissionGroupPermission matching the query
  * @method     ChildPermissionGroupPermission findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPermissionGroupPermission matching the query, or a new ChildPermissionGroupPermission object populated from the query conditions when no match is found
@@ -80,13 +79,13 @@ abstract class PermissionGroupPermissionQuery extends ModelCriteria
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Base\PermissionGroupPermissionQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupPermissionQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupPermission', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroupPermission', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
@@ -353,9 +352,9 @@ abstract class PermissionGroupPermissionQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionGroup object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Acl\PermissionGroup object
      *
-     * @param \Tekstove\TekstoveBundle\Model\PermissionGroup|ObjectCollection $permissionGroup The related object(s) to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Acl\PermissionGroup|ObjectCollection $permissionGroup The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -364,7 +363,7 @@ abstract class PermissionGroupPermissionQuery extends ModelCriteria
      */
     public function filterByPermissionGroup($permissionGroup, $comparison = null)
     {
-        if ($permissionGroup instanceof \Tekstove\TekstoveBundle\Model\PermissionGroup) {
+        if ($permissionGroup instanceof \Tekstove\TekstoveBundle\Model\Acl\PermissionGroup) {
             return $this
                 ->addUsingAlias(PermissionGroupPermissionTableMap::COL_GROUP_ID, $permissionGroup->getId(), $comparison);
         } elseif ($permissionGroup instanceof ObjectCollection) {
@@ -375,7 +374,7 @@ abstract class PermissionGroupPermissionQuery extends ModelCriteria
             return $this
                 ->addUsingAlias(PermissionGroupPermissionTableMap::COL_GROUP_ID, $permissionGroup->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
-            throw new PropelException('filterByPermissionGroup() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionGroup or Collection');
+            throw new PropelException('filterByPermissionGroup() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Acl\PermissionGroup or Collection');
         }
     }
 
@@ -420,13 +419,13 @@ abstract class PermissionGroupPermissionQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupQuery A secondary query class using the current class as primary query
      */
     public function usePermissionGroupQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
             ->joinPermissionGroup($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroup', '\Tekstove\TekstoveBundle\Model\PermissionGroupQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroup', '\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupQuery');
     }
 
     /**

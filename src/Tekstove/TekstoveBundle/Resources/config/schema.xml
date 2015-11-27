@@ -17,19 +17,19 @@
         </behavior>
     </table>
     
-    <table name="permission">
+    <table name="permission" namespace="\Tekstove\TekstoveBundle\Model\Acl">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" />
         <column name="value" type="integer" />
     </table>
 
-    <table name="permission_group">
+    <table name="permission_group" namespace="\Tekstove\TekstoveBundle\Model\Acl">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" />
         <column name="image" type="varchar" />
     </table>
     
-    <table name="permission_group_permission">
+    <table name="permission_group_permission" namespace="\Tekstove\TekstoveBundle\Model\Acl">
         <column name="group_id" type="integer" required="true" primaryKey="true" autoIncrement="false" />
         <foreign-key foreignTable="permission_group">
             <reference local="group_id" foreign="id" />
@@ -41,7 +41,7 @@
         </foreign-key>
     </table>
     
-    <table name="permission_group_user">
+    <table name="permission_group_user" namespace="\Tekstove\TekstoveBundle\Model\Acl">
         <column name="user_id" type="integer" required="true" primaryKey="true" autoIncrement="false" />
         <foreign-key foreignTable="user">
             <reference local="user_id" foreign="id" />

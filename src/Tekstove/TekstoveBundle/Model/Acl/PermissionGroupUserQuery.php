@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Acl;
 
-use Tekstove\TekstoveBundle\Model\Base\PermissionGroupUserQuery as BasePermissionGroupUserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupUserQuery as BasePermissionGroupUserQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'permission_group_user' table.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Acl\Base;
 
 use \Exception;
 use \PDO;
@@ -15,26 +15,26 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Tekstove\TekstoveBundle\Model\PermissionGroup as ChildPermissionGroup;
-use Tekstove\TekstoveBundle\Model\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
-use Tekstove\TekstoveBundle\Model\PermissionGroupQuery as ChildPermissionGroupQuery;
-use Tekstove\TekstoveBundle\Model\Acl\Permission;
-use Tekstove\TekstoveBundle\Model\Acl\PermissionQuery;
-use Tekstove\TekstoveBundle\Model\Map\PermissionGroupPermissionTableMap;
+use Tekstove\TekstoveBundle\Model\Acl\Permission as ChildPermission;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroup as ChildPermissionGroup;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupQuery as ChildPermissionGroupQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionQuery as ChildPermissionQuery;
+use Tekstove\TekstoveBundle\Model\Acl\Map\PermissionGroupPermissionTableMap;
 
 /**
  * Base class that represents a row from the 'permission_group_permission' table.
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Base
+* @package    propel.generator.src..Tekstove.TekstoveBundle.Model.Acl.Base
 */
 abstract class PermissionGroupPermission implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\PermissionGroupPermissionTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Acl\\Map\\PermissionGroupPermissionTableMap';
 
 
     /**
@@ -83,7 +83,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     protected $aPermissionGroup;
 
     /**
-     * @var        Permission
+     * @var        ChildPermission
      */
     protected $aPermission;
 
@@ -96,7 +96,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\PermissionGroupPermission object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupPermission object.
      */
     public function __construct()
     {
@@ -344,7 +344,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * Set the value of [group_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      */
     public function setGroupId($v)
     {
@@ -368,7 +368,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * Set the value of [permission_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      */
     public function setPermissionId($v)
     {
@@ -440,7 +440,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             return $startcol + 2; // 2 = PermissionGroupPermissionTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupPermission'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroupPermission'), 0, $e);
         }
     }
 
@@ -824,7 +824,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
@@ -839,7 +839,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission
      */
     public function setByPosition($pos, $value)
     {
@@ -901,7 +901,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1030,7 +1030,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\PermissionGroupPermission (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1053,7 +1053,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupPermission Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1070,7 +1070,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * Declares an association between this object and a ChildPermissionGroup object.
      *
      * @param  ChildPermissionGroup $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      * @throws PropelException
      */
     public function setPermissionGroup(ChildPermissionGroup $v = null)
@@ -1118,13 +1118,13 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a Permission object.
+     * Declares an association between this object and a ChildPermission object.
      *
-     * @param  Permission $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @param  ChildPermission $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setPermission(Permission $v = null)
+    public function setPermission(ChildPermission $v = null)
     {
         if ($v === null) {
             $this->setPermissionId(NULL);
@@ -1135,7 +1135,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         $this->aPermission = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Permission object, it will not be re-added.
+        // If this object has already been added to the ChildPermission object, it will not be re-added.
         if ($v !== null) {
             $v->addPermissionGroupPermission($this);
         }
@@ -1146,16 +1146,16 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
 
     /**
-     * Get the associated Permission object
+     * Get the associated ChildPermission object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return Permission The associated Permission object.
+     * @return ChildPermission The associated ChildPermission object.
      * @throws PropelException
      */
     public function getPermission(ConnectionInterface $con = null)
     {
         if ($this->aPermission === null && ($this->permission_id !== null)) {
-            $this->aPermission = PermissionQuery::create()->findPk($this->permission_id, $con);
+            $this->aPermission = ChildPermissionQuery::create()->findPk($this->permission_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be

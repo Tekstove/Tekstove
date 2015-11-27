@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Map;
+namespace Tekstove\TekstoveBundle\Model\Acl\Map;
 
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -11,12 +11,12 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
-use Tekstove\TekstoveBundle\Model\PermissionGroup;
-use Tekstove\TekstoveBundle\Model\PermissionGroupQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermissionQuery;
 
 
 /**
- * This class defines the structure of the 'permission_group' table.
+ * This class defines the structure of the 'permission_group_permission' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Tekstove\TekstoveBundle\Model\PermissionGroupQuery;
  * (i.e. if it's a text column type).
  *
  */
-class PermissionGroupTableMap extends TableMap
+class PermissionGroupPermissionTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class PermissionGroupTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Map.PermissionGroupTableMap';
+    const CLASS_NAME = 'src..Tekstove.TekstoveBundle.Model.Acl.Map.PermissionGroupPermissionTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +44,22 @@ class PermissionGroupTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'permission_group';
+    const TABLE_NAME = 'permission_group_permission';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroup';
+    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroupPermission';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.PermissionGroup';
+    const CLASS_DEFAULT = 'src..Tekstove.TekstoveBundle.Model.Acl.PermissionGroupPermission';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 3;
+    const NUM_COLUMNS = 2;
 
     /**
      * The number of lazy-loaded columns
@@ -69,22 +69,17 @@ class PermissionGroupTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 3;
+    const NUM_HYDRATE_COLUMNS = 2;
 
     /**
-     * the column name for the id field
+     * the column name for the group_id field
      */
-    const COL_ID = 'permission_group.id';
+    const COL_GROUP_ID = 'permission_group_permission.group_id';
 
     /**
-     * the column name for the name field
+     * the column name for the permission_id field
      */
-    const COL_NAME = 'permission_group.name';
-
-    /**
-     * the column name for the image field
-     */
-    const COL_IMAGE = 'permission_group.image';
+    const COL_PERMISSION_ID = 'permission_group_permission.permission_id';
 
     /**
      * The default string format for model objects of the related table
@@ -98,11 +93,11 @@ class PermissionGroupTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'Image', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'image', ),
-        self::TYPE_COLNAME       => array(PermissionGroupTableMap::COL_ID, PermissionGroupTableMap::COL_NAME, PermissionGroupTableMap::COL_IMAGE, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'image', ),
-        self::TYPE_NUM           => array(0, 1, 2, )
+        self::TYPE_PHPNAME       => array('GroupId', 'PermissionId', ),
+        self::TYPE_CAMELNAME     => array('groupId', 'permissionId', ),
+        self::TYPE_COLNAME       => array(PermissionGroupPermissionTableMap::COL_GROUP_ID, PermissionGroupPermissionTableMap::COL_PERMISSION_ID, ),
+        self::TYPE_FIELDNAME     => array('group_id', 'permission_id', ),
+        self::TYPE_NUM           => array(0, 1, )
     );
 
     /**
@@ -112,11 +107,11 @@ class PermissionGroupTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'Image' => 2, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'image' => 2, ),
-        self::TYPE_COLNAME       => array(PermissionGroupTableMap::COL_ID => 0, PermissionGroupTableMap::COL_NAME => 1, PermissionGroupTableMap::COL_IMAGE => 2, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'image' => 2, ),
-        self::TYPE_NUM           => array(0, 1, 2, )
+        self::TYPE_PHPNAME       => array('GroupId' => 0, 'PermissionId' => 1, ),
+        self::TYPE_CAMELNAME     => array('groupId' => 0, 'permissionId' => 1, ),
+        self::TYPE_COLNAME       => array(PermissionGroupPermissionTableMap::COL_GROUP_ID => 0, PermissionGroupPermissionTableMap::COL_PERMISSION_ID => 1, ),
+        self::TYPE_FIELDNAME     => array('group_id' => 0, 'permission_id' => 1, ),
+        self::TYPE_NUM           => array(0, 1, )
     );
 
     /**
@@ -129,16 +124,15 @@ class PermissionGroupTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('permission_group');
-        $this->setPhpName('PermissionGroup');
+        $this->setName('permission_group_permission');
+        $this->setPhpName('PermissionGroupPermission');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\PermissionGroup');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model');
-        $this->setUseIdGenerator(true);
+        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroupPermission');
+        $this->setPackage('src..Tekstove.TekstoveBundle.Model.Acl');
+        $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('name', 'Name', 'VARCHAR', false, 255, null);
-        $this->addColumn('image', 'Image', 'VARCHAR', false, 255, null);
+        $this->addForeignPrimaryKey('group_id', 'GroupId', 'INTEGER' , 'permission_group', 'id', true, null, null);
+        $this->addForeignPrimaryKey('permission_id', 'PermissionId', 'INTEGER' , 'permission', 'id', true, null, null);
     } // initialize()
 
     /**
@@ -146,21 +140,74 @@ class PermissionGroupTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PermissionGroupPermission', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupPermission', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('PermissionGroup', '\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroup', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':group_id',
     1 => ':id',
   ),
-), null, null, 'PermissionGroupPermissions', false);
-        $this->addRelation('PermissionGroupUser', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupUser', RelationMap::ONE_TO_MANY, array (
+), null, null, null, false);
+        $this->addRelation('Permission', '\\Tekstove\\TekstoveBundle\\Model\\Acl\\Permission', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':group_id',
+    0 => ':permission_id',
     1 => ':id',
   ),
-), null, null, 'PermissionGroupUsers', false);
+), null, null, null, false);
     } // buildRelations()
+
+    /**
+     * Adds an object to the instance pool.
+     *
+     * Propel keeps cached copies of objects in an instance pool when they are retrieved
+     * from the database. In some cases you may need to explicitly add objects
+     * to the cache in order to ensure that the same objects are always returned by find*()
+     * and findPk*() calls.
+     *
+     * @param \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission $obj A \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission object.
+     * @param string $key             (optional) key to use for instance map (for performance boost if key was already calculated externally).
+     */
+    public static function addInstanceToPool($obj, $key = null)
+    {
+        if (Propel::isInstancePoolingEnabled()) {
+            if (null === $key) {
+                $key = serialize(array((string) $obj->getGroupId(), (string) $obj->getPermissionId()));
+            } // if key === null
+            self::$instances[$key] = $obj;
+        }
+    }
+
+    /**
+     * Removes an object from the instance pool.
+     *
+     * Propel keeps cached copies of objects in an instance pool when they are retrieved
+     * from the database.  In some cases -- especially when you override doDelete
+     * methods in your stub classes -- you may need to explicitly remove objects
+     * from the cache in order to prevent returning objects that no longer exist.
+     *
+     * @param mixed $value A \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission object or a primary key value.
+     */
+    public static function removeInstanceFromPool($value)
+    {
+        if (Propel::isInstancePoolingEnabled() && null !== $value) {
+            if (is_object($value) && $value instanceof \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission) {
+                $key = serialize(array((string) $value->getGroupId(), (string) $value->getPermissionId()));
+
+            } elseif (is_array($value) && count($value) === 2) {
+                // assume we've been passed a primary key";
+                $key = serialize(array((string) $value[0], (string) $value[1]));
+            } elseif ($value instanceof Criteria) {
+                self::$instances = [];
+
+                return;
+            } else {
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value, true)));
+                throw $e;
+            }
+
+            unset(self::$instances[$key]);
+        }
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -178,11 +225,11 @@ class PermissionGroupTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('GroupId', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)] === null) {
             return null;
         }
 
-        return (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+        return serialize(array((string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('GroupId', TableMap::TYPE_PHPNAME, $indexType)], (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)]));
     }
 
     /**
@@ -199,11 +246,20 @@ class PermissionGroupTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
+            $pks = [];
+
+        $pks[] = (int) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
-                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
+                : self::translateFieldName('GroupId', TableMap::TYPE_PHPNAME, $indexType)
         ];
+        $pks[] = (int) $row[
+            $indexType == TableMap::TYPE_NUM
+                ? 1 + $offset
+                : self::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)
+        ];
+
+        return $pks;
     }
 
     /**
@@ -219,7 +275,7 @@ class PermissionGroupTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? PermissionGroupTableMap::CLASS_DEFAULT : PermissionGroupTableMap::OM_CLASS;
+        return $withPrefix ? PermissionGroupPermissionTableMap::CLASS_DEFAULT : PermissionGroupPermissionTableMap::OM_CLASS;
     }
 
     /**
@@ -233,22 +289,22 @@ class PermissionGroupTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (PermissionGroup object, last column rank)
+     * @return array           (PermissionGroupPermission object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = PermissionGroupTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = PermissionGroupTableMap::getInstanceFromPool($key))) {
+        $key = PermissionGroupPermissionTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = PermissionGroupPermissionTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + PermissionGroupTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + PermissionGroupPermissionTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = PermissionGroupTableMap::OM_CLASS;
-            /** @var PermissionGroup $obj */
+            $cls = PermissionGroupPermissionTableMap::OM_CLASS;
+            /** @var PermissionGroupPermission $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            PermissionGroupTableMap::addInstanceToPool($obj, $key);
+            PermissionGroupPermissionTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -271,18 +327,18 @@ class PermissionGroupTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = PermissionGroupTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = PermissionGroupTableMap::getInstanceFromPool($key))) {
+            $key = PermissionGroupPermissionTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = PermissionGroupPermissionTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var PermissionGroup $obj */
+                /** @var PermissionGroupPermission $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                PermissionGroupTableMap::addInstanceToPool($obj, $key);
+                PermissionGroupPermissionTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -303,13 +359,11 @@ class PermissionGroupTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(PermissionGroupTableMap::COL_ID);
-            $criteria->addSelectColumn(PermissionGroupTableMap::COL_NAME);
-            $criteria->addSelectColumn(PermissionGroupTableMap::COL_IMAGE);
+            $criteria->addSelectColumn(PermissionGroupPermissionTableMap::COL_GROUP_ID);
+            $criteria->addSelectColumn(PermissionGroupPermissionTableMap::COL_PERMISSION_ID);
         } else {
-            $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.name');
-            $criteria->addSelectColumn($alias . '.image');
+            $criteria->addSelectColumn($alias . '.group_id');
+            $criteria->addSelectColumn($alias . '.permission_id');
         }
     }
 
@@ -322,7 +376,7 @@ class PermissionGroupTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(PermissionGroupTableMap::DATABASE_NAME)->getTable(PermissionGroupTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(PermissionGroupPermissionTableMap::DATABASE_NAME)->getTable(PermissionGroupPermissionTableMap::TABLE_NAME);
     }
 
     /**
@@ -330,16 +384,16 @@ class PermissionGroupTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(PermissionGroupTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(PermissionGroupTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new PermissionGroupTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(PermissionGroupPermissionTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(PermissionGroupPermissionTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new PermissionGroupPermissionTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a PermissionGroup or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a PermissionGroupPermission or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or PermissionGroup object or primary key or array of primary keys
+     * @param mixed               $values Criteria or PermissionGroupPermission object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -350,27 +404,37 @@ class PermissionGroupTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\PermissionGroup) { // it's a model object
+        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(PermissionGroupTableMap::DATABASE_NAME);
-            $criteria->add(PermissionGroupTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(PermissionGroupPermissionTableMap::DATABASE_NAME);
+            // primary key is composite; we therefore, expect
+            // the primary key passed to be an array of pkey values
+            if (count($values) == count($values, COUNT_RECURSIVE)) {
+                // array is not multi-dimensional
+                $values = array($values);
+            }
+            foreach ($values as $value) {
+                $criterion = $criteria->getNewCriterion(PermissionGroupPermissionTableMap::COL_GROUP_ID, $value[0]);
+                $criterion->addAnd($criteria->getNewCriterion(PermissionGroupPermissionTableMap::COL_PERMISSION_ID, $value[1]));
+                $criteria->addOr($criterion);
+            }
         }
 
-        $query = PermissionGroupQuery::create()->mergeWith($criteria);
+        $query = PermissionGroupPermissionQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            PermissionGroupTableMap::clearInstancePool();
+            PermissionGroupPermissionTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                PermissionGroupTableMap::removeInstanceFromPool($singleval);
+                PermissionGroupPermissionTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -378,20 +442,20 @@ class PermissionGroupTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the permission_group table.
+     * Deletes all rows from the permission_group_permission table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return PermissionGroupQuery::create()->doDeleteAll($con);
+        return PermissionGroupPermissionQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a PermissionGroup or Criteria object.
+     * Performs an INSERT on the database, given a PermissionGroupPermission or Criteria object.
      *
-     * @param mixed               $criteria Criteria or PermissionGroup object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or PermissionGroupPermission object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -400,22 +464,18 @@ class PermissionGroupTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from PermissionGroup object
-        }
-
-        if ($criteria->containsKey(PermissionGroupTableMap::COL_ID) && $criteria->keyContainsValue(PermissionGroupTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PermissionGroupTableMap::COL_ID.')');
+            $criteria = $criteria->buildCriteria(); // build Criteria from PermissionGroupPermission object
         }
 
 
         // Set the correct dbName
-        $query = PermissionGroupQuery::create()->mergeWith($criteria);
+        $query = PermissionGroupPermissionQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -424,7 +484,7 @@ class PermissionGroupTableMap extends TableMap
         });
     }
 
-} // PermissionGroupTableMap
+} // PermissionGroupPermissionTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-PermissionGroupTableMap::buildTableMap();
+PermissionGroupPermissionTableMap::buildTableMap();

@@ -13,6 +13,7 @@ use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
 use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser;
 use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
 
 /**
@@ -104,7 +105,7 @@ use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
  * @method     ChildUserQuery rightJoinWithAlbum() Adds a RIGHT JOIN clause and with to the query using the Album relation
  * @method     ChildUserQuery innerJoinWithAlbum() Adds a INNER JOIN clause and with to the query using the Album relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUser findOne(ConnectionInterface $con = null) Return the first ChildUser matching the query
  * @method     ChildUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
@@ -546,16 +547,16 @@ abstract class UserQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\PermissionGroupUser object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser object
      *
-     * @param \Tekstove\TekstoveBundle\Model\PermissionGroupUser|ObjectCollection $permissionGroupUser the related object to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser|ObjectCollection $permissionGroupUser the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUserQuery The current query, for fluid interface
      */
     public function filterByPermissionGroupUser($permissionGroupUser, $comparison = null)
     {
-        if ($permissionGroupUser instanceof \Tekstove\TekstoveBundle\Model\PermissionGroupUser) {
+        if ($permissionGroupUser instanceof \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser) {
             return $this
                 ->addUsingAlias(UserTableMap::COL_ID, $permissionGroupUser->getUserId(), $comparison);
         } elseif ($permissionGroupUser instanceof ObjectCollection) {
@@ -564,7 +565,7 @@ abstract class UserQuery extends ModelCriteria
                 ->filterByPrimaryKeys($permissionGroupUser->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByPermissionGroupUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\PermissionGroupUser or Collection');
+            throw new PropelException('filterByPermissionGroupUser() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser or Collection');
         }
     }
 
@@ -609,13 +610,13 @@ abstract class UserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery A secondary query class using the current class as primary query
      */
     public function usePermissionGroupUserQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
             ->joinPermissionGroupUser($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroupUser', '\Tekstove\TekstoveBundle\Model\PermissionGroupUserQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'PermissionGroupUser', '\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery');
     }
 
     /**

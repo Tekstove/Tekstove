@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Acl;
 
-use Tekstove\TekstoveBundle\Model\Base\Permission as BasePermission;
+use Tekstove\TekstoveBundle\Model\Acl\Base\Permission as BasePermission;
 
 /**
  * Skeleton subclass for representing a row from the 'permission' table.

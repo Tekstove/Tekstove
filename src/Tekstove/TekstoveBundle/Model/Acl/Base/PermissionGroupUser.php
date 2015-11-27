@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Acl\Base;
 
 use \Exception;
 use \PDO;
@@ -15,26 +15,26 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Tekstove\TekstoveBundle\Model\PermissionGroup as ChildPermissionGroup;
-use Tekstove\TekstoveBundle\Model\PermissionGroupPermissionQuery as ChildPermissionGroupPermissionQuery;
-use Tekstove\TekstoveBundle\Model\PermissionGroupQuery as ChildPermissionGroupQuery;
-use Tekstove\TekstoveBundle\Model\Acl\Permission;
-use Tekstove\TekstoveBundle\Model\Acl\PermissionQuery;
-use Tekstove\TekstoveBundle\Model\Map\PermissionGroupPermissionTableMap;
+use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Model\UserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroup as ChildPermissionGroup;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupQuery as ChildPermissionGroupQuery;
+use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery as ChildPermissionGroupUserQuery;
+use Tekstove\TekstoveBundle\Model\Acl\Map\PermissionGroupUserTableMap;
 
 /**
- * Base class that represents a row from the 'permission_group_permission' table.
+ * Base class that represents a row from the 'permission_group_user' table.
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Base
+* @package    propel.generator.src..Tekstove.TekstoveBundle.Model.Acl.Base
 */
-abstract class PermissionGroupPermission implements ActiveRecordInterface
+abstract class PermissionGroupUser implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\PermissionGroupPermissionTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Acl\\Map\\PermissionGroupUserTableMap';
 
 
     /**
@@ -64,6 +64,13 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     protected $virtualColumns = array();
 
     /**
+     * The value for the user_id field.
+     *
+     * @var        int
+     */
+    protected $user_id;
+
+    /**
      * The value for the group_id field.
      *
      * @var        int
@@ -71,21 +78,14 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     protected $group_id;
 
     /**
-     * The value for the permission_id field.
-     *
-     * @var        int
+     * @var        User
      */
-    protected $permission_id;
+    protected $aUser;
 
     /**
      * @var        ChildPermissionGroup
      */
     protected $aPermissionGroup;
-
-    /**
-     * @var        Permission
-     */
-    protected $aPermission;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -96,7 +96,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\PermissionGroupPermission object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Acl\Base\PermissionGroupUser object.
      */
     public function __construct()
     {
@@ -191,9 +191,9 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>PermissionGroupPermission</code> instance.  If
-     * <code>obj</code> is an instance of <code>PermissionGroupPermission</code>, delegates to
-     * <code>equals(PermissionGroupPermission)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>PermissionGroupUser</code> instance.  If
+     * <code>obj</code> is an instance of <code>PermissionGroupUser</code>, delegates to
+     * <code>equals(PermissionGroupUser)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -259,7 +259,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|PermissionGroupPermission The current object, for fluid interface
+     * @return $this|PermissionGroupUser The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -321,6 +321,16 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
+     * Get the [user_id] column value.
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
      * Get the [group_id] column value.
      *
      * @return int
@@ -331,20 +341,34 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
-     * Get the [permission_id] column value.
+     * Set the value of [user_id] column.
      *
-     * @return int
+     * @param int $v new value
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser The current object (for fluent API support)
      */
-    public function getPermissionId()
+    public function setUserId($v)
     {
-        return $this->permission_id;
-    }
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->user_id !== $v) {
+            $this->user_id = $v;
+            $this->modifiedColumns[PermissionGroupUserTableMap::COL_USER_ID] = true;
+        }
+
+        if ($this->aUser !== null && $this->aUser->getId() !== $v) {
+            $this->aUser = null;
+        }
+
+        return $this;
+    } // setUserId()
 
     /**
      * Set the value of [group_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser The current object (for fluent API support)
      */
     public function setGroupId($v)
     {
@@ -354,7 +378,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
         if ($this->group_id !== $v) {
             $this->group_id = $v;
-            $this->modifiedColumns[PermissionGroupPermissionTableMap::COL_GROUP_ID] = true;
+            $this->modifiedColumns[PermissionGroupUserTableMap::COL_GROUP_ID] = true;
         }
 
         if ($this->aPermissionGroup !== null && $this->aPermissionGroup->getId() !== $v) {
@@ -363,30 +387,6 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
         return $this;
     } // setGroupId()
-
-    /**
-     * Set the value of [permission_id] column.
-     *
-     * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
-     */
-    public function setPermissionId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->permission_id !== $v) {
-            $this->permission_id = $v;
-            $this->modifiedColumns[PermissionGroupPermissionTableMap::COL_PERMISSION_ID] = true;
-        }
-
-        if ($this->aPermission !== null && $this->aPermission->getId() !== $v) {
-            $this->aPermission = null;
-        }
-
-        return $this;
-    } // setPermissionId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -424,11 +424,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : PermissionGroupPermissionTableMap::translateFieldName('GroupId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->group_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : PermissionGroupUserTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->user_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : PermissionGroupPermissionTableMap::translateFieldName('PermissionId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->permission_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : PermissionGroupUserTableMap::translateFieldName('GroupId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->group_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -437,10 +437,10 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 2; // 2 = PermissionGroupPermissionTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 2; // 2 = PermissionGroupUserTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\PermissionGroupPermission'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Acl\\PermissionGroupUser'), 0, $e);
         }
     }
 
@@ -459,11 +459,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aUser !== null && $this->user_id !== $this->aUser->getId()) {
+            $this->aUser = null;
+        }
         if ($this->aPermissionGroup !== null && $this->group_id !== $this->aPermissionGroup->getId()) {
             $this->aPermissionGroup = null;
-        }
-        if ($this->aPermission !== null && $this->permission_id !== $this->aPermission->getId()) {
-            $this->aPermission = null;
         }
     } // ensureConsistency
 
@@ -488,13 +488,13 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(PermissionGroupUserTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildPermissionGroupPermissionQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildPermissionGroupUserQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -504,8 +504,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aUser = null;
             $this->aPermissionGroup = null;
-            $this->aPermission = null;
         } // if (deep)
     }
 
@@ -515,8 +515,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see PermissionGroupPermission::setDeleted()
-     * @see PermissionGroupPermission::isDeleted()
+     * @see PermissionGroupUser::setDeleted()
+     * @see PermissionGroupUser::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -525,11 +525,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupUserTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildPermissionGroupPermissionQuery::create()
+            $deleteQuery = ChildPermissionGroupUserQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -560,7 +560,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupUserTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -579,7 +579,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                PermissionGroupPermissionTableMap::addInstanceToPool($this);
+                PermissionGroupUserTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -610,18 +610,18 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
+            if ($this->aUser !== null) {
+                if ($this->aUser->isModified() || $this->aUser->isNew()) {
+                    $affectedRows += $this->aUser->save($con);
+                }
+                $this->setUser($this->aUser);
+            }
+
             if ($this->aPermissionGroup !== null) {
                 if ($this->aPermissionGroup->isModified() || $this->aPermissionGroup->isNew()) {
                     $affectedRows += $this->aPermissionGroup->save($con);
                 }
                 $this->setPermissionGroup($this->aPermissionGroup);
-            }
-
-            if ($this->aPermission !== null) {
-                if ($this->aPermission->isModified() || $this->aPermission->isNew()) {
-                    $affectedRows += $this->aPermission->save($con);
-                }
-                $this->setPermission($this->aPermission);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -657,15 +657,15 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_GROUP_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'group_id';
+        if ($this->isColumnModified(PermissionGroupUserTableMap::COL_USER_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'user_id';
         }
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_PERMISSION_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'permission_id';
+        if ($this->isColumnModified(PermissionGroupUserTableMap::COL_GROUP_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'group_id';
         }
 
         $sql = sprintf(
-            'INSERT INTO permission_group_permission (%s) VALUES (%s)',
+            'INSERT INTO permission_group_user (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -674,11 +674,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
+                    case 'user_id':
+                        $stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
+                        break;
                     case 'group_id':
                         $stmt->bindValue($identifier, $this->group_id, PDO::PARAM_INT);
-                        break;
-                    case 'permission_id':
-                        $stmt->bindValue($identifier, $this->permission_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -719,7 +719,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = PermissionGroupPermissionTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = PermissionGroupUserTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -736,10 +736,10 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                return $this->getGroupId();
+                return $this->getUserId();
                 break;
             case 1:
-                return $this->getPermissionId();
+                return $this->getGroupId();
                 break;
             default:
                 return null;
@@ -765,14 +765,14 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
-        if (isset($alreadyDumpedObjects['PermissionGroupPermission'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['PermissionGroupUser'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['PermissionGroupPermission'][$this->hashCode()] = true;
-        $keys = PermissionGroupPermissionTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['PermissionGroupUser'][$this->hashCode()] = true;
+        $keys = PermissionGroupUserTableMap::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getGroupId(),
-            $keys[1] => $this->getPermissionId(),
+            $keys[0] => $this->getUserId(),
+            $keys[1] => $this->getGroupId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -780,6 +780,21 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->aUser) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'user';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'user';
+                        break;
+                    default:
+                        $key = 'User';
+                }
+
+                $result[$key] = $this->aUser->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
             if (null !== $this->aPermissionGroup) {
 
                 switch ($keyType) {
@@ -795,21 +810,6 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
 
                 $result[$key] = $this->aPermissionGroup->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->aPermission) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'permission';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'permission';
-                        break;
-                    default:
-                        $key = 'Permission';
-                }
-
-                $result[$key] = $this->aPermission->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
         }
 
         return $result;
@@ -824,11 +824,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = PermissionGroupPermissionTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = PermissionGroupUserTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -839,16 +839,16 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser
      */
     public function setByPosition($pos, $value)
     {
         switch ($pos) {
             case 0:
-                $this->setGroupId($value);
+                $this->setUserId($value);
                 break;
             case 1:
-                $this->setPermissionId($value);
+                $this->setGroupId($value);
                 break;
         } // switch()
 
@@ -874,13 +874,13 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = PermissionGroupPermissionTableMap::getFieldNames($keyType);
+        $keys = PermissionGroupUserTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
-            $this->setGroupId($arr[$keys[0]]);
+            $this->setUserId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setPermissionId($arr[$keys[1]]);
+            $this->setGroupId($arr[$keys[1]]);
         }
     }
 
@@ -901,7 +901,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -921,13 +921,13 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(PermissionGroupPermissionTableMap::DATABASE_NAME);
+        $criteria = new Criteria(PermissionGroupUserTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_GROUP_ID)) {
-            $criteria->add(PermissionGroupPermissionTableMap::COL_GROUP_ID, $this->group_id);
+        if ($this->isColumnModified(PermissionGroupUserTableMap::COL_USER_ID)) {
+            $criteria->add(PermissionGroupUserTableMap::COL_USER_ID, $this->user_id);
         }
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_PERMISSION_ID)) {
-            $criteria->add(PermissionGroupPermissionTableMap::COL_PERMISSION_ID, $this->permission_id);
+        if ($this->isColumnModified(PermissionGroupUserTableMap::COL_GROUP_ID)) {
+            $criteria->add(PermissionGroupUserTableMap::COL_GROUP_ID, $this->group_id);
         }
 
         return $criteria;
@@ -945,9 +945,9 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildPermissionGroupPermissionQuery::create();
-        $criteria->add(PermissionGroupPermissionTableMap::COL_GROUP_ID, $this->group_id);
-        $criteria->add(PermissionGroupPermissionTableMap::COL_PERMISSION_ID, $this->permission_id);
+        $criteria = ChildPermissionGroupUserQuery::create();
+        $criteria->add(PermissionGroupUserTableMap::COL_USER_ID, $this->user_id);
+        $criteria->add(PermissionGroupUserTableMap::COL_GROUP_ID, $this->group_id);
 
         return $criteria;
     }
@@ -960,21 +960,21 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function hashCode()
     {
-        $validPk = null !== $this->getGroupId() &&
-            null !== $this->getPermissionId();
+        $validPk = null !== $this->getUserId() &&
+            null !== $this->getGroupId();
 
         $validPrimaryKeyFKs = 2;
         $primaryKeyFKs = [];
 
-        //relation permission_group_permission_fk_a78f71 to table permission_group
-        if ($this->aPermissionGroup && $hash = spl_object_hash($this->aPermissionGroup)) {
+        //relation permission_group_user_fk_29554a to table user
+        if ($this->aUser && $hash = spl_object_hash($this->aUser)) {
             $primaryKeyFKs[] = $hash;
         } else {
             $validPrimaryKeyFKs = false;
         }
 
-        //relation permission_group_permission_fk_2b894c to table permission
-        if ($this->aPermission && $hash = spl_object_hash($this->aPermission)) {
+        //relation permission_group_user_fk_a78f71 to table permission_group
+        if ($this->aPermissionGroup && $hash = spl_object_hash($this->aPermissionGroup)) {
             $primaryKeyFKs[] = $hash;
         } else {
             $validPrimaryKeyFKs = false;
@@ -997,8 +997,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     public function getPrimaryKey()
     {
         $pks = array();
-        $pks[0] = $this->getGroupId();
-        $pks[1] = $this->getPermissionId();
+        $pks[0] = $this->getUserId();
+        $pks[1] = $this->getGroupId();
 
         return $pks;
     }
@@ -1011,8 +1011,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function setPrimaryKey($keys)
     {
-        $this->setGroupId($keys[0]);
-        $this->setPermissionId($keys[1]);
+        $this->setUserId($keys[0]);
+        $this->setGroupId($keys[1]);
     }
 
     /**
@@ -1021,7 +1021,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function isPrimaryKeyNull()
     {
-        return (null === $this->getGroupId()) && (null === $this->getPermissionId());
+        return (null === $this->getUserId()) && (null === $this->getGroupId());
     }
 
     /**
@@ -1030,15 +1030,15 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\PermissionGroupPermission (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setUserId($this->getUserId());
         $copyObj->setGroupId($this->getGroupId());
-        $copyObj->setPermissionId($this->getPermissionId());
         if ($makeNew) {
             $copyObj->setNew(true);
         }
@@ -1053,7 +1053,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\PermissionGroupPermission Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1067,10 +1067,61 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a User object.
+     *
+     * @param  User $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setUser(User $v = null)
+    {
+        if ($v === null) {
+            $this->setUserId(NULL);
+        } else {
+            $this->setUserId($v->getId());
+        }
+
+        $this->aUser = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the User object, it will not be re-added.
+        if ($v !== null) {
+            $v->addPermissionGroupUser($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated User object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return User The associated User object.
+     * @throws PropelException
+     */
+    public function getUser(ConnectionInterface $con = null)
+    {
+        if ($this->aUser === null && ($this->user_id !== null)) {
+            $this->aUser = UserQuery::create()->findPk($this->user_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aUser->addPermissionGroupUsers($this);
+             */
+        }
+
+        return $this->aUser;
+    }
+
+    /**
      * Declares an association between this object and a ChildPermissionGroup object.
      *
      * @param  ChildPermissionGroup $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser The current object (for fluent API support)
      * @throws PropelException
      */
     public function setPermissionGroup(ChildPermissionGroup $v = null)
@@ -1086,7 +1137,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the ChildPermissionGroup object, it will not be re-added.
         if ($v !== null) {
-            $v->addPermissionGroupPermission($this);
+            $v->addPermissionGroupUser($this);
         }
 
 
@@ -1110,62 +1161,11 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aPermissionGroup->addPermissionGroupPermissions($this);
+                $this->aPermissionGroup->addPermissionGroupUsers($this);
              */
         }
 
         return $this->aPermissionGroup;
-    }
-
-    /**
-     * Declares an association between this object and a Permission object.
-     *
-     * @param  Permission $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\PermissionGroupPermission The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setPermission(Permission $v = null)
-    {
-        if ($v === null) {
-            $this->setPermissionId(NULL);
-        } else {
-            $this->setPermissionId($v->getId());
-        }
-
-        $this->aPermission = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Permission object, it will not be re-added.
-        if ($v !== null) {
-            $v->addPermissionGroupPermission($this);
-        }
-
-
-        return $this;
-    }
-
-
-    /**
-     * Get the associated Permission object
-     *
-     * @param  ConnectionInterface $con Optional Connection object.
-     * @return Permission The associated Permission object.
-     * @throws PropelException
-     */
-    public function getPermission(ConnectionInterface $con = null)
-    {
-        if ($this->aPermission === null && ($this->permission_id !== null)) {
-            $this->aPermission = PermissionQuery::create()->findPk($this->permission_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aPermission->addPermissionGroupPermissions($this);
-             */
-        }
-
-        return $this->aPermission;
     }
 
     /**
@@ -1175,14 +1175,14 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function clear()
     {
+        if (null !== $this->aUser) {
+            $this->aUser->removePermissionGroupUser($this);
+        }
         if (null !== $this->aPermissionGroup) {
-            $this->aPermissionGroup->removePermissionGroupPermission($this);
+            $this->aPermissionGroup->removePermissionGroupUser($this);
         }
-        if (null !== $this->aPermission) {
-            $this->aPermission->removePermissionGroupPermission($this);
-        }
+        $this->user_id = null;
         $this->group_id = null;
-        $this->permission_id = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1203,8 +1203,8 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
+        $this->aUser = null;
         $this->aPermissionGroup = null;
-        $this->aPermission = null;
     }
 
     /**
@@ -1214,7 +1214,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(PermissionGroupPermissionTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(PermissionGroupUserTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**
