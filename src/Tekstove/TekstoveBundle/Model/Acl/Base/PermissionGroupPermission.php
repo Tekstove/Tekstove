@@ -3,10 +3,8 @@
 namespace Tekstove\TekstoveBundle\Model\Acl\Base;
 
 use \Exception;
-use \PDO;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
-use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\Collection;
 use Propel\Runtime\Connection\ConnectionInterface;
@@ -346,7 +344,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      */
-    public function setGroupId($v)
+    protected function setGroupId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
@@ -370,7 +368,7 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
      * @param int $v new value
      * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object (for fluent API support)
      */
-    public function setPermissionId($v)
+    protected function setPermissionId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
@@ -466,246 +464,6 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
             $this->aPermission = null;
         }
     } // ensureConsistency
-
-    /**
-     * Reloads this object from datastore based on primary key and (optionally) resets all associated objects.
-     *
-     * This will only work if the object has been saved and has a valid primary key set.
-     *
-     * @param      boolean $deep (optional) Whether to also de-associated any related objects.
-     * @param      ConnectionInterface $con (optional) The ConnectionInterface connection to use.
-     * @return void
-     * @throws PropelException - if this object is deleted, unsaved or doesn't have pk match in db
-     */
-    public function reload($deep = false, ConnectionInterface $con = null)
-    {
-        if ($this->isDeleted()) {
-            throw new PropelException("Cannot reload a deleted object.");
-        }
-
-        if ($this->isNew()) {
-            throw new PropelException("Cannot reload an unsaved object.");
-        }
-
-        if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
-        }
-
-        // We don't need to alter the object instance pool; we're just modifying this instance
-        // already in the pool.
-
-        $dataFetcher = ChildPermissionGroupPermissionQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
-        $row = $dataFetcher->fetch();
-        $dataFetcher->close();
-        if (!$row) {
-            throw new PropelException('Cannot find matching row in the database to reload object values.');
-        }
-        $this->hydrate($row, 0, true, $dataFetcher->getIndexType()); // rehydrate
-
-        if ($deep) {  // also de-associate any related objects?
-
-            $this->aPermissionGroup = null;
-            $this->aPermission = null;
-        } // if (deep)
-    }
-
-    /**
-     * Removes this object from datastore and sets delete attribute.
-     *
-     * @param      ConnectionInterface $con
-     * @return void
-     * @throws PropelException
-     * @see PermissionGroupPermission::setDeleted()
-     * @see PermissionGroupPermission::isDeleted()
-     */
-    public function delete(ConnectionInterface $con = null)
-    {
-        if ($this->isDeleted()) {
-            throw new PropelException("This object has already been deleted.");
-        }
-
-        if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
-        }
-
-        $con->transaction(function () use ($con) {
-            $deleteQuery = ChildPermissionGroupPermissionQuery::create()
-                ->filterByPrimaryKey($this->getPrimaryKey());
-            $ret = $this->preDelete($con);
-            if ($ret) {
-                $deleteQuery->delete($con);
-                $this->postDelete($con);
-                $this->setDeleted(true);
-            }
-        });
-    }
-
-    /**
-     * Persists this object to the database.
-     *
-     * If the object is new, it inserts it; otherwise an update is performed.
-     * All modified related objects will also be persisted in the doSave()
-     * method.  This method wraps all precipitate database operations in a
-     * single transaction.
-     *
-     * @param      ConnectionInterface $con
-     * @return int             The number of rows affected by this insert/update and any referring fk objects' save() operations.
-     * @throws PropelException
-     * @see doSave()
-     */
-    public function save(ConnectionInterface $con = null)
-    {
-        if ($this->isDeleted()) {
-            throw new PropelException("You cannot save an object that has been deleted.");
-        }
-
-        if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PermissionGroupPermissionTableMap::DATABASE_NAME);
-        }
-
-        return $con->transaction(function () use ($con) {
-            $isInsert = $this->isNew();
-            $ret = $this->preSave($con);
-            if ($isInsert) {
-                $ret = $ret && $this->preInsert($con);
-            } else {
-                $ret = $ret && $this->preUpdate($con);
-            }
-            if ($ret) {
-                $affectedRows = $this->doSave($con);
-                if ($isInsert) {
-                    $this->postInsert($con);
-                } else {
-                    $this->postUpdate($con);
-                }
-                $this->postSave($con);
-                PermissionGroupPermissionTableMap::addInstanceToPool($this);
-            } else {
-                $affectedRows = 0;
-            }
-
-            return $affectedRows;
-        });
-    }
-
-    /**
-     * Performs the work of inserting or updating the row in the database.
-     *
-     * If the object is new, it inserts it; otherwise an update is performed.
-     * All related objects are also updated in this method.
-     *
-     * @param      ConnectionInterface $con
-     * @return int             The number of rows affected by this insert/update and any referring fk objects' save() operations.
-     * @throws PropelException
-     * @see save()
-     */
-    protected function doSave(ConnectionInterface $con)
-    {
-        $affectedRows = 0; // initialize var to track total num of affected rows
-        if (!$this->alreadyInSave) {
-            $this->alreadyInSave = true;
-
-            // We call the save method on the following object(s) if they
-            // were passed to this object by their corresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aPermissionGroup !== null) {
-                if ($this->aPermissionGroup->isModified() || $this->aPermissionGroup->isNew()) {
-                    $affectedRows += $this->aPermissionGroup->save($con);
-                }
-                $this->setPermissionGroup($this->aPermissionGroup);
-            }
-
-            if ($this->aPermission !== null) {
-                if ($this->aPermission->isModified() || $this->aPermission->isNew()) {
-                    $affectedRows += $this->aPermission->save($con);
-                }
-                $this->setPermission($this->aPermission);
-            }
-
-            if ($this->isNew() || $this->isModified()) {
-                // persist changes
-                if ($this->isNew()) {
-                    $this->doInsert($con);
-                    $affectedRows += 1;
-                } else {
-                    $affectedRows += $this->doUpdate($con);
-                }
-                $this->resetModified();
-            }
-
-            $this->alreadyInSave = false;
-
-        }
-
-        return $affectedRows;
-    } // doSave()
-
-    /**
-     * Insert the row in the database.
-     *
-     * @param      ConnectionInterface $con
-     *
-     * @throws PropelException
-     * @see doSave()
-     */
-    protected function doInsert(ConnectionInterface $con)
-    {
-        $modifiedColumns = array();
-        $index = 0;
-
-
-         // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_GROUP_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'group_id';
-        }
-        if ($this->isColumnModified(PermissionGroupPermissionTableMap::COL_PERMISSION_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'permission_id';
-        }
-
-        $sql = sprintf(
-            'INSERT INTO permission_group_permission (%s) VALUES (%s)',
-            implode(', ', $modifiedColumns),
-            implode(', ', array_keys($modifiedColumns))
-        );
-
-        try {
-            $stmt = $con->prepare($sql);
-            foreach ($modifiedColumns as $identifier => $columnName) {
-                switch ($columnName) {
-                    case 'group_id':
-                        $stmt->bindValue($identifier, $this->group_id, PDO::PARAM_INT);
-                        break;
-                    case 'permission_id':
-                        $stmt->bindValue($identifier, $this->permission_id, PDO::PARAM_INT);
-                        break;
-                }
-            }
-            $stmt->execute();
-        } catch (Exception $e) {
-            Propel::log($e->getMessage(), Propel::LOG_ERR);
-            throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), 0, $e);
-        }
-
-        $this->setNew(false);
-    }
-
-    /**
-     * Update the row in the database.
-     *
-     * @param      ConnectionInterface $con
-     *
-     * @return Integer Number of updated rows
-     * @see doSave()
-     */
-    protected function doUpdate(ConnectionInterface $con)
-    {
-        $selectCriteria = $this->buildPkeyCriteria();
-        $valuesCriteria = $this->buildCriteria();
-
-        return $selectCriteria->doUpdate($valuesCriteria, $con);
-    }
 
     /**
      * Retrieves a field from the object by name passed in as a string.
@@ -813,105 +571,6 @@ abstract class PermissionGroupPermission implements ActiveRecordInterface
         }
 
         return $result;
-    }
-
-    /**
-     * Sets a field from the object by name passed in as a string.
-     *
-     * @param  string $name
-     * @param  mixed  $value field value
-     * @param  string $type The type of fieldname the $name is of:
-     *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission
-     */
-    public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
-    {
-        $pos = PermissionGroupPermissionTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
-
-        return $this->setByPosition($pos, $value);
-    }
-
-    /**
-     * Sets a field from the object by Position as specified in the xml schema.
-     * Zero-based.
-     *
-     * @param  int $pos position in xml schema
-     * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission
-     */
-    public function setByPosition($pos, $value)
-    {
-        switch ($pos) {
-            case 0:
-                $this->setGroupId($value);
-                break;
-            case 1:
-                $this->setPermissionId($value);
-                break;
-        } // switch()
-
-        return $this;
-    }
-
-    /**
-     * Populates the object using an array.
-     *
-     * This is particularly useful when populating an object from one of the
-     * request arrays (e.g. $_POST).  This method goes through the column
-     * names, checking to see whether a matching key exists in populated
-     * array. If so the setByName() method is called for that column.
-     *
-     * You can specify the key type of the array by additionally passing one
-     * of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
-     * TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     * The default key type is the column's TableMap::TYPE_PHPNAME.
-     *
-     * @param      array  $arr     An array to populate the object from.
-     * @param      string $keyType The type of keys the array uses.
-     * @return void
-     */
-    public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
-    {
-        $keys = PermissionGroupPermissionTableMap::getFieldNames($keyType);
-
-        if (array_key_exists($keys[0], $arr)) {
-            $this->setGroupId($arr[$keys[0]]);
-        }
-        if (array_key_exists($keys[1], $arr)) {
-            $this->setPermissionId($arr[$keys[1]]);
-        }
-    }
-
-     /**
-     * Populate the current object from a string, using a given parser format
-     * <code>
-     * $book = new Book();
-     * $book->importFrom('JSON', '{"Id":9012,"Title":"Don Juan","ISBN":"0140422161","Price":12.99,"PublisherId":1234,"AuthorId":5678}');
-     * </code>
-     *
-     * You can specify the key type of the array by additionally passing one
-     * of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
-     * TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     * The default key type is the column's TableMap::TYPE_PHPNAME.
-     *
-     * @param mixed $parser A AbstractParser instance,
-     *                       or a format name ('XML', 'YAML', 'JSON', 'CSV')
-     * @param string $data The source data to import from
-     * @param string $keyType The type of keys the array uses.
-     *
-     * @return $this|\Tekstove\TekstoveBundle\Model\Acl\PermissionGroupPermission The current object, for fluid interface
-     */
-    public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
-    {
-        if (!$parser instanceof AbstractParser) {
-            $parser = AbstractParser::getParser($parser);
-        }
-
-        $this->fromArray($parser->toArray($data), $keyType);
-
-        return $this;
     }
 
     /**
