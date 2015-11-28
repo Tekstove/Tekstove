@@ -1,8 +1,10 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\EventDispatcher;
+namespace Tekstove\TekstoveBundle\EventDispatcher;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricTitleCacheSubscriber;
+use Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricUploadedBySubscriber;
 
 /**
  * Description of EventDispacherFactory
@@ -14,12 +16,12 @@ class EventDispacherFactory {
     {
         $dispacher = new EventDispacher();
         // add events!
-        $titleCacheSubscriber = new \Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricTitleCacheSubscriber();
+        $titleCacheSubscriber = new LyricTitleCacheSubscriber();
         
         $securityTokenStorage = $container->get('security.token_storage');
         $authzChecker = $container->get('security.authorization_checker');
         
-        $uploadedBySubscriber = new \Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricUploadedBySubscriber(
+        $uploadedBySubscriber = new LyricUploadedBySubscriber(
             $securityTokenStorage,
             $authzChecker
         );

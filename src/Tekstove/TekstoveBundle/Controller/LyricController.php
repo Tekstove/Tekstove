@@ -47,9 +47,8 @@ class LyricController extends Controller
         $form = $this->createCreateForm($lyric);
         $form->handleRequest($request);
         if ($form->isValid()) {
-                $eventDispacher = $this->get('tekstove.event_dispacher');
-                $lyric->setEventDispacher($eventDispacher);
-                $lyric->save();
+            $repo = $this->get('tekstove.lyric.repository');
+            $repo->save($lyric);
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
         
@@ -114,9 +113,8 @@ class LyricController extends Controller
         
         $form->handleRequest($request);
         if ($form->isValid()) {
-                $eventDispacher = $this->get('tekstove.event_dispacher');
-                $lyric->setEventDispacher($eventDispacher);
-                $lyric->save();
+            $repo = $this->get('tekstove.lyric.repository');
+            $repo->save($lyric);
             return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
         

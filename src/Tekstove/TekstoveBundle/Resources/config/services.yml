@@ -7,18 +7,24 @@ services:
         class:   Tekstove\TekstoveBundle\Model\UserQuery
     
     tekstove.event_dispacher.factory:
-        class: Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacherFactory
+        class: Tekstove\TekstoveBundle\EventDispatcher\EventDispacherFactory
         arguments: []
+    
     tekstove.event_dispacher:
-        class: Tekstove\TekstoveBundle\Model\EventDispatcher\EventDispacher
+        class: Tekstove\TekstoveBundle\EventDispatcher\EventDispacher
         factory: [@tekstove.event_dispacher.factory, createDispacher]
         arguments: [@service_container]
+    
+    tekstove.lyric.repository:
+        class: Tekstove\TekstoveBundle\Model\LyricRepository
+        arguments: [@tekstove.event_dispacher]
     
     tekstove.security.lyric_voter:
         class: Tekstove\TekstoveBundle\Security\Authorization\Voter\LyricVoter
         public: false
         tags:
             - { name: security.voter }
+    
     tekstove.provider.user:
         class: Tekstove\TekstoveBundle\Model\User\Provider
         arguments: [@tekstove.model.user.query]

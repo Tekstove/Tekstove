@@ -1,5 +1,5 @@
 <?php
-namespace Tekstove\TekstoveBundle\Model\EventDispatcher;
+namespace Tekstove\TekstoveBundle\EventDispatcher;
 
 /**
  * Description of Event

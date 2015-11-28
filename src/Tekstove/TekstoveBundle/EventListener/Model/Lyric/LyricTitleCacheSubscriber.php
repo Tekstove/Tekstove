@@ -3,6 +3,7 @@
 namespace Tekstove\TekstoveBundle\EventListener\Model\Lyric;
 
 use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\EventDispatcher\Event;
 
 /**
  * Description of LyricSubscriber
@@ -19,7 +20,7 @@ class LyricTitleCacheSubscriber implements \Symfony\Component\EventDispatcher\Ev
         );
     }
     
-    public function saveEvent(\Tekstove\TekstoveBundle\Model\EventDispatcher\Event $event)
+    public function saveEvent(Event $event)
     {
         $lyric = $event->getSubject();
         $this->updateCache($lyric);

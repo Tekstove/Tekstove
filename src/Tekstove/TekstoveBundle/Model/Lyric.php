@@ -6,9 +6,11 @@ use Tekstove\TekstoveBundle\Model\Lyric\Exception\ValidationException;
 use Tekstove\TekstoveBundle\Model\Base\Lyric as BaseLyric;
 use Propel\Runtime\Connection\ConnectionInterface;
 
+use Tekstove\TekstoveBundle\EventDispatcher\Event;
+
 class Lyric extends BaseLyric
 {
-    private $eventManager;
+    private $eventDispacher;
     
     public function preSave(ConnectionInterface $con = null)
     {
@@ -27,19 +29,19 @@ class Lyric extends BaseLyric
      */
     private function getEventDispacher()
     {
-        if ($this->eventManager === null) {
+        if ($this->eventDispacher === null) {
             throw new \Exception('eventDispacher not set');
         }
-        return $this->eventManager;
+        return $this->eventDispacher;
     }
     
-    function setEventDispacher($eventManager) {
-        $this->eventManager = $eventManager;
+    function setEventDispacher($eventDispacher) {
+        $this->eventDispacher = $eventDispacher;
     }
 
     private function notifyPreSave(Lyric $lyric)
     {
-        $event = new EventDispatcher\Event($lyric);
+        $event = new Event($lyric);
         $this->getEventDispacher()->dispatch('tekstove.lyric.save', $event);
     }
     

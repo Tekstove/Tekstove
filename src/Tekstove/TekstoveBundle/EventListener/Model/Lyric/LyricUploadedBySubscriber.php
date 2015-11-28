@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\EventDispatcher\Event;
 
 /**
  * Description of LyricUploadedBySubscriber
@@ -39,7 +40,7 @@ class LyricUploadedBySubscriber implements \Symfony\Component\EventDispatcher\Ev
         );
     }
     
-    public function saveEvent(\Tekstove\TekstoveBundle\Model\EventDispatcher\Event $event)
+    public function saveEvent(Event $event)
     {
         $lyric = $event->getSubject();
         $this->updateUpdateuserId($lyric);
