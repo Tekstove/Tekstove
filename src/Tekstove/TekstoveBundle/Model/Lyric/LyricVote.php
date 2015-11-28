@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Lyric;
 
-use Tekstove\TekstoveBundle\Model\Base\LyricVote as BaseLyricVote;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVote as BaseLyricVote;
 
 /**
  * Skeleton subclass for representing a row from the 'lyric_vote' table.

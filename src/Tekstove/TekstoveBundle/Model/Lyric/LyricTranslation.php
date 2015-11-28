@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Lyric;
 
-use Tekstove\TekstoveBundle\Model\Base\LyricTranslation as BaseLyricTranslation;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricTranslation as BaseLyricTranslation;
 
 /**
  * Skeleton subclass for representing a row from the 'lyric_translation' table.

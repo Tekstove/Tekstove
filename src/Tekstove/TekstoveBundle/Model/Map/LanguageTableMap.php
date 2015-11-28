@@ -140,7 +140,7 @@ class LanguageTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('LyricLanguage', '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('LyricLanguage', '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricLanguage', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':language_id',

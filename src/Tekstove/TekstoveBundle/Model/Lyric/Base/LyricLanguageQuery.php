@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Lyric\Base;
 
 use \Exception;
 use \PDO;
@@ -11,9 +11,11 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\LyricLanguage as ChildLyricLanguage;
-use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
-use Tekstove\TekstoveBundle\Model\Map\LyricLanguageTableMap;
+use Tekstove\TekstoveBundle\Model\Language;
+use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage as ChildLyricLanguage;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery as ChildLyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Map\LyricLanguageTableMap;
 
 /**
  * Base class that represents a query for the 'lyric_language' table.
@@ -79,13 +81,13 @@ abstract class LyricLanguageQuery extends ModelCriteria
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Base\LyricLanguageQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Lyric\Base\LyricLanguageQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricLanguage', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }

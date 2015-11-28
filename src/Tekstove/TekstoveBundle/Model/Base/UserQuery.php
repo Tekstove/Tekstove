@@ -14,6 +14,8 @@ use Propel\Runtime\Exception\PropelException;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
 use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
 use Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUser;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVote;
 use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
 
 /**
@@ -105,7 +107,7 @@ use Tekstove\TekstoveBundle\Model\Map\UserTableMap;
  * @method     ChildUserQuery rightJoinWithAlbum() Adds a RIGHT JOIN clause and with to the query using the Album relation
  * @method     ChildUserQuery innerJoinWithAlbum() Adds a INNER JOIN clause and with to the query using the Album relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Acl\PermissionGroupUserQuery|\Tekstove\TekstoveBundle\Model\LyricQuery|\Tekstove\TekstoveBundle\Model\Lyric\LyricTranslationQuery|\Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery|\Tekstove\TekstoveBundle\Model\ArtistQuery|\Tekstove\TekstoveBundle\Model\AlbumQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUser findOne(ConnectionInterface $con = null) Return the first ChildUser matching the query
  * @method     ChildUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
@@ -693,16 +695,16 @@ abstract class UserQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricTranslation object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation object
      *
-     * @param \Tekstove\TekstoveBundle\Model\LyricTranslation|ObjectCollection $lyricTranslation the related object to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation|ObjectCollection $lyricTranslation the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUserQuery The current query, for fluid interface
      */
     public function filterByLyricTranslation($lyricTranslation, $comparison = null)
     {
-        if ($lyricTranslation instanceof \Tekstove\TekstoveBundle\Model\LyricTranslation) {
+        if ($lyricTranslation instanceof \Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation) {
             return $this
                 ->addUsingAlias(UserTableMap::COL_ID, $lyricTranslation->getUserId(), $comparison);
         } elseif ($lyricTranslation instanceof ObjectCollection) {
@@ -711,7 +713,7 @@ abstract class UserQuery extends ModelCriteria
                 ->filterByPrimaryKeys($lyricTranslation->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByLyricTranslation() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricTranslation or Collection');
+            throw new PropelException('filterByLyricTranslation() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation or Collection');
         }
     }
 
@@ -756,26 +758,26 @@ abstract class UserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\LyricTranslationQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Lyric\LyricTranslationQuery A secondary query class using the current class as primary query
      */
     public function useLyricTranslationQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
             ->joinLyricTranslation($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'LyricTranslation', '\Tekstove\TekstoveBundle\Model\LyricTranslationQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'LyricTranslation', '\Tekstove\TekstoveBundle\Model\Lyric\LyricTranslationQuery');
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricVote object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Lyric\LyricVote object
      *
-     * @param \Tekstove\TekstoveBundle\Model\LyricVote|ObjectCollection $lyricVote the related object to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Lyric\LyricVote|ObjectCollection $lyricVote the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUserQuery The current query, for fluid interface
      */
     public function filterByLyricVote($lyricVote, $comparison = null)
     {
-        if ($lyricVote instanceof \Tekstove\TekstoveBundle\Model\LyricVote) {
+        if ($lyricVote instanceof \Tekstove\TekstoveBundle\Model\Lyric\LyricVote) {
             return $this
                 ->addUsingAlias(UserTableMap::COL_ID, $lyricVote->getUserId(), $comparison);
         } elseif ($lyricVote instanceof ObjectCollection) {
@@ -784,7 +786,7 @@ abstract class UserQuery extends ModelCriteria
                 ->filterByPrimaryKeys($lyricVote->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByLyricVote() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricVote or Collection');
+            throw new PropelException('filterByLyricVote() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Lyric\LyricVote or Collection');
         }
     }
 
@@ -829,13 +831,13 @@ abstract class UserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\LyricVoteQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery A secondary query class using the current class as primary query
      */
     public function useLyricVoteQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
             ->joinLyricVote($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'LyricVote', '\Tekstove\TekstoveBundle\Model\LyricVoteQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'LyricVote', '\Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery');
     }
 
     /**

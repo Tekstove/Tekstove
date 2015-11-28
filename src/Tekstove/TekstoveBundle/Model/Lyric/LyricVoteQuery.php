@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Lyric;
 
-use Tekstove\TekstoveBundle\Model\Base\LyricVoteQuery as BaseLyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVoteQuery as BaseLyricVoteQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'lyric_vote' table.

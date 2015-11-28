@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Lyric\Base;
 
 use \Exception;
 use \PDO;
@@ -15,26 +15,26 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Tekstove\TekstoveBundle\Model\Language as ChildLanguage;
-use Tekstove\TekstoveBundle\Model\LanguageQuery as ChildLanguageQuery;
-use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
-use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
-use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
-use Tekstove\TekstoveBundle\Model\Map\LyricLanguageTableMap;
+use Tekstove\TekstoveBundle\Model\Language;
+use Tekstove\TekstoveBundle\Model\LanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\Model\LyricQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery as ChildLyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Map\LyricLanguageTableMap;
 
 /**
  * Base class that represents a row from the 'lyric_language' table.
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Base
+* @package    propel.generator.src..Tekstove.TekstoveBundle.Model.Lyric.Base
 */
 abstract class LyricLanguage implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\LyricLanguageTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\Map\\LyricLanguageTableMap';
 
 
     /**
@@ -78,12 +78,12 @@ abstract class LyricLanguage implements ActiveRecordInterface
     protected $language_id;
 
     /**
-     * @var        ChildLyric
+     * @var        Lyric
      */
     protected $aLyric;
 
     /**
-     * @var        ChildLanguage
+     * @var        Language
      */
     protected $aLanguage;
 
@@ -96,7 +96,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\LyricLanguage object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Lyric\Base\LyricLanguage object.
      */
     public function __construct()
     {
@@ -344,7 +344,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      * Set the value of [lyric_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage The current object (for fluent API support)
      */
     public function setLyricId($v)
     {
@@ -368,7 +368,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      * Set the value of [language_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage The current object (for fluent API support)
      */
     public function setLanguageId($v)
     {
@@ -440,7 +440,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
             return $startcol + 2; // 2 = LyricLanguageTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricLanguage'), 0, $e);
         }
     }
 
@@ -824,7 +824,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
@@ -839,7 +839,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage
      */
     public function setByPosition($pos, $value)
     {
@@ -901,7 +901,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1030,7 +1030,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\LyricLanguage (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1053,7 +1053,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\LyricLanguage Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1067,13 +1067,13 @@ abstract class LyricLanguage implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildLyric object.
+     * Declares an association between this object and a Lyric object.
      *
-     * @param  ChildLyric $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage The current object (for fluent API support)
+     * @param  Lyric $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setLyric(ChildLyric $v = null)
+    public function setLyric(Lyric $v = null)
     {
         if ($v === null) {
             $this->setLyricId(NULL);
@@ -1084,7 +1084,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
         $this->aLyric = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildLyric object, it will not be re-added.
+        // If this object has already been added to the Lyric object, it will not be re-added.
         if ($v !== null) {
             $v->addLyricLanguage($this);
         }
@@ -1095,16 +1095,16 @@ abstract class LyricLanguage implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildLyric object
+     * Get the associated Lyric object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildLyric The associated ChildLyric object.
+     * @return Lyric The associated Lyric object.
      * @throws PropelException
      */
     public function getLyric(ConnectionInterface $con = null)
     {
         if ($this->aLyric === null && ($this->lyric_id !== null)) {
-            $this->aLyric = ChildLyricQuery::create()->findPk($this->lyric_id, $con);
+            $this->aLyric = LyricQuery::create()->findPk($this->lyric_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1118,13 +1118,13 @@ abstract class LyricLanguage implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildLanguage object.
+     * Declares an association between this object and a Language object.
      *
-     * @param  ChildLanguage $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricLanguage The current object (for fluent API support)
+     * @param  Language $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setLanguage(ChildLanguage $v = null)
+    public function setLanguage(Language $v = null)
     {
         if ($v === null) {
             $this->setLanguageId(NULL);
@@ -1135,7 +1135,7 @@ abstract class LyricLanguage implements ActiveRecordInterface
         $this->aLanguage = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildLanguage object, it will not be re-added.
+        // If this object has already been added to the Language object, it will not be re-added.
         if ($v !== null) {
             $v->addLyricLanguage($this);
         }
@@ -1146,16 +1146,16 @@ abstract class LyricLanguage implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildLanguage object
+     * Get the associated Language object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildLanguage The associated ChildLanguage object.
+     * @return Language The associated Language object.
      * @throws PropelException
      */
     public function getLanguage(ConnectionInterface $con = null)
     {
         if ($this->aLanguage === null && ($this->language_id !== null)) {
-            $this->aLanguage = ChildLanguageQuery::create()->findPk($this->language_id, $con);
+            $this->aLanguage = LanguageQuery::create()->findPk($this->language_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be

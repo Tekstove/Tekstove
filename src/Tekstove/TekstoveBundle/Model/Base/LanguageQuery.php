@@ -13,6 +13,7 @@ use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 use Tekstove\TekstoveBundle\Model\Language as ChildLanguage;
 use Tekstove\TekstoveBundle\Model\LanguageQuery as ChildLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage;
 use Tekstove\TekstoveBundle\Model\Map\LanguageTableMap;
 
 /**
@@ -44,7 +45,7 @@ use Tekstove\TekstoveBundle\Model\Map\LanguageTableMap;
  * @method     ChildLanguageQuery rightJoinWithLyricLanguage() Adds a RIGHT JOIN clause and with to the query using the LyricLanguage relation
  * @method     ChildLanguageQuery innerJoinWithLyricLanguage() Adds a INNER JOIN clause and with to the query using the LyricLanguage relation
  *
- * @method     \Tekstove\TekstoveBundle\Model\LyricLanguageQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildLanguage findOne(ConnectionInterface $con = null) Return the first ChildLanguage matching the query
  * @method     ChildLanguage findOneOrCreate(ConnectionInterface $con = null) Return the first ChildLanguage matching the query, or a new ChildLanguage object populated from the query conditions when no match is found
@@ -314,16 +315,16 @@ abstract class LanguageQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Tekstove\TekstoveBundle\Model\LyricLanguage object
+     * Filter the query by a related \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage object
      *
-     * @param \Tekstove\TekstoveBundle\Model\LyricLanguage|ObjectCollection $lyricLanguage the related object to use as filter
+     * @param \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage|ObjectCollection $lyricLanguage the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildLanguageQuery The current query, for fluid interface
      */
     public function filterByLyricLanguage($lyricLanguage, $comparison = null)
     {
-        if ($lyricLanguage instanceof \Tekstove\TekstoveBundle\Model\LyricLanguage) {
+        if ($lyricLanguage instanceof \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage) {
             return $this
                 ->addUsingAlias(LanguageTableMap::COL_ID, $lyricLanguage->getLanguageId(), $comparison);
         } elseif ($lyricLanguage instanceof ObjectCollection) {
@@ -332,7 +333,7 @@ abstract class LanguageQuery extends ModelCriteria
                 ->filterByPrimaryKeys($lyricLanguage->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByLyricLanguage() only accepts arguments of type \Tekstove\TekstoveBundle\Model\LyricLanguage or Collection');
+            throw new PropelException('filterByLyricLanguage() only accepts arguments of type \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage or Collection');
         }
     }
 
@@ -377,13 +378,13 @@ abstract class LanguageQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \Tekstove\TekstoveBundle\Model\LyricLanguageQuery A secondary query class using the current class as primary query
+     * @return \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery A secondary query class using the current class as primary query
      */
     public function useLyricLanguageQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
             ->joinLyricLanguage($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'LyricLanguage', '\Tekstove\TekstoveBundle\Model\LyricLanguageQuery');
+            ->useQuery($relationAlias ? $relationAlias : 'LyricLanguage', '\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery');
     }
 
     /**

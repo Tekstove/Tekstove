@@ -29,15 +29,18 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Tekstove\TekstoveBundle\Model\Language as ChildLanguage;
 use Tekstove\TekstoveBundle\Model\LanguageQuery as ChildLanguageQuery;
 use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
-use Tekstove\TekstoveBundle\Model\LyricLanguage as ChildLyricLanguage;
-use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
-use Tekstove\TekstoveBundle\Model\LyricTranslation as ChildLyricTranslation;
-use Tekstove\TekstoveBundle\Model\LyricTranslationQuery as ChildLyricTranslationQuery;
-use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
-use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
 use Tekstove\TekstoveBundle\Model\User as ChildUser;
 use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricTranslationQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVote;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricLanguage as BaseLyricLanguage;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricTranslation as BaseLyricTranslation;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVote as BaseLyricVote;
 use Tekstove\TekstoveBundle\Model\Map\LyricTableMap;
 
 /**
@@ -178,19 +181,19 @@ abstract class Lyric implements ActiveRecordInterface
     protected $aUser;
 
     /**
-     * @var        ObjectCollection|ChildLyricLanguage[] Collection to store aggregation of ChildLyricLanguage objects.
+     * @var        ObjectCollection|LyricLanguage[] Collection to store aggregation of LyricLanguage objects.
      */
     protected $collLyricLanguages;
     protected $collLyricLanguagesPartial;
 
     /**
-     * @var        ObjectCollection|ChildLyricTranslation[] Collection to store aggregation of ChildLyricTranslation objects.
+     * @var        ObjectCollection|LyricTranslation[] Collection to store aggregation of LyricTranslation objects.
      */
     protected $collLyricTranslations;
     protected $collLyricTranslationsPartial;
 
     /**
-     * @var        ObjectCollection|ChildLyricVote[] Collection to store aggregation of ChildLyricVote objects.
+     * @var        ObjectCollection|LyricVote[] Collection to store aggregation of LyricVote objects.
      */
     protected $collLyricVotes;
     protected $collLyricVotesPartial;
@@ -238,19 +241,19 @@ abstract class Lyric implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildLyricLanguage[]
+     * @var ObjectCollection|LyricLanguage[]
      */
     protected $lyricLanguagesScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildLyricTranslation[]
+     * @var ObjectCollection|LyricTranslation[]
      */
     protected $lyricTranslationsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildLyricVote[]
+     * @var ObjectCollection|LyricVote[]
      */
     protected $lyricVotesScheduledForDeletion = null;
 
@@ -1160,7 +1163,7 @@ abstract class Lyric implements ActiveRecordInterface
                         $pks[] = $entryPk;
                     }
 
-                    \Tekstove\TekstoveBundle\Model\LyricLanguageQuery::create()
+                    \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery::create()
                         ->filterByPrimaryKeys($pks)
                         ->delete($con);
 
@@ -1180,7 +1183,7 @@ abstract class Lyric implements ActiveRecordInterface
 
             if ($this->lyricLanguagesScheduledForDeletion !== null) {
                 if (!$this->lyricLanguagesScheduledForDeletion->isEmpty()) {
-                    \Tekstove\TekstoveBundle\Model\LyricLanguageQuery::create()
+                    \Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery::create()
                         ->filterByPrimaryKeys($this->lyricLanguagesScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
                     $this->lyricLanguagesScheduledForDeletion = null;
@@ -2040,11 +2043,11 @@ abstract class Lyric implements ActiveRecordInterface
             return;
         }
         $this->collLyricLanguages = new ObjectCollection();
-        $this->collLyricLanguages->setModel('\Tekstove\TekstoveBundle\Model\LyricLanguage');
+        $this->collLyricLanguages->setModel('\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage');
     }
 
     /**
-     * Gets an array of ChildLyricLanguage objects which contain a foreign key that references this object.
+     * Gets an array of LyricLanguage objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -2054,7 +2057,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildLyricLanguage[] List of ChildLyricLanguage objects
+     * @return ObjectCollection|LyricLanguage[] List of LyricLanguage objects
      * @throws PropelException
      */
     public function getLyricLanguages(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -2065,7 +2068,7 @@ abstract class Lyric implements ActiveRecordInterface
                 // return empty collection
                 $this->initLyricLanguages();
             } else {
-                $collLyricLanguages = ChildLyricLanguageQuery::create(null, $criteria)
+                $collLyricLanguages = LyricLanguageQuery::create(null, $criteria)
                     ->filterByLyric($this)
                     ->find($con);
 
@@ -2102,7 +2105,7 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of ChildLyricLanguage objects related by a one-to-many relationship
+     * Sets a collection of LyricLanguage objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -2113,7 +2116,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function setLyricLanguages(Collection $lyricLanguages, ConnectionInterface $con = null)
     {
-        /** @var ChildLyricLanguage[] $lyricLanguagesToDelete */
+        /** @var LyricLanguage[] $lyricLanguagesToDelete */
         $lyricLanguagesToDelete = $this->getLyricLanguages(new Criteria(), $con)->diff($lyricLanguages);
 
 
@@ -2138,12 +2141,12 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related LyricLanguage objects.
+     * Returns the number of related BaseLyricLanguage objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related LyricLanguage objects.
+     * @return int             Count of related BaseLyricLanguage objects.
      * @throws PropelException
      */
     public function countLyricLanguages(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -2158,7 +2161,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return count($this->getLyricLanguages());
             }
 
-            $query = ChildLyricLanguageQuery::create(null, $criteria);
+            $query = LyricLanguageQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -2172,13 +2175,13 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a ChildLyricLanguage object to this object
-     * through the ChildLyricLanguage foreign key attribute.
+     * Method called to associate a LyricLanguage object to this object
+     * through the LyricLanguage foreign key attribute.
      *
-     * @param  ChildLyricLanguage $l ChildLyricLanguage
+     * @param  LyricLanguage $l LyricLanguage
      * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
      */
-    public function addLyricLanguage(ChildLyricLanguage $l)
+    public function addLyricLanguage(LyricLanguage $l)
     {
         if ($this->collLyricLanguages === null) {
             $this->initLyricLanguages();
@@ -2193,19 +2196,19 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildLyricLanguage $lyricLanguage The ChildLyricLanguage object to add.
+     * @param LyricLanguage $lyricLanguage The LyricLanguage object to add.
      */
-    protected function doAddLyricLanguage(ChildLyricLanguage $lyricLanguage)
+    protected function doAddLyricLanguage(LyricLanguage $lyricLanguage)
     {
         $this->collLyricLanguages[]= $lyricLanguage;
         $lyricLanguage->setLyric($this);
     }
 
     /**
-     * @param  ChildLyricLanguage $lyricLanguage The ChildLyricLanguage object to remove.
+     * @param  LyricLanguage $lyricLanguage The LyricLanguage object to remove.
      * @return $this|ChildLyric The current object (for fluent API support)
      */
-    public function removeLyricLanguage(ChildLyricLanguage $lyricLanguage)
+    public function removeLyricLanguage(LyricLanguage $lyricLanguage)
     {
         if ($this->getLyricLanguages()->contains($lyricLanguage)) {
             $pos = $this->collLyricLanguages->search($lyricLanguage);
@@ -2236,11 +2239,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildLyricLanguage[] List of ChildLyricLanguage objects
+     * @return ObjectCollection|LyricLanguage[] List of LyricLanguage objects
      */
     public function getLyricLanguagesJoinLanguage(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = ChildLyricLanguageQuery::create(null, $criteria);
+        $query = LyricLanguageQuery::create(null, $criteria);
         $query->joinWith('Language', $joinBehavior);
 
         return $this->getLyricLanguages($query, $con);
@@ -2286,11 +2289,11 @@ abstract class Lyric implements ActiveRecordInterface
             return;
         }
         $this->collLyricTranslations = new ObjectCollection();
-        $this->collLyricTranslations->setModel('\Tekstove\TekstoveBundle\Model\LyricTranslation');
+        $this->collLyricTranslations->setModel('\Tekstove\TekstoveBundle\Model\Lyric\LyricTranslation');
     }
 
     /**
-     * Gets an array of ChildLyricTranslation objects which contain a foreign key that references this object.
+     * Gets an array of LyricTranslation objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -2300,7 +2303,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildLyricTranslation[] List of ChildLyricTranslation objects
+     * @return ObjectCollection|LyricTranslation[] List of LyricTranslation objects
      * @throws PropelException
      */
     public function getLyricTranslations(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -2311,7 +2314,7 @@ abstract class Lyric implements ActiveRecordInterface
                 // return empty collection
                 $this->initLyricTranslations();
             } else {
-                $collLyricTranslations = ChildLyricTranslationQuery::create(null, $criteria)
+                $collLyricTranslations = LyricTranslationQuery::create(null, $criteria)
                     ->filterByLyric($this)
                     ->find($con);
 
@@ -2348,7 +2351,7 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of ChildLyricTranslation objects related by a one-to-many relationship
+     * Sets a collection of LyricTranslation objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -2359,7 +2362,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function setLyricTranslations(Collection $lyricTranslations, ConnectionInterface $con = null)
     {
-        /** @var ChildLyricTranslation[] $lyricTranslationsToDelete */
+        /** @var LyricTranslation[] $lyricTranslationsToDelete */
         $lyricTranslationsToDelete = $this->getLyricTranslations(new Criteria(), $con)->diff($lyricTranslations);
 
 
@@ -2381,12 +2384,12 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related LyricTranslation objects.
+     * Returns the number of related BaseLyricTranslation objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related LyricTranslation objects.
+     * @return int             Count of related BaseLyricTranslation objects.
      * @throws PropelException
      */
     public function countLyricTranslations(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -2401,7 +2404,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return count($this->getLyricTranslations());
             }
 
-            $query = ChildLyricTranslationQuery::create(null, $criteria);
+            $query = LyricTranslationQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -2415,13 +2418,13 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a ChildLyricTranslation object to this object
-     * through the ChildLyricTranslation foreign key attribute.
+     * Method called to associate a LyricTranslation object to this object
+     * through the LyricTranslation foreign key attribute.
      *
-     * @param  ChildLyricTranslation $l ChildLyricTranslation
+     * @param  LyricTranslation $l LyricTranslation
      * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
      */
-    public function addLyricTranslation(ChildLyricTranslation $l)
+    public function addLyricTranslation(LyricTranslation $l)
     {
         if ($this->collLyricTranslations === null) {
             $this->initLyricTranslations();
@@ -2436,19 +2439,19 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildLyricTranslation $lyricTranslation The ChildLyricTranslation object to add.
+     * @param LyricTranslation $lyricTranslation The LyricTranslation object to add.
      */
-    protected function doAddLyricTranslation(ChildLyricTranslation $lyricTranslation)
+    protected function doAddLyricTranslation(LyricTranslation $lyricTranslation)
     {
         $this->collLyricTranslations[]= $lyricTranslation;
         $lyricTranslation->setLyric($this);
     }
 
     /**
-     * @param  ChildLyricTranslation $lyricTranslation The ChildLyricTranslation object to remove.
+     * @param  LyricTranslation $lyricTranslation The LyricTranslation object to remove.
      * @return $this|ChildLyric The current object (for fluent API support)
      */
-    public function removeLyricTranslation(ChildLyricTranslation $lyricTranslation)
+    public function removeLyricTranslation(LyricTranslation $lyricTranslation)
     {
         if ($this->getLyricTranslations()->contains($lyricTranslation)) {
             $pos = $this->collLyricTranslations->search($lyricTranslation);
@@ -2479,11 +2482,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildLyricTranslation[] List of ChildLyricTranslation objects
+     * @return ObjectCollection|LyricTranslation[] List of LyricTranslation objects
      */
     public function getLyricTranslationsJoinUser(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = ChildLyricTranslationQuery::create(null, $criteria);
+        $query = LyricTranslationQuery::create(null, $criteria);
         $query->joinWith('User', $joinBehavior);
 
         return $this->getLyricTranslations($query, $con);
@@ -2529,11 +2532,11 @@ abstract class Lyric implements ActiveRecordInterface
             return;
         }
         $this->collLyricVotes = new ObjectCollection();
-        $this->collLyricVotes->setModel('\Tekstove\TekstoveBundle\Model\LyricVote');
+        $this->collLyricVotes->setModel('\Tekstove\TekstoveBundle\Model\Lyric\LyricVote');
     }
 
     /**
-     * Gets an array of ChildLyricVote objects which contain a foreign key that references this object.
+     * Gets an array of LyricVote objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -2543,7 +2546,7 @@ abstract class Lyric implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildLyricVote[] List of ChildLyricVote objects
+     * @return ObjectCollection|LyricVote[] List of LyricVote objects
      * @throws PropelException
      */
     public function getLyricVotes(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -2554,7 +2557,7 @@ abstract class Lyric implements ActiveRecordInterface
                 // return empty collection
                 $this->initLyricVotes();
             } else {
-                $collLyricVotes = ChildLyricVoteQuery::create(null, $criteria)
+                $collLyricVotes = LyricVoteQuery::create(null, $criteria)
                     ->filterByLyric($this)
                     ->find($con);
 
@@ -2591,7 +2594,7 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of ChildLyricVote objects related by a one-to-many relationship
+     * Sets a collection of LyricVote objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -2602,7 +2605,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function setLyricVotes(Collection $lyricVotes, ConnectionInterface $con = null)
     {
-        /** @var ChildLyricVote[] $lyricVotesToDelete */
+        /** @var LyricVote[] $lyricVotesToDelete */
         $lyricVotesToDelete = $this->getLyricVotes(new Criteria(), $con)->diff($lyricVotes);
 
 
@@ -2624,12 +2627,12 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related LyricVote objects.
+     * Returns the number of related BaseLyricVote objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related LyricVote objects.
+     * @return int             Count of related BaseLyricVote objects.
      * @throws PropelException
      */
     public function countLyricVotes(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -2644,7 +2647,7 @@ abstract class Lyric implements ActiveRecordInterface
                 return count($this->getLyricVotes());
             }
 
-            $query = ChildLyricVoteQuery::create(null, $criteria);
+            $query = LyricVoteQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -2658,13 +2661,13 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a ChildLyricVote object to this object
-     * through the ChildLyricVote foreign key attribute.
+     * Method called to associate a LyricVote object to this object
+     * through the LyricVote foreign key attribute.
      *
-     * @param  ChildLyricVote $l ChildLyricVote
+     * @param  LyricVote $l LyricVote
      * @return $this|\Tekstove\TekstoveBundle\Model\Lyric The current object (for fluent API support)
      */
-    public function addLyricVote(ChildLyricVote $l)
+    public function addLyricVote(LyricVote $l)
     {
         if ($this->collLyricVotes === null) {
             $this->initLyricVotes();
@@ -2679,19 +2682,19 @@ abstract class Lyric implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildLyricVote $lyricVote The ChildLyricVote object to add.
+     * @param LyricVote $lyricVote The LyricVote object to add.
      */
-    protected function doAddLyricVote(ChildLyricVote $lyricVote)
+    protected function doAddLyricVote(LyricVote $lyricVote)
     {
         $this->collLyricVotes[]= $lyricVote;
         $lyricVote->setLyric($this);
     }
 
     /**
-     * @param  ChildLyricVote $lyricVote The ChildLyricVote object to remove.
+     * @param  LyricVote $lyricVote The LyricVote object to remove.
      * @return $this|ChildLyric The current object (for fluent API support)
      */
-    public function removeLyricVote(ChildLyricVote $lyricVote)
+    public function removeLyricVote(LyricVote $lyricVote)
     {
         if ($this->getLyricVotes()->contains($lyricVote)) {
             $pos = $this->collLyricVotes->search($lyricVote);
@@ -2722,11 +2725,11 @@ abstract class Lyric implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildLyricVote[] List of ChildLyricVote objects
+     * @return ObjectCollection|LyricVote[] List of LyricVote objects
      */
     public function getLyricVotesJoinUser(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = ChildLyricVoteQuery::create(null, $criteria);
+        $query = LyricVoteQuery::create(null, $criteria);
         $query->joinWith('User', $joinBehavior);
 
         return $this->getLyricVotes($query, $con);
@@ -2920,7 +2923,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     protected function doAddLanguage(ChildLanguage $language)
     {
-        $lyricLanguage = new ChildLyricLanguage();
+        $lyricLanguage = new LyricLanguage();
 
         $lyricLanguage->setLanguage($language);
 
@@ -2948,7 +2951,7 @@ abstract class Lyric implements ActiveRecordInterface
      */
     public function removeLanguage(ChildLanguage $language)
     {
-        if ($this->getLanguages()->contains($language)) { $lyricLanguage = new ChildLyricLanguage();
+        if ($this->getLanguages()->contains($language)) { $lyricLanguage = new LyricLanguage();
 
             $lyricLanguage->setLanguage($language);
             if ($language->isLyricsLoaded()) {

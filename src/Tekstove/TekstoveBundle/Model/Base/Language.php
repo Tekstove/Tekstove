@@ -17,9 +17,10 @@ use Propel\Runtime\Parser\AbstractParser;
 use Tekstove\TekstoveBundle\Model\Language as ChildLanguage;
 use Tekstove\TekstoveBundle\Model\LanguageQuery as ChildLanguageQuery;
 use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
-use Tekstove\TekstoveBundle\Model\LyricLanguage as ChildLyricLanguage;
-use Tekstove\TekstoveBundle\Model\LyricLanguageQuery as ChildLyricLanguageQuery;
 use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricLanguage as BaseLyricLanguage;
 use Tekstove\TekstoveBundle\Model\Map\LanguageTableMap;
 
 /**
@@ -78,7 +79,7 @@ abstract class Language implements ActiveRecordInterface
     protected $name;
 
     /**
-     * @var        ObjectCollection|ChildLyricLanguage[] Collection to store aggregation of ChildLyricLanguage objects.
+     * @var        ObjectCollection|LyricLanguage[] Collection to store aggregation of LyricLanguage objects.
      */
     protected $collLyricLanguages;
     protected $collLyricLanguagesPartial;
@@ -109,7 +110,7 @@ abstract class Language implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildLyricLanguage[]
+     * @var ObjectCollection|LyricLanguage[]
      */
     protected $lyricLanguagesScheduledForDeletion = null;
 
@@ -764,11 +765,11 @@ abstract class Language implements ActiveRecordInterface
             return;
         }
         $this->collLyricLanguages = new ObjectCollection();
-        $this->collLyricLanguages->setModel('\Tekstove\TekstoveBundle\Model\LyricLanguage');
+        $this->collLyricLanguages->setModel('\Tekstove\TekstoveBundle\Model\Lyric\LyricLanguage');
     }
 
     /**
-     * Gets an array of ChildLyricLanguage objects which contain a foreign key that references this object.
+     * Gets an array of LyricLanguage objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -778,7 +779,7 @@ abstract class Language implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildLyricLanguage[] List of ChildLyricLanguage objects
+     * @return ObjectCollection|LyricLanguage[] List of LyricLanguage objects
      * @throws PropelException
      */
     public function getLyricLanguages(Criteria $criteria = null, ConnectionInterface $con = null)
@@ -789,7 +790,7 @@ abstract class Language implements ActiveRecordInterface
                 // return empty collection
                 $this->initLyricLanguages();
             } else {
-                $collLyricLanguages = ChildLyricLanguageQuery::create(null, $criteria)
+                $collLyricLanguages = LyricLanguageQuery::create(null, $criteria)
                     ->filterByLanguage($this)
                     ->find($con);
 
@@ -826,7 +827,7 @@ abstract class Language implements ActiveRecordInterface
     }
 
     /**
-     * Sets a collection of ChildLyricLanguage objects related by a one-to-many relationship
+     * Sets a collection of LyricLanguage objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
@@ -837,7 +838,7 @@ abstract class Language implements ActiveRecordInterface
      */
     public function setLyricLanguages(Collection $lyricLanguages, ConnectionInterface $con = null)
     {
-        /** @var ChildLyricLanguage[] $lyricLanguagesToDelete */
+        /** @var LyricLanguage[] $lyricLanguagesToDelete */
         $lyricLanguagesToDelete = $this->getLyricLanguages(new Criteria(), $con)->diff($lyricLanguages);
 
 
@@ -862,12 +863,12 @@ abstract class Language implements ActiveRecordInterface
     }
 
     /**
-     * Returns the number of related LyricLanguage objects.
+     * Returns the number of related BaseLyricLanguage objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related LyricLanguage objects.
+     * @return int             Count of related BaseLyricLanguage objects.
      * @throws PropelException
      */
     public function countLyricLanguages(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
@@ -882,7 +883,7 @@ abstract class Language implements ActiveRecordInterface
                 return count($this->getLyricLanguages());
             }
 
-            $query = ChildLyricLanguageQuery::create(null, $criteria);
+            $query = LyricLanguageQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -896,13 +897,13 @@ abstract class Language implements ActiveRecordInterface
     }
 
     /**
-     * Method called to associate a ChildLyricLanguage object to this object
-     * through the ChildLyricLanguage foreign key attribute.
+     * Method called to associate a LyricLanguage object to this object
+     * through the LyricLanguage foreign key attribute.
      *
-     * @param  ChildLyricLanguage $l ChildLyricLanguage
+     * @param  LyricLanguage $l LyricLanguage
      * @return $this|\Tekstove\TekstoveBundle\Model\Language The current object (for fluent API support)
      */
-    public function addLyricLanguage(ChildLyricLanguage $l)
+    public function addLyricLanguage(LyricLanguage $l)
     {
         if ($this->collLyricLanguages === null) {
             $this->initLyricLanguages();
@@ -917,19 +918,19 @@ abstract class Language implements ActiveRecordInterface
     }
 
     /**
-     * @param ChildLyricLanguage $lyricLanguage The ChildLyricLanguage object to add.
+     * @param LyricLanguage $lyricLanguage The LyricLanguage object to add.
      */
-    protected function doAddLyricLanguage(ChildLyricLanguage $lyricLanguage)
+    protected function doAddLyricLanguage(LyricLanguage $lyricLanguage)
     {
         $this->collLyricLanguages[]= $lyricLanguage;
         $lyricLanguage->setLanguage($this);
     }
 
     /**
-     * @param  ChildLyricLanguage $lyricLanguage The ChildLyricLanguage object to remove.
+     * @param  LyricLanguage $lyricLanguage The LyricLanguage object to remove.
      * @return $this|ChildLanguage The current object (for fluent API support)
      */
-    public function removeLyricLanguage(ChildLyricLanguage $lyricLanguage)
+    public function removeLyricLanguage(LyricLanguage $lyricLanguage)
     {
         if ($this->getLyricLanguages()->contains($lyricLanguage)) {
             $pos = $this->collLyricLanguages->search($lyricLanguage);
@@ -960,11 +961,11 @@ abstract class Language implements ActiveRecordInterface
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
      * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return ObjectCollection|ChildLyricLanguage[] List of ChildLyricLanguage objects
+     * @return ObjectCollection|LyricLanguage[] List of LyricLanguage objects
      */
     public function getLyricLanguagesJoinLyric(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
     {
-        $query = ChildLyricLanguageQuery::create(null, $criteria);
+        $query = LyricLanguageQuery::create(null, $criteria);
         $query->joinWith('Lyric', $joinBehavior);
 
         return $this->getLyricLanguages($query, $con);
@@ -1158,7 +1159,7 @@ abstract class Language implements ActiveRecordInterface
      */
     protected function doAddLyric(ChildLyric $lyric)
     {
-        $lyricLanguage = new ChildLyricLanguage();
+        $lyricLanguage = new LyricLanguage();
 
         $lyricLanguage->setLyric($lyric);
 
@@ -1186,7 +1187,7 @@ abstract class Language implements ActiveRecordInterface
      */
     public function removeLyric(ChildLyric $lyric)
     {
-        if ($this->getLyrics()->contains($lyric)) { $lyricLanguage = new ChildLyricLanguage();
+        if ($this->getLyrics()->contains($lyric)) { $lyricLanguage = new LyricLanguage();
 
             $lyricLanguage->setLyric($lyric);
             if ($lyric->isLanguagesLoaded()) {

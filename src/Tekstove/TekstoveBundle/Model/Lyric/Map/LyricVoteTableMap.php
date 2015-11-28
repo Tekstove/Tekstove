@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Map;
+namespace Tekstove\TekstoveBundle\Model\Lyric\Map;
 
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -11,12 +11,12 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
-use Tekstove\TekstoveBundle\Model\LyricLanguage;
-use Tekstove\TekstoveBundle\Model\LyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVote;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery;
 
 
 /**
- * This class defines the structure of the 'lyric_language' table.
+ * This class defines the structure of the 'lyric_vote' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Tekstove\TekstoveBundle\Model\LyricLanguageQuery;
  * (i.e. if it's a text column type).
  *
  */
-class LyricLanguageTableMap extends TableMap
+class LyricVoteTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class LyricLanguageTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'src.Tekstove.TekstoveBundle.Model.Map.LyricLanguageTableMap';
+    const CLASS_NAME = 'src..Tekstove.TekstoveBundle.Model.Lyric.Map.LyricVoteTableMap';
 
     /**
      * The default database name for this class
@@ -44,22 +44,22 @@ class LyricLanguageTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'lyric_language';
+    const TABLE_NAME = 'lyric_vote';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage';
+    const OM_CLASS = '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricVote';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'src.Tekstove.TekstoveBundle.Model.LyricLanguage';
+    const CLASS_DEFAULT = 'src..Tekstove.TekstoveBundle.Model.Lyric.LyricVote';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 2;
+    const NUM_COLUMNS = 3;
 
     /**
      * The number of lazy-loaded columns
@@ -69,17 +69,22 @@ class LyricLanguageTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 2;
+    const NUM_HYDRATE_COLUMNS = 3;
+
+    /**
+     * the column name for the id field
+     */
+    const COL_ID = 'lyric_vote.id';
 
     /**
      * the column name for the lyric_id field
      */
-    const COL_LYRIC_ID = 'lyric_language.lyric_id';
+    const COL_LYRIC_ID = 'lyric_vote.lyric_id';
 
     /**
-     * the column name for the language_id field
+     * the column name for the user_id field
      */
-    const COL_LANGUAGE_ID = 'lyric_language.language_id';
+    const COL_USER_ID = 'lyric_vote.user_id';
 
     /**
      * The default string format for model objects of the related table
@@ -93,11 +98,11 @@ class LyricLanguageTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('LyricId', 'LanguageId', ),
-        self::TYPE_CAMELNAME     => array('lyricId', 'languageId', ),
-        self::TYPE_COLNAME       => array(LyricLanguageTableMap::COL_LYRIC_ID, LyricLanguageTableMap::COL_LANGUAGE_ID, ),
-        self::TYPE_FIELDNAME     => array('lyric_id', 'language_id', ),
-        self::TYPE_NUM           => array(0, 1, )
+        self::TYPE_PHPNAME       => array('Id', 'LyricId', 'UserId', ),
+        self::TYPE_CAMELNAME     => array('id', 'lyricId', 'userId', ),
+        self::TYPE_COLNAME       => array(LyricVoteTableMap::COL_ID, LyricVoteTableMap::COL_LYRIC_ID, LyricVoteTableMap::COL_USER_ID, ),
+        self::TYPE_FIELDNAME     => array('id', 'lyric_id', 'user_id', ),
+        self::TYPE_NUM           => array(0, 1, 2, )
     );
 
     /**
@@ -107,11 +112,11 @@ class LyricLanguageTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('LyricId' => 0, 'LanguageId' => 1, ),
-        self::TYPE_CAMELNAME     => array('lyricId' => 0, 'languageId' => 1, ),
-        self::TYPE_COLNAME       => array(LyricLanguageTableMap::COL_LYRIC_ID => 0, LyricLanguageTableMap::COL_LANGUAGE_ID => 1, ),
-        self::TYPE_FIELDNAME     => array('lyric_id' => 0, 'language_id' => 1, ),
-        self::TYPE_NUM           => array(0, 1, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'LyricId' => 1, 'UserId' => 2, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'lyricId' => 1, 'userId' => 2, ),
+        self::TYPE_COLNAME       => array(LyricVoteTableMap::COL_ID => 0, LyricVoteTableMap::COL_LYRIC_ID => 1, LyricVoteTableMap::COL_USER_ID => 2, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'lyric_id' => 1, 'user_id' => 2, ),
+        self::TYPE_NUM           => array(0, 1, 2, )
     );
 
     /**
@@ -124,16 +129,16 @@ class LyricLanguageTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('lyric_language');
-        $this->setPhpName('LyricLanguage');
+        $this->setName('lyric_vote');
+        $this->setPhpName('LyricVote');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\LyricLanguage');
-        $this->setPackage('src.Tekstove.TekstoveBundle.Model');
-        $this->setUseIdGenerator(false);
-        $this->setIsCrossRef(true);
+        $this->setClassName('\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricVote');
+        $this->setPackage('src..Tekstove.TekstoveBundle.Model.Lyric');
+        $this->setUseIdGenerator(true);
         // columns
-        $this->addForeignPrimaryKey('lyric_id', 'LyricId', 'INTEGER' , 'lyric', 'id', true, null, null);
-        $this->addForeignPrimaryKey('language_id', 'LanguageId', 'INTEGER' , 'language', 'id', true, null, null);
+        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addForeignKey('lyric_id', 'LyricId', 'INTEGER', 'lyric', 'id', false, null, null);
+        $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'user', 'id', false, null, null);
     } // initialize()
 
     /**
@@ -141,6 +146,13 @@ class LyricLanguageTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('User', '\\Tekstove\\TekstoveBundle\\Model\\User', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':user_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
         $this->addRelation('Lyric', '\\Tekstove\\TekstoveBundle\\Model\\Lyric', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
@@ -148,67 +160,7 @@ class LyricLanguageTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, null, false);
-        $this->addRelation('Language', '\\Tekstove\\TekstoveBundle\\Model\\Language', RelationMap::MANY_TO_ONE, array (
-  0 =>
-  array (
-    0 => ':language_id',
-    1 => ':id',
-  ),
-), null, null, null, false);
     } // buildRelations()
-
-    /**
-     * Adds an object to the instance pool.
-     *
-     * Propel keeps cached copies of objects in an instance pool when they are retrieved
-     * from the database. In some cases you may need to explicitly add objects
-     * to the cache in order to ensure that the same objects are always returned by find*()
-     * and findPk*() calls.
-     *
-     * @param \Tekstove\TekstoveBundle\Model\LyricLanguage $obj A \Tekstove\TekstoveBundle\Model\LyricLanguage object.
-     * @param string $key             (optional) key to use for instance map (for performance boost if key was already calculated externally).
-     */
-    public static function addInstanceToPool($obj, $key = null)
-    {
-        if (Propel::isInstancePoolingEnabled()) {
-            if (null === $key) {
-                $key = serialize(array((string) $obj->getLyricId(), (string) $obj->getLanguageId()));
-            } // if key === null
-            self::$instances[$key] = $obj;
-        }
-    }
-
-    /**
-     * Removes an object from the instance pool.
-     *
-     * Propel keeps cached copies of objects in an instance pool when they are retrieved
-     * from the database.  In some cases -- especially when you override doDelete
-     * methods in your stub classes -- you may need to explicitly remove objects
-     * from the cache in order to prevent returning objects that no longer exist.
-     *
-     * @param mixed $value A \Tekstove\TekstoveBundle\Model\LyricLanguage object or a primary key value.
-     */
-    public static function removeInstanceFromPool($value)
-    {
-        if (Propel::isInstancePoolingEnabled() && null !== $value) {
-            if (is_object($value) && $value instanceof \Tekstove\TekstoveBundle\Model\LyricLanguage) {
-                $key = serialize(array((string) $value->getLyricId(), (string) $value->getLanguageId()));
-
-            } elseif (is_array($value) && count($value) === 2) {
-                // assume we've been passed a primary key";
-                $key = serialize(array((string) $value[0], (string) $value[1]));
-            } elseif ($value instanceof Criteria) {
-                self::$instances = [];
-
-                return;
-            } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or \Tekstove\TekstoveBundle\Model\LyricLanguage object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value, true)));
-                throw $e;
-            }
-
-            unset(self::$instances[$key]);
-        }
-    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -226,11 +178,11 @@ class LyricLanguageTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('LyricId', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('LanguageId', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
             return null;
         }
 
-        return serialize(array((string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('LyricId', TableMap::TYPE_PHPNAME, $indexType)], (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('LanguageId', TableMap::TYPE_PHPNAME, $indexType)]));
+        return (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -247,20 +199,11 @@ class LyricLanguageTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-            $pks = [];
-
-        $pks[] = (int) $row[
+        return (int) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
-                : self::translateFieldName('LyricId', TableMap::TYPE_PHPNAME, $indexType)
+                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
         ];
-        $pks[] = (int) $row[
-            $indexType == TableMap::TYPE_NUM
-                ? 1 + $offset
-                : self::translateFieldName('LanguageId', TableMap::TYPE_PHPNAME, $indexType)
-        ];
-
-        return $pks;
     }
 
     /**
@@ -276,7 +219,7 @@ class LyricLanguageTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? LyricLanguageTableMap::CLASS_DEFAULT : LyricLanguageTableMap::OM_CLASS;
+        return $withPrefix ? LyricVoteTableMap::CLASS_DEFAULT : LyricVoteTableMap::OM_CLASS;
     }
 
     /**
@@ -290,22 +233,22 @@ class LyricLanguageTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (LyricLanguage object, last column rank)
+     * @return array           (LyricVote object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = LyricLanguageTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = LyricLanguageTableMap::getInstanceFromPool($key))) {
+        $key = LyricVoteTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = LyricVoteTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + LyricLanguageTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + LyricVoteTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = LyricLanguageTableMap::OM_CLASS;
-            /** @var LyricLanguage $obj */
+            $cls = LyricVoteTableMap::OM_CLASS;
+            /** @var LyricVote $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            LyricLanguageTableMap::addInstanceToPool($obj, $key);
+            LyricVoteTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -328,18 +271,18 @@ class LyricLanguageTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = LyricLanguageTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = LyricLanguageTableMap::getInstanceFromPool($key))) {
+            $key = LyricVoteTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = LyricVoteTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var LyricLanguage $obj */
+                /** @var LyricVote $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                LyricLanguageTableMap::addInstanceToPool($obj, $key);
+                LyricVoteTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -360,11 +303,13 @@ class LyricLanguageTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(LyricLanguageTableMap::COL_LYRIC_ID);
-            $criteria->addSelectColumn(LyricLanguageTableMap::COL_LANGUAGE_ID);
+            $criteria->addSelectColumn(LyricVoteTableMap::COL_ID);
+            $criteria->addSelectColumn(LyricVoteTableMap::COL_LYRIC_ID);
+            $criteria->addSelectColumn(LyricVoteTableMap::COL_USER_ID);
         } else {
+            $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.lyric_id');
-            $criteria->addSelectColumn($alias . '.language_id');
+            $criteria->addSelectColumn($alias . '.user_id');
         }
     }
 
@@ -377,7 +322,7 @@ class LyricLanguageTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(LyricLanguageTableMap::DATABASE_NAME)->getTable(LyricLanguageTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(LyricVoteTableMap::DATABASE_NAME)->getTable(LyricVoteTableMap::TABLE_NAME);
     }
 
     /**
@@ -385,16 +330,16 @@ class LyricLanguageTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(LyricLanguageTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(LyricLanguageTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new LyricLanguageTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(LyricVoteTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(LyricVoteTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new LyricVoteTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a LyricLanguage or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a LyricVote or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or LyricLanguage object or primary key or array of primary keys
+     * @param mixed               $values Criteria or LyricVote object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -405,37 +350,27 @@ class LyricLanguageTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricLanguageTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LyricVoteTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\LyricLanguage) { // it's a model object
+        } elseif ($values instanceof \Tekstove\TekstoveBundle\Model\Lyric\LyricVote) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(LyricLanguageTableMap::DATABASE_NAME);
-            // primary key is composite; we therefore, expect
-            // the primary key passed to be an array of pkey values
-            if (count($values) == count($values, COUNT_RECURSIVE)) {
-                // array is not multi-dimensional
-                $values = array($values);
-            }
-            foreach ($values as $value) {
-                $criterion = $criteria->getNewCriterion(LyricLanguageTableMap::COL_LYRIC_ID, $value[0]);
-                $criterion->addAnd($criteria->getNewCriterion(LyricLanguageTableMap::COL_LANGUAGE_ID, $value[1]));
-                $criteria->addOr($criterion);
-            }
+            $criteria = new Criteria(LyricVoteTableMap::DATABASE_NAME);
+            $criteria->add(LyricVoteTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = LyricLanguageQuery::create()->mergeWith($criteria);
+        $query = LyricVoteQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            LyricLanguageTableMap::clearInstancePool();
+            LyricVoteTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                LyricLanguageTableMap::removeInstanceFromPool($singleval);
+                LyricVoteTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -443,20 +378,20 @@ class LyricLanguageTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the lyric_language table.
+     * Deletes all rows from the lyric_vote table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return LyricLanguageQuery::create()->doDeleteAll($con);
+        return LyricVoteQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a LyricLanguage or Criteria object.
+     * Performs an INSERT on the database, given a LyricVote or Criteria object.
      *
-     * @param mixed               $criteria Criteria or LyricLanguage object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or LyricVote object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -465,18 +400,22 @@ class LyricLanguageTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricLanguageTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LyricVoteTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from LyricLanguage object
+            $criteria = $criteria->buildCriteria(); // build Criteria from LyricVote object
+        }
+
+        if ($criteria->containsKey(LyricVoteTableMap::COL_ID) && $criteria->keyContainsValue(LyricVoteTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.LyricVoteTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = LyricLanguageQuery::create()->mergeWith($criteria);
+        $query = LyricVoteQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -485,7 +424,7 @@ class LyricLanguageTableMap extends TableMap
         });
     }
 
-} // LyricLanguageTableMap
+} // LyricVoteTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-LyricLanguageTableMap::buildTableMap();
+LyricVoteTableMap::buildTableMap();

@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model;
+namespace Tekstove\TekstoveBundle\Model\Lyric;
 
-use Tekstove\TekstoveBundle\Model\Base\LyricLanguageQuery as BaseLyricLanguageQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricLanguageQuery as BaseLyricLanguageQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'lyric_language' table.

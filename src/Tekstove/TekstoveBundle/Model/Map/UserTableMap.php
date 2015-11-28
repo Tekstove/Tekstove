@@ -185,14 +185,14 @@ class UserTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'Lyrics', false);
-        $this->addRelation('LyricTranslation', '\\Tekstove\\TekstoveBundle\\Model\\LyricTranslation', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('LyricTranslation', '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricTranslation', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':user_id',
     1 => ':id',
   ),
 ), null, null, 'LyricTranslations', false);
-        $this->addRelation('LyricVote', '\\Tekstove\\TekstoveBundle\\Model\\LyricVote', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('LyricVote', '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricVote', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
     0 => ':user_id',

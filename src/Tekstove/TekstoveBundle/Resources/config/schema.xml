@@ -81,7 +81,7 @@
         </behavior>
     </table>
     
-    <table name="lyric_language" isCrossRef="true">
+    <table name="lyric_language" isCrossRef="true" namespace="\Tekstove\TekstoveBundle\Model\Lyric" >
         <column name="lyric_id" type="integer" primaryKey="true"/>
         <column name="language_id" type="integer" primaryKey="true"/>
         <foreign-key foreignTable="lyric">
@@ -92,7 +92,7 @@
         </foreign-key>
     </table>
     
-    <table name="lyric_translation">
+    <table name="lyric_translation" namespace="\Tekstove\TekstoveBundle\Model\Lyric" >
         <column name="id" type="integer" primaryKey="true" autoIncrement="true" />
         <column name="lyric_id" type="integer"/>
         <column name="user_id" type="integer"/>
@@ -111,7 +111,7 @@
         <column name="name" type="varchar" />
     </table>
     
-    <table name="lyric_vote">
+    <table name="lyric_vote" namespace="\Tekstove\TekstoveBundle\Model\Lyric">
         <column name="id" type="integer" required="true" primarykey="true" autoIncrement="true"/>
         <column name="lyric_id" type="integer" />
         <column name="user_id" type="integer" />

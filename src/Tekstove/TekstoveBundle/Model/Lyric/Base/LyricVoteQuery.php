@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Lyric\Base;
 
 use \Exception;
 use \PDO;
@@ -11,9 +11,11 @@ use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
-use Tekstove\TekstoveBundle\Model\LyricVote as ChildLyricVote;
-use Tekstove\TekstoveBundle\Model\LyricVoteQuery as ChildLyricVoteQuery;
-use Tekstove\TekstoveBundle\Model\Map\LyricVoteTableMap;
+use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVote as ChildLyricVote;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery as ChildLyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Map\LyricVoteTableMap;
 
 /**
  * Base class that represents a query for the 'lyric_vote' table.
@@ -84,13 +86,13 @@ abstract class LyricVoteQuery extends ModelCriteria
     protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
-     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Base\LyricVoteQuery object.
+     * Initializes internal state of \Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVoteQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\LyricVote', $modelAlias = null)
+    public function __construct($dbName = 'default', $modelName = '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricVote', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }

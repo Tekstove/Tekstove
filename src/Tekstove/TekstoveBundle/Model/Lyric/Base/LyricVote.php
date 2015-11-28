@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\TekstoveBundle\Model\Base;
+namespace Tekstove\TekstoveBundle\Model\Lyric\Base;
 
 use \Exception;
 use \PDO;
@@ -15,26 +15,26 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Tekstove\TekstoveBundle\Model\Lyric as ChildLyric;
-use Tekstove\TekstoveBundle\Model\LyricQuery as ChildLyricQuery;
-use Tekstove\TekstoveBundle\Model\LyricTranslationQuery as ChildLyricTranslationQuery;
-use Tekstove\TekstoveBundle\Model\User as ChildUser;
-use Tekstove\TekstoveBundle\Model\UserQuery as ChildUserQuery;
-use Tekstove\TekstoveBundle\Model\Map\LyricTranslationTableMap;
+use Tekstove\TekstoveBundle\Model\Lyric;
+use Tekstove\TekstoveBundle\Model\LyricQuery;
+use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Model\UserQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\LyricVoteQuery as ChildLyricVoteQuery;
+use Tekstove\TekstoveBundle\Model\Lyric\Map\LyricVoteTableMap;
 
 /**
- * Base class that represents a row from the 'lyric_translation' table.
+ * Base class that represents a row from the 'lyric_vote' table.
  *
  *
  *
-* @package    propel.generator.src.Tekstove.TekstoveBundle.Model.Base
+* @package    propel.generator.src..Tekstove.TekstoveBundle.Model.Lyric.Base
 */
-abstract class LyricTranslation implements ActiveRecordInterface
+abstract class LyricVote implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Map\\LyricTranslationTableMap';
+    const TABLE_MAP = '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\Map\\LyricVoteTableMap';
 
 
     /**
@@ -85,21 +85,14 @@ abstract class LyricTranslation implements ActiveRecordInterface
     protected $user_id;
 
     /**
-     * The value for the text field.
-     *
-     * @var        string
-     */
-    protected $text;
-
-    /**
-     * @var        ChildLyric
-     */
-    protected $aLyric;
-
-    /**
-     * @var        ChildUser
+     * @var        User
      */
     protected $aUser;
+
+    /**
+     * @var        Lyric
+     */
+    protected $aLyric;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -110,7 +103,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * Initializes internal state of Tekstove\TekstoveBundle\Model\Base\LyricTranslation object.
+     * Initializes internal state of Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVote object.
      */
     public function __construct()
     {
@@ -205,9 +198,9 @@ abstract class LyricTranslation implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>LyricTranslation</code> instance.  If
-     * <code>obj</code> is an instance of <code>LyricTranslation</code>, delegates to
-     * <code>equals(LyricTranslation)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>LyricVote</code> instance.  If
+     * <code>obj</code> is an instance of <code>LyricVote</code>, delegates to
+     * <code>equals(LyricVote)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -273,7 +266,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|LyricTranslation The current object, for fluid interface
+     * @return $this|LyricVote The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -365,20 +358,10 @@ abstract class LyricTranslation implements ActiveRecordInterface
     }
 
     /**
-     * Get the [text] column value.
-     *
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -388,7 +371,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[LyricTranslationTableMap::COL_ID] = true;
+            $this->modifiedColumns[LyricVoteTableMap::COL_ID] = true;
         }
 
         return $this;
@@ -398,7 +381,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * Set the value of [lyric_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object (for fluent API support)
      */
     public function setLyricId($v)
     {
@@ -408,7 +391,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
         if ($this->lyric_id !== $v) {
             $this->lyric_id = $v;
-            $this->modifiedColumns[LyricTranslationTableMap::COL_LYRIC_ID] = true;
+            $this->modifiedColumns[LyricVoteTableMap::COL_LYRIC_ID] = true;
         }
 
         if ($this->aLyric !== null && $this->aLyric->getId() !== $v) {
@@ -422,7 +405,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * Set the value of [user_id] column.
      *
      * @param int $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object (for fluent API support)
      */
     public function setUserId($v)
     {
@@ -432,7 +415,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
         if ($this->user_id !== $v) {
             $this->user_id = $v;
-            $this->modifiedColumns[LyricTranslationTableMap::COL_USER_ID] = true;
+            $this->modifiedColumns[LyricVoteTableMap::COL_USER_ID] = true;
         }
 
         if ($this->aUser !== null && $this->aUser->getId() !== $v) {
@@ -441,26 +424,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
         return $this;
     } // setUserId()
-
-    /**
-     * Set the value of [text] column.
-     *
-     * @param string $v new value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
-     */
-    public function setText($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->text !== $v) {
-            $this->text = $v;
-            $this->modifiedColumns[LyricTranslationTableMap::COL_TEXT] = true;
-        }
-
-        return $this;
-    } // setText()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -498,17 +461,14 @@ abstract class LyricTranslation implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LyricTranslationTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : LyricVoteTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LyricTranslationTableMap::translateFieldName('LyricId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : LyricVoteTableMap::translateFieldName('LyricId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->lyric_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricTranslationTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : LyricVoteTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->user_id = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : LyricTranslationTableMap::translateFieldName('Text', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->text = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -517,10 +477,10 @@ abstract class LyricTranslation implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = LyricTranslationTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = LyricVoteTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\LyricTranslation'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Tekstove\\TekstoveBundle\\Model\\Lyric\\LyricVote'), 0, $e);
         }
     }
 
@@ -568,13 +528,13 @@ abstract class LyricTranslation implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(LyricTranslationTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(LyricVoteTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildLyricTranslationQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildLyricVoteQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -584,8 +544,8 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aLyric = null;
             $this->aUser = null;
+            $this->aLyric = null;
         } // if (deep)
     }
 
@@ -595,8 +555,8 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see LyricTranslation::setDeleted()
-     * @see LyricTranslation::isDeleted()
+     * @see LyricVote::setDeleted()
+     * @see LyricVote::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -605,11 +565,11 @@ abstract class LyricTranslation implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTranslationTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LyricVoteTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildLyricTranslationQuery::create()
+            $deleteQuery = ChildLyricVoteQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -640,7 +600,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(LyricTranslationTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(LyricVoteTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -659,7 +619,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                LyricTranslationTableMap::addInstanceToPool($this);
+                LyricVoteTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -690,18 +650,18 @@ abstract class LyricTranslation implements ActiveRecordInterface
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aLyric !== null) {
-                if ($this->aLyric->isModified() || $this->aLyric->isNew()) {
-                    $affectedRows += $this->aLyric->save($con);
-                }
-                $this->setLyric($this->aLyric);
-            }
-
             if ($this->aUser !== null) {
                 if ($this->aUser->isModified() || $this->aUser->isNew()) {
                     $affectedRows += $this->aUser->save($con);
                 }
                 $this->setUser($this->aUser);
+            }
+
+            if ($this->aLyric !== null) {
+                if ($this->aLyric->isModified() || $this->aLyric->isNew()) {
+                    $affectedRows += $this->aLyric->save($con);
+                }
+                $this->setLyric($this->aLyric);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -735,27 +695,24 @@ abstract class LyricTranslation implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[LyricTranslationTableMap::COL_ID] = true;
+        $this->modifiedColumns[LyricVoteTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LyricTranslationTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LyricVoteTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_ID)) {
+        if ($this->isColumnModified(LyricVoteTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_LYRIC_ID)) {
+        if ($this->isColumnModified(LyricVoteTableMap::COL_LYRIC_ID)) {
             $modifiedColumns[':p' . $index++]  = 'lyric_id';
         }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_USER_ID)) {
+        if ($this->isColumnModified(LyricVoteTableMap::COL_USER_ID)) {
             $modifiedColumns[':p' . $index++]  = 'user_id';
-        }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_TEXT)) {
-            $modifiedColumns[':p' . $index++]  = 'text';
         }
 
         $sql = sprintf(
-            'INSERT INTO lyric_translation (%s) VALUES (%s)',
+            'INSERT INTO lyric_vote (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -772,9 +729,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
                         break;
                     case 'user_id':
                         $stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
-                        break;
-                    case 'text':
-                        $stmt->bindValue($identifier, $this->text, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -822,7 +776,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = LyricTranslationTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LyricVoteTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -846,9 +800,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
                 break;
             case 2:
                 return $this->getUserId();
-                break;
-            case 3:
-                return $this->getText();
                 break;
             default:
                 return null;
@@ -874,16 +825,15 @@ abstract class LyricTranslation implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
-        if (isset($alreadyDumpedObjects['LyricTranslation'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['LyricVote'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['LyricTranslation'][$this->hashCode()] = true;
-        $keys = LyricTranslationTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['LyricVote'][$this->hashCode()] = true;
+        $keys = LyricVoteTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getLyricId(),
             $keys[2] => $this->getUserId(),
-            $keys[3] => $this->getText(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -891,21 +841,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aLyric) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'lyric';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'lyric';
-                        break;
-                    default:
-                        $key = 'Lyric';
-                }
-
-                $result[$key] = $this->aLyric->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
             if (null !== $this->aUser) {
 
                 switch ($keyType) {
@@ -921,6 +856,21 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
                 $result[$key] = $this->aUser->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
+            if (null !== $this->aLyric) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'lyric';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'lyric';
+                        break;
+                    default:
+                        $key = 'Lyric';
+                }
+
+                $result[$key] = $this->aLyric->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
         }
 
         return $result;
@@ -935,11 +885,11 @@ abstract class LyricTranslation implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = LyricTranslationTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = LyricVoteTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -950,7 +900,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote
      */
     public function setByPosition($pos, $value)
     {
@@ -963,9 +913,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
                 break;
             case 2:
                 $this->setUserId($value);
-                break;
-            case 3:
-                $this->setText($value);
                 break;
         } // switch()
 
@@ -991,7 +938,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = LyricTranslationTableMap::getFieldNames($keyType);
+        $keys = LyricVoteTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
@@ -1001,9 +948,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
         }
         if (array_key_exists($keys[2], $arr)) {
             $this->setUserId($arr[$keys[2]]);
-        }
-        if (array_key_exists($keys[3], $arr)) {
-            $this->setText($arr[$keys[3]]);
         }
     }
 
@@ -1024,7 +968,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object, for fluid interface
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1044,19 +988,16 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(LyricTranslationTableMap::DATABASE_NAME);
+        $criteria = new Criteria(LyricVoteTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_ID)) {
-            $criteria->add(LyricTranslationTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(LyricVoteTableMap::COL_ID)) {
+            $criteria->add(LyricVoteTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_LYRIC_ID)) {
-            $criteria->add(LyricTranslationTableMap::COL_LYRIC_ID, $this->lyric_id);
+        if ($this->isColumnModified(LyricVoteTableMap::COL_LYRIC_ID)) {
+            $criteria->add(LyricVoteTableMap::COL_LYRIC_ID, $this->lyric_id);
         }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_USER_ID)) {
-            $criteria->add(LyricTranslationTableMap::COL_USER_ID, $this->user_id);
-        }
-        if ($this->isColumnModified(LyricTranslationTableMap::COL_TEXT)) {
-            $criteria->add(LyricTranslationTableMap::COL_TEXT, $this->text);
+        if ($this->isColumnModified(LyricVoteTableMap::COL_USER_ID)) {
+            $criteria->add(LyricVoteTableMap::COL_USER_ID, $this->user_id);
         }
 
         return $criteria;
@@ -1074,8 +1015,8 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildLyricTranslationQuery::create();
-        $criteria->add(LyricTranslationTableMap::COL_ID, $this->id);
+        $criteria = ChildLyricVoteQuery::create();
+        $criteria->add(LyricVoteTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1137,7 +1078,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\LyricTranslation (or compatible) type.
+     * @param      object $copyObj An object of \Tekstove\TekstoveBundle\Model\Lyric\LyricVote (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1146,7 +1087,6 @@ abstract class LyricTranslation implements ActiveRecordInterface
     {
         $copyObj->setLyricId($this->getLyricId());
         $copyObj->setUserId($this->getUserId());
-        $copyObj->setText($this->getText());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1162,7 +1102,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Tekstove\TekstoveBundle\Model\LyricTranslation Clone of current object.
+     * @return \Tekstove\TekstoveBundle\Model\Lyric\LyricVote Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1176,64 +1116,13 @@ abstract class LyricTranslation implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildLyric object.
+     * Declares an association between this object and a User object.
      *
-     * @param  ChildLyric $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
+     * @param  User $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setLyric(ChildLyric $v = null)
-    {
-        if ($v === null) {
-            $this->setLyricId(NULL);
-        } else {
-            $this->setLyricId($v->getId());
-        }
-
-        $this->aLyric = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildLyric object, it will not be re-added.
-        if ($v !== null) {
-            $v->addLyricTranslation($this);
-        }
-
-
-        return $this;
-    }
-
-
-    /**
-     * Get the associated ChildLyric object
-     *
-     * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildLyric The associated ChildLyric object.
-     * @throws PropelException
-     */
-    public function getLyric(ConnectionInterface $con = null)
-    {
-        if ($this->aLyric === null && ($this->lyric_id !== null)) {
-            $this->aLyric = ChildLyricQuery::create()->findPk($this->lyric_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aLyric->addLyricTranslations($this);
-             */
-        }
-
-        return $this->aLyric;
-    }
-
-    /**
-     * Declares an association between this object and a ChildUser object.
-     *
-     * @param  ChildUser $v
-     * @return $this|\Tekstove\TekstoveBundle\Model\LyricTranslation The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setUser(ChildUser $v = null)
+    public function setUser(User $v = null)
     {
         if ($v === null) {
             $this->setUserId(NULL);
@@ -1244,9 +1133,9 @@ abstract class LyricTranslation implements ActiveRecordInterface
         $this->aUser = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildUser object, it will not be re-added.
+        // If this object has already been added to the User object, it will not be re-added.
         if ($v !== null) {
-            $v->addLyricTranslation($this);
+            $v->addLyricVote($this);
         }
 
 
@@ -1255,26 +1144,77 @@ abstract class LyricTranslation implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildUser object
+     * Get the associated User object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildUser The associated ChildUser object.
+     * @return User The associated User object.
      * @throws PropelException
      */
     public function getUser(ConnectionInterface $con = null)
     {
         if ($this->aUser === null && ($this->user_id !== null)) {
-            $this->aUser = ChildUserQuery::create()->findPk($this->user_id, $con);
+            $this->aUser = UserQuery::create()->findPk($this->user_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aUser->addLyricTranslations($this);
+                $this->aUser->addLyricVotes($this);
              */
         }
 
         return $this->aUser;
+    }
+
+    /**
+     * Declares an association between this object and a Lyric object.
+     *
+     * @param  Lyric $v
+     * @return $this|\Tekstove\TekstoveBundle\Model\Lyric\LyricVote The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setLyric(Lyric $v = null)
+    {
+        if ($v === null) {
+            $this->setLyricId(NULL);
+        } else {
+            $this->setLyricId($v->getId());
+        }
+
+        $this->aLyric = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Lyric object, it will not be re-added.
+        if ($v !== null) {
+            $v->addLyricVote($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated Lyric object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return Lyric The associated Lyric object.
+     * @throws PropelException
+     */
+    public function getLyric(ConnectionInterface $con = null)
+    {
+        if ($this->aLyric === null && ($this->lyric_id !== null)) {
+            $this->aLyric = LyricQuery::create()->findPk($this->lyric_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aLyric->addLyricVotes($this);
+             */
+        }
+
+        return $this->aLyric;
     }
 
     /**
@@ -1284,16 +1224,15 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function clear()
     {
-        if (null !== $this->aLyric) {
-            $this->aLyric->removeLyricTranslation($this);
-        }
         if (null !== $this->aUser) {
-            $this->aUser->removeLyricTranslation($this);
+            $this->aUser->removeLyricVote($this);
+        }
+        if (null !== $this->aLyric) {
+            $this->aLyric->removeLyricVote($this);
         }
         $this->id = null;
         $this->lyric_id = null;
         $this->user_id = null;
-        $this->text = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1314,8 +1253,8 @@ abstract class LyricTranslation implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
-        $this->aLyric = null;
         $this->aUser = null;
+        $this->aLyric = null;
     }
 
     /**
@@ -1325,7 +1264,7 @@ abstract class LyricTranslation implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(LyricTranslationTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(LyricVoteTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**
