@@ -3,6 +3,7 @@
 namespace Tekstove\TekstoveBundle\Model;
 
 use Tekstove\TekstoveBundle\EventDispatcher\EventDispacher;
+use Tekstove\CacheBundle\Model\Cache;
 
 /**
  * Description of LyricRepository
@@ -12,11 +13,12 @@ use Tekstove\TekstoveBundle\EventDispatcher\EventDispacher;
 class LyricRepository
 {
     private $eventDispacher;
+    private $cache;
     
-    public function __construct(EventDispacher $eventDispacher)
+    public function __construct(EventDispacher $eventDispacher, Cache $cache)
     {
         $this->eventDispacher = $eventDispacher;
-        
+        $this->cache = $cache;
     }
     
     

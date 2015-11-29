@@ -19,10 +19,10 @@ class LyricType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title');
-        $builder->add('text');
+        $builder->add('text', 'textarea');
         $builder->add(
             'textBg',
-            null,
+            'textarea',
             [
                 'label' => 'Translation'
             ]

@@ -3,6 +3,15 @@ parameters:
     tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
     
 services:
+    tekstoveCache.cache.memcached:
+        class: Tekstove\CacheBundle\Model\Cache\Adapter\Memcached
+        arguments:
+            - { host: 'localhost', port: 11211, weight: ~ }
+    tekstoveCache.cache:
+        class: Tekstove\CacheBundle\Model\Cache
+        arguments: [@tekstoveCache.cache.memcached]
+    
+    
     tekstove.model.user.query:
         class:   Tekstove\TekstoveBundle\Model\UserQuery
     
@@ -17,7 +26,7 @@ services:
     
     tekstove.lyric.repository:
         class: Tekstove\TekstoveBundle\Model\LyricRepository
-        arguments: [@tekstove.event_dispacher]
+        arguments: [@tekstove.event_dispacher, @tekstoveCache.cache]
     
     tekstove.security.lyric_voter:
         class: Tekstove\TekstoveBundle\Security\Authorization\Voter\LyricVoter
