@@ -37,7 +37,7 @@ class LyricRepository
     public function getCachedTopNew()
     {
         $cache = $this->cache->get('tekstove.lyric.topNew');
-        if ($cache !== null) {
+        if ($cache) {
             return $cache;
         }
         
