@@ -15,7 +15,10 @@ class Memcached implements AdapterInterface
     {
         $this->adapter = new \Memcached();
         foreach ($servers as $server) {
-            $this->adapter->addServer($server['host'], $server['port'], $server['weight']);
+            $result = $this->adapter->addServer($server['host'], $server['port'], $server['weight']);
+            if (!$result) {
+                throw new \Exception("Can't add memcached server");
+            }
         }
     }
     
