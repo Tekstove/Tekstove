@@ -17,12 +17,10 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
+        $lyricRepo = $this->get('tekstove.lyric.repository');
+        /* @var $lyricRepo \Tekstove\TekstoveBundle\Model\LyricRepository */
         
-        $newestQuery = new LyricQuery();
-        /* @var $newestQuery \Tekstove\TekstoveBundle\Model\LyricQuery */
-        $newestQuery->orderById(Criteria::DESC);
-        $newestQuery->limit(10);
-        $lastLyrics = $newestQuery->find();
+        $lastLyrics = $lyricRepo->getCachedTopNew();
         
         $lastTranslatedQuery = new LyricQuery();
 

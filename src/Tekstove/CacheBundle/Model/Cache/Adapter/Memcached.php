@@ -24,16 +24,19 @@ class Memcached implements AdapterInterface
     
     public function set($key, $value, $time = null)
     {
-        $this->adapter->set($key, $value, $time);
+        $result = $this->adapter->set($key, $value, time() + $time);
+        if (!$result) {
+                throw new \Exception("Can't save cache");
+            }
     }
 
-    public static function delete($key)
+    public function delete($key)
     {
         $this->adapter->delete($key);
     }
 
-    public static function get($key)
+    public function get($key)
     {
-        $this->adapter->get($key);
+        return $this->adapter->get($key);
     }
 }

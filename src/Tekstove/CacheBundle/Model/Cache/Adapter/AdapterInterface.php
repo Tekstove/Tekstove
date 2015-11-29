@@ -23,10 +23,10 @@ interface AdapterInterface
      * @param type $key
      * @return type
      */
-    public static function get($key);
+    public function get($key);
 
     /**
      * @param string $key
      */
-    public static function delete($key);
+    public function delete($key);
 }
