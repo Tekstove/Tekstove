@@ -4,6 +4,8 @@ php:
   - 5.5
   - 5.6
 before_script:
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
   - mv app/config/parameters_travis.yml app/config/parameters.yml
   - mysql -e 'create database tekstove_lyric;'
   - composer self-update
@@ -11,6 +13,8 @@ before_script:
 
 script:
     - app/console
+    - cd Test/codeSniffer
+    - bin/phpcs
 
 notifications:
     on_success: never
