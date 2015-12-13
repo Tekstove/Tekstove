@@ -1,5 +1,0 @@
-services:
-    knp_paginator_adapter_propel2.propel2subscriber:
-        class: KnpPaginatorAdapterPropel2Bundle\Subscriber\PaginatePropelQuerySubscrber
-        tags:
-            - { name: knp_paginator.subscriber }

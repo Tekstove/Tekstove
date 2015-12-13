@@ -53,6 +53,18 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+
+propel:
+    database:
+        connections:
+            default:
+                adapter:    %database_driver%
+                user:       %database_user%
+                password:   %database_password%
+                dsn:        %database_driver%:host=%database_host%;dbname=%database_name%;charset=UTF8
+                settings:
+                   charset: UTF8
+
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:

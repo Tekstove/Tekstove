@@ -28,7 +28,7 @@ class AppKernel extends Kernel
              * Local
              */
             new Tekstove\TekstoveBundle\TekstoveBundle(),
-            new KnpPaginatorAdapterPropel2Bundle\KnpPaginatorAdapterPropel2Bundle(),
+            new Potaka\KnpPaginatorAdapterPropel2Bundle\PotakaKnpPaginatorAdapterPropel2Bundle(),
             new Tekstove\CacheBundle\CacheBundle(),
         );
 
