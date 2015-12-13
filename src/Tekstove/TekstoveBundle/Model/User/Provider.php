@@ -3,7 +3,7 @@
 namespace Tekstove\TekstoveBundle\Model\User;
 
 use Tekstove\TekstoveBundle\Model\User;
-use Tekstove\TekstoveBundle\Model\User\Manager;
+use Tekstove\TekstoveBundle\Model\UserQuery;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -16,9 +16,13 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 class Provider implements UserProviderInterface
 {
 
+    /**
+     *
+     * @var UserQuery
+     */
     private $userManager;
 
-    public function __construct(Manager $manager)
+    public function __construct(UserQuery $manager)
     {
         $this->userManager = $manager;
     }
@@ -26,11 +30,11 @@ class Provider implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         // make a call to your webservice here
-        $userData = $this->userManager->findByUsername($username);
+        $user = $this->userManager->findOneByUsername($username);
         // pretend it returns an array on success, false if there is no user
 
-        if ($userData) {
-            return new User($userData, $this->userManager);
+        if ($user) {
+            return $user;
         } else {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }

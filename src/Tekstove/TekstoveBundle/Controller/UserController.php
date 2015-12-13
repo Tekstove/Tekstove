@@ -1,10 +1,15 @@
 <?php
 
 namespace Tekstove\TekstoveBundle\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+
+use Tekstove\TekstoveBundle\Model\User;
+use Tekstove\TekstoveBundle\Model\UserQuery;
+
 /**
  * Description of UserController
  *
@@ -46,11 +51,11 @@ class UserController extends Controller
             );
     }
     
-    protected function createRegisterForm()
+    protected function createRegisterForm(User $user)
     {
         $form = $this->createForm(
-            new \Tekstove\TekstoveBundle\Form\UserType(),
-            null,
+            new \Tekstove\TekstoveBundle\Form\Type\User\RegisterType(),
+            $user,
             [
                 'action' => $this->generateUrl('register'),
             ]
@@ -70,17 +75,17 @@ class UserController extends Controller
     
     public function registerAction(Request $request)
     {
-        $form = $this->createRegisterForm();
+        $user = new User();
+        $form = $this->createRegisterForm($user);
         
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $user = $form->getData();
-                $plainPasswordValue = $form->get('plain_password')->getData();
+                $plainPasswordValue = $form->get('password')->getData();
                 $hashedPassword = md5($plainPasswordValue);
                 $user->setPassword($hashedPassword);
+                
                 try {
-                    $this->getDoctrine()->getManager()->persist($user);
-                    $this->getDoctrine()->getManager()->flush();
+                    $user->save();
                     return $this->redirect('login');
                 } catch (\Exception $e) {
                     // @TODO handle validation for prepersist listeners
@@ -95,7 +100,8 @@ class UserController extends Controller
     
     public function viewAction($id)
     {
-        $user = $this->getDefaultRepo()->find($id);
+        $userQuery = new \Tekstove\TekstoveBundle\Model\UserQuery();
+        $user = $userQuery->findOneById($id);
         return [
             'user' => $user,
         ];

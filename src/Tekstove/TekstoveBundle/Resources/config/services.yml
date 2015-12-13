@@ -3,13 +3,38 @@ parameters:
     tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
     
 services:
-    security.access.post_voter:
-        class: Tekstove\TekstoveBundle\Model\Security\Authorization\Voter\LyricVoter
+    tekstoveCache.cache.memcached:
+        class: Tekstove\CacheBundle\Model\Cache\Adapter\Memcached
+        arguments:
+            server1:
+                - { host: 'localhost', port: 11211, weight: ~ }
+    tekstoveCache.cache:
+        class: Tekstove\CacheBundle\Model\Cache
+        arguments: [@tekstoveCache.cache.memcached]
+    
+    
+    tekstove.model.user.query:
+        class:   Tekstove\TekstoveBundle\Model\UserQuery
+    
+    tekstove.event_dispacher.factory:
+        class: Tekstove\TekstoveBundle\EventDispatcher\EventDispacherFactory
+        arguments: []
+    
+    tekstove.event_dispacher:
+        class: Tekstove\TekstoveBundle\EventDispatcher\EventDispacher
+        factory: [@tekstove.event_dispacher.factory, createDispacher]
+        arguments: [@service_container]
+    
+    tekstove.lyric.repository:
+        class: Tekstove\TekstoveBundle\Model\LyricRepository
+        arguments: [@tekstove.event_dispacher, @tekstoveCache.cache]
+    
+    tekstove.security.lyric_voter:
+        class: Tekstove\TekstoveBundle\Security\Authorization\Voter\LyricVoter
         public: false
         tags:
             - { name: security.voter }
-    tekstove.entity.lyric.subscriber:
-        class: Tekstove\TekstoveBundle\EventListener\Entity\LyricSubscriber
-        arguments: [@security.token_storage]
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
+    
+    tekstove.provider.user:
+        class: Tekstove\TekstoveBundle\Model\User\Provider
+        arguments: [@tekstove.model.user.query]

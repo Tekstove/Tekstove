@@ -3,7 +3,7 @@
 
     {% for artist in artists %}
 
-        <a href="{{ path('artistBrowse', {id:artist.id}) }}">{{ artist.name|e }}</a>
+        <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name|e }}</a>
         <br/>
 
     {% endfor %}

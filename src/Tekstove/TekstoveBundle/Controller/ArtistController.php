@@ -6,26 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
+use Tekstove\TekstoveBundle\Model\ArtistQuery;
+
 class ArtistController extends Controller
 {
-
-    /**
-     * @return \Tekstove\TekstoveBundle\Entity\ArtistRepository
-     */
-    private function getDefaultRepo() {
-        $repo = $this->getDoctrine()->getRepository('TekstoveBundle:Artist');
-        return $repo;
-    }
 
     /**
      * @Template()
      */
     public function browseAction($id) {
-        $lyricRepo = $this->getDoctrine()->getRepository('TekstoveBundle:Lyric');
-        // @TODO
-        $lyrics = $lyricRepo->find(5);
+        $artistQuery = new ArtistQuery();
+        $artist = $artistQuery->findOneById($id);
+        $lyrics = [];
+        $albums = [];
         return [
+            'artist' => $artist,
             'lyrics' => $lyrics,
+            'albums' => $albums,
         ];
     }
 
@@ -34,14 +31,12 @@ class ArtistController extends Controller
      * @Template()
      */
     public function listAction($letter, Request $request) {
-        $repo = $this->getDefaultRepo();
-        $queryBuilder = $repo->createQueryBuilder('a');
-        $queryBuilder->andWhere('a.name LIKE :letter');
-        $queryBuilder->setParameter('letter', $letter . '%');
-
+        $artistQuery = new ArtistQuery();
+        $artistQuery->filterByName($letter . '%', \Propel\Runtime\ActiveQuery\Criteria::LIKE);
         $paginator = $this->get('knp_paginator');
+        /* @var $paginator \Knp\Component\Pager\Paginator */
         $pagination = $paginator->paginate(
-            $queryBuilder,
+            $artistQuery,
             $request->query->getInt('page', 1) /* page number */,
             30 /* limit per page */
         );

@@ -2,8 +2,12 @@
 
 namespace Tekstove\TekstoveBundle\Controller;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Tekstove\TekstoveBundle\Model\LyricQuery;
+use Tekstove\TekstoveBundle\Model\AlbumQuery;
 
 /**
  * @Template()
@@ -13,40 +17,36 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('TekstoveBundle:Lyric');
-        /* @var $repo \Tekstove\TekstoveBundle\Entity\LyricRepository */
+        $lyricRepo = $this->get('tekstove.lyric.repository');
+        /* @var $lyricRepo \Tekstove\TekstoveBundle\Model\LyricRepository */
         
-        $latestQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($latestQueryBuilder);
-        $latestQueryBuilder->addOrderBy('l.id', 'desc');
-        $latestQueryBuilder->setMaxResults(10);
-        $lastLyrics = $latestQueryBuilder->getQuery()->getResult();
+        $lastLyrics = $lyricRepo->getCachedTopNew();
         
-        $lastTranslatedQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($lastTranslatedQueryBuilder);
-        $lastTranslatedQueryBuilder->setMaxResults(10);
-        $lastTranslatedQueryBuilder->andWhere($lastTranslatedQueryBuilder->expr()->isNotNull('l.textBg'));
-        $lastTranslatedQueryBuilder->innerJoin('l.translations', 't');
-        $lastTranslatedQueryBuilder->groupBy('l.id');
-        $lastTranslatedQueryBuilder->orderBy('t.id', 'desc');
-        $lastTranslated = $lastTranslatedQueryBuilder->getQuery()->getResult();
+        $lastTranslatedQuery = new LyricQuery();
 
-        $popularQueryBuilder = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($popularQueryBuilder);
-        $popularQueryBuilder->addOrderBy('l.popularity', 'desc');
-        $popularQueryBuilder->setMaxResults(10);
-        $popular = $popularQueryBuilder->getQuery()->getResult();
+        $lastTranslatedQuery->filterByTextBg(null, Criteria::ISNOTNULL);
+        $lastTranslatedQuery->orderById(Criteria::DESC);
+        $lastTranslatedQuery->limit(10);
+        $lastTranslated = $lastTranslatedQuery->find();
+
+        $popularQuery = new LyricQuery();
+        $popularQuery->orderByPopularity(Criteria::DESC);
+        $popularQuery->limit(10);
+        $popular = $popularQuery->find();
         
-        $mostViewedQb = $repo->createQueryBuilder('l');
-        $repo->filterPublicAvailable($mostViewedQb);
-        $mostViewedQb->addOrderBy('l.views', 'desc');
-        $mostViewedQb->setMaxResults(10);
-        $mostViewed = $mostViewedQb->getQuery()->getResult();
+        $mostViewedQuery = new LyricQuery();
+        $mostViewedQuery->orderByViews(Criteria::DESC);
+        $mostViewedQuery->limit(10);
+        $mostViewed = $mostViewedQuery->find();
         
         $lastVoted = [];
         
-        $lastAlbums = [];
+        $favoritesRandom = [];
+        
+        $albumsQuery = new AlbumQuery();
+        $albumsQuery->orderById();
+        $albumsQuery->limit(5);
+        $lastAlbums = $albumsQuery->find();
         
         return [
             'lastlyrics' => $lastLyrics,
@@ -54,6 +54,7 @@ class IndexController extends Controller
             'popular' => $popular,
             'mostViewed' => $mostViewed,
             'lastVoted' => $lastVoted,
+            'favoritesRandom' => $favoritesRandom,
             'albums' => $lastAlbums,
         ];
     }

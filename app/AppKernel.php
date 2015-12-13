@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             /*
              * Vendor
              */
+            new Propel\PropelBundle\PropelBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             
@@ -27,6 +28,8 @@ class AppKernel extends Kernel
              * Local
              */
             new Tekstove\TekstoveBundle\TekstoveBundle(),
+            new Potaka\KnpPaginatorAdapterPropel2Bundle\PotakaKnpPaginatorAdapterPropel2Bundle(),
+            new Tekstove\CacheBundle\CacheBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

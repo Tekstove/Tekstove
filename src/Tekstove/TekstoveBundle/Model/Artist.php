@@ -2,38 +2,19 @@
 
 namespace Tekstove\TekstoveBundle\Model;
 
+use Tekstove\TekstoveBundle\Model\Base\Artist as BaseArtist;
+
 /**
- * Description of Artist
+ * Skeleton subclass for representing a row from the 'artist' table.
  *
- * @author potaka
+ *
+ *
+ * You should add additional methods to this class to meet the
+ * application requirements.  This class will only be generated as
+ * long as it does not already exist in the output directory.
+ *
  */
-class Artist extends Entity
+class Artist extends BaseArtist
 {
-
-    private $id;
-    private $name;
-    private $forbidden;
-
-    function __construct(array $data)
-    {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->forbidden = (bool) $data['forbidden'];
-    }
-
-    public function getForbidden()
-    {
-        return $this->forbidden;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
 
 }
