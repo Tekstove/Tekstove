@@ -11,7 +11,7 @@ before_script:
 
 script:
     - cd Test/codeSniffer
-    - /bin/phpcs
+    - phpcs
 
 notifications:
     on_success: never
