@@ -12,7 +12,6 @@ before_script:
   - composer install
 
 script:
-    - app/console
     - cd Test/codeSniffer
     - bin/phpcs
 
