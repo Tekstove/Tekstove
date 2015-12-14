@@ -6,8 +6,6 @@ before_script:
   - phpenv rehash
   - mv app/config/parameters_travis.yml app/config/parameters.yml
   - mysql -e 'create database tekstove_lyric;'
-  - composer self-update
-  - composer install
 
 script:
     - cd Test/codeSniffer
