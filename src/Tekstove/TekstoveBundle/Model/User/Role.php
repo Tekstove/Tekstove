@@ -44,7 +44,7 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     }
 
     /**
-     * 
+     *
      * @param string $permission
      * @return boolean|int|string
      */
