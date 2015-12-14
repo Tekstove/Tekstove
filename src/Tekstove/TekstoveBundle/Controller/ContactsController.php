@@ -22,5 +22,4 @@ class ContactsController extends Controller
     {
         return [];
     }
-
 }

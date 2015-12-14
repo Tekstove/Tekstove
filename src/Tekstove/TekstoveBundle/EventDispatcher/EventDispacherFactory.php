@@ -11,7 +11,8 @@ use Tekstove\TekstoveBundle\EventListener\Model\Lyric\LyricUploadedBySubscriber;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class EventDispacherFactory {
+class EventDispacherFactory
+{
     public static function createDispacher(ContainerInterface $container)
     {
         $dispacher = new EventDispacher();

@@ -6,6 +6,7 @@ namespace Tekstove\TekstoveBundle\EventDispatcher;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class Event extends \Symfony\Component\EventDispatcher\GenericEvent {
+class Event extends \Symfony\Component\EventDispatcher\GenericEvent
+{
     //put your code here
 }

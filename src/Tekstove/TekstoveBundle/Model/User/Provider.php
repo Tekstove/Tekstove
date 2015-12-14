@@ -44,7 +44,10 @@ class Provider implements UserProviderInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
-            sprintf('Instances of "%s" are not supported.', get_class($user))
+                sprintf(
+                    'Instances of "%s" are not supported.',
+                    get_class($user)
+                )
             );
         }
 
@@ -55,5 +58,4 @@ class Provider implements UserProviderInterface
     {
         return $class === 'Tekstove\TekstoveBundle\Model\User';
     }
-
 }

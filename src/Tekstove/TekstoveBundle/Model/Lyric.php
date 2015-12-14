@@ -34,8 +34,8 @@ class Lyric extends BaseLyric
         }
         return $this->eventDispacher;
     }
-    
-    function setEventDispacher($eventDispacher)
+
+    public function setEventDispacher($eventDispacher)
     {
         $this->eventDispacher = $eventDispacher;
     }

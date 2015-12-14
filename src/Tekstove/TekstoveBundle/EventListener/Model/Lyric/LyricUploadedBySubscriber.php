@@ -17,12 +17,12 @@ class LyricUploadedBySubscriber implements \Symfony\Component\EventDispatcher\Ev
 {
     /**
      *
-     * @var TokenStorage 
+     * @var TokenStorage
      */
     private $securityContext;
     /**
      *
-     * @var AuthorizationCheckerhecker 
+     * @var AuthorizationCheckerhecker
      */
     private $authchecker;
     
@@ -49,7 +49,6 @@ class LyricUploadedBySubscriber implements \Symfony\Component\EventDispatcher\Ev
 
     public function updateUpdateuserId(Lyric $lyric)
     {
-
         // update only on new lyric
         if ($lyric->getId()) {
             return false;

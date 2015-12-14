@@ -54,15 +54,12 @@ class LyricVoter implements VoterInterface
                 if ($permissionValue) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
-            
-                
+
                 break;
             case 'view':
-                
                 return VoterInterface::ACCESS_GRANTED;
                 break;
         }
         return VoterInterface::ACCESS_ABSTAIN;
     }
-
 }

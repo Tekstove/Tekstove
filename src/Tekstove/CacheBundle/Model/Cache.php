@@ -9,7 +9,8 @@ use Tekstove\CacheBundle\Model\Cache\Adapter\AdapterInterface;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class Cache {
+class Cache
+{
     /**
      * @var AdapterInterface
      */

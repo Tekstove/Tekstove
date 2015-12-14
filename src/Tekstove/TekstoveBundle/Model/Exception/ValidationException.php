@@ -13,11 +13,13 @@ class ValidationException extends Exception implements HumanReadableInterface
 {
     protected $field = null;
 
-    public function setField($value) {
+    public function setField($value)
+    {
         $this->field = $value;
     }
 
-    public function getField() {
+    public function getField()
+    {
         return $this->field;
     }
 }

@@ -8,7 +8,7 @@ namespace Tekstove\CacheBundle\Model\Cache\Adapter;
 interface AdapterInterface
 {
     /**
-     * 
+     *
      * @param type $key
      * @param type $value
      * @param type $time

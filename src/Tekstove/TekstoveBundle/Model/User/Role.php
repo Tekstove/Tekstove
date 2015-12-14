@@ -23,12 +23,13 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
         return $this->getName();
     }
     
-    function getName()
+    public function getName()
     {
         return $this->name;
     }
 
-    function getImage() {
+    public function getImage()
+    {
         return $this->image;
     }
 
