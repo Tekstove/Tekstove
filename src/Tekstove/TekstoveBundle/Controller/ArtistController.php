@@ -14,7 +14,8 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function browseAction($id) {
+    public function browseAction($id)
+    {
         $artistQuery = new ArtistQuery();
         $artist = $artistQuery->findOneById($id);
         $lyrics = [];
@@ -27,10 +28,10 @@ class ArtistController extends Controller
     }
 
     /**
-     * 
      * @Template()
      */
-    public function listAction($letter, Request $request) {
+    public function listAction($letter, Request $request)
+    {
         $artistQuery = new ArtistQuery();
         $artistQuery->filterByName($letter . '%', \Propel\Runtime\ActiveQuery\Criteria::LIKE);
         $paginator = $this->get('knp_paginator');
@@ -46,5 +47,4 @@ class ArtistController extends Controller
             'pagination' => $pagination,
         ];
     }
-
 }

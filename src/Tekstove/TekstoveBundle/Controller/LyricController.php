@@ -122,5 +122,4 @@ class LyricController extends Controller
             'form' => $form->createView(),
         ];
     }
-
 }

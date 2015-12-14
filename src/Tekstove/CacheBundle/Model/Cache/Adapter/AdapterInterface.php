@@ -3,12 +3,10 @@
 namespace Tekstove\CacheBundle\Model\Cache\Adapter;
 
 /**
- *
  * @author po_taka <angel.koilov@gmail.com>
  */
 interface AdapterInterface
 {
-
     /**
      * 
      * @param type $key
@@ -19,7 +17,6 @@ interface AdapterInterface
     public function set($key, $value, $time = null);
 
     /**
-     * 
      * @param type $key
      * @return type
      */

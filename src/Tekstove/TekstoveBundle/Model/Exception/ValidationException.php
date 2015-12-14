@@ -11,7 +11,6 @@ use Tekstove\TekstoveBundle\Model\Exception;
  */
 class ValidationException extends Exception implements HumanReadableInterface
 {
-
     protected $field = null;
 
     public function setField($value) {
@@ -21,5 +20,4 @@ class ValidationException extends Exception implements HumanReadableInterface
     public function getField() {
         return $this->field;
     }
-
 }

@@ -9,7 +9,8 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     protected $image;
     private $permissions = null;
 
-    public function __construct($data) {
+    public function __construct($data)
+    {
         $this->name = $data['name'];
         $this->image = $data['image'];
         if (isset($data['permissions'])) {
@@ -17,11 +18,13 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
         }
     }
 
-    public function getRole() {
+    public function getRole()
+    {
         return $this->getName();
     }
     
-    function getName() {
+    function getName()
+    {
         return $this->name;
     }
 
@@ -30,7 +33,8 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     }
 
     
-    public function getPermissions() {
+    public function getPermissions()
+    {
         if ($this->permissions === null) {
             throw new \Exception('not implemented');
         }
@@ -43,7 +47,8 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      * @param string $permission
      * @return boolean|int|string
      */
-    public function isAllowed($permission) {
+    public function isAllowed($permission)
+    {
         $permissions = $this->getPermissions();
         if (array_key_exists($permission, $permissions)) {
             return $permissions[$permission];
@@ -51,5 +56,4 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
 
         return false;
     }
-
 }

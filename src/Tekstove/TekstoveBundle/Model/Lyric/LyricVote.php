@@ -16,5 +16,4 @@ use Tekstove\TekstoveBundle\Model\Lyric\Base\LyricVote as BaseLyricVote;
  */
 class LyricVote extends BaseLyricVote
 {
-
 }

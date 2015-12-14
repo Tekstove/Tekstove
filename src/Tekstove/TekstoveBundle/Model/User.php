@@ -27,7 +27,7 @@ class User extends BaseUser implements UserInterface
     {
         foreach ($this->getPermissionGroupUsers() as $permissionGroup) {
             $group = $permissionGroup->getPermissionGroup();
-            foreach($group->getPermissionGroupPermissions() as $groupPermission) {
+            foreach ($group->getPermissionGroupPermissions() as $groupPermission) {
                 $permissionName = $groupPermission->getPermission()->getName();
                 if ($permissionName === $name) {
                     return $groupPermission->getPermission()->getValue();
@@ -50,5 +50,4 @@ class User extends BaseUser implements UserInterface
     {
         return 'className';
     }
-
 }

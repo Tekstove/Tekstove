@@ -43,12 +43,11 @@ class UserController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
-        return 
-            array(
-                // last username entered by the user
-                'last_username' => $lastUsername,
-                'error'         => $errorTranslated,
-            );
+        return array(
+            // last username entered by the user
+            'last_username' => $lastUsername,
+            'error'         => $errorTranslated,
+        );
     }
     
     protected function createRegisterForm(User $user)
@@ -78,20 +77,20 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createRegisterForm($user);
         
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $plainPasswordValue = $form->get('password')->getData();
-                $hashedPassword = md5($plainPasswordValue);
-                $user->setPassword($hashedPassword);
-                
-                try {
-                    $user->save();
-                    return $this->redirect('login');
-                } catch (\Exception $e) {
-                    // @TODO handle validation for prepersist listeners
-                    throw $e;
-                }
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $plainPasswordValue = $form->get('password')->getData();
+            $hashedPassword = md5($plainPasswordValue);
+            $user->setPassword($hashedPassword);
+
+            try {
+                $user->save();
+                return $this->redirect('login');
+            } catch (\Exception $e) {
+                // @TODO handle validation for prepersist listeners
+                throw $e;
             }
+        }
             
         return [
             'form' => $form->createView(),

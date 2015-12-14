@@ -10,9 +10,7 @@ use Tekstove\CacheBundle\Model\Cache\Adapter\AdapterInterface;
  * @author po_taka <angel.koilov@gmail.com>
  */
 class Cache {
-    
     /**
-     *
      * @var AdapterInterface
      */
     private $adapter;
@@ -23,7 +21,7 @@ class Cache {
     }
     
     /**
-     * 
+     *
      * @param type $key
      * @param type $value
      * @param type $time
@@ -35,7 +33,7 @@ class Cache {
     }
 
     /**
-     * 
+     *
      * @param type $key
      * @return type
      */
@@ -51,6 +49,4 @@ class Cache {
     {
         $this->adapter->delete($key);
     }
-    
-    
 }

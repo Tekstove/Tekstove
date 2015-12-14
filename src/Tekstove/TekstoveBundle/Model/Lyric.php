@@ -24,7 +24,7 @@ class Lyric extends BaseLyric
     }
     
     /**
-     * 
+     *
      * @return EventDispatcher\EventDispacher
      */
     private function getEventDispacher()
@@ -35,7 +35,8 @@ class Lyric extends BaseLyric
         return $this->eventDispacher;
     }
     
-    function setEventDispacher($eventDispacher) {
+    function setEventDispacher($eventDispacher)
+    {
         $this->eventDispacher = $eventDispacher;
     }
 
@@ -44,5 +45,4 @@ class Lyric extends BaseLyric
         $event = new Event($lyric);
         $this->getEventDispacher()->dispatch('tekstove.lyric.save', $event);
     }
-    
 }

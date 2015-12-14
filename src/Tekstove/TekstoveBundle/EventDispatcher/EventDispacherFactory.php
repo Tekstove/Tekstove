@@ -17,7 +17,7 @@ class EventDispacherFactory {
         $dispacher = new EventDispacher();
         // add events!
         $titleCacheSubscriber = new LyricTitleCacheSubscriber();
-        
+
         $securityTokenStorage = $container->get('security.token_storage');
         $authzChecker = $container->get('security.authorization_checker');
         

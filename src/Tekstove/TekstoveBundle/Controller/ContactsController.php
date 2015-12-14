@@ -13,11 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ContactsController extends Controller
 {
 
-    public function contactsAction() {
+    public function contactsAction()
+    {
         return [];
     }
     
-    public function partnersAction() {
+    public function partnersAction()
+    {
         return [];
     }
 

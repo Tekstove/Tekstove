@@ -26,8 +26,8 @@ class Memcached implements AdapterInterface
     {
         $result = $this->adapter->set($key, $value, time() + $time);
         if (!$result) {
-                throw new \Exception("Can't save cache");
-            }
+            throw new \Exception("Can't save cache");
+        }
     }
 
     public function delete($key)
