@@ -2,10 +2,13 @@
 
 /nbproject
 /vendor
+
+/bin
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
 /app/bootstrap.php.cache
+/var
 /web/bundles
 /web/js/fos_js_routes.js
 

@@ -18,7 +18,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
-ewz_recaptcha:
-    public_key: ~
-    private_key: ~
-    locale_key: '%kernel.default_locale%'
+#ewz_recaptcha:
+#    public_key: ~
+#    private_key: ~
+#    locale_key: '%kernel.default_locale%'

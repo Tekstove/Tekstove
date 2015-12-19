@@ -1,7 +1,3 @@
-parameters:
-    tekstoveBundleUserProvider.class: Tekstove\TekstoveBundle\Model\User\Provider
-    tekstoveBundleUserManager.class: Tekstove\TekstoveBundle\Model\User\Manager
-    
 services:
     tekstoveCache.cache.memcached:
         class: Tekstove\CacheBundle\Model\Cache\Adapter\Memcached
@@ -13,9 +9,6 @@ services:
         arguments: [@tekstoveCache.cache.memcached]
     
     
-    tekstove.model.user.query:
-        class:   Tekstove\TekstoveBundle\Model\UserQuery
-    
     tekstove.event_dispacher.factory:
         class: Tekstove\TekstoveBundle\EventDispatcher\EventDispacherFactory
         arguments: []
@@ -25,10 +18,6 @@ services:
         factory: [@tekstove.event_dispacher.factory, createDispacher]
         arguments: [@service_container]
     
-    tekstove.lyric.repository:
-        class: Tekstove\TekstoveBundle\Model\LyricRepository
-        arguments: [@tekstove.event_dispacher, @tekstoveCache.cache]
-    
     tekstove.security.lyric_voter:
         class: Tekstove\TekstoveBundle\Security\Authorization\Voter\LyricVoter
         public: false
@@ -37,4 +26,7 @@ services:
     
     tekstove.provider.user:
         class: Tekstove\TekstoveBundle\Model\User\Provider
-        arguments: [@tekstove.model.user.query]
+
+    tesktove.gateway.lyric:
+        class: Tekstove\TekstoveBundle\Model\Gateway\Lyric\LyricGateway
+        factory: [Tekstove\TekstoveBundle\Model\Gateway\GatewayFactory, createLyricGateway]

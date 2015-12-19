@@ -17,6 +17,12 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
+        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        
+        var_dump('test');
+        var_dump($lyricGateway); die;   
+        
+        
         $lyricRepo = $this->get('tekstove.lyric.repository');
         /* @var $lyricRepo \Tekstove\TekstoveBundle\Model\LyricRepository */
         
