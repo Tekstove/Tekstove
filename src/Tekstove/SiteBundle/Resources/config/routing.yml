@@ -1,0 +1,52 @@
+index:
+    path:     /
+    defaults: { _controller: SiteBundle:Index:index }
+contactsFriends:
+    path: /contacts/partners
+    defaults: { _controller: SiteBundle:Contacts:partners }
+contacts:
+    path: /contacts
+    defaults: { _controller: SiteBundle:Contacts:contacts }
+login:
+    path: /user/login
+    defaults: { _controller: SiteBundle:User:login }
+loginCheck:
+    path: /user/loginCheck
+logout:
+    path: /user/logout
+register:
+    path: /user/register
+    defaults: { _controller: SiteBundle:User:register }
+userView:
+    path: /user/view/{id}
+    defaults: { _controller: SiteBundle:User:view }
+    
+lyricView:
+    path: /lyric/view/{id}
+    defaults: { _controller: SiteBundle:Lyric:view }
+    requirements:
+        id:  \d+
+
+lyricAddPostHtml:
+    path: /lyric/add
+    defaults: { _controller: SiteBundle:Lyric:addHtml }
+    methods: [POST]
+
+lyricAdd:
+    path: /lyric/add
+    defaults: { _controller: SiteBundle:Lyric:add }
+    methods: [GET]
+lyricEdit:
+    path: /lyric/edit/{id}
+    defaults: { _controller: SiteBundle:Lyric:edit }
+    requirements:
+        id: \d+
+
+artistBrowse:
+    path: /artist/browse/{id}
+    defaults: { _controller: SiteBundle:Artist:browse }
+    requirements:
+        id: \d+
+artistList:
+    path: /artist/list/{letter}
+    defaults: { _controller: SiteBundle:Artist:list }

@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             /*
              * Local
              */
-            new Tekstove\TekstoveBundle\TekstoveBundle(),
+            new Tekstove\SiteBundle\SiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

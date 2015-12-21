@@ -1,0 +1,14 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+
+    {% for artist in artists %}
+
+        <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name|e }}</a>
+        <br/>
+
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

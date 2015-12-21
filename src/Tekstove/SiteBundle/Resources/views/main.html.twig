@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link rel="stylesheet" href="{{ asset('bundles/tekstove/css/style_2.6.2.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="{{ asset('bundles/tekstove/js/blockui-2.70/jquery.blockUI.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Select2 -->
+        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+        <script src="{{ asset('bundles/tekstove/js/functions.js?v=4.4') }}"></script>
+
+        <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+        <script type="text/javascript">
+            window.cookieconsent_options = {
+                "message": "This website uses cookies to ensure you get the best experience on our website",
+                "dismiss": "Got it!",
+                "learnMore": "More info",
+                "link": null,
+                "theme": "dark-top"
+            };
+        </script>
+
+        <style>
+            .t-nopadding {
+                padding: 0;
+            }
+            
+            .t-nomargin {
+                margin: 0;
+            }
+            
+            .t-menu-horizontal {
+                background: black;
+            }
+            
+            .t-menu-horizontal a, .t-menu-horizontal a:visited {
+                color: white;
+            }
+            
+        </style>
+        
+        <script type="text/javascript" src="//s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script>
+        <!-- End Cookie Consent plugin -->
+
+
+        <title>
+            Текстове.инфо		
+        </title>
+        <meta name="author" content="tekstove.info">
+        <meta name="revisit-after" content="1 days">
+        <meta name="robots" content="index, follow">
+        <link rel="shortcut icon" href="{{ asset('bundles/tekstove/images/favicon.ico') }}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row t-top-menu">
+                <div class="col-md-6 t-nomargin t-nopadding">
+                    <div class="t-top-menu-right">
+                        <a title="Начална страница" href="/">
+                            <img alt="Начало" src="/bundles/tekstove/images/logo_1.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="t-top-menu-container">
+                        <span class="top_menu_gore_dqsno">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">Начало</a><br/>
+                            &nbsp;&nbsp;<a href="#" rel="search"><del>Разгледай</del></a><br/>
+                            <a href="#"><del>Албуми</del></a><br/><br/>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                    <div class="t-top-menu-container">
+                        <span class="top_menu_gore_dqsno">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" rel="search"><del>Търсачка</del></a><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Форум</del></a><br/>
+                            &nbsp;&nbsp;&nbsp;<a href="#"><del>Чат</del></a>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="t-top-menu-container">
+                        <span class="top_menu_gore_dqsno">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Прати Tекст</a>&nbsp;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Прати Албум</del></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <nav>
+                <div class="row t-menu-horizontal">
+                    <div class="col-md-5">
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="{{ path('index') }}">Начало</a>&nbsp;
+                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;
+                        <a href="#"><del>Албуми</del></a>&nbsp;
+                        <a href="#" rel="search"><del>Търсачка</del></a>&nbsp;
+                        <a href="#"><del>Форум</del></a>&nbsp;
+                    </div>
+
+                    <div class="col-md-3">
+                        <a href="{{ path('lyricAdd') }}" class="top">Изпрати Tекст</a>&nbsp;
+                        <a href="#"><del>Изпрати Албум</del></a>&nbsp;
+                    </div>
+
+                    <div class="col-md-4 text-right">
+                        {#
+                        {% if app.user %}
+                            <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
+                            <a href="#" class="top"><del>Потребителски данни</del></a>
+                            <a href="{{ path('logout') }}">изход</a>
+                        {% else %}
+                            <a href="{{ path('login') }}">Вход</a>
+                            <a href="{{ path('register') }}">Регистрация</a>
+                        {% endif %}
+                        #}
+                    </div>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="t-top-letters-above"></div>
+                <div class="t-letters" id="bukvi_bg"></div>
+                <div class="t-top-letters-below"></div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="col-md-2">
+                    {#
+{% if app.user %}
+                    <div class="gore_dolu_zaoblqne_blqvo">
+                        <div class="gore_dolu_zaoblqne_blqvo_margin_text">
+
+                            <i>Моето&nbsp;Меню:</i><br/>
+                            Ранг:&nbsp;
+                            {{ app.user.className|e }}
+                            <br/>
+                            <a href="#" title="Непрочетени Лични Съобщения">
+                                <del>Непрочетени&nbsp;ЛС:&nbsp;<b>0</b></del>
+                            </a>
+                            <br/>
+
+                            <a href="#">
+                                <del>Превод Заявки: <b>630</b></del>
+                            </a>
+                            <br/>
+                            <a href="#">
+                                <del>Проблеми <b>4598</b></del>
+                            </a>
+                            <br/>
+                            <a href="{{ path('userView', {id: app.user.id}) }}">Профил</a>
+                            <br/>
+                            <a href="#"><del>Слушай <b>любими</b></del></a>
+                            <br/>
+                            <a href="#"><del>Мои преводи</del></a>
+                            <br/>
+                            <a href="#"><del>Изтрити песни (всички)</del></a>
+                            <br/>
+                        </div>
+                    </div>
+{% endif %}
+#}
+                    <div class="gore_dolu_zaoblqne_blqvo">
+                        <div class="gore_dolu_zaoblqne_blqvo_margin_text">
+                            <a href="#"><del>Търсачка</del></a>
+                            <br/>
+                            <a href="#"><del>Топ 100 популярни</del></a>
+                            <br/>
+                            <a href="#"><del>Топ 100 гласувани</del></a>
+                            <br/>
+                            <a href="#"><del>Топ 100 преглеждани</del></a>
+                            <br/>
+                            <a href="#"><del>Нови 100 гласа</del></a>
+                            <br/>
+                            <a href="#"><del>Форум</del></a>
+                            <br/>
+                            <a href="#"><del>&#187;&nbsp;Заявки за текстове</del></a>
+                            <br/>
+                            <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова заявки за текст</del></a>
+                            <br/>
+                            <a href="#"><del>&#187;&nbsp;Заявки за превод</del></a>
+                            <br/>
+                            <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова&nbsp;заявка&nbsp;за&nbsp;превод</del></a>
+                            <br/>
+                            <a href="#"><del>Изпрати текст</del></a>
+                            <br/>
+                            <a href="#"><del>Нови коментари</del></a>
+                            <br/>
+                            <a href="#"><del>Списък с Потребители</del></a>
+                            <br />
+                            <a href="#"><del>Лист потребителски групи</del></a>
+                            <br/>
+                            <a href="{{ path('contactsFriends') }}">Приятелски сайтове</a>
+                            <br/>
+                            <a href="{{ path('contacts') }}">Връзка с нас</a>
+                            <br/>
+                            <a href="http://feeds.feedburner.com/tekstove/zJFY?format=xml" title="RSS нови мнения във форума">
+                                <img src="{{ asset('bundles/tekstove/images/rss_20x15.png') }}" />
+                                Нови мнения - форум
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 t-content">
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="col-md-2">
+                    right content
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div style="width:100%;text-align:center;background-color:#AAAAAA;">
+
+                    <span style="color: #fff">
+                        www.tekstove.info 2008-2015 <a href="http://blog.tekstove.info" target="_BLANK">версия 3.0-dev</a>
+                    </span>
+                    <a href="{{ path('contacts') }}" title="Искате да се свържете с нас">
+                        <span style="color: #ccc">
+                            връзка с нас
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-4588309-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>

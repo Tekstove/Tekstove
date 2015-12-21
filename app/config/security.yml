@@ -1,2 +1,2 @@
 imports:
-    - { resource "@TekstoveBundle/Resources/config/security.yml" }
+    - { resource "@SiteBundle/Resources/config/security.yml" }

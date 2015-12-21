@@ -1,0 +1,32 @@
+services:
+    tekstoveCache.cache.memcached:
+        class: Tekstove\CacheBundle\Model\Cache\Adapter\Memcached
+        arguments:
+            server1:
+                - { host: 'localhost', port: 11211, weight: ~ }
+    tekstoveCache.cache:
+        class: Tekstove\CacheBundle\Model\Cache
+        arguments: ["@tekstoveCache.cache.memcached"]
+    
+    
+    tekstove.event_dispacher.factory:
+        class: Tekstove\SiteBundle\EventDispatcher\EventDispacherFactory
+        arguments: []
+    
+    tekstove.event_dispacher:
+        class: Tekstove\SiteBundle\EventDispatcher\EventDispacher
+        factory: ["@tekstove.event_dispacher.factory", createDispacher]
+        arguments: ["@service_container"]
+    
+    tekstove.security.lyric_voter:
+        class: Tekstove\SiteBundle\Security\Authorization\Voter\LyricVoter
+        public: false
+        tags:
+            - { name: security.voter }
+    
+    tekstove.provider.user:
+        class: Tekstove\SiteBundle\Model\User\Provider
+
+    tesktove.gateway.lyric:
+        class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
+        factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricGateway]
