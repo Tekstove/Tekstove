@@ -15,18 +15,18 @@ class LyricGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return '/lyrics';
+        return '/lyric';
     }
     
     public function find()
     {
         $data = parent::find();
         $lyrics = [];
-        foreach ($data['data'] as $lyricData) {
+        foreach ($data['items'] as $lyricData) {
             $lyrics[] = new Lyric($lyricData);
         }
 
-        $data['data'] = $lyrics;
+        $data['items'] = $lyrics;
         return $data;
     }
 

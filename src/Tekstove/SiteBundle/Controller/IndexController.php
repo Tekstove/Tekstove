@@ -23,7 +23,7 @@ class IndexController extends Controller
         
         
         $lastLyricsResult = $lyricGateway->find();
-        $lastLyrics = $lastLyricsResult['data'];
+        $lastLyrics = $lastLyricsResult['items'];
         
 //        $lastTranslatedQuery->filterByTextBg(null, Criteria::ISNOTNULL);
 //        $lastTranslatedQuery->orderById(Criteria::DESC);
@@ -40,7 +40,7 @@ class IndexController extends Controller
         $lastAlbums = [];
         
         return [
-            'lastlyrics' => $lastLyrics,
+            'lastLyrics' => $lastLyrics,
             'lastTranslated' => $lastTranslated,
             'popular' => $popular,
             'mostViewed' => $mostViewed,

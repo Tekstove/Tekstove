@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
  */
 class GatewayFactory
 {
-    public function createLyricGateway()
+    public static function createLyricGateway()
     {
         $clientOptions = [
             'base_uri' => 'http://api.tekstove.fb/',

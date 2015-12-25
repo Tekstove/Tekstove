@@ -7,7 +7,7 @@
                 най-нови текстове
             </div>
             <div class="t-index-lyrics-block-lyrics-container">
-                {% for lyric in lastlyrics %}
+                {% for lyric in lastLyrics %}
                     <a href="{{ path('lyricView', {id:lyric.id}) }}">
                         {{ lyric.cacheTitleShort }}
                     </a>
