@@ -4,7 +4,7 @@ namespace Tekstove\SiteBundle\Model\Gateway;
 
 /**
  *
- * @author potaka
+ * @author po_taka
  */
 interface GatewayInterface
 {

@@ -52,7 +52,4 @@ class Lyric
     {
         $this->title = $title;
     }
-    
-    
-    
 }

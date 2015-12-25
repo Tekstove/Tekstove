@@ -29,7 +29,4 @@ class LyricGateway extends AbstractGateway
         $data['items'] = $lyrics;
         return $data;
     }
-
-   
-
 }
