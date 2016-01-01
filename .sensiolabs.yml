@@ -3,4 +3,4 @@ global_exclude_dirs:
     - Test
 
 exclude_patterns:
-    - .travis*
+    - app/config/parameters_travis.yml
