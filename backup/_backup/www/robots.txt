@@ -1,6 +1,0 @@
-User-Agent: *
-Disallow: /logout.php
-Disallow: /redir.php
-Disallow: /cookie.php
-Disallow: /ajax/lyric_view.php
-Disallow: /_chat/ban/*
