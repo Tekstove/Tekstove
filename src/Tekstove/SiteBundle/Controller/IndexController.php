@@ -2,12 +2,8 @@
 
 namespace Tekstove\SiteBundle\Controller;
 
-use Propel\Runtime\ActiveQuery\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Tekstove\SiteBundle\Model\LyricQuery;
-use Tekstove\SiteBundle\Model\AlbumQuery;
 
 /**
  * @Template()
