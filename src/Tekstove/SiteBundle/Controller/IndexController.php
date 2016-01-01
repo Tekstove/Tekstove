@@ -25,9 +25,11 @@ class IndexController extends Controller
         $lastLyricsResult = $lyricGateway->find();
         $lastLyrics = $lastLyricsResult['items'];
         
-//        $lastTranslatedQuery->filterByTextBg(null, Criteria::ISNOTNULL);
-//        $lastTranslatedQuery->orderById(Criteria::DESC);
-        $lastTranslated = [];
+        $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
+        $lyricLastTranslatedGateway->addFilter('textBg', 1, \Tekstove\SiteBundle\Model\Gateway\AbstractGateway::FILTER_NOT_NULL);
+        $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
+        $lastTranslatedResult = $lyricLastTranslatedGateway->find();
+        $lastTranslated = $lastTranslatedResult['items'];
 
         $popular = [];
         

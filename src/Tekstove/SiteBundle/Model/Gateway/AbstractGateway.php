@@ -11,10 +11,13 @@ use GuzzleHttp\Client;
  */
 abstract class AbstractGateway implements GatewayInterface
 {
+    const FILTER_NOT_NULL = 'NOT_NULL';
+    
     private $client;
     
     private $count = 10;
     private $orders = [];
+    private $filters = [];
     
     public function __construct(Client $client)
     {
@@ -36,11 +39,45 @@ abstract class AbstractGateway implements GatewayInterface
         $this->orders[] = [$field, $direction];
     }
     
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+    
+    public function addFilter($field, $value, $operator = 'EQ')
+    {
+        $this->filters[] = [
+            'field' => $field,
+            'value' => $value,
+            'operator' => $operator,
+        ];
+    }
+    
     abstract protected function getRelativeUrl();
 
     public function find()
     {
-        $response = $this->client->get($this->getRelativeUrl());
+        $url = $this->getRelativeUrl();
+        foreach ($this->getOrders() as $order) {
+            $doQuestionMarkExistInQuery = strpos($url, '?');
+            $firstParamConcatChar = $doQuestionMarkExistInQuery ? '&' : '?';
+            $url .= $firstParamConcatChar . 'sort=' . urlencode($order[0]) . '&direction=' . urlencode($order[1]);
+        }
+        
+        $doQuestionMarkExistInQuery = strpos($url, '?');
+        $filters = $this->getFilters();
+        $filtersData = [
+            'filters' => $filters,
+        ];
+        $filtersQuery = http_build_query($filtersData);
+        if ($doQuestionMarkExistInQuery) {
+            $url .= "&{$filtersQuery}";
+        } else {
+            $url .= "?{$filtersQuery}";
+        }
+        
+        
+        $response = $this->client->get($url);
         $body = $response->getBody();
         $data = json_decode($body, true);
         return $data;

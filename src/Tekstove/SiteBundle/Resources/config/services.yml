@@ -30,3 +30,4 @@ services:
     tesktove.gateway.lyric:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricGateway]
+        shared: false
