@@ -2,6 +2,7 @@
     "name": "symfony/framework-standard-edition",
     "license": "proprietary",
     "type": "project",
+    "description": "Tekstove.info website",
     "autoload": {
         "psr-4": {
             "": "src/"
