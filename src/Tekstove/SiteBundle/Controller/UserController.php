@@ -4,11 +4,6 @@ namespace Tekstove\SiteBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
-
-use Tekstove\SiteBundle\Model\User;
-use Tekstove\SiteBundle\Model\UserQuery;
 
 /**
  * Description of UserController
@@ -17,84 +12,20 @@ use Tekstove\SiteBundle\Model\UserQuery;
  */
 class UserController extends Controller
 {
-    
-    private function getDefaultRepo()
+    public function loginAction()
     {
-        $repo = $this->getDoctrine()->getRepository('SiteBundle:User');
-        return $repo;
-    }
-    
-    public function loginAction(Request $request)
-    {
-        $session = $request->getSession();
-
+        $authenticationUtils = $this->get('security.authentication_utils');
+        
         // get the login error if there is one
-        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContextInterface::AUTHENTICATION_ERROR);
-            $errorTranslated = $this->get('translator')->trans($error->getMessage());
-        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
-            $errorTranslated = $this->get('translator')->trans($error->getMessage());
-            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
-        } else {
-            $errorTranslated = null;
-        }
-
+        $error = $authenticationUtils->getLastAuthenticationError();
+        
         // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return array(
-            // last username entered by the user
             'last_username' => $lastUsername,
-            'error'         => $errorTranslated,
+            'error'         => $error,
         );
-    }
-    
-    protected function createRegisterForm(User $user)
-    {
-        $form = $this->createForm(
-            new \Tekstove\SiteBundle\Form\Type\User\RegisterType(),
-            $user,
-            [
-                'action' => $this->generateUrl('register'),
-            ]
-        );
-        
-        $recaptchaOptions = [
-            'mapped'      => false,
-            'constraints' => [
-                new \EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True,
-            ],
-        ];
-        $form->add('recaptcha', 'ewz_recaptcha', $recaptchaOptions);
-        $form->add('register', 'submit');
-        
-        return $form;
-    }
-    
-    public function registerAction(Request $request)
-    {
-        $user = new User();
-        $form = $this->createRegisterForm($user);
-        
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $plainPasswordValue = $form->get('password')->getData();
-            $hashedPassword = md5($plainPasswordValue);
-            $user->setPassword($hashedPassword);
-
-            try {
-                $user->save();
-                return $this->redirect('login');
-            } catch (\Exception $e) {
-                // @TODO handle validation for prepersist listeners
-                throw $e;
-            }
-        }
-            
-        return [
-            'form' => $form->createView(),
-        ];
     }
     
     public function viewAction($id)

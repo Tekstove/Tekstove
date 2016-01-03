@@ -25,7 +25,19 @@ services:
             - { name: security.voter }
     
     tekstove.provider.user:
-        class: Tekstove\SiteBundle\Model\User\Provider
+        class: Tekstove\SiteBundle\Model\User\Provider\ApiProvider
+        arguments:
+            gateway: "@tekstove.gateway.userProvider"
+            
+    tekstove.gateway.userProvider:
+        class: Tekstove\SiteBundle\Model\User\Provider\ApiGateway
+        factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createUserProviderGateway]
+        shared: false
+
+    tekstove.gateway.user:
+        class: Tekstove\SiteBundle\Model\Gateway\User\UserGateway
+        factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createUserGateway]
+        shared: false
 
     tesktove.gateway.lyric:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway

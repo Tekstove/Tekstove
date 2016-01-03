@@ -44,7 +44,7 @@ abstract class AbstractGateway implements GatewayInterface
         return $this->filters;
     }
     
-    public function addFilter($field, $value, $operator = 'EQ')
+    public function addFilter($field, $value, $operator = '=')
     {
         $this->filters[] = [
             'field' => $field,
@@ -81,5 +81,10 @@ abstract class AbstractGateway implements GatewayInterface
         $body = $response->getBody();
         $data = json_decode($body, true);
         return $data;
+    }
+    
+    public function get($id)
+    {
+        
     }
 }
