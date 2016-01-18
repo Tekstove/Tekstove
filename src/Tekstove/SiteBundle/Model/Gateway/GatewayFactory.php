@@ -14,6 +14,7 @@ class GatewayFactory
     public static function createLyricGateway()
     {
         $clientOptions = [
+            // @TODO change with config variable
             'base_uri' => 'http://api.tekstove.fb/',
         ];
         $client = new Client($clientOptions);
@@ -24,6 +25,7 @@ class GatewayFactory
     public static function createUserGateway()
     {
         $clientOptions = [
+            // @TODO change with config variable
             'base_uri' => 'http://api.tekstove.fb/',
         ];
         $client = new Client($clientOptions);
@@ -34,6 +36,7 @@ class GatewayFactory
     public static function createUserProviderGateway()
     {
         $clientOptions = [
+            // @TODO change with config variable
             'base_uri' => 'http://api.tekstove.fb/',
         ];
         $client = new Client($clientOptions);

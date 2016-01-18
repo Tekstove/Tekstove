@@ -24,8 +24,10 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $lyricQuery = new LyricQuery();
-        $lyric = $lyricQuery->findOneById($id);
+        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
+        $lyricData = $lyricGateway->get($id);
+        $lyric = $lyricData['item'];
         
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
             throw new \Exception('Unauthorised access!');

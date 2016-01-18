@@ -9,7 +9,7 @@ namespace Tekstove\SiteBundle\Model\User\Provider;
  */
 class ApiGateway extends \Tekstove\SiteBundle\Model\Gateway\User\UserGateway
 {
-    protected function getRelativeUrl()
+    protected function getListRelativeUrl()
     {
         return '/user/credentials';
     }

@@ -13,9 +13,14 @@ use Tekstove\SiteBundle\Model\Lyric\Lyric;
  */
 class LyricGateway extends AbstractGateway
 {
-    protected function getRelativeUrl()
+    protected function getListRelativeUrl()
     {
-        return '/lyric';
+        return '/lyric/list';
+    }
+    
+    protected function getGetRelativeUrl()
+    {
+        return '/lyric/get/';
     }
     
     public function find()
@@ -29,4 +34,14 @@ class LyricGateway extends AbstractGateway
         $data['items'] = $lyrics;
         return $data;
     }
+    
+    public function get($id)
+    {
+        $data = parent::get($id);
+        $lyric = new Lyric($data['item']);
+        return [
+            'item' => $lyric,
+        ];
+    }
+    
 }

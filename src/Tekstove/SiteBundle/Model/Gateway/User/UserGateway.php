@@ -13,9 +13,14 @@ use Tekstove\SiteBundle\Model\User\User;
  */
 class UserGateway extends AbstractGateway
 {
-    protected function getRelativeUrl()
+    protected function getListRelativeUrl()
     {
         return '/user';
+    }
+    
+    protected function getGetRelativeUrl()
+    {
+        throw new \Exception('not implemented');
     }
     
     public function buildUser($data)

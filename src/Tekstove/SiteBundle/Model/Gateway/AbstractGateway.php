@@ -53,11 +53,12 @@ abstract class AbstractGateway implements GatewayInterface
         ];
     }
     
-    abstract protected function getRelativeUrl();
+    abstract protected function getListRelativeUrl();
+    abstract protected function getGetRelativeUrl();
 
     public function find()
     {
-        $url = $this->getRelativeUrl();
+        $url = $this->getListRelativeUrl();
         foreach ($this->getOrders() as $order) {
             $doQuestionMarkExistInQuery = strpos($url, '?');
             $firstParamConcatChar = $doQuestionMarkExistInQuery ? '&' : '?';
@@ -85,6 +86,11 @@ abstract class AbstractGateway implements GatewayInterface
     
     public function get($id)
     {
-        
+        $url = $this->getGetRelativeUrl();
+        $url .= $id;
+        $response = $this->client->get($url);
+        $body = $response->getBody();
+        $data = json_decode($body, true);
+        return $data;
     }
 }

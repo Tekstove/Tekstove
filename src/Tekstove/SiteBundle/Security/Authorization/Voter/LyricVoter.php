@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 use Tekstove\SiteBundle\Model\User;
-use Tekstove\SiteBundle\Model\Lyric;
+use Tekstove\SiteBundle\Model\Lyric\Lyric;
 
 /**
  * Description of Lyric

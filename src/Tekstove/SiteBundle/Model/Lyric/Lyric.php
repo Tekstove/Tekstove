@@ -14,6 +14,17 @@ class Lyric
     private $cacheTitleShort;
     
     private $title;
+    private $text;
+    
+    /**
+     * @var int
+     */
+    private $popularity;
+    
+    /**
+     * @var integer
+     */
+    private $views;
     
     public function __construct($data = [])
     {
@@ -23,6 +34,9 @@ class Lyric
             'cacheTitleShort',
             
             'title',
+            'text',
+            'views',
+            'popularity',
         ];
         
         foreach ($fields as $field) {
@@ -51,5 +65,25 @@ class Lyric
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+    
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
+    public function getViews()
+    {
+        return $this->views;
+    }
+    
+    public function getPopularity()
+    {
+        return $this->popularity;
     }
 }
