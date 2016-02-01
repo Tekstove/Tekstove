@@ -65,18 +65,18 @@
         <a href="#">@кой е гласувал</a>
     </div>
 
-    {#<div class="row">
-        {% if (lyric.getUser) %}
+    <div class="row">
+        {% if (lyric.getSendBy) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', { id:lyric.getUser.id }) }}">
-                        {{ lyric.getUser.username }}
+                    <a href="{{ path('userView', { id:lyric.sendBy.id }) }}">
+                        {{ lyric.sendBy.username }}
                     </a>
                 </b> 
             </div>
         {% endif %}
-    </div>#}
+    </div>
 
     {#<div class="row">
         {% if lyric.languages is not empty %}
