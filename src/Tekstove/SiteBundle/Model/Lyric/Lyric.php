@@ -15,7 +15,9 @@ class Lyric
     
     private $title;
     private $text;
-    
+
+    private $sendBy;
+
     /**
      * @var int
      */
@@ -37,6 +39,8 @@ class Lyric
             'text',
             'views',
             'popularity',
+            
+            'sendBy',
         ];
         
         foreach ($fields as $field) {
@@ -67,6 +71,29 @@ class Lyric
         $this->title = $title;
     }
     
+    public function getSendBy()
+    {
+        // anonymous user
+        if ($this->sendBy === null) {
+            return null;
+        }
+        
+        /**
+         * @TODO get real user data
+         * Return user object, not id
+         */
+        if (!$this->sendBy instanceof \Tekstove\SiteBundle\Model\User\User) {
+            
+            $this->sendBy = new \Tekstove\SiteBundle\Model\User\User(
+                [
+                    'id' => $this->sendBy,
+                ]
+            );
+        }
+        return $this->sendBy;
+    }
+
+        
     public function getText()
     {
         return $this->text;
