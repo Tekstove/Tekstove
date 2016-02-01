@@ -43,5 +43,4 @@ class LyricGateway extends AbstractGateway
             'item' => $lyric,
         ];
     }
-    
 }
