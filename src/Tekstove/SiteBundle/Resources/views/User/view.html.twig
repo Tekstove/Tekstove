@@ -15,7 +15,7 @@
     <br/>
     {{ user.about|e|nl2br }}
     
-    {% if user.roles %}
+{#    {% if user.roles %}
         <br/>
         Групи:
         {% for role in user.roles %}
@@ -25,6 +25,6 @@
                 title="{{ role.name|e }}"
             />
         {% endfor %}
-    {% endif %}
+    {% endif %}#}
      
 {% endblock %}

@@ -20,7 +20,7 @@ class UserGateway extends AbstractGateway
     
     protected function getGetRelativeUrl()
     {
-        throw new \Exception('not implemented');
+        return 'users/';
     }
     
     public function buildUser($data)
@@ -28,6 +28,16 @@ class UserGateway extends AbstractGateway
         $user = new User($data);
         return $user;
     }
+    
+    public function get($id)
+    {
+        $data = parent::get($id);
+        $user = $this->buildUser($data['item']);
+        return [
+            'item' => $user,
+        ];
+    }
+
     
     public function find()
     {

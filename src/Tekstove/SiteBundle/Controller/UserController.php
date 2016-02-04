@@ -30,8 +30,9 @@ class UserController extends Controller
     
     public function viewAction($id)
     {
-        $userQuery = new \Tekstove\SiteBundle\Model\UserQuery();
-        $user = $userQuery->findOneById($id);
+        $userGateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
+        $user = $userGateway->get($id)['item'];
         return [
             'user' => $user,
         ];

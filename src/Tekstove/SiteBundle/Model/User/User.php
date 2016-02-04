@@ -12,6 +12,8 @@ class User
     private $id;
     private $username;
     private $password;
+    private $avatar;
+    private $about;
     
     public function __construct($data = [])
     {
@@ -19,6 +21,8 @@ class User
             'id',
             'username',
             'password',
+            'avatar',
+            'about',
         ];
         
         foreach ($fields as $field) {
@@ -42,5 +46,15 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+    
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+    
+    public function getAbout()
+    {
+        return $this->about;
     }
 }
