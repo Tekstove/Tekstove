@@ -1,6 +1,8 @@
 <?php
 
-namespace Tekstove\SiteBundle\Model\Gateway;
+namespace Tekstove\SiteBundle\Model\Gateway\Tekstove;
+
+use Tekstove\SiteBundle\Model\Gateway\GatewayInterface;
 
 use GuzzleHttp\Client;
 
@@ -12,6 +14,9 @@ use GuzzleHttp\Client;
 abstract class AbstractGateway implements GatewayInterface
 {
     const FILTER_NOT_NULL = 'NOT_NULL';
+
+    const GROUP_LIST = 'List';
+    const GROUP_DETAILS = 'Details';
     
     private $client;
     

@@ -4,6 +4,9 @@ namespace Tekstove\SiteBundle\Model\Gateway;
 
 use GuzzleHttp\Client;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
+
 /**
  * Description of GatewayFactory
  *
@@ -18,7 +21,7 @@ class GatewayFactory
             'base_uri' => 'http://api.tekstove.fb/',
         ];
         $client = new Client($clientOptions);
-        $gateway = new Lyric\LyricGateway($client);
+        $gateway = new LyricGateway($client);
         return $gateway;
     }
     
@@ -29,7 +32,7 @@ class GatewayFactory
             'base_uri' => 'http://api.tekstove.fb/',
         ];
         $client = new Client($clientOptions);
-        $gateway = new User\UserGateway($client);
+        $gateway = new UserGateway($client);
         return $gateway;
     }
     

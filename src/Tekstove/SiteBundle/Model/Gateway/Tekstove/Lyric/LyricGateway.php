@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\SiteBundle\Model\Gateway\Lyric;
+namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric;
 
-use Tekstove\SiteBundle\Model\Gateway\AbstractGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 use Tekstove\SiteBundle\Model\Lyric\Lyric;
 

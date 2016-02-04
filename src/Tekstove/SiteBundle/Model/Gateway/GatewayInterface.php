@@ -8,5 +8,6 @@ namespace Tekstove\SiteBundle\Model\Gateway;
  */
 interface GatewayInterface
 {
-    //put your code here
+    public function find();
+    public function get($id);
 }

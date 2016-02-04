@@ -1,8 +1,8 @@
 <?php
 
-namespace Tekstove\SiteBundle\Model\Gateway\User;
+namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\User;
 
-use Tekstove\SiteBundle\Model\Gateway\AbstractGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 use Tekstove\SiteBundle\Model\User\User;
 

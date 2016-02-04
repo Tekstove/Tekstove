@@ -4,6 +4,7 @@ namespace Tekstove\SiteBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 /**
  * @Template()
@@ -14,7 +15,7 @@ class IndexController extends Controller
     public function indexAction()
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
-        $lyricGateway->setGroups(['List']);
+        $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
         $lyricGateway->addOrder('id', 'DESC');
         
@@ -23,8 +24,8 @@ class IndexController extends Controller
         $lastLyrics = $lastLyricsResult['items'];
         
         $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
-        $lyricLastTranslatedGateway->setGroups(['List']);
-        $lyricLastTranslatedGateway->addFilter('textBg', 1, \Tekstove\SiteBundle\Model\Gateway\AbstractGateway::FILTER_NOT_NULL);
+        $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
         $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
         $lastTranslatedResult = $lyricLastTranslatedGateway->find();
         $lastTranslated = $lastTranslatedResult['items'];

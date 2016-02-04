@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Lyric;
 use Tekstove\SiteBundle\Form\Type\LyricType;
 use Tekstove\SiteBundle\Model\LyricQuery;
@@ -26,7 +27,7 @@ class LyricController extends Controller
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
-        $lyricGateway->setGroups(['Details']);
+        $lyricGateway->setGroups([AbstractGateway::GROUP_DETAILS]);
         $lyricData = $lyricGateway->get($id);
         $lyric = $lyricData['item'];
         
@@ -36,7 +37,7 @@ class LyricController extends Controller
 
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
-        $userGateway->setGroups(['List']);
+        $userGateway->setGroups([AbstractGateway::GROUP_LIST]);
         $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
         
         return [
