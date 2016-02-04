@@ -15,12 +15,12 @@ class LyricGateway extends AbstractGateway
 {
     protected function getListRelativeUrl()
     {
-        return '/lyric/list';
+        return '/lyrics';
     }
     
     protected function getGetRelativeUrl()
     {
-        return '/lyric/get/';
+        return '/lyric/';
     }
     
     public function find()
