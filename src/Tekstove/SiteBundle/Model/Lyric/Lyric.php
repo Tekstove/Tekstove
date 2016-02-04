@@ -35,15 +35,13 @@ class Lyric
     {
         $fields = [
             'id',
-            
-            'cacheTitleShort',
-            
             'title',
             'text',
+            'sendBy',
+            
             'views',
             'popularity',
-            
-            'sendBy',
+            'cacheTitleShort',
         ];
         
         foreach ($fields as $field) {
