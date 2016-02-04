@@ -9,18 +9,18 @@ use Tekstove\SiteBundle\Model\Lyric\Lyric;
 /**
  * Description of LyricGateway
  *
- * @author potaka
+ * @author po_taka <angel.koilov@gmail.com>
  */
 class LyricGateway extends AbstractGateway
 {
-    protected function getListRelativeUrl()
+        protected function getListRelativeUrl()
     {
         return '/lyrics';
     }
     
     protected function getGetRelativeUrl()
     {
-        return '/lyric/';
+        return '/lyrics/';
     }
     
     public function find()
