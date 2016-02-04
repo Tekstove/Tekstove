@@ -32,6 +32,7 @@ class UserController extends Controller
     {
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
+        $userGateway->setGroups(['Details']);
         $user = $userGateway->get($id)['item'];
         return [
             'user' => $user,

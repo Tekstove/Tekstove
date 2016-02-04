@@ -18,6 +18,7 @@ abstract class AbstractGateway implements GatewayInterface
     private $count = 10;
     private $orders = [];
     private $filters = [];
+    private $groups = [];
     
     public function __construct(Client $client)
     {
@@ -53,30 +54,39 @@ abstract class AbstractGateway implements GatewayInterface
         ];
     }
     
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+    }
+
     abstract protected function getListRelativeUrl();
     abstract protected function getGetRelativeUrl();
 
+    protected function getGroupsUrlParam()
+    {
+        if (empty($this->groups)) {
+            throw new \Exception("Groups cant be empty");
+        }
+        return http_build_query(['groups' => $this->groups]);
+    }
+    
     public function find()
     {
         $url = $this->getListRelativeUrl();
+        $urlHaveParams = strpos($url, '?');
+        $groupsFilterChar = $urlHaveParams ? '&' : '?';
+        $url .= $groupsFilterChar . $this->getGroupsUrlParam();
+        
         foreach ($this->getOrders() as $order) {
-            $doQuestionMarkExistInQuery = strpos($url, '?');
-            $firstParamConcatChar = $doQuestionMarkExistInQuery ? '&' : '?';
-            $url .= $firstParamConcatChar . 'sort=' . urlencode($order[0]) . '&direction=' . urlencode($order[1]);
+            $url .= '&sort=' . urlencode($order[0]) . '&direction=' . urlencode($order[1]);
         }
         
-        $doQuestionMarkExistInQuery = strpos($url, '?');
         $filters = $this->getFilters();
         $filtersData = [
             'filters' => $filters,
         ];
         $filtersQuery = http_build_query($filtersData);
-        if ($doQuestionMarkExistInQuery) {
-            $url .= "&{$filtersQuery}";
-        } else {
-            $url .= "?{$filtersQuery}";
-        }
-        
+        $url .= "&{$filtersQuery}";
         
         $response = $this->client->get($url);
         $body = $response->getBody();
@@ -88,6 +98,10 @@ abstract class AbstractGateway implements GatewayInterface
     {
         $url = $this->getGetRelativeUrl();
         $url .= $id;
+        $urlHaveParams = strpos($url, '?');
+        $groupsFilterChar = $urlHaveParams ? '&' : '?';
+        $url .= $groupsFilterChar . $this->getGroupsUrlParam();
+        
         $response = $this->client->get($url);
         $body = $response->getBody();
         $data = json_decode($body, true);

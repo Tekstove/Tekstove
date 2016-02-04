@@ -26,6 +26,7 @@ class LyricController extends Controller
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
+        $lyricGateway->setGroups(['Details']);
         $lyricData = $lyricGateway->get($id);
         $lyric = $lyricData['item'];
         
@@ -35,6 +36,7 @@ class LyricController extends Controller
 
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
+        $userGateway->setGroups(['List']);
         $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
         
         return [

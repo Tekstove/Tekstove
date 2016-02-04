@@ -14,6 +14,7 @@ class IndexController extends Controller
     public function indexAction()
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
+        $lyricGateway->setGroups(['List']);
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
         $lyricGateway->addOrder('id', 'DESC');
         
@@ -22,6 +23,7 @@ class IndexController extends Controller
         $lastLyrics = $lastLyricsResult['items'];
         
         $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
+        $lyricLastTranslatedGateway->setGroups(['List']);
         $lyricLastTranslatedGateway->addFilter('textBg', 1, \Tekstove\SiteBundle\Model\Gateway\AbstractGateway::FILTER_NOT_NULL);
         $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
         $lastTranslatedResult = $lyricLastTranslatedGateway->find();
