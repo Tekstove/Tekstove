@@ -66,12 +66,12 @@
     </div>
 
     <div class="row">
-        {% if (lyric.getSendBy) %}
+        {% if (lyric.sendByUser) %}
             <div style="float:left;">
                 изпратено от:
                 <b>
-                    <a href="{{ path('userView', { id:lyric.sendBy.id }) }}">
-                        {{ lyric.sendBy.username }}
+                    <a href="{{ path('userView', { id:lyric.sendByUser.id }) }}">
+                        {{ lyric.sendByUser.username }}
                     </a>
                 </b> 
             </div>

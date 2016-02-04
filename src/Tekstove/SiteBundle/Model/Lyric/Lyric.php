@@ -17,6 +17,7 @@ class Lyric
     private $text;
 
     private $sendBy;
+    private $sendByUser;
 
     /**
      * @var int
@@ -73,27 +74,20 @@ class Lyric
     
     public function getSendBy()
     {
-        // anonymous user
-        if ($this->sendBy === null) {
-            return null;
-        }
-        
-        /**
-         * @TODO get real user data
-         * Return user object, not id
-         */
-        if (!$this->sendBy instanceof \Tekstove\SiteBundle\Model\User\User) {
-            
-            $this->sendBy = new \Tekstove\SiteBundle\Model\User\User(
-                [
-                    'id' => $this->sendBy,
-                ]
-            );
-        }
         return $this->sendBy;
     }
+    
+    function getSendByUser()
+    {
+        return $this->sendByUser;
+    }
 
-        
+    function setSendByUser($sendByUser)
+    {
+        $this->sendByUser = $sendByUser;
+    }
+
+            
     public function getText()
     {
         return $this->text;

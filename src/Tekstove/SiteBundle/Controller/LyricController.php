@@ -32,6 +32,10 @@ class LyricController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
             throw new \Exception('Unauthorised access!');
         }
+
+        $userGateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
+        $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
         
         return [
             'lyric' => $lyric,

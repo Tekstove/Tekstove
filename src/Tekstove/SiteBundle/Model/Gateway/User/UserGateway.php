@@ -15,7 +15,7 @@ class UserGateway extends AbstractGateway
 {
     protected function getListRelativeUrl()
     {
-        return '/user';
+        return '/users';
     }
     
     protected function getGetRelativeUrl()
@@ -39,5 +39,32 @@ class UserGateway extends AbstractGateway
 
         $data['items'] = $users;
         return $data;
+    }
+    
+    public function populateUsers($data, $idGetter, $setter, $label = 'List')
+    {
+        $userIds = [];
+        foreach ($data as $item) {
+            $id = $item->{$idGetter}();
+            if ($id) {
+                $userIds[] = $item->{$idGetter}();
+            }
+        }
+        
+        if (empty($userIds)) {
+            return $data;
+        }
+        
+        $this->addFilter('id', $userIds, 'in');
+        $usersData = $this->find();
+        $users = $usersData['items'];
+        foreach ($data as $item) {
+            $userId = $item->{$idGetter}();
+            foreach ($users as $user) {
+                if ($user->getId() == $userId) {
+                    $item->{$setter}($user);
+                }
+            }
+        }
     }
 }
