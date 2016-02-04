@@ -93,7 +93,6 @@ class Lyric
     }
     
     /**
-     * 
      * @param User $sendByUser
      */
     public function setSendByUser(User $sendByUser)
