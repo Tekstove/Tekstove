@@ -13,7 +13,7 @@ use Tekstove\SiteBundle\Model\Lyric\Lyric;
  */
 class LyricGateway extends AbstractGateway
 {
-        protected function getListRelativeUrl()
+    protected function getListRelativeUrl()
     {
         return '/lyrics';
     }
