@@ -2,6 +2,8 @@
 
 namespace Tekstove\SiteBundle\Model\Lyric;
 
+use Tekstove\SiteBundle\Model\User\User;
+
 /**
  * Description of Lyric
  *
@@ -72,27 +74,46 @@ class Lyric
         $this->title = $title;
     }
     
+    /**
+     * Return ID of the user who send the lyric
+     * @return int|null
+     */
     public function getSendBy()
     {
         return $this->sendBy;
     }
     
-    function getSendByUser()
+    /**
+     * @return null|User
+     */
+    public function getSendByUser()
     {
+        if ($this->getSendBy() && $this->sendByUser === null) {
+            throw new \Exception('User not populated');
+        }
         return $this->sendByUser;
     }
-
-    function setSendByUser($sendByUser)
+    
+    /**
+     * 
+     * @param User $sendByUser
+     */
+    public function setSendByUser(User $sendByUser)
     {
         $this->sendByUser = $sendByUser;
     }
 
-            
+    /**
+     * @return string
+     */
     public function getText()
     {
         return $this->text;
     }
 
+    /**
+     * @param string $text
+     */
     public function setText($text)
     {
         $this->text = $text;
