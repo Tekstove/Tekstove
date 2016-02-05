@@ -3,52 +3,48 @@
 namespace Tekstove\SiteBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LyricType extends BaseAbstractType
-{
-    protected $options = array(
-        'data_class' => 'Tekstove\SiteBundle\Model\Lyric',
-        'name'       => 'lyric',
-    );
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+class LyricType extends \Symfony\Component\Form\AbstractType
+{
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title');
-        $builder->add('text', 'textarea');
+        $builder->add('text', TextareaType::class);
         $builder->add(
             'textBg',
-            'textarea',
+            null,
             [
                 'label' => 'Translation'
             ]
         );
-        $builder->add(
-            'languages',
-            null,
-            [
-                'choice_label' => 'name',
-                'attr' => [
-                    'class' => 't-selectSmart',
-                ],
-            ]
-        );
+//        $builder->add(
+//            'languages',
+//            null
+//            [
+//                'choice_label' => 'name',
+//                'attr' => [
+//                    'class' => 't-selectSmart',
+//                ],
+//            ]
+//        );
         
-        $builder->add('videoYoutube');
-        $builder->add('videoVbox7');
-        $builder->add('videoMetacafe');
-        
-        $builder->add(
-            'download',
-            null,
-            [
-                'label' => 'Download link',
-            ]
-        );
+//        $builder->add('videoYoutube');
+//        $builder->add('videoVbox7');
+//        $builder->add('videoMetacafe');
+//        
+//        $builder->add(
+//            'download',
+//            null,
+//            [
+//                'label' => 'Download link',
+//            ]
+//        );
     }
     
     /**

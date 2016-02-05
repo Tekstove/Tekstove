@@ -6,6 +6,8 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 use Tekstove\SiteBundle\Model\Lyric\Lyric;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+
 /**
  * Description of LyricGateway
  *
@@ -41,6 +43,21 @@ class LyricGateway extends AbstractGateway
     
     public function save(Lyric $lyric)
     {
-        throw new \Exception('not implemented');
+        // @TODO fix
+        $data = [
+            'id' => $lyric->getId(),
+            'title' => $lyric->getTitle(),
+        ];
+        
+        try {
+            $response = $this->getClient()
+                                ->post($this->getRelativeUrl(), $data);
+        } catch (RequestException $e) {
+            if ($e->getCode() != 400) {
+                throw $e;
+            }
+            
+            throw new \Exception('@FIXME')
+        }
     }
 }

@@ -17,6 +17,7 @@ class Lyric
     
     private $title;
     private $text;
+    private $textBg;
 
     private $sendBy;
     private $sendByUser;
@@ -37,6 +38,7 @@ class Lyric
             'id',
             'title',
             'text',
+            'textBg',
             'sendBy',
             
             'views',
@@ -114,6 +116,16 @@ class Lyric
     public function setText($text)
     {
         $this->text = $text;
+    }
+    
+    public function getTextBg()
+    {
+        return $this->textBg;
+    }
+
+    public function setTextBg($textBg)
+    {
+        $this->textBg = $textBg;
     }
 
     public function getViews()

@@ -9,9 +9,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
-use Tekstove\SiteBundle\Model\Lyric;
+use Tekstove\SiteBundle\Model\Lyric\Lyric;
 use Tekstove\SiteBundle\Form\Type\LyricType;
-use Tekstove\SiteBundle\Model\LyricQuery;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of LyricController
@@ -46,25 +46,6 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template("SiteBundle:Lyric:add.html.twig")
-     */
-    public function addHtmlAction(Request $request)
-    {
-        $lyric = new Lyric();
-        $form = $this->createCreateForm($lyric);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $repo = $this->get('tekstove.lyric.repository');
-            $repo->save($lyric);
-            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
-        }
-        
-        return [
-            'form' => $form->createView(),
-        ];
-    }
-    
-    /**
      * @Template()
      */
     public function addAction(Request $request)
@@ -73,8 +54,12 @@ class LyricController extends Controller
         $form = $this->createCreateForm($lyric);
         
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $gateway = $this->get('tesktove.gateway.lyric');
+            /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
+            $gateway->save($lyric);
+            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
         }
         
         return [
@@ -84,9 +69,8 @@ class LyricController extends Controller
     
     public function createCreateForm(Lyric $lyric)
     {
-        $formType = new LyricType();
-        $form = $this->createForm($formType, $lyric);
-        $form->add('submit', 'submit');
+        $form = $this->createForm(LyricType::class, $lyric);
+        $form->add('submit', SubmitType::class);
         
         return $form;
     }
@@ -105,28 +89,6 @@ class LyricController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        $lyricQuery = new LyricQuery();
-        
-        $lyric = $lyricQuery->findOneById($id);
-        if (!$lyric) {
-            throw new NotFoundHttpException('Lyric not found');
-        }
-        
-        if (!$this->isGranted('edit', $lyric)) {
-            throw new AccessDeniedHttpException();
-        }
-        
-        $form = $this->createEditForm($lyric);
-        
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $repo = $this->get('tekstove.lyric.repository');
-            $repo->save($lyric);
-            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
-        }
-        
-        return [
-            'form' => $form->createView(),
-        ];
+        // @TODO
     }
 }

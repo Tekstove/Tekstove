@@ -27,15 +27,11 @@ lyricView:
     requirements:
         id:  \d+
 
-lyricAddPostHtml:
-    path: /lyric/add
-    defaults: { _controller: SiteBundle:Lyric:addHtml }
-    methods: [POST]
-
 lyricAdd:
     path: /lyric/add
     defaults: { _controller: SiteBundle:Lyric:add }
-    methods: [GET]
+    methods: [GET, POST]
+
 lyricEdit:
     path: /lyric/edit/{id}
     defaults: { _controller: SiteBundle:Lyric:edit }

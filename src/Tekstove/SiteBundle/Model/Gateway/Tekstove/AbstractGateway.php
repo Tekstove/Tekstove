@@ -4,7 +4,7 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove;
 
 use Tekstove\SiteBundle\Model\Gateway\GatewayInterface;
 
-use GuzzleHttp\Client;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\ClientInterface;
 
 /**
  * Description of Abstractgateway
@@ -25,11 +25,14 @@ abstract class AbstractGateway implements GatewayInterface
     private $filters = [];
     private $groups = [];
     
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
     
+    /**
+     * @return ClientInterface
+     */
     public function getClient()
     {
         return $this->client;
