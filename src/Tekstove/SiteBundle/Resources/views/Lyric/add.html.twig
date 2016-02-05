@@ -1,5 +1,6 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
+    {{ form_errors(form)}}
     {{ form_start(form) }}
         {#{{ form_row(form.title) }}
         {{ form_row(form.text) }}

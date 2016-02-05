@@ -42,6 +42,11 @@ class GuzzleAdapter implements ClientInterface
                 $e->getCode(),
                 $e->getPrevious()
             );
+            
+            $response = $e->getResponse();
+            $responseBody = $response->getBody()->getContents();
+            $tekstoveException->setBody($responseBody);
+            
             throw $tekstoveException;
         }
     }

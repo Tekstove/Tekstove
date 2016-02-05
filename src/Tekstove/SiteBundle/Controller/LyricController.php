@@ -13,6 +13,8 @@ use Tekstove\SiteBundle\Model\Lyric\Lyric;
 use Tekstove\SiteBundle\Form\Type\LyricType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+
 /**
  * Description of LyricController
  *
@@ -58,8 +60,31 @@ class LyricController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tesktove.gateway.lyric');
             /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
-            $gateway->save($lyric);
-            return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
+            try {
+                $lyric->setTitle($form->get('title')->getData());
+                $lyric->setText($form->get('text')->getData());
+                $gateway->save($lyric);
+                return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
+            } catch (TekstoveValidationException $e) {
+                
+                // @TODO use matcher!
+                foreach ($e->getValidationErrors() as $error) {
+                    $formError = new \Symfony\Component\Form\FormError($error['message']);
+                    $formErrorMatched = false;
+                    foreach ($form as $formElement) {
+                        /* @var $formElement forme \Symfony\Component\Form\FormInterface */
+                        if ($formElement->getName() == $error['element']) {
+                            $formElement->addError($formError);
+                            $formErrorMatched = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!$formErrorMatched) {
+                        $form->addError($formError);
+                    }
+                }
+            }
         }
         
         return [
