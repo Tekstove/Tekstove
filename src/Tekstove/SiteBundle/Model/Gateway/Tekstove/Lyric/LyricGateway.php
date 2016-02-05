@@ -13,14 +13,9 @@ use Tekstove\SiteBundle\Model\Lyric\Lyric;
  */
 class LyricGateway extends AbstractGateway
 {
-    protected function getListRelativeUrl()
+    protected function getRelativeUrl()
     {
         return '/lyrics';
-    }
-    
-    protected function getGetRelativeUrl()
-    {
-        return '/lyrics/';
     }
     
     public function find()
@@ -42,5 +37,10 @@ class LyricGateway extends AbstractGateway
         return [
             'item' => $lyric,
         ];
+    }
+    
+    public function save(Lyric $lyric)
+    {
+        throw new \Exception('not implemented');
     }
 }

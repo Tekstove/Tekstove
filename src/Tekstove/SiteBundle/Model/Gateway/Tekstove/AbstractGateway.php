@@ -64,8 +64,7 @@ abstract class AbstractGateway implements GatewayInterface
         $this->groups = $groups;
     }
 
-    abstract protected function getListRelativeUrl();
-    abstract protected function getGetRelativeUrl();
+    abstract protected function getRelativeUrl();
 
     protected function getGroupsUrlParam()
     {
@@ -77,10 +76,10 @@ abstract class AbstractGateway implements GatewayInterface
     
     public function find()
     {
-        $url = $this->getListRelativeUrl();
+        $url = $this->getRelativeUrl();
         $urlHaveParams = strpos($url, '?');
         $groupsFilterChar = $urlHaveParams ? '&' : '?';
-        $url .= $groupsFilterChar . $this->getGroupsUrlParam();
+        $url .=  $groupsFilterChar . $this->getGroupsUrlParam();
         
         foreach ($this->getOrders() as $order) {
             $url .= '&sort=' . urlencode($order[0]) . '&direction=' . urlencode($order[1]);
@@ -101,8 +100,8 @@ abstract class AbstractGateway implements GatewayInterface
     
     public function get($id)
     {
-        $url = $this->getGetRelativeUrl();
-        $url .= $id;
+        $url = $this->getRelativeUrl();
+        $url .= '/' . $id;
         $urlHaveParams = strpos($url, '?');
         $groupsFilterChar = $urlHaveParams ? '&' : '?';
         $url .= $groupsFilterChar . $this->getGroupsUrlParam();
