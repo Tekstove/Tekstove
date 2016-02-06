@@ -4,14 +4,13 @@ php:
   - 7.0
   
 before_script:
-  - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
   - mv app/config/parameters_travis.yml app/config/parameters.yml
   - mysql -e 'create database tekstove_lyric;'
 
 script:
-    - cd Test/codeSniffer
-    - phpcs
+    - composer install -d Test/codeSniffer/
+    - Test/codeSniffer/vendor/bin/phpcs --standard=Test/codeSniffer/phpcs.xml src/
 
 matrix:
     allow_failures:

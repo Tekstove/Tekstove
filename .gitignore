@@ -14,3 +14,7 @@
 
 /app/scripts/migrations/vendor
 /app/scripts/migrations/phinx.yml
+
+
+/Test/codeSniffer/vendor
+
