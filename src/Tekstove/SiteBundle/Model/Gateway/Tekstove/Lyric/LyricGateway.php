@@ -56,7 +56,7 @@ class LyricGateway extends AbstractGateway
                                 ->post(
                                     $this->getRelativeUrl(),
                                     ['body' => json_encode($data)]
-            );
+                                );
         } catch (RequestException $e) {
             if ($e->getCode() != 400) {
                 throw $e;
