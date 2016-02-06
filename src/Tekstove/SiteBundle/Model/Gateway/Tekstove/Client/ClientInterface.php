@@ -10,4 +10,9 @@ interface ClientInterface
 {
     public function setBaseUri($uri);
     public function post($url, $datas);
+    /**
+     * @param type $url
+     * @return Response
+     */
+    public function get($url);
 }

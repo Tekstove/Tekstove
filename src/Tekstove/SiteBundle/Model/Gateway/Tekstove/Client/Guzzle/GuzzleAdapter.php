@@ -8,6 +8,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException as TekstoveRequestException;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Response as TekstoveResponse;
+
 /**
  * Description of GuzzleAdapter
  *
@@ -49,5 +51,15 @@ class GuzzleAdapter implements ClientInterface
             
             throw $tekstoveException;
         }
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function get($url)
+    {
+        $guzzleResponse = $this->guzzle->get($url);
+        $tekstoveResponse = new TekstoveResponse($guzzleResponse->getBody());
+        return $tekstoveResponse;
     }
 }
