@@ -13,7 +13,7 @@ class ApiGateway extends UserGateway
 {
     protected function getListRelativeUrl()
     {
-        return '/user/credentials';
+        return '/users/credentials';
     }
     
     public function buildUser($data)
