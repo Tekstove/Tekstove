@@ -118,7 +118,7 @@
 
                     <div class="col-md-4 text-right">
                         {% if app.user %}
-{#                            <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>#}
+                            <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
                             <a href="#" class="top"><del>Потребителски данни</del></a>
                             <a href="{{ path('logout') }}">изход</a>
                         {% else %}

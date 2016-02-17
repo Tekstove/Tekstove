@@ -21,7 +21,7 @@ class ApiProvider implements UserProviderInterface
     public function __construct(ApiGateway $gateway)
     {
         $this->gateway = $gateway;
-        $this->gateway->setGroups(['Credentials', 'Details']);
+        $this->gateway->setGroups(['Details']);
     }
 
     
