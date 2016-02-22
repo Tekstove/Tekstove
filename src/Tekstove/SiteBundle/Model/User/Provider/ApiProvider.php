@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 use Tekstove\SiteBundle\Model\User\Provider\ApiGateway;
+use Tekstove\SiteBundle\Model\User\Provider\User;
 
 /**
  * Description of ApiProvider
@@ -24,21 +25,19 @@ class ApiProvider implements UserProviderInterface
         $this->gateway->setGroups(['Details']);
     }
 
-    
     public function loadUserByUsername($username)
     {
-        $this->gateway->addFilter('username', $username);
-        $result = $this->gateway->find();
-        $users = $result['items'];
-        if (empty($users)) {
-            throw new UsernameNotFoundException("Username doesn't exists");
+        throw new \Exception('Not implemented. Use `loadUserByUsernameAndPassword`');
+    }
+    
+    public function loadUserByUsernameAndPassword($username, $password)
+    {
+        $user = $this->gateway->getUserByUsernameAndPassword($username, $password);
+        if (!$user) {
+            throw new UsernameNotFoundException("Username or password are wrong");
         }
         
-        if (count($users) > 1) {
-            throw new \Exception("Found more than one user");
-        }
-        
-        return $users[0];
+        return $user;
     }
 
     public function refreshUser(UserInterface $user)
@@ -49,12 +48,12 @@ class ApiProvider implements UserProviderInterface
             );
         }
         
-        return $this->loadUserByUsername($user->getUsername());
+        return $user;
     }
 
     public function supportsClass($class)
     {
-        if ($class == 'Tekstove\SiteBundle\Model\User\Provider\User') {
+        if ($class == User::class) {
             return true;
         }
         

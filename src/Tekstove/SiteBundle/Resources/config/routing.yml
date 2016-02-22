@@ -7,13 +7,15 @@ contactsFriends:
 contacts:
     path: /contacts
     defaults: { _controller: SiteBundle:Contacts:contacts }
+
 login:
-    path: /user/login
+    path: /login
     defaults: { _controller: SiteBundle:User:login }
 loginCheck:
-    path: /user/loginCheck
+    path: /loginCheck
 logout:
-    path: /user/logout
+    path: /logout
+
 register:
     path: /user/register
     defaults: { _controller: SiteBundle:User:register }

@@ -43,3 +43,35 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricGateway]
         shared: false
+
+    wsse.security.authentication.provider:
+        class: Tekstove\SiteBundle\Security\Authentication\Provider\TekstoveApiWsseProvider
+        arguments:
+            - '@tekstove.provider.user'
+        public: false
+
+    security.authentication.failure_handler:
+        class: Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler
+        arguments:
+            - "@http_kernel"
+            - "@security.http_utils"
+            
+    security.authentication.success_handler:
+        class: Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler
+        arguments:
+            - "@security.http_utils"
+
+    wsse.security.authentication.listener:
+        class: Tekstove\SiteBundle\Security\Firewall\TekstoveApiWsseListener
+        arguments:
+          - '@security.token_storage'
+          - '@security.authentication.manager'
+          - '@security.authentication.session_strategy'
+          - '@security.http_utils'
+          - 'wsse'
+          - '@security.authentication.success_handler'
+          - '@security.authentication.failure_handler'
+          - []
+          - '@logger'
+          - ~
+        public: false

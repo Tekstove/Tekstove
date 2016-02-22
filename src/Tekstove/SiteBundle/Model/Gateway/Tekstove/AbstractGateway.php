@@ -97,8 +97,13 @@ abstract class AbstractGateway implements GatewayInterface
         
         $response = $this->client->get($url);
         $body = $response->getBody();
-        $data = json_decode($body, true);
+        $data = $this->decodeBody($body);
         return $data;
+    }
+    
+    protected function decodeBody($body)
+    {
+        return json_decode($body, true);
     }
     
     public function get($id)
