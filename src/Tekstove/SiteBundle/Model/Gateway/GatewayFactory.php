@@ -25,6 +25,18 @@ class GatewayFactory
         $gateway = new LyricGateway($client);
         return $gateway;
     }
+
+    public function createLyricCredentialsGateway()
+    {
+        $clientOptions = [
+            // @TODO change with config variable
+            'base_uri' => 'http://api.tekstove.fb/',
+        ];
+        $client = new Client();
+        $client->setBaseUri($clientOptions['base_uri']);
+        $gateway = new Tekstove\Lyric\CredentialsGateway($client);
+        return $gateway;
+    }
     
     public static function createUserGateway()
     {

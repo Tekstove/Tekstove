@@ -44,6 +44,11 @@ services:
         factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricGateway]
         shared: false
 
+    tekstove.gateway.lyric.credentials:
+        class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
+        factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricCredentialsGateway]
+        shared: false
+
     wsse.security.authentication.provider:
         class: Tekstove\SiteBundle\Security\Authentication\Provider\TekstoveApiWsseProvider
         arguments:

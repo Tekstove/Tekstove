@@ -53,7 +53,13 @@ class LyricController extends Controller
     public function addAction(Request $request)
     {
         $lyric = new Lyric();
-        $form = $this->createCreateForm($lyric);
+        
+        $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
+        /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
+        $credentialsData = $credentialsGateway->find();
+        $allowedFields = $credentialsData['item']['fields'];
+        
+        $form = $this->createCreateForm($lyric, $allowedFields);
         
         $form->handleRequest($request);
         
@@ -92,9 +98,9 @@ class LyricController extends Controller
         ];
     }
     
-    public function createCreateForm(Lyric $lyric)
+    public function createCreateForm(Lyric $lyric, $allowedFields)
     {
-        $form = $this->createForm(LyricType::class, $lyric);
+        $form = $this->createForm(LyricType::class, $lyric, ['fields' => $allowedFields]);
         $form->add('submit', SubmitType::class);
         
         return $form;

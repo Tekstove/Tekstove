@@ -14,8 +14,16 @@ class LyricType extends \Symfony\Component\Form\AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
-        $builder->add('text', TextareaType::class);
+        $fields = $options['fields'];
+        
+        if (in_array('title', $fields)) {
+            $builder->add('title');
+        }
+        
+        if (in_array('text', $fields)) {
+            $builder->add('text', TextareaType::class);
+        }
+        
         $builder->add(
             'textBg',
             null,
@@ -54,6 +62,8 @@ class LyricType extends \Symfony\Component\Form\AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('fields');
+        
         $resolver->setDefaults(
             array(
                 'attr' => [
