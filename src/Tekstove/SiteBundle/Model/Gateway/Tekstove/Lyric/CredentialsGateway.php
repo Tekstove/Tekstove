@@ -10,7 +10,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
  * @author po_taka
  */
 class CredentialsGateway extends AbstractGateway
-{    
+{
     protected function getRelativeUrl()
     {
         $this->setGroups(['List']);
