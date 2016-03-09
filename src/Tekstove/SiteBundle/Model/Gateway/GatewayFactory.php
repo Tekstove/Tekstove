@@ -26,7 +26,7 @@ class GatewayFactory
         return $gateway;
     }
 
-    public function createLyricCredentialsGateway()
+    public static function createLyricCredentialsGateway()
     {
         $clientOptions = [
             // @TODO change with config variable
