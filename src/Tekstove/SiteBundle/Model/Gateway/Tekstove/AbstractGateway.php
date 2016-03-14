@@ -23,6 +23,7 @@ abstract class AbstractGateway implements GatewayInterface
     private $count = 10;
     private $orders = [];
     private $filters = [];
+    private $params = [];
     private $groups = [];
     
     public function __construct(ClientInterface $client)
@@ -62,6 +63,17 @@ abstract class AbstractGateway implements GatewayInterface
         ];
     }
     
+    /**
+     * Add param in client request
+     * @param string $param
+     * @param string $value
+     */
+    public function addParam($param, $value)
+    {
+        $this->params[$param] = $value;
+        throw new \Exception('not implemented');
+    }
+
     public function setGroups($groups)
     {
         $this->groups = $groups;

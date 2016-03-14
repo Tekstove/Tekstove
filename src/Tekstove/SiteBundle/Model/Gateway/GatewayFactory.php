@@ -7,6 +7,9 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Cl
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 /**
  * Description of GatewayFactory
  *
@@ -26,7 +29,7 @@ class GatewayFactory
         return $gateway;
     }
 
-    public static function createLyricCredentialsGateway()
+    public static function createLyricCredentialsGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
             // @TODO change with config variable
@@ -34,6 +37,11 @@ class GatewayFactory
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
+        $currentUser = $tokenStorage->getToken()->getUser();
+        if ($currentUser instanceof UserInterface) {
+            $apiKey = $currentUser->getApiKey();
+            $client->setApikey($apiKey);
+        }
         $gateway = new Tekstove\Lyric\CredentialsGateway($client);
         return $gateway;
     }

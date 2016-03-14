@@ -47,6 +47,7 @@ services:
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricCredentialsGateway]
+        arguments: ["@security.token_storage"]
         shared: false
 
     wsse.security.authentication.provider:

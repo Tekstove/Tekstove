@@ -10,6 +10,10 @@ use Tekstove\SiteBundle\Security\Authentication\Token\TekstoveApiUserToken;
 
 class TekstoveApiWsseProvider implements AuthenticationProviderInterface
 {
+    
+    /**
+     * @var UserProviderInterface
+     */
     private $userProvider;
 
     public function __construct(UserProviderInterface $userProvider)
@@ -31,7 +35,7 @@ class TekstoveApiWsseProvider implements AuthenticationProviderInterface
             return $authenticatedToken;
         }
 
-        throw new AuthenticationException('The WSSE authentication failed.');
+        throw new AuthenticationException('The ' . __CLASS__ . ' authentication failed.');
     }
 
     public function supports(TokenInterface $token)

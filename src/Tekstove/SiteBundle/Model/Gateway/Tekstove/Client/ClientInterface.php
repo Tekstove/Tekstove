@@ -15,4 +15,6 @@ interface ClientInterface
      * @return Response
      */
     public function get($url);
+    
+    public function setApikey($apiKey);
 }

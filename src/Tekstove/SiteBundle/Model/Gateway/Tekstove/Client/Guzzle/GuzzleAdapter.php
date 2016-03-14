@@ -21,9 +21,8 @@ class GuzzleAdapter implements ClientInterface
     
     public function __construct()
     {
-        $this->guzzle = new GuzzleClient();
+        $this->guzzle = new GuzzleClient([]);
     }
-
     
     public function setBaseUri($uri)
     {
@@ -31,7 +30,6 @@ class GuzzleAdapter implements ClientInterface
         $config = $this->guzzle->getConfig();
         $config['base_uri'] = $uri;
         $this->guzzle = new GuzzleClient($config);
-       
     }
     
     public function post($url, $data)
@@ -61,5 +59,19 @@ class GuzzleAdapter implements ClientInterface
         $guzzleResponse = $this->guzzle->get($url);
         $tekstoveResponse = new TekstoveResponse($guzzleResponse->getBody());
         return $tekstoveResponse;
+    }
+
+    /**
+     * Inject api key in client
+     * @param string $apiKey
+     */
+    public function setApikey($apiKey)
+    {
+        $config = $this->guzzle->getConfig();
+        if (empty($config['headers'])) {
+            $config['headers'] = [];
+        }
+        $config['headers']['Tekstove-Apikey'] = $apiKey;
+        $this->guzzle = new GuzzleClient($config);
     }
 }

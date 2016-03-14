@@ -12,15 +12,20 @@ class User
     private $id;
     private $username;
     private $password;
+    private $apiKey;
     private $avatar;
     private $about;
     
+    /**
+     * @param array $data
+     */
     public function __construct($data = [])
     {
         $fields = [
             'id',
             'username',
             'password',
+            'apiKey',
             'avatar',
             'about',
         ];
@@ -48,6 +53,11 @@ class User
         return $this->password;
     }
     
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+        
     public function getAvatar()
     {
         return $this->avatar;
