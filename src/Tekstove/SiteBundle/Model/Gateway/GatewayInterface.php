@@ -12,5 +12,4 @@ interface GatewayInterface
 {
     public function find();
     public function get($id);
-
 }
