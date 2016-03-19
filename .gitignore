@@ -1,6 +1,3 @@
-/composer.lock
-
-/nbproject
 /vendor
 
 /bin
@@ -8,13 +5,11 @@
 /app/logs/*
 /app/config/parameters.yml
 /app/bootstrap.php.cache
-/var
+/var/*
 /web/bundles
 /web/js/fos_js_routes.js
 
 /app/scripts/migrations/vendor
 /app/scripts/migrations/phinx.yml
 
-
 /Test/codeSniffer/vendor
-
