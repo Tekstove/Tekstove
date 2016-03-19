@@ -21,6 +21,8 @@ class Lyric
 
     private $sendBy;
     private $sendByUser;
+    
+    private $download;
 
     /**
      * @var int
@@ -40,6 +42,7 @@ class Lyric
             'text',
             'textBg',
             'sendBy',
+            'download',
             
             'views',
             'popularity',
@@ -59,6 +62,11 @@ class Lyric
         return (int) $this->id;
     }
     
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getCacheTitleShort()
     {
         return $this->cacheTitleShort;
@@ -74,6 +82,19 @@ class Lyric
         $this->title = $title;
     }
     
+    /**
+     * @return string|null
+     */
+    public function getDownload()
+    {
+        return $this->download;
+    }
+
+    public function setDownload($download)
+    {
+        $this->download = $download;
+    }
+
     /**
      * Return ID of the user who send the lyric
      * @return int|null

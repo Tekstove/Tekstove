@@ -71,7 +71,6 @@ abstract class AbstractGateway implements GatewayInterface
     public function addParam($param, $value)
     {
         $this->params[$param] = $value;
-        throw new \Exception('not implemented');
     }
 
     public function setGroups($groups)
@@ -104,7 +103,9 @@ abstract class AbstractGateway implements GatewayInterface
         $filtersData = [
             'filters' => $filters,
         ];
-        $filtersQuery = http_build_query($filtersData);
+        
+        $allParsms = array_merge($filtersData, $this->params);
+        $filtersQuery = http_build_query($allParsms);
         $url .= "&{$filtersQuery}";
         
         $response = $this->client->get($url);

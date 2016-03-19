@@ -35,7 +35,9 @@ class GuzzleAdapter implements ClientInterface
     public function post($url, $data)
     {
         try {
-            return $this->guzzle->post($url, $data);
+            $response = $this->guzzle->post($url, $data);
+            $tekstoveResponse = new TekstoveResponse($response->getBody()->getContents());
+            return $tekstoveResponse;
         } catch (GuzzleRequestException $e) {
             $tekstoveException = new TekstoveRequestException(
                 $e->getMessage(),

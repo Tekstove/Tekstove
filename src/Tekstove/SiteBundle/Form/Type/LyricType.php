@@ -6,6 +6,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class LyricType extends \Symfony\Component\Form\AbstractType
 {
@@ -31,6 +32,10 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 'label' => 'Translation'
             ]
         );
+        
+        if (in_array('download', $fields)) {
+            $builder->add('download', TextType::class, []);
+        }
 //        $builder->add(
 //            'languages',
 //            null
