@@ -98,7 +98,7 @@ class LyricController extends Controller
         ];
     }
     
-    public function createCreateForm(Lyric $lyric, $allowedFields)
+    private function createCreateForm(Lyric $lyric, $allowedFields)
     {
         $form = $this->createForm(LyricType::class, $lyric, ['fields' => $allowedFields]);
         $form->add('submit', SubmitType::class);
@@ -106,7 +106,7 @@ class LyricController extends Controller
         return $form;
     }
     
-    public function createEditForm(Lyric $lyric)
+    private function createEditForm(Lyric $lyric)
     {
         $formType = new LyricType();
         $form = $this->createForm($formType, $lyric);
