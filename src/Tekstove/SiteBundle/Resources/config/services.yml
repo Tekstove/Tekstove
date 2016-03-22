@@ -8,16 +8,6 @@ services:
         class: Tekstove\CacheBundle\Model\Cache
         arguments: ["@tekstoveCache.cache.memcached"]
     
-    
-    tekstove.event_dispacher.factory:
-        class: Tekstove\SiteBundle\EventDispatcher\EventDispacherFactory
-        arguments: []
-    
-    tekstove.event_dispacher:
-        class: Tekstove\SiteBundle\EventDispatcher\EventDispacher
-        factory: ["@tekstove.event_dispacher.factory", createDispacher]
-        arguments: ["@service_container"]
-    
     tekstove.security.lyric_voter:
         class: Tekstove\SiteBundle\Security\Authorization\Voter\LyricVoter
         public: false
