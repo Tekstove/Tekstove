@@ -32,6 +32,7 @@ services:
     tesktove.gateway.lyric:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: [Tekstove\SiteBundle\Model\Gateway\GatewayFactory, createLyricGateway]
+        arguments: ["@security.token_storage"]
         shared: false
 
     tekstove.gateway.lyric.credentials:

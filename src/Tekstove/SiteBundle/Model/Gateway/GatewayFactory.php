@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class GatewayFactory
 {
-    public static function createLyricGateway()
+    public static function createLyricGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
             // @TODO change with config variable
@@ -25,6 +25,11 @@ class GatewayFactory
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
+        $currentUser = $tokenStorage->getToken()->getUser();
+        if ($currentUser instanceof UserInterface) {
+            $apiKey = $currentUser->getApiKey();
+            $client->setApikey($apiKey);
+        }
         $gateway = new LyricGateway($client);
         return $gateway;
     }

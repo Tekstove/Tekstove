@@ -73,7 +73,7 @@ class GuzzleAdapter implements ClientInterface
         if (empty($config['headers'])) {
             $config['headers'] = [];
         }
-        $config['headers']['Tekstove-Apikey'] = $apiKey;
+        $config['headers']['tekstove-apikey'] = $apiKey;
         $this->guzzle = new GuzzleClient($config);
     }
 }
