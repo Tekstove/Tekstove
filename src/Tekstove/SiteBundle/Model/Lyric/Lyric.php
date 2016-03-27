@@ -23,6 +23,8 @@ class Lyric
     private $sendByUser;
     
     private $download;
+    
+    private $videoYoutube;
 
     /**
      * @var int
@@ -43,6 +45,8 @@ class Lyric
             'textBg',
             'sendBy',
             'download',
+            
+            'videoYoutube',
             
             'views',
             'popularity',
@@ -93,6 +97,16 @@ class Lyric
     public function setDownload($download)
     {
         $this->download = $download;
+    }
+    
+    public function getVideoYoutube()
+    {
+        return $this->videoYoutube;
+    }
+
+    public function setVideoYoutube($videoYoutube)
+    {
+        $this->videoYoutube = $videoYoutube;
     }
 
     /**
