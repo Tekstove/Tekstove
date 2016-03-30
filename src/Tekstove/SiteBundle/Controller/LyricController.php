@@ -70,6 +70,7 @@ class LyricController extends Controller
                 $lyric->setTitle($form->get('title')->getData());
                 $lyric->setText($form->get('text')->getData());
                 $lyric->setVideoYoutube($form->get('videoYoutube')->getData());
+                $lyric->setVideoVbox7($form->get('videoVbox7')->getData());
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {

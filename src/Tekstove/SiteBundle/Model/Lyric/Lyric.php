@@ -25,6 +25,7 @@ class Lyric
     private $download;
     
     private $videoYoutube;
+    private $videoVbox7;
 
     /**
      * @var int
@@ -47,6 +48,7 @@ class Lyric
             'download',
             
             'videoYoutube',
+            'videoVbox7',
             
             'views',
             'popularity',
@@ -107,6 +109,16 @@ class Lyric
     public function setVideoYoutube($videoYoutube)
     {
         $this->videoYoutube = $videoYoutube;
+    }
+    
+    public function getVideoVbox7()
+    {
+        return $this->videoVbox7;
+    }
+
+    public function setVideoVbox7($videoVbox7)
+    {
+        $this->videoVbox7 = $videoVbox7;
     }
 
     /**

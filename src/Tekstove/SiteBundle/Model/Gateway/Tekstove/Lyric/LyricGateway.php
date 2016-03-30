@@ -49,6 +49,9 @@ class LyricGateway extends AbstractGateway
             'id' => $lyric->getId(),
             'title' => $lyric->getTitle(),
             'text' => $lyric->getText(),
+            
+            'videoYoutube' => $lyric->getVideoYoutube(),
+            'videoVbox7' => $lyric->getVideoVbox7(),
         ];
         
         try {
