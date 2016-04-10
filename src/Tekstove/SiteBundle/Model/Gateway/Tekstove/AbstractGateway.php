@@ -126,6 +126,9 @@ abstract class AbstractGateway implements GatewayInterface
         $urlHaveParams = strpos($url, '?');
         $groupsFilterChar = $urlHaveParams ? '&' : '?';
         $url .= $groupsFilterChar . $this->getGroupsUrlParam();
+        if ($this->params) {
+            $url .= '&' . http_build_query($this->params);
+        }
         
         $response = $this->client->get($url);
         $body = $response->getBody();
