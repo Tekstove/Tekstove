@@ -29,14 +29,15 @@ class LyricController extends Controller
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
-        $lyricGateway->setGroups([AbstractGateway::GROUP_DETAILS]);
+        $lyricGateway->setGroups(
+            [
+                AbstractGateway::GROUP_DETAILS,
+                AbstractGateway::GROUP_ACL,
+            ]
+        );
         $lyricData = $lyricGateway->get($id);
         $lyric = $lyricData['item'];
         
-        if (false === $this->get('security.authorization_checker')->isGranted('view', $lyric)) {
-            throw new \Exception('Unauthorised access!');
-        }
-
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
         $userGateway->setGroups([AbstractGateway::GROUP_LIST]);

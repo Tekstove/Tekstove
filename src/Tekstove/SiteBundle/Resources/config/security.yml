@@ -5,9 +5,11 @@ security:
             algorithm: md5
             encode_as_base64: false
             iterations: 1
+
     providers:
         security.provider.tekstove.api:
                 id: tekstove.provider.user
+
     firewalls:
         tekstove_firewall:
             pattern:   ^/
@@ -25,6 +27,7 @@ security:
             logout:
                 path:   logout
                 target: /
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false

@@ -17,6 +17,7 @@ abstract class AbstractGateway implements GatewayInterface
 
     const GROUP_LIST = 'List';
     const GROUP_DETAILS = 'Details';
+    const GROUP_ACL = 'Acl';
     
     private $client;
     

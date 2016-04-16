@@ -8,12 +8,6 @@ services:
         class: Tekstove\CacheBundle\Model\Cache
         arguments: ["@tekstoveCache.cache.memcached"]
     
-    tekstove.security.lyric_voter:
-        class: Tekstove\SiteBundle\Security\Authorization\Voter\LyricVoter
-        public: false
-        tags:
-            - { name: security.voter }
-    
     tekstove.provider.user:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiProvider
         arguments:

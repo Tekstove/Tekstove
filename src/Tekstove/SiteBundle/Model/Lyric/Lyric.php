@@ -37,6 +37,8 @@ class Lyric
      */
     private $views;
     
+    private $acl = [];
+    
     public function __construct($data = [])
     {
         $fields = [
@@ -53,6 +55,8 @@ class Lyric
             'views',
             'popularity',
             'cacheTitleShort',
+            
+            'acl',
         ];
         
         foreach ($fields as $field) {
@@ -183,5 +187,18 @@ class Lyric
     public function getPopularity()
     {
         return $this->popularity;
+    }
+    
+    /**
+     * @param string $property
+     * @return int|null
+     */
+    public function getAcl($property)
+    {
+        if (isset($this->acl[$property])) {
+            return $this->acl[$property];
+        }
+        
+        return null;
     }
 }
