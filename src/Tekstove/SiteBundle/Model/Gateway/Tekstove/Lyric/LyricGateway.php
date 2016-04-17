@@ -10,7 +10,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
- * Description of LyricGateway
+ * LyricGateway
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -44,29 +44,21 @@ class LyricGateway extends AbstractGateway
     
     public function save(Lyric $lyric)
     {
-        // @TODO fix
-        $data = [
-            'id' => $lyric->getId(),
-            'title' => $lyric->getTitle(),
-            'text' => $lyric->getText(),
-            
-            'videoYoutube' => $lyric->getVideoYoutube(),
-            'videoVbox7' => $lyric->getVideoVbox7(),
-        ];
-        
+        $changeSet = $lyric->getChangeSet();
+
         try {
             if ($lyric->getId()) {
                 // @TODO fix request type to proper patch
                 $response = $this->getClient()
                                     ->patch(
                                         $this->getRelativeUrl() . '/' . $lyric->getId(),
-                                        ['body' => json_encode($data)]
+                                        ['body' => json_encode($changeSet)]
                                     );
             } else {
                 $response = $this->getClient()
                                     ->post(
                                         $this->getRelativeUrl(),
-                                        ['body' => json_encode($data)]
+                                        ['body' => json_encode($changeSet)]
                                     );
             }
             

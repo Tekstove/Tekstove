@@ -37,8 +37,20 @@ class Lyric
      */
     private $views;
     
+    /**
+     * Allowed edit options
+     * @var array
+     */
     private $acl = [];
     
+    /**
+     * @var array
+     */
+    private $changedFields = [];
+    
+    /**
+     * @param array $data
+     */
     public function __construct($data = [])
     {
         $fields = [
@@ -89,6 +101,7 @@ class Lyric
 
     public function setTitle($title)
     {
+        $this->changedFields['title'] = 'title';
         $this->title = $title;
     }
     
@@ -102,6 +115,7 @@ class Lyric
 
     public function setDownload($download)
     {
+        $this->changedFields['download'] = 'download';
         $this->download = $download;
     }
     
@@ -112,6 +126,7 @@ class Lyric
 
     public function setVideoYoutube($videoYoutube)
     {
+        $this->changedFields['videoYoutube'] = 'videoYoutube';
         $this->videoYoutube = $videoYoutube;
     }
     
@@ -122,6 +137,7 @@ class Lyric
 
     public function setVideoVbox7($videoVbox7)
     {
+        $this->changedFields['videoVbox7'] = 'videoVbox7';
         $this->videoVbox7 = $videoVbox7;
     }
 
@@ -150,6 +166,7 @@ class Lyric
      */
     public function setSendByUser(User $sendByUser)
     {
+        $this->changedFields['sendByUser'] = 'sendByUser';
         $this->sendByUser = $sendByUser;
     }
 
@@ -166,6 +183,7 @@ class Lyric
      */
     public function setText($text)
     {
+        $this->changedFields['text'] = 'text';
         $this->text = $text;
     }
     
@@ -176,6 +194,7 @@ class Lyric
 
     public function setTextBg($textBg)
     {
+        $this->changedFields['textBg'] = 'textBg';
         $this->textBg = $textBg;
     }
 
@@ -200,5 +219,39 @@ class Lyric
         }
         
         return null;
+    }
+    
+    /**
+     * Check if fields is changed
+     * @param string $field
+     * @return boolean
+     */
+    public function isChanged($field)
+    {
+        if (isset($this->changedFields[$field])) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getChangedFields()
+    {
+        return $this->changedFields;
+    }
+    
+    public function getChangeSet()
+    {
+        $return = [];
+        foreach ($this->getChangedFields() as $field) {
+            $getter = 'get' . $field;
+            $value = $this->{$getter}();
+            $return[$field] = $value;
+        }
+        
+        return $return;
     }
 }
