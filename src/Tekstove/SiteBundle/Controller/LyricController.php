@@ -73,7 +73,6 @@ class LyricController extends Controller
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {
-                
                 // @TODO use matcher!
                 foreach ($e->getValidationErrors() as $error) {
                     $formError = new \Symfony\Component\Form\FormError($error['message']);
