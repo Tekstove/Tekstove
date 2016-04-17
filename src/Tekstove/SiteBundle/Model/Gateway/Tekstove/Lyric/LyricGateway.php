@@ -48,11 +48,19 @@ class LyricGateway extends AbstractGateway
 
         try {
             if ($lyric->getId()) {
-                // @TODO fix request type to proper patch
+                $pathData = [];
+                foreach ($changeSet as $property => $value) {
+                    $pathData[] = [
+                        'op' => 'replace',
+                        'path' => '/' . $property,
+                        'value' => $value,
+                    ];
+                }
+                
                 $response = $this->getClient()
                                     ->patch(
                                         $this->getRelativeUrl() . '/' . $lyric->getId(),
-                                        ['body' => json_encode($changeSet)]
+                                        ['body' => json_encode($pathData)]
                                     );
             } else {
                 $response = $this->getClient()
