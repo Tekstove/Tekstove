@@ -5,8 +5,6 @@ namespace Tekstove\SiteBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Lyric\Lyric;
@@ -101,7 +99,7 @@ class LyricController extends Controller
         ];
     }
     
-    private function createCreateForm(Lyric $lyric, $allowedFields)
+    private function createBaseForm(Lyric $lyric, $allowedFields)
     {
         $form = $this->createForm(
             LyricType::class,
@@ -110,21 +108,34 @@ class LyricController extends Controller
                 'fields' => $allowedFields
             ]
         );
-        $form->add('submit', SubmitType::class);
+        
+        return $form;
+    }
+    
+    private function createCreateForm(Lyric $lyric, $allowedFields)
+    {
+        $form = $this->createBaseForm($lyric, $allowedFields);
+        $form->add(
+            'submit',
+            SubmitType::class,
+            [
+                'label' => 'Submit',
+            ]
+        );
         
         return $form;
     }
     
     private function createEditForm(Lyric $lyric, $allowedFields)
     {
-        $form = $this->createForm(
-            LyricType::class,
-            $lyric,
+        $form = $this->createBaseForm($lyric, $allowedFields);
+        $form->add(
+            'submit',
+            SubmitType::class,
             [
-                'fields' => $allowedFields,
+                'label' => 'Save',
             ]
         );
-        $form->add('submit', SubmitType::class);
         
         return $form;
     }
