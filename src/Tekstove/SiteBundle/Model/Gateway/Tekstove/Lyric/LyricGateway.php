@@ -55,11 +55,21 @@ class LyricGateway extends AbstractGateway
         ];
         
         try {
-            $response = $this->getClient()
-                                ->post(
-                                    $this->getRelativeUrl(),
-                                    ['body' => json_encode($data)]
-                                );
+            if ($lyric->getId()) {
+                // @TODO fix request type to proper patch
+                $response = $this->getClient()
+                                    ->patch(
+                                        $this->getRelativeUrl() . '/' . $lyric->getId(),
+                                        ['body' => json_encode($data)]
+                                    );
+            } else {
+                $response = $this->getClient()
+                                    ->post(
+                                        $this->getRelativeUrl(),
+                                        ['body' => json_encode($data)]
+                                    );
+            }
+            
             $responseData = $this->decodeBody($response->getBody());
             if (!$lyric->getId()) {
                 $lyric->setId($responseData['item']['id']);

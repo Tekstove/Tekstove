@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Lyric\Lyric;
 use Tekstove\SiteBundle\Form\Type\LyricType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -31,8 +31,8 @@ class LyricController extends Controller
         /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
         $lyricGateway->setGroups(
             [
-                AbstractGateway::GROUP_DETAILS,
-                AbstractGateway::GROUP_ACL,
+                LyricGateway::GROUP_DETAILS,
+                LyricGateway::GROUP_ACL,
             ]
         );
         $lyricData = $lyricGateway->get($id);
@@ -40,7 +40,7 @@ class LyricController extends Controller
         
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
-        $userGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $userGateway->setGroups([LyricGateway::GROUP_LIST]);
         $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
         
         return [
@@ -66,7 +66,7 @@ class LyricController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tesktove.gateway.lyric');
-            /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
+            /* @var $gateway LyricGateway */
             try {
                 $lyric->setTitle($form->get('title')->getData());
                 $lyric->setText($form->get('text')->getData());
@@ -103,17 +103,28 @@ class LyricController extends Controller
     
     private function createCreateForm(Lyric $lyric, $allowedFields)
     {
-        $form = $this->createForm(LyricType::class, $lyric, ['fields' => $allowedFields]);
+        $form = $this->createForm(
+            LyricType::class,
+            $lyric,
+            [
+                'fields' => $allowedFields
+            ]
+        );
         $form->add('submit', SubmitType::class);
         
         return $form;
     }
     
-    private function createEditForm(Lyric $lyric)
+    private function createEditForm(Lyric $lyric, $allowedFields)
     {
-        $formType = new LyricType();
-        $form = $this->createForm($formType, $lyric);
-        $form->add('submit', 'submit');
+        $form = $this->createForm(
+            LyricType::class,
+            $lyric,
+            [
+                'fields' => $allowedFields,
+            ]
+        );
+        $form->add('submit', SubmitType::class);
         
         return $form;
     }
@@ -123,6 +134,65 @@ class LyricController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        // @TODO
+        $gateway = $this->get('tesktove.gateway.lyric');
+        /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
+        $gateway->setGroups(
+            [
+                LyricGateway::GROUP_ACL,
+                LyricGateway::GROUP_DETAILS,
+            ]
+        );
+        $data = $gateway->get($id);
+        $lyric = $data['item'];
+        
+        $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
+        /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
+        $credentialsData = $credentialsGateway->find();
+        $allowedFields = $credentialsData['item']['fields'];
+        
+        $form = $this->createEditForm($lyric, $allowedFields);
+        
+        
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $gateway = $this->get('tesktove.gateway.lyric');
+            /* @var $gateway LyricGateway */
+            try {
+                // @TODO use matcher filed - lyric
+                $lyric->setTitle($form->get('title')->getData());
+                $lyric->setText($form->get('text')->getData());
+                $lyric->setVideoYoutube($form->get('videoYoutube')->getData());
+                $lyric->setVideoVbox7($form->get('videoVbox7')->getData());
+                $gateway->save($lyric);
+                return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
+            } catch (TekstoveValidationException $e) {
+                // @TODO use matcher!
+                foreach ($e->getValidationErrors() as $error) {
+                    $formError = new \Symfony\Component\Form\FormError($error['message']);
+                    $formErrorMatched = false;
+                    foreach ($form as $formElement) {
+                        /* @var $formElement forme \Symfony\Component\Form\FormInterface */
+                        if ($formElement->getName() == $error['element']) {
+                            $formElement->addError($formError);
+                            $formErrorMatched = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!$formErrorMatched) {
+                        $form->addError($formError);
+                    }
+                }
+            }
+        }
+        
+        
+        
+        
+        return [
+            'form' => $form->createView(),
+        ];
     }
 }

@@ -53,6 +53,27 @@ class GuzzleAdapter implements ClientInterface
         }
     }
     
+    public function patch($url, $data)
+    {
+        try {
+            $response = $this->guzzle->patch($url, $data);
+            $tekstoveResponse = new TekstoveResponse($response->getBody()->getContents());
+            return $tekstoveResponse;
+        } catch (GuzzleRequestException $e) {
+            $tekstoveException = new TekstoveRequestException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e->getPrevious()
+            );
+            
+            $response = $e->getResponse();
+            $responseBody = $response->getBody()->getContents();
+            $tekstoveException->setBody($responseBody);
+            
+            throw $tekstoveException;
+        }
+    }
+    
     /**
      * {@inheritdoc}
      */

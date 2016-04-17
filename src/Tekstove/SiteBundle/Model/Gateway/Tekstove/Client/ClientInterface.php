@@ -16,7 +16,14 @@ interface ClientInterface
      * @return Response
      */
     public function post($url, $datas);
+    
     /**
+     * @param type $url
+     * @param type $data
+     */
+    public function patch($url, $data);
+
+        /**
      * @param type $url
      * @return Response
      */

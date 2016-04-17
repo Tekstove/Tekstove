@@ -5,8 +5,8 @@
             гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
         </div>
         <div class="col-md-6" style="text-align:right;">
-            <a href="#" title="Добави песента към Любими">@TODO</a>                 
-            {% if (is_granted('edit', lyric)) %}
+            <a href="#" title="Добави песента към Любими">@TODO</a>
+            {% if (lyric.acl('edit')) %}
                 &nbsp;&nbsp;<a href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
             {% endif %}
         </div>
