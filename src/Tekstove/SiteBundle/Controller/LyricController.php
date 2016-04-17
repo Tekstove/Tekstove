@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
- * Description of LyricController
+ * LyricController
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -161,20 +161,12 @@ class LyricController extends Controller
         $allowedFields = $credentialsData['item']['fields'];
         
         $form = $this->createEditForm($lyric, $allowedFields);
-        
-        
-        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tesktove.gateway.lyric');
             /* @var $gateway LyricGateway */
             try {
-                // @TODO use matcher filed - lyric
-                $lyric->setTitle($form->get('title')->getData());
-                $lyric->setText($form->get('text')->getData());
-                $lyric->setVideoYoutube($form->get('videoYoutube')->getData());
-                $lyric->setVideoVbox7($form->get('videoVbox7')->getData());
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {
@@ -197,9 +189,6 @@ class LyricController extends Controller
                 }
             }
         }
-        
-        
-        
         
         return [
             'form' => $form->createView(),
