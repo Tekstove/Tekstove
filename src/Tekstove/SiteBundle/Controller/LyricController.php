@@ -92,10 +92,12 @@ class LyricController extends Controller
                 }
             }
         }
-        
-        return [
-            'form' => $form->createView(),
-        ];
+        return $this->render(
+            'SiteBundle::Lyric/edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
     
     private function createBaseForm(Lyric $lyric, $allowedFields)
