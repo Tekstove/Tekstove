@@ -27,7 +27,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         
         $builder->add(
             'textBg',
-            null,
+            TextareaType::class,
             [
                 'label' => 'Translation'
             ]
