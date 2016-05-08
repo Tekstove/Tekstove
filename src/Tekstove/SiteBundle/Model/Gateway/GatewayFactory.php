@@ -17,7 +17,20 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class GatewayFactory
 {
-    public static function createLyricGateway(TokenStorageInterface $tokenStorage)
+    private $baseUrl;
+    
+    public function __construct($baseUrl = null)
+    {
+        $this->baseUrl = $this->setBaseUrl($baseUrl);
+    }
+    
+    protected function setBaseUrl($url)
+    {
+        // @TODO fix '/';
+        $this->baseUrl = $url . '/';
+    }
+
+    public function createLyricGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
             // @TODO change with config variable
@@ -34,7 +47,7 @@ class GatewayFactory
         return $gateway;
     }
 
-    public static function createLyricCredentialsGateway(TokenStorageInterface $tokenStorage)
+    public function createLyricCredentialsGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
             // @TODO change with config variable
@@ -51,7 +64,7 @@ class GatewayFactory
         return $gateway;
     }
     
-    public static function createUserGateway()
+    public function createUserGateway()
     {
         $clientOptions = [
             // @TODO change with config variable
@@ -63,7 +76,7 @@ class GatewayFactory
         return $gateway;
     }
     
-    public static function createUserProviderGateway()
+    public function createUserProviderGateway()
     {
         $clientOptions = [
             // @TODO change with config variable

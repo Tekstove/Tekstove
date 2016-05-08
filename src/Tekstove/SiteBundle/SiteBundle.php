@@ -8,7 +8,6 @@ use Tekstove\SiteBundle\DependencyInjection\Security\Factory\WsseFactory;
 
 class SiteBundle extends Bundle
 {
-
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
