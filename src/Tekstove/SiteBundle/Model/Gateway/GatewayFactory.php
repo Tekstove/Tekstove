@@ -19,22 +19,21 @@ class GatewayFactory
 {
     private $baseUrl;
     
-    public function __construct($baseUrl = null)
+    public function __construct($baseUrl)
     {
-        $this->baseUrl = $this->setBaseUrl($baseUrl);
+        $this->setBaseUrl($baseUrl);
     }
     
     protected function setBaseUrl($url)
     {
-        // @TODO fix '/';
-        $this->baseUrl = $url . '/';
+        $urlClean = rtrim($url, '/');
+        $this->baseUrl = $urlClean . '/';
     }
 
     public function createLyricGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
-            // @TODO change with config variable
-            'base_uri' => 'http://api.tekstove.fb/',
+            'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
@@ -50,8 +49,7 @@ class GatewayFactory
     public function createLyricCredentialsGateway(TokenStorageInterface $tokenStorage)
     {
         $clientOptions = [
-            // @TODO change with config variable
-            'base_uri' => 'http://api.tekstove.fb/',
+            'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
@@ -67,8 +65,7 @@ class GatewayFactory
     public function createUserGateway()
     {
         $clientOptions = [
-            // @TODO change with config variable
-            'base_uri' => 'http://api.tekstove.fb/',
+            'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
@@ -79,8 +76,7 @@ class GatewayFactory
     public function createUserProviderGateway()
     {
         $clientOptions = [
-            // @TODO change with config variable
-            'base_uri' => 'http://api.tekstove.fb/',
+            'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
