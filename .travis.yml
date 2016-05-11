@@ -10,7 +10,7 @@ before_script:
   - mysql -e 'create database tekstove_lyric;'
 
 script:
-    - composer install -d Test/codeSniffer/
+    - composer install -d Test/codeSniffer/ --prefer-dist
     - Test/codeSniffer/vendor/bin/phpcs --standard=Test/codeSniffer/phpcs.xml src/
 
 matrix:

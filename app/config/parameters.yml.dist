@@ -22,3 +22,6 @@ parameters:
 #    public_key: ~
 #    private_key: ~
 #    locale_key: '%kernel.default_locale%'
+
+# Tekstove siteBundle
+    tekstove.api_url: '~'
