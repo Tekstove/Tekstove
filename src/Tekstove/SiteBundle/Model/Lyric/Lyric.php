@@ -5,7 +5,7 @@ namespace Tekstove\SiteBundle\Model\Lyric;
 use Tekstove\SiteBundle\Model\User\User;
 
 /**
- * Description of Lyric
+ * Lyric
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -243,6 +243,9 @@ class Lyric
         return $this->changedFields;
     }
     
+    /**
+     * @return array
+     */
     public function getChangeSet()
     {
         $return = [];
