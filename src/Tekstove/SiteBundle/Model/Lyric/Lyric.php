@@ -18,7 +18,8 @@ class Lyric
     private $title;
     private $text;
     private $textBg;
-
+    private $extraInfo;
+    
     private $sendBy;
     private $sendByUser;
     
@@ -196,6 +197,23 @@ class Lyric
     {
         $this->changedFields['textBg'] = 'textBg';
         $this->textBg = $textBg;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getExtraInfo()
+    {
+        return $this->extraInfo;
+    }
+
+    /**
+     * @param string $extraInfo
+     */
+    public function setExtraInfo($extraInfo)
+    {
+        $this->changedFields['extraInfo'] = 'extraInfo';
+        $this->extraInfo = $extraInfo;
     }
 
     public function getViews()

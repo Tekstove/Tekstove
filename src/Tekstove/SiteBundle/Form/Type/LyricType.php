@@ -36,6 +36,8 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         $builder->add('videoYoutube', TextType::class, []);
         $builder->add('videoVbox7', TextType::class, []);
         
+        $builder->add('extraInfo', TextType::class, []);
+        
         if (in_array('download', $fields)) {
             $builder->add('download', TextType::class, []);
         }
