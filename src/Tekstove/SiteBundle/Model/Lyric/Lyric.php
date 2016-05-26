@@ -3,6 +3,7 @@
 namespace Tekstove\SiteBundle\Model\Lyric;
 
 use Tekstove\SiteBundle\Model\User\User;
+use Tekstove\SiteBundle\Model\Artist\Artist;
 
 /**
  * Lyric
@@ -15,6 +16,11 @@ class Lyric
     
     private $cacheTitleShort;
     
+    /**
+     *
+     * @var Artist[]
+     */
+    private $artists = [];
     private $title;
     private $text;
     private $textBg;
@@ -93,6 +99,32 @@ class Lyric
     public function getCacheTitleShort()
     {
         return $this->cacheTitleShort;
+    }
+    
+    /**
+     * @param Artist $artist
+     */
+    public function addArtist(Artist $artist)
+    {
+        $this->artists[] = $artist;
+    }
+    
+    public function clearArtists()
+    {
+        $this->artists = [];
+    }
+
+    /**
+     * @return Artist[]
+     */
+    public function getArtists()
+    {
+        return [
+            (new Artist())->setName('test1'),
+            new Artist(),
+            new Artist(),
+        ];
+        return $this->artists;
     }
 
     public function getTitle()

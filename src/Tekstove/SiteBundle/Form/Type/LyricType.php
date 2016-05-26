@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LyricType extends \Symfony\Component\Form\AbstractType
 {
@@ -16,6 +18,20 @@ class LyricType extends \Symfony\Component\Form\AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $fields = $options['fields'];
+        
+        $builder->add(
+            'artists',
+            CollectionType::class,
+            [
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => ChoiceType::class,
+                'entry_options' => [
+                    'choice_name' => 'name',
+                    'choice_value' => 'id',
+                ]
+            ]
+        );
         
         if (in_array('title', $fields)) {
             $builder->add('title');
