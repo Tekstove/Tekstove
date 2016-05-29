@@ -32,11 +32,16 @@ services:
         factory: ["@tekstove.gateway.factory", createLyricGateway]
         arguments: ["@security.token_storage"]
         shared: false
-
+        
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: ["@tekstove.gateway.factory", createLyricCredentialsGateway]
         arguments: ["@security.token_storage"]
+        shared: false
+
+    tekstove.gateway.artist:
+        class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
+        factory: ["@tekstove.gateway.factory", createArtistGateway]
         shared: false
 
     wsse.security.authentication.provider:
@@ -70,3 +75,9 @@ services:
           - '@logger'
           - ~
         public: false
+
+    tekstove.form.lyric:
+        class: Tekstove\SiteBundle\Form\Type\LyricType
+        arguments: ['@request_stack', '@tekstove.gateway.artist']
+        tags:
+            - { name: form.type }

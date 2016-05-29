@@ -3,7 +3,10 @@
     {{ form_start(form) }}
 
     <ol class="artsts" data-prototype="{{ form_widget(form.artists.vars.prototype)|e }}">
-        ...
+        {% for artist in form.artists %}
+            <li>
+                {{ form_row(artist) }}
+        {% endfor %}
     </ol>
     {{ form_row(form.title) }}
     {{ form_row(form.text) }}

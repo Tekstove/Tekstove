@@ -83,4 +83,15 @@ class GatewayFactory
         $gateway = new \Tekstove\SiteBundle\Model\User\Provider\ApiGateway($client);
         return $gateway;
     }
+    
+    public function createArtistGateway()
+    {
+        $clientOptions = [
+            'base_uri' => $this->baseUrl,
+        ];
+        $client = new Client();
+        $client->setBaseUri($clientOptions['base_uri']);
+        $gateway = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway($client);
+        return $gateway;
+    }
 }

@@ -84,6 +84,13 @@ class Lyric
             }
             $this->{$field} = $data[$field];
         }
+        
+        if (!empty($data['artists'])) {
+            foreach ($data['artists'] as $artistData) {
+                $artist = new Artist($artistData);
+                $this->addArtist($artist);
+            }
+        }
     }
     
     public function getId()
@@ -106,11 +113,24 @@ class Lyric
      */
     public function addArtist(Artist $artist)
     {
+        $this->changedFields['artists'] = 'artists';
         $this->artists[] = $artist;
+    }
+    
+    public function removeArtist(Artist $artistToRemove)
+    {
+        $this->changedFields['artists'] = 'artists';
+        foreach ($this->artists as $artistKey => $existingArtist) {
+            if ($existingArtist->getId() == $artistToRemove->getId()) {
+                unset($this->artists[$artistKey]);
+                return true;
+            }
+        }
     }
     
     public function clearArtists()
     {
+        $this->changedFields['artists'] = 'artists';
         $this->artists = [];
     }
 
@@ -119,11 +139,6 @@ class Lyric
      */
     public function getArtists()
     {
-        return [
-            (new Artist())->setName('test1'),
-            new Artist(),
-            new Artist(),
-        ];
         return $this->artists;
     }
 
@@ -302,7 +317,14 @@ class Lyric
         foreach ($this->getChangedFields() as $field) {
             $getter = 'get' . $field;
             $value = $this->{$getter}();
-            $return[$field] = $value;
+            if (is_array($value)) {
+                $return[$field] = [];
+                foreach ($value as $nestedSet) {
+                    $return[$field][] = $nestedSet->getId();
+                }
+            } else {
+                $return[$field] = $value;
+            }
         }
         
         return $return;
