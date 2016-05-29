@@ -16,11 +16,11 @@
 
     <script>
 
-        jQuery('.artists').select2({
+        jQuery('select[name^="lyric\["]').select2({
             ajax: {
-                debug: true,
                 url: '/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List',
                 dataType: "json",
+               
                 processResults: function(data) {
                     var returnData = {
                         results: [],
