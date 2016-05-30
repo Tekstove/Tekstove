@@ -3,10 +3,10 @@
     {{ form_start(form) }}
 
     <ol class="artists" data-prototype="{{ form_widget(form.artists.vars.prototype)|e }}">
-        {% for artist in form.artists %}
-            <li>
-                {{ form_row(artist) }}
-        {% endfor %}
+{% for artist in form.artists %}
+        <li>
+            {{ form_row(artist) }}
+{% endfor %}
         <li>
             <a href="#" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</a>
         </li>
@@ -60,7 +60,8 @@
                             perPage: 10
                         };
                     }
-                }
+                },
+                escapeMarkup: function(e) { console.log('escape'); return _.escape(e); }
             });
         };
 
