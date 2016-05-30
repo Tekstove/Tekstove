@@ -120,7 +120,7 @@ class LyricController extends Controller
             'submit',
             SubmitType::class,
             [
-                'label' => 'Submit',
+                'label' => 'Send',
             ]
         );
         

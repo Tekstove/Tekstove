@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'Add artist' => 'Добави изпълнител',
     'Bad credentials.' => 'Невалидни данни за вход.',
     'Bad credentials' => 'Невалидни данни за вход',
     'Download link' => 'Линк за сваляне',
@@ -15,4 +16,6 @@ return array(
     'Mail' => 'Поща',
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
+    'Save' => 'Запази',
+    'Send' => 'Изпрати',
 );
