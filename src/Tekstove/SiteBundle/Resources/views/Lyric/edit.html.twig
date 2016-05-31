@@ -20,6 +20,7 @@
     <script>
 
         function artistSelect2(element) {
+            return;
             jQuery(element).select2({
                 ajax: {
                     url: '/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List',
@@ -105,6 +106,7 @@
 
             // Display the form in the page in an li, before the "Add a tag" link li
             var $newFormLi = $('<li></li>').append(newForm);
+            $newFormLi.append('<span>delete</span>');
             $('#addArtist').before($newFormLi);
             artistSelect2($newFormLi.find('select'));
         }
