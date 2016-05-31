@@ -11,7 +11,8 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Tekstove\SiteBundle\Form\Field\ArtistType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Tekstove\SiteBundle\Form\Field\ArtistsType;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
@@ -64,12 +65,12 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 
                 $form->add(
                     'artists',
-                    CollectionType::class,
+                    ArtistsType::class,
                     [
                         'allow_add' => true,
                         'allow_delete' => true,
                         'by_reference' => false,
-                        'entry_type' => ArtistType::class,
+                        'entry_type' => ChoiceType::class,
 
                         'entry_options' => [
                             'choice_label' => 'name',
