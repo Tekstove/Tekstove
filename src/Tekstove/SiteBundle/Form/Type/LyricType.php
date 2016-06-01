@@ -73,9 +73,11 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                         'entry_type' => ChoiceType::class,
 
                         'entry_options' => [
+                            'required' => true,
                             'choice_label' => 'name',
                             'choice_value' => 'id',
                             'choices' => $artistsData['items'],
+                            'label' => 'Artist',
                         ]
                     ]
                 );

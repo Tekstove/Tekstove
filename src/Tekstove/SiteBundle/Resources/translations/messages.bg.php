@@ -2,8 +2,11 @@
 
 return array(
     'Add artist' => 'Добави изпълнител',
+    'Artist' => 'Изпълнител',
     'Bad credentials.' => 'Невалидни данни за вход.',
     'Bad credentials' => 'Невалидни данни за вход',
+    'Choose artist' => 'Избер изпълнител',
+    'delete' => 'изтрии',
     'Download link' => 'Линк за сваляне',
     'This value is already stored in your database' => 'Вече имаме запис с такава стойност',
     'This value is not a valid captcha.' => 'Невалиден код срещу ботове',

@@ -2,9 +2,15 @@
     {% spaceless %}
         {{ block('collection_widget') }}
         
-        <a href="#" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</a>
+        <button class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
         <script>
             function artistSelect2(element) {
+                var $deleteElement = jQuery('<button class="btn btn-danger">{{ 'delete'|trans }}</button>');
+                $deleteElement.click(function() {
+                    jQuery(this).parents('.form-group:first').remove();
+                });
+                $deleteElement.insertAfter(jQuery(element));
+                
                 jQuery(element).select2({
                     ajax: {
                         url: '/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List',
@@ -46,13 +52,14 @@
                             };
                         }
                     },
-                    escapeMarkup: function(e) { console.log('escape'); return _.escape(e); }
+                    escapeMarkup: function(e) { return _.escape(e); }
                 });
             };
             
             jQuery(document).ready(function () {
                 
-                artistSelect2(jQuery('select[name^="lyric\["]'));
+                jQuery('select[name^="lyric\["]').each(function(key, el) { artistSelect2(el); });
+                
                 var $addTagLink = $('#addArtist');
                 var $collectionHolder;
                 
@@ -82,15 +89,14 @@
                 // Replace '__name__' in the prototype's HTML to
                 // instead be a number based on how many items we have
                 var newForm = prototype.replace(/__name__/g, index);
+                var $newForm = jQuery(newForm);
 
                 // increase the index with one for the next item
                 $collectionHolder.data('index', index + 1);
 
                 // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newFormLi.append('<span>delete</span>');
-                $('#addArtist').before($newFormLi);
-                artistSelect2($newFormLi.find('select'));
+                $('#addArtist').before($newForm);
+                artistSelect2($newForm.find('select'));
             }
         </script>
         
