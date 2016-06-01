@@ -2,7 +2,6 @@ global_exclude_dirs:
     - vendor
     - Test
     - app/scripts/cron
-    - web/app_dev.php
 
 exclude_patterns:
-    - app/config/parameters_travis.yml
+    - web/app_dev.php
