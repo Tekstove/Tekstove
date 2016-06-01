@@ -2,111 +2,11 @@
 {% block content %}
     {{ form_start(form) }}
 
-    <ol class="artists" data-prototype="{{ form_widget(form.artists.vars.prototype)|e }}">
-{% for artist in form.artists %}
-        <li>
-            {{ form_row(artist) }}
-{% endfor %}
-        <li>
-            <a href="#" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</a>
-        </li>
-    </ol>
+    {{ form_row(form.artists) }}
+    
     {{ form_row(form.title) }}
     {{ form_row(form.text) }}
     {{ form_row(form.textBg) }}
 
     {{ form_end(form) }}
-
-    <script>
-
-        function artistSelect2(element) {
-            jQuery(element).select2({
-                ajax: {
-                    url: '/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List',
-                    dataType: "json",
-                    processResults: function(data) {
-                        var returnData = {
-                            results: [],
-                            pagination: {
-                                more: true
-                            }
-                        };
-
-                        var i = 0;
-                        for (i = 0; i < data.items.length; i++) {
-                            returnData.results.push({
-                                id: data.items[i].id,
-                                text: data.items[i].name
-                            });
-                        }
-
-                        return returnData;
-                    },
-                    data: function (params) {
-                        var filters = [];
-                        if (params.term) {
-                            filters = [
-                                {
-                                    value: params.term,
-                                    operator: 'like',
-                                    field: 'name'
-                                }
-                            ];
-                        }
-
-                        return {
-                            filters: filters,
-                            page: params.page,
-                            perPage: 10
-                        };
-                    }
-                },
-                escapeMarkup: function(e) { console.log('escape'); return _.escape(e); }
-            });
-        };
-
-        artistSelect2(jQuery('select[name^="lyric\["]'));
-
-        var $collectionHolder;
-
-        // setup an "add a tag" link
-        var $addTagLink = $('#addArtist');
-
-        jQuery(document).ready(function () {
-            // Get the ul that holds the collection of artsts
-            $collectionHolder = $('ol.artists');
-
-            // count the current form inputs we have (e.g. 2), use that as the new
-            // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-            $addTagLink.on('click', function (e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
-
-                // add a new tag form (see next code block)
-                addTagForm($collectionHolder);
-            });
-        });
-
-        function addTagForm($collectionHolder) {
-            // Get the data-prototype explained earlier
-            var prototype = $collectionHolder.attr('data-prototype');
-
-            // get the new index
-            var index = $collectionHolder.data('index');
-
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            var newForm = prototype.replace(/__name__/g, index);
-
-            // increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
-
-            // Display the form in the page in an li, before the "Add a tag" link li
-            var $newFormLi = $('<li></li>').append(newForm);
-            $('#addArtist').before($newFormLi);
-            artistSelect2($newFormLi.find('select'));
-        }
-    </script>
 {% endblock %}
