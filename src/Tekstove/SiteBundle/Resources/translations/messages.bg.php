@@ -3,6 +3,7 @@
 return array(
     'Add artist' => 'Добави изпълнител',
     'Artist' => 'Изпълнител',
+    'Artists' => 'Изпълнители',
     'Bad credentials.' => 'Невалидни данни за вход.',
     'Bad credentials' => 'Невалидни данни за вход',
     'Choose artist' => 'Избер изпълнител',
