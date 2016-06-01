@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormEvents;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Tekstove\SiteBundle\Form\Field\ArtistsType;
 

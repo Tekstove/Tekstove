@@ -2,8 +2,6 @@
 
 namespace Tekstove\SiteBundle\Model\Gateway;
 
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Response;
-
 /**
  *
  * @author po_taka
