@@ -32,9 +32,6 @@
                         url: options.getUrl(),
                         dataType: "json",
                         processResults: function(data) {
-                            
-                            console.log(data);
-                            
                             var more = true;
                             var totalItems = data.pagination.currentPage * data.pagination.itemNumberPerPage;
                             
