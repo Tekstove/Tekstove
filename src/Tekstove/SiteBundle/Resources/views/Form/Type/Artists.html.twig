@@ -4,22 +4,48 @@
         
         <button class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
         <script>
-            function artistSelect2(element) {
-                var $deleteElement = jQuery('<button class="btn btn-danger">{{ 'delete'|trans }}</button>');
-                $deleteElement.click(function() {
-                    jQuery(this).parents('.form-group:first').remove();
-                });
-                $deleteElement.insertAfter(jQuery(element));
-                
-                jQuery(element).select2({
+            var SelectSmartOptions = function (selector) {
+
+                // @TODO check if element is only 1
+                this.element = jQuery(selector);
+
+                this.getElement = function () {
+                    return this.element;
+                };
+
+                this.setUrl = function (url) {
+                    this.url = url;
+                },
+                this.getUrl = function() {
+                    return this.url;
+                };
+            };
+            
+            /**
+             * 
+             * @param {SelectSmartOptions} options
+             * @returns {undefined}
+             */
+            var SelectSmartRemote = function(options) {
+                options.getElement().select2({
                     ajax: {
-                        url: '/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List',
+                        url: options.getUrl(),
                         dataType: "json",
                         processResults: function(data) {
+                            
+                            console.log(data);
+                            
+                            var more = true;
+                            var totalItems = data.pagination.currentPage * data.pagination.itemNumberPerPage;
+                            
+                            if (totalItems >= data.pagination.totalItemCount) {
+                                more = false;
+                            }
+                            
                             var returnData = {
                                 results: [],
                                 pagination: {
-                                    more: true
+                                    more: more
                                 }
                             };
 
@@ -56,9 +82,24 @@
                 });
             };
             
+            
+            function artistSelect(element) {
+                var $deleteElement = jQuery('<button class="btn btn-danger">{{ 'delete'|trans }}</button>');
+                $deleteElement.click(function() {
+                    jQuery(this).parents('.form-group:first').remove();
+                });
+                $deleteElement.insertAfter(jQuery(element));
+                
+                
+                var options = new SelectSmartOptions(element);
+                options.setUrl('/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List');
+            
+               new SelectSmartRemote(options);
+            };
+            
             jQuery(document).ready(function () {
                 
-                jQuery('select[name^="lyric\["]').each(function(key, el) { artistSelect2(el); });
+                jQuery('select[name^="lyric\["]').each(function(key, el) { artistSelect(el); });
                 
                 var $addTagLink = $('#addArtist');
                 var $collectionHolder;
@@ -96,7 +137,7 @@
 
                 // Display the form in the page in an li, before the "Add a tag" link li
                 $('#addArtist').before($newForm);
-                artistSelect2($newForm.find('select'));
+                artistSelect($newForm.find('select'));
             }
         </script>
         
