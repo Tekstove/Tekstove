@@ -19,14 +19,13 @@ class AppKernel extends Kernel
             /*
              * Vendor
              */
-
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             
             
             /*
              * Local
              */
             new Tekstove\SiteBundle\SiteBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
