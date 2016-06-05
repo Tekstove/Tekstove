@@ -15,16 +15,19 @@ use Tekstove\SiteBundle\Form\Field\ArtistsType;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway;
 
 class LyricType extends \Symfony\Component\Form\AbstractType
 {
     private $request;
     private $artistGateway;
+    private $languageGateway;
     
-    public function __construct(RequestStack $requestStack, ArtistGateway $artistGateway)
+    public function __construct(RequestStack $requestStack, ArtistGateway $artistGateway, LanguageGateway $languagegateway)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->artistGateway = $artistGateway;
+        $this->languageGateway = $languagegateway;
     }
     
     /**
@@ -96,40 +99,35 @@ class LyricType extends \Symfony\Component\Form\AbstractType
             'textBg',
             TextareaType::class,
             [
-                'label' => 'Translation'
+                'label' => 'Translation',
             ]
         );
         
+        // @TODO check permissions
         $builder->add('videoYoutube', TextType::class, []);
         $builder->add('videoVbox7', TextType::class, []);
         
+        // @TODO check permissions
         $builder->add('extraInfo', TextType::class, []);
         
         if (in_array('download', $fields)) {
             $builder->add('download', TextType::class, []);
         }
-//        $builder->add(
-//            'languages',
-//            null
-//            [
-//                'choice_label' => 'name',
-//                'attr' => [
-//                    'class' => 't-selectSmart',
-//                ],
-//            ]
-//        );
         
-//        $builder->add('videoYoutube');
-//        $builder->add('videoVbox7');
-//        $builder->add('videoMetacafe');
-//        
-//        $builder->add(
-//            'download',
-//            null,
-//            [
-//                'label' => 'Download link',
-//            ]
-//        );
+        
+        $builder->add(
+            'languages',
+            ChoiceType::class,
+            [
+                'choice_label' => 'name',
+                'multiple' => true,
+                'attr' => [
+                    'class' => 't-selectSmart',
+                ],
+                'choices' => $this->getLanguages(),
+            ]
+        );
+        
     }
     
     /**
@@ -148,5 +146,13 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             )
         );
+    }
+    
+    private function getLanguages()
+    {
+        $this->languageGateway->setGroups('List');
+        $languagesData = $this->languageGateway->find();
+        $languages = $languagesData['items'];
+        return $languages;
     }
 }

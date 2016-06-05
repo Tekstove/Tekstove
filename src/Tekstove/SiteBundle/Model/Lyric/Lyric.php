@@ -4,6 +4,7 @@ namespace Tekstove\SiteBundle\Model\Lyric;
 
 use Tekstove\SiteBundle\Model\User\User;
 use Tekstove\SiteBundle\Model\Artist\Artist;
+use Tekstove\SiteBundle\Model\Language;
 
 /**
  * Lyric
@@ -33,6 +34,8 @@ class Lyric
     
     private $videoYoutube;
     private $videoVbox7;
+    
+    private $languages = [];
 
     /**
      * @var int
@@ -89,6 +92,13 @@ class Lyric
             foreach ($data['artists'] as $artistData) {
                 $artist = new Artist($artistData);
                 $this->addArtist($artist);
+            }
+        }
+        
+        if (!empty($data['languages'])) {
+            foreach ($data['languages'] as $languageData) {
+                $language = new Language($languageData);
+                $this->addLanguage($language);
             }
         }
     }
@@ -187,6 +197,30 @@ class Lyric
     {
         $this->changedFields['videoVbox7'] = 'videoVbox7';
         $this->videoVbox7 = $videoVbox7;
+    }
+    
+    /**
+     * @return Language[]
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+    
+    public function addLanguage(Language $language)
+    {
+        $this->changedFields['languages'] = 'languages';
+        $this->languages[] = $language;
+    }
+    
+    public function removeLanguage(Language $languageToRemove)
+    {
+        foreach ($this->getLanguages() as $key => $langauage) {
+            if ($langauage->getId() == $languageToRemove->getId()) {
+                unset($this->languages[$key]);
+                return true;
+            }
+        }
     }
 
     /**

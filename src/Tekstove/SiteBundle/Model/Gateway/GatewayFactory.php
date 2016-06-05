@@ -94,4 +94,15 @@ class GatewayFactory
         $gateway = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway($client);
         return $gateway;
     }
+    
+    public function createLanguageGateway()
+    {
+        $clientOptions = [
+            'base_uri' => $this->baseUrl,
+        ];
+        $client = new Client();
+        $client->setBaseUri($clientOptions['base_uri']);
+        $gateway = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway($client);
+        return $gateway;
+    }
 }

@@ -16,7 +16,7 @@ class LanguageGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return '/lkanguages';
+        return '/languages';
     }
     
     public function find()

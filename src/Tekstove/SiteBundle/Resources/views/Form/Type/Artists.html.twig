@@ -96,7 +96,11 @@
             
             jQuery(document).ready(function () {
                 
-                jQuery('select[name^="lyric\["]').each(function(key, el) { artistSelect(el); });
+                jQuery('select[id^="lyric_artist_').each(
+                    function (key, el) {
+                        artistSelect(el);
+                    }
+                );
                 
                 var $addTagLink = $('#addArtist');
                 var $collectionHolder;

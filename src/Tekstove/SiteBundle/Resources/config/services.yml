@@ -43,6 +43,10 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
         factory: ["@tekstove.gateway.factory", createArtistGateway]
         shared: false
+    tekstove.gateway.language:
+        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway
+        factory: ["@tekstove.gateway.factory", createLanguageGateway]
+        shared: false
 
     wsse.security.authentication.provider:
         class: Tekstove\SiteBundle\Security\Authentication\Provider\TekstoveApiWsseProvider
@@ -78,6 +82,6 @@ services:
 
     tekstove.form.lyric:
         class: Tekstove\SiteBundle\Form\Type\LyricType
-        arguments: ['@request_stack', '@tekstove.gateway.artist']
+        arguments: ['@request_stack', '@tekstove.gateway.artist', '@tekstove.gateway.language']
         tags:
             - { name: form.type }
