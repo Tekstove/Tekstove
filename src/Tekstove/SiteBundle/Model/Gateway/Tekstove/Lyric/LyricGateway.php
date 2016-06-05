@@ -59,7 +59,7 @@ class LyricGateway extends AbstractGateway
                 
                 $response = $this->getClient()
                                     ->patch(
-                                        $this->getRelativeUrl() . '/' . $lyric->getId() . '?XDEBUG_SESSION_START=netbeans-xdebug',
+                                        $this->getRelativeUrl() . '/' . $lyric->getId(),
                                         ['body' => json_encode($pathData)]
                                     );
             } else {
