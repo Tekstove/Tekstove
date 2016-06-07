@@ -1,5 +1,5 @@
 jQuery(function () {
-//    jQuery('.t-selectSmart').select2();
+    jQuery('.t-selectSmart').select2();
 });
 
 $.ajaxSetup({

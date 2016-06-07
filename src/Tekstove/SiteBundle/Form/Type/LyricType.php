@@ -125,6 +125,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                     'class' => 't-selectSmart',
                 ],
                 'choices' => $this->getLanguages(),
+                'choice_value' => 'id',
             ]
         );
         
