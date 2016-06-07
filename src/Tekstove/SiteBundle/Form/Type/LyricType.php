@@ -40,52 +40,55 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         $request = $this->request;
         $artistGateway = $this->artistGateway;
         
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($request, $artistGateway) {
-            
-                $posts = $request->request->all();
-                $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
-                $potentialArtistIds = [];
-                foreach ($it as $key => $v) {
-                    if (is_int($key)) {
-                        $potentialArtistIds[$v] = $v;
-                    }
-                }
-                
-                $form = $event->getForm();
-                $lyric = $event->getData();
-                foreach ($lyric->getArtists() as $artist) {
-                    $potentialArtistIds[] = $artist->getId();
-                }
-                
-                if (!empty($potentialArtistIds)) {
-                    $artistGateway->addFilter('id', $potentialArtistIds, 'in');
-                }
-                $artistGateway->setGroups(['List']);
-                $artistsData = $artistGateway->find();
-                
-                $form->add(
-                    'artists',
-                    ArtistsType::class,
-                    [
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'by_reference' => false,
-                        'entry_type' => ChoiceType::class,
+        if (in_array('artists', $fields)) {
+            $builder->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function (FormEvent $event) use ($request, $artistGateway) {
 
-                        'entry_options' => [
-                            'required' => true,
-                            'choice_label' => 'name',
-                            'choice_value' => 'id',
-                            'choices' => $artistsData['items'],
-                            'label' => 'Artist',
+                    $posts = $request->request->all();
+                    $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
+                    $potentialArtistIds = [];
+                    foreach ($it as $key => $v) {
+                        if (is_int($key)) {
+                            $potentialArtistIds[$v] = $v;
+                        }
+                    }
+
+                    $form = $event->getForm();
+                    $lyric = $event->getData();
+                    foreach ($lyric->getArtists() as $artist) {
+                        $potentialArtistIds[] = $artist->getId();
+                    }
+
+                    if (!empty($potentialArtistIds)) {
+                        $artistGateway->addFilter('id', $potentialArtistIds, 'in');
+                    }
+                    $artistGateway->setGroups(['List']);
+                    $artistsData = $artistGateway->find();
+
+                    $form->add(
+                        'artists',
+                        ArtistsType::class,
+                        [
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                            'by_reference' => false,
+                            'entry_type' => ChoiceType::class,
+
+                            'entry_options' => [
+                                'required' => true,
+                                'choice_label' => 'name',
+                                'choice_value' => 'id',
+                                'choices' => $artistsData['items'],
+                                'label' => 'Artist',
+                            ]
                         ]
-                    ]
-                );
-                
-            }
-        );
+                    );
+
+                }
+            );
+        }
+        
         
         if (in_array('title', $fields)) {
             $builder->add('title');
@@ -95,40 +98,47 @@ class LyricType extends \Symfony\Component\Form\AbstractType
             $builder->add('text', TextareaType::class);
         }
         
-        $builder->add(
-            'textBg',
-            TextareaType::class,
-            [
-                'label' => 'Translation',
-            ]
-        );
+        if (in_array('textBg', $fields)) {
+            $builder->add(
+                'textBg',
+                TextareaType::class,
+                [
+                    'label' => 'Translation',
+                ]
+            );
+        }
         
-        // @TODO check permissions
-        $builder->add('videoYoutube', TextType::class, []);
-        $builder->add('videoVbox7', TextType::class, []);
+        if (in_array('videoYoutube', $fields)) {
+            $builder->add('videoYoutube', TextType::class, []);
+        }
         
-        // @TODO check permissions
-        $builder->add('extraInfo', TextType::class, []);
+        if (in_array('videoVbox7', $fields)) {
+            $builder->add('videoVbox7', TextType::class, []);
+        }
+        
+        if (in_array('extraInfo', $fields)) {
+            $builder->add('extraInfo', TextType::class, []);
+        }
         
         if (in_array('download', $fields)) {
             $builder->add('download', TextType::class, []);
         }
         
-        
-        $builder->add(
-            'languages',
-            ChoiceType::class,
-            [
-                'choice_label' => 'name',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 't-selectSmart',
-                ],
-                'choices' => $this->getLanguages(),
-                'choice_value' => 'id',
-            ]
-        );
-        
+        if (in_array('languages', $fields)) {
+            $builder->add(
+                'languages',
+                ChoiceType::class,
+                [
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'attr' => [
+                        'class' => 't-selectSmart',
+                    ],
+                    'choices' => $this->getLanguages(),
+                    'choice_value' => 'id',
+                ]
+            );
+        }
     }
     
     /**
