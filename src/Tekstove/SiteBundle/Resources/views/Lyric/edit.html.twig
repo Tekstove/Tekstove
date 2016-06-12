@@ -2,6 +2,10 @@
 {% block content %}
     {{ form_start(form) }}
 
+    {% if form.artists is defined %}
+        {{ form_row(form.artists) }}
+    {% endif %}
+    
     {{ form_rest(form) }}
     
     {{ form_end(form) }}
