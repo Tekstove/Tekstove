@@ -117,7 +117,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         }
         
         if (in_array('extraInfo', $fields)) {
-            $builder->add('extraInfo', TextType::class, []);
+            $builder->add('extraInfo', TextareaType::class, []);
         }
         
         if (in_array('download', $fields)) {
