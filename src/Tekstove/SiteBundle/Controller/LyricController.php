@@ -159,7 +159,7 @@ class LyricController extends Controller
         
         $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
         /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
-        $credentialsData = $credentialsGateway->find();
+        $credentialsData = $credentialsGateway->get($id);
         $allowedFields = $credentialsData['item']['fields'];
         
         $form = $this->createEditForm($lyric, $allowedFields);
