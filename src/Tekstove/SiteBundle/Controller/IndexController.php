@@ -30,14 +30,18 @@ class IndexController extends Controller
         $lastTranslatedResult = $lyricLastTranslatedGateway->find();
         $lastTranslated = $lastTranslatedResult['items'];
 
-        $popular = [];
+        $popularGateway = $this->get('tesktove.gateway.lyric');
+        $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $popularGateway->addOrder('popularity', 'DESC');
+        $popularData = $popularGateway->find();
+        $popular = $popularData['items'];
         
-        $mostViewed = [];
+        $viewedGateway = $this->get('tesktove.gateway.lyric');
+        $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $viewedGateway->addOrder('views', 'DESC');
+        $viewedData = $viewedGateway->find();
+        $mostViewed= $viewedData['items'];
         
-        $lastVoted = [];
-        
-        $favoritesRandom = [];
-    
         $lastAlbums = [];
         
         return [
@@ -45,8 +49,6 @@ class IndexController extends Controller
             'lastTranslated' => $lastTranslated,
             'popular' => $popular,
             'mostViewed' => $mostViewed,
-            'lastVoted' => $lastVoted,
-            'favoritesRandom' => $favoritesRandom,
             'albums' => $lastAlbums,
         ];
     }

@@ -4,8 +4,8 @@
         <div class="col-md-6" style="background-color:#EEEEEE;">
             гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
         </div>
+        
         <div class="col-md-6" style="text-align:right;">
-            <a href="#" title="Добави песента към Любими">@TODO</a>
             {% if (lyric.acl('edit')) %}
                 &nbsp;&nbsp;<a href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
             {% endif %}
@@ -30,12 +30,6 @@
         </div>
     </div>
 
-    
-
-    <div id="browse_koi_e_glasuval">
-        <a href="#">@кой е гласувал</a>
-    </div>
-    
 {% if lyric.videoYoutube is not empty %}
     <div class="row">
         youtube: {{ lyric.videoYoutube }}

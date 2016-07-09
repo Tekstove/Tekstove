@@ -71,39 +71,6 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-md-6">
-        <div class="t-index-lyrics-block-container">
-            <div class="t-index-lyrics-block-header">
-                <a href="#">
-                    последно гласувани&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 последни
-                </a>
-            </div>
-            <div class="t-index-lyrics-block-lyrics-container">
-                {% for lyric in lastVoted %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.cacheTitleShort }}
-                    </a>
-                    <br />
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="t-index-lyrics-block-container">
-            <div class="t-index-lyrics-block-header">
-                произволни текстове от любими
-            </div>
-            <div class="t-index-lyrics-block-lyrics-container">
-                {% for lyric in favoritesRandom %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
-                        {{ lyric.cacheTitleShort }}
-                    </a>
-                    <br />
-                {% endfor %}
-            </div>
-        </div>
-    </div>
     <div class="col-md-12 t-index-albums-container">
         <i><b>най-нови албуми</b></i><br>
         <table class="albums" style="text-align: center;">
