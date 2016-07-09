@@ -48,3 +48,7 @@ artistBrowse:
 artistList:
     path: /artist/list/{letter}
     defaults: { _controller: SiteBundle:Artist:list }
+
+chat:
+    path: /chat
+    defaults: { _controller: SiteBundle:Chat:index }
