@@ -15,32 +15,17 @@
     <div class="row">
         <div class="col-md-10">
         <h1>
-            {#{% if (lyric.artist1) %}
-                <a href="{{ path('artistBrowse', { id: lyric.artist1 }) }}">
-                    {{ lyric.artistRelatedByArtist1.getName }}
-                </a>
+            {% for artist in lyric.artists %}
+                {{ artist.name }}
+                {% if not loop.last %}
+                    и
+                {% endif %}
+            {% endfor %}
+            
+            {% if lyric.artists is not empty %}
+                - 
             {% endif %}
-            {% if (lyric.getArtist2) %}
-                и <a href="{{ path('artistBrowse', {id:lyric.artist2}) }}" title="">
-                    {{ lyric.artistRelatedByArtist2.name }}
-                </a>
-            {% endif %}
-            {% if (lyric.getArtist3) %}
-                и <a href="{{ path('artistBrowse', {id:lyric.artist3}) }}}">
-                    {{ lyric.artistRelatedByArtist3.getName }}
-                </a>
-            {% endif %}
-            {% if (lyric.artist4) %}
-                и <a href="{{ path('artistBrowse', {id:lyric.artist4}) }}" title="">
-                    {{ lyric.artistRelatedByArtist4.getName }}
-                </a>
-            {% endif %}
-            {% if (lyric.artist5) %}
-                и <a href="{{ path('artistBrowse', {id:lyric.artist4}) }}" title="">
-                    {{ lyric.artistRelatedByArtist4.getName }}
-                </a>
-            {% endif %}#}
-            - {{ lyric.title }}
+            {{ lyric.title }}
         </h1>
         </div>
         
@@ -95,10 +80,10 @@
         <div class="col-md-6">
             {{ lyric.text|nl2br }}
         </div>
-{#{% if (lyric.getTextBg) %}
+{% if (lyric.getTextBg) %}
         <div class="col-md-6">
             {{ lyric.textBg|nl2br }}
         </div>
-{% endif %}#}
+{% endif %}
     </div>
 {% endblock %}
