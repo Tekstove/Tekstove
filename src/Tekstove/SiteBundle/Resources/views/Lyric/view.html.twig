@@ -14,34 +14,20 @@
 
     <div class="row">
         <div class="col-md-10">
-        <h1>
-            {% for artist in lyric.artists %}
-                {{ artist.name }}
-                {% if not loop.last %}
-                    и
-                {% endif %}
-            {% endfor %}
-            
-            {% if lyric.artists is not empty %}
-                - 
-            {% endif %}
-            {{ lyric.title }}
-        </h1>
-        </div>
-        
-        {#<div class="col-md-2">
-            <div class="browse_glasuvai_buton">
-                <div id="glasuvane" style="padding-top:12px">
-                    {{ lyric.votesCount }}
-                    <br/>
-                    {% if app.user %}
-                        <a href="#" title="Гласувай">@Гласувай</a>
-                    {% else %}
-                        Гласа
+            <h1>
+                {% for artist in lyric.artists %}
+                    {{ artist.name }}
+                    {% if not loop.last %}
+                        и
                     {% endif %}
-                </div>
-            </div>
-        </div>#}
+                {% endfor %}
+
+                {% if lyric.artists is not empty %}
+                    - 
+                {% endif %}
+                {{ lyric.title }}
+            </h1>
+        </div>
     </div>
 
     
@@ -49,7 +35,19 @@
     <div id="browse_koi_e_glasuval">
         <a href="#">@кой е гласувал</a>
     </div>
-
+    
+{% if lyric.videoYoutube is not empty %}
+    <div class="row">
+        youtube: {{ lyric.videoYoutube }}
+    </div>
+{% endif %}
+    
+{% if lyric.videoVbox7 is not empty %}
+    <div class="row">
+        vbox7: {{ lyric.videoVbox7 }}
+    </div>
+{% endif %}
+    
     <div class="row">
         {% if (lyric.sendByUser) %}
             <div style="float:left;">
