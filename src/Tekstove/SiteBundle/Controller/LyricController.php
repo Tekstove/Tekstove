@@ -169,6 +169,10 @@ class LyricController extends Controller
             $gateway = $this->get('tesktove.gateway.lyric');
             /* @var $gateway LyricGateway */
             try {
+                if ($form->has('delete') && $form->get('delete')->getData()) {
+                    $gateway->delete($lyric->getId());
+                    return $this->redirect('/');
+                }
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {

@@ -136,4 +136,18 @@ abstract class AbstractGateway implements GatewayInterface
         $data = json_decode($body, true);
         return $data;
     }
+    
+    /**
+     * @param type $id
+     * @return array
+    */
+    public function delete($id)
+    {
+        $url = $this->getRelativeUrl();
+        $url .= '/' . $id;
+        $response = $this->client->delete($url);
+        $body = $response->getBody();
+        $data = json_decode($body, true);
+        return $data;
+    }
 }

@@ -23,11 +23,16 @@ interface ClientInterface
      */
     public function patch($url, $data);
 
-        /**
+    /**
      * @param type $url
      * @return Response
      */
     public function get($url);
+    
+    /**
+     * @param string $url
+     */
+    public function delete($url);
     
     public function setApikey($apiKey);
 }

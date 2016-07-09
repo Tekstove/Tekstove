@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Tekstove\SiteBundle\Form\Field\ArtistsType;
 
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -136,6 +137,16 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                     ],
                     'choices' => $this->getLanguages(),
                     'choice_value' => 'id',
+                ]
+            );
+        }
+        
+        if (in_array('delete', $fields)) {
+            $builder->add(
+                'delete',
+                CheckboxType::class,
+                [
+                    'mapped' => false,
                 ]
             );
         }
