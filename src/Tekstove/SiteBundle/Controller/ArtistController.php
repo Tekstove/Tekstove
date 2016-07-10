@@ -16,12 +16,14 @@ class ArtistController extends Controller
      */
     public function browseAction($id)
     {
-        $artistQuery = new ArtistQuery();
-        $artist = $artistQuery->findOneById($id);
+        $artistGateway = $this->get("tekstove.gateway.artist");
+        /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
+        $artistGateway->setGroups([AbstractGateway::GROUP_DETAILS]);
+        $artistData = $artistGateway->get($id);
         $lyrics = [];
         $albums = [];
         return [
-            'artist' => $artist,
+            'artist' => $artistData['item'],
             'lyrics' => $lyrics,
             'albums' => $albums,
         ];
