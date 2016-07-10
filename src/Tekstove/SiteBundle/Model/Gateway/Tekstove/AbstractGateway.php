@@ -14,6 +14,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\ClientInterface;
 abstract class AbstractGateway implements GatewayInterface
 {
     const FILTER_NOT_NULL = 'NOT_NULL';
+    const FILTER_LIKE = 'like';
 
     const GROUP_LIST = 'List';
     const GROUP_DETAILS = 'Details';
@@ -21,7 +22,8 @@ abstract class AbstractGateway implements GatewayInterface
     
     private $client;
     
-    private $count = 10;
+    private $limit = 10;
+    private $offset = 1;
     private $orders = [];
     private $filters = [];
     private $params = [];
@@ -45,6 +47,16 @@ abstract class AbstractGateway implements GatewayInterface
         return $this->orders;
     }
     
+    public function setOffset($offset)
+    {
+        $this->offset = (int) $offset;
+    }
+
+    public function setLimit($limit)
+    {
+        $this->limit = (int) $limit;
+    }
+
     public function addOrder($field, $direction)
     {
         $this->orders[] = [$field, $direction];
@@ -108,6 +120,9 @@ abstract class AbstractGateway implements GatewayInterface
         $allParsms = array_merge($filtersData, $this->params);
         $filtersQuery = http_build_query($allParsms);
         $url .= "&{$filtersQuery}";
+        $page = 1 + $this->offset / $this->limit;
+        $url .= "&page={$page}";
+        $url .= "&limit={$this->limit}";
         
         $response = $this->client->get($url);
         $body = $response->getBody();

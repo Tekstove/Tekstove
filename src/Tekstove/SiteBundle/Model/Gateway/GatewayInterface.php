@@ -10,4 +10,10 @@ interface GatewayInterface
 {
     public function find();
     public function get($id);
+    /**
+     * Results per page
+     */
+    public function setLimit($limit);
+    public function setOffset($offset);
+    public function addFilter($field, $value, $operator = '=');
 }

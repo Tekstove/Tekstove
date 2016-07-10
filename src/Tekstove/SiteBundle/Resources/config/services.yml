@@ -85,3 +85,8 @@ services:
         arguments: ['@request_stack', '@tekstove.gateway.artist', '@tekstove.gateway.language']
         tags:
             - { name: form.type }
+
+    tekstove.site.gateway_pagination:
+        class: Tekstove\SiteBundle\Subscriber\TekstoveGatewayPaginationSubscriber
+        tags:
+            - { name: knp_paginator.subscriber }

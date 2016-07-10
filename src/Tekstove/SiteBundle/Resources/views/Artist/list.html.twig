@@ -1,7 +1,7 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
 
-    {% for artist in artists %}
+    {% for artist in pagination %}
 
         <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name|e }}</a>
         <br/>

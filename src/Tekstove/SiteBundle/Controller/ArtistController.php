@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
-use Tekstove\SiteBundle\Model\ArtistQuery;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 class ArtistController extends Controller
 {
@@ -32,18 +32,21 @@ class ArtistController extends Controller
      */
     public function listAction($letter, Request $request)
     {
-        $artistQuery = new ArtistQuery();
-        $artistQuery->filterByName($letter . '%', \Propel\Runtime\ActiveQuery\Criteria::LIKE);
+        $artistGateway = $this->get("tekstove.gateway.artist");
+        /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
+        $artistGateway->setGroups(AbstractGateway::GROUP_LIST);
+        $artistGateway->addFilter('name', "{$letter}%", AbstractGateway::FILTER_LIKE);
+        $artistGateway->addOrder('name', 'ASC');
+        $artistGateway->setLimit(30);
         $paginator = $this->get('knp_paginator');
         /* @var $paginator \Knp\Component\Pager\Paginator */
         $pagination = $paginator->paginate(
-            $artistQuery,
+            $artistGateway,
             $request->query->getInt('page', 1) /* page number */,
             30 /* limit per page */
         );
-
+        
         return [
-            'artists' => $pagination,
             'pagination' => $pagination,
         ];
     }
