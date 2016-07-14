@@ -4,6 +4,11 @@
     {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.password) }}
-        {{ form_row(form.recaptcha) }}
+        <div class="g-recaptcha" data-sitekey="{{ recpatchaKey }}"></div>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js?hl=bg" async defer></script>
 {% endblock %}

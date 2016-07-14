@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <link rel="stylesheet" href="{{ asset('bundles/site/css/style_2.6.2.css') }}" type="text/css">
@@ -48,6 +49,7 @@
         <meta name="revisit-after" content="1 days">
         <meta name="robots" content="index, follow">
         <link rel="shortcut icon" href="{{ asset('bundles/site/images/favicon.ico') }}">
+        {% endblock %}
     </head>
     <body>
         <div class="container-fluid">
