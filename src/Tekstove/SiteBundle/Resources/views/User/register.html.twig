@@ -4,7 +4,11 @@
     {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.password) }}
-        <div class="g-recaptcha" data-sitekey="{{ recpatchaKey }}"></div>
+        {{ form_row(form.email) }}
+        <div class="form-group">
+            <label class="control-label required">Captcha</label>
+            <div class="g-recaptcha" data-sitekey="{{ recpatchaKey }}"></div>
+        </div>
     {{ form_end(form) }}
 {% endblock %}
 
