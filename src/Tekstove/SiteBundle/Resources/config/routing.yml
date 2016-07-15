@@ -19,6 +19,8 @@ logout:
 register:
     path: /user/register
     defaults: { _controller: SiteBundle:User:register }
+    methods: [GET, POST]
+
 userView:
     path: /user/view/{id}
     defaults: { _controller: SiteBundle:User:view }

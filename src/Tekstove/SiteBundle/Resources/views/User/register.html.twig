@@ -9,6 +9,8 @@
             <label class="control-label required">Captcha</label>
             <div class="g-recaptcha" data-sitekey="{{ recpatchaKey }}"></div>
         </div>
+        {{ form_errors(form) }}
+        {{ form_rest(form) }}
     {{ form_end(form) }}
 {% endblock %}
 
