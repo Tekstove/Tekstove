@@ -50,10 +50,11 @@ class UserController extends Controller
         $formBuilder = $this->createFormBuilder();
         $formBuilder->add('username');
         $formBuilder->add('password', PasswordType::class);
-        $formBuilder->add('email');
+        $formBuilder->add('mail');
         $formBuilder->add('submit', SubmitType::class);
         $formBuilder->setMapped('POST');
         $form = $formBuilder->getForm();
+        /* @var $form \Symfony\Component\Form\Form */
         
         $gateway = $this->get('tekstove.gateway.user.register');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway */
@@ -64,16 +65,21 @@ class UserController extends Controller
                 [
                     'username' => $form->get('username')->getData(),
                     'password' => $form->get('password')->getData(),
-                    'email' => $form->get('email')->getData(),
+                    'mail' => $form->get('mail')->getData(),
                 ]
             );
             try {
                 $result = $gateway->save($request, $user);
             } catch (TekstoveValidationException $e) {
                 // @TODO use matcher!
-                foreach ($e->getValidationErrors() as $error) {
+                foreach ($e->getValidationErrors() as $key => $error) {
                     $formError = new \Symfony\Component\Form\FormError($error['message']);
-                    $form->addError($formError);
+                    if ($form->has($error['element'])) {
+                        $form->get($error['element'])
+                                ->addError($formError);
+                    } else {
+                        $form->addError($formError);
+                    }
                 }
             }
         }

@@ -38,7 +38,12 @@ class RegisterGateway extends AbstractGateway
                         [
                             'request' => [
                                 'post' => $request->request,
-                            ]
+                            ],
+                            'user' => [
+                                'username' => $user->getUsername(),
+                                'mail' => $user->getMail(),
+                                'password' => $user->getPassword(),
+                            ],
                         ]
                     )
                 ]

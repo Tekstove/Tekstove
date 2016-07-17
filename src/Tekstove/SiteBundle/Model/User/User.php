@@ -3,7 +3,7 @@
 namespace Tekstove\SiteBundle\Model\User;
 
 /**
- * Description of User
+ * User
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -12,6 +12,7 @@ class User
     private $id;
     private $username;
     private $password;
+    private $mail;
     private $apiKey;
     private $avatar;
     private $about;
@@ -25,6 +26,7 @@ class User
             'id',
             'username',
             'password',
+            'mail',
             'apiKey',
             'avatar',
             'about',
@@ -53,6 +55,11 @@ class User
         return $this->password;
     }
     
+    public function getMail()
+    {
+        return $this->mail;
+    }
+        
     public function getApiKey()
     {
         return $this->apiKey;
