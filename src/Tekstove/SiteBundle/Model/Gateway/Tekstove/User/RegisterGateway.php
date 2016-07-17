@@ -36,8 +36,8 @@ class RegisterGateway extends AbstractGateway
                 [
                     'body' => json_encode(
                         [
-                            'request' => [
-                                'post' => $request->request,
+                            'recaptcha' => [
+                                'g-recaptcha-response' => $request->get('g-recaptcha-response'),
                             ],
                             'user' => [
                                 'username' => $user->getUsername(),
