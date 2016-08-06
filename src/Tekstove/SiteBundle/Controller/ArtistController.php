@@ -14,16 +14,31 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function browseAction($id)
+    public function browseAction(Request $request, $id)
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
         $artistGateway->setGroups([AbstractGateway::GROUP_DETAILS]);
         $artistData = $artistGateway->get($id);
-        $lyrics = [];
+        $artist = $artistData['item'];
+        $lyricGateway = $this->get("tesktove.gateway.lyric");
+        /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
+        $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $lyricGateway->addFilter('artist', $artist->getId());
+        $lyricGateway->addOrder('title', 'ASC');
+        $paginator = $this->get('knp_paginator');
+        /* @var $paginator \Knp\Component\Pager\Paginator */
+        $lyrics = $paginator->paginate(
+            $lyricGateway,
+            $request->query->getInt('lyricsPage', 1),
+            30,
+            [
+                'pageParameterName' => 'lyricsPage',
+            ]
+        );
         $albums = [];
         return [
-            'artist' => $artistData['item'],
+            'artist' => $artist,
             'lyrics' => $lyrics,
             'albums' => $albums,
         ];

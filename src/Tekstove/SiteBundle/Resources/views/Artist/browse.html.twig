@@ -7,11 +7,13 @@
     
     @TODO albums
     <br/>
-    @TODO lyrics
     <br/> <br/>
     
     {% for lyric in lyrics %}
         <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
         <br/>
     {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(lyrics) }}
+    </div>
 {% endblock %}
