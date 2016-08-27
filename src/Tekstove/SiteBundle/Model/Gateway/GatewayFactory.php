@@ -17,12 +17,18 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class GatewayFactory
 {
     private $baseUrl;
+    private $tekenStorage;
     
     public function __construct($baseUrl)
     {
         $this->setBaseUrl($baseUrl);
     }
     
+    public function setTekenStorage(TokenStorageInterface $tekenStorage)
+    {
+        $this->tekenStorage = $tekenStorage;
+    }
+
     protected function setBaseUrl($url)
     {
         $urlClean = rtrim($url, '/');
@@ -105,6 +111,11 @@ class GatewayFactory
             'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
+        $currentUser = $this->tekenStorage->getToken()->getUser();
+        if ($currentUser instanceof UserInterface) {
+            $apiKey = $currentUser->getApiKey();
+            $client->setApikey($apiKey);
+        }
         $client->setBaseUri($clientOptions['base_uri']);
         $gateway = new $gatewayClass($client);
         return $gateway;

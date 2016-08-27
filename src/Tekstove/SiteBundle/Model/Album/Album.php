@@ -14,6 +14,8 @@ class Album
     private $image;
     private $year;
     
+    private $acl;
+    
     public function __construct(array $data = [])
     {
         $fields = [
@@ -21,6 +23,8 @@ class Album
             'name',
             'image',
             'year',
+            
+            'acl',
         ];
         
         foreach ($fields as $field) {
@@ -49,5 +53,18 @@ class Album
     public function getYear()
     {
         return $this->year;
+    }
+    
+    /**
+     * @param string $property
+     * @return int|null
+     */
+    public function getAcl($property)
+    {
+        if (isset($this->acl[$property])) {
+            return $this->acl[$property];
+        }
+        
+        return null;
     }
 }

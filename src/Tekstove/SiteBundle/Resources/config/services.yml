@@ -16,6 +16,9 @@ services:
     tekstove.gateway.factory:
         class: Tekstove\SiteBundle\Model\Gateway\GatewayFactory
         arguments: ["%tekstove.api_url%"]
+        calls:
+            - [setTekenStorage, ["@security.token_storage"]]
+            
 
     tekstove.gateway.userProvider:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiGateway

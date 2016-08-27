@@ -19,7 +19,7 @@ class AlbumController extends Controller
     {
         $albumGateway = $this->get('tekstove.gateway.album');
         /* @var $albumGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
-        $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $albumGateway->setGroups([AbstractGateway::GROUP_LIST, AbstractGateway::GROUP_ACL]);
         $albumData = $albumGateway->get($id);
         
         return [

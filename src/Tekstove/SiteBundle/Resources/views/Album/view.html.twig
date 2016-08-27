@@ -6,6 +6,10 @@
             ({{ album.year }})
         {% endif %}
     </h1>
+    
+    {% if (album.acl('edit')) %}
+        <a class="btn btn-warning" href="#">Промени</a>
+    {% endif %}
         
     <img src="{{ album.image }}">
 {% endblock %}
