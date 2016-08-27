@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
@@ -69,18 +70,10 @@ class UserController extends Controller
                 ]
             );
             try {
-                $result = $gateway->save($request, $user);
+                $gateway->save($request, $user);
             } catch (TekstoveValidationException $e) {
-                // @TODO use matcher!
-                foreach ($e->getValidationErrors() as $key => $error) {
-                    $formError = new \Symfony\Component\Form\FormError($error['message']);
-                    if ($form->has($error['element'])) {
-                        $form->get($error['element'])
-                                ->addError($formError);
-                    } else {
-                        $form->addError($formError);
-                    }
-                }
+                $erroMatcher = new ArrayErrorPopulator();
+                $erroMatcher->populateFormErrors($form, $e->getValidationErrors());
             }
         }
         
