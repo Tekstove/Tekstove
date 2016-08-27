@@ -1,0 +1,3 @@
+exclude_paths:
+    - "src/Tekstove/SiteBundle/Resources/public/js/blockui-2.70/"
+    - "src/Tekstove/SiteBundle/Resources/public/css/smoothness/jquery-ui-1.10.3.custom.css"
