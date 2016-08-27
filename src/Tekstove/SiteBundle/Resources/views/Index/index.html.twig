@@ -78,7 +78,7 @@
         
 {% for album in albums %}
         <div class="col-md-2 text-center">
-            <a href="#{{ album.id }}">
+            <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}">
                 <b>
                     {{ album.name|e }}
                     <br />

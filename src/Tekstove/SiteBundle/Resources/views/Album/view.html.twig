@@ -1,0 +1,11 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <h1>
+        {{ album.name }}
+        {% if album.year is not empty %}
+            ({{ album.year }})
+        {% endif %}
+    </h1>
+        
+    <img src="{{ album.image }}">
+{% endblock %}

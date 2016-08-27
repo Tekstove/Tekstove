@@ -47,9 +47,16 @@ artistBrowse:
     defaults: { _controller: SiteBundle:Artist:browse }
     requirements:
         id: \d+
+    
 artistList:
     path: /artist/list/{letter}
     defaults: { _controller: SiteBundle:Artist:list }
+    
+tekstove_site_album_view:
+    path: /album/browse/{id}
+    defaults: { _controller: SiteBundle:Album:view }
+    requirements:
+        id: \d+
 
 chat:
     path: /chat
