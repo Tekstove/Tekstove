@@ -5,7 +5,6 @@ namespace Tekstove\SiteBundle\Model\Gateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Client;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -64,13 +63,7 @@ class GatewayFactory
     
     public function createUserGateway()
     {
-        $clientOptions = [
-            'base_uri' => $this->baseUrl,
-        ];
-        $client = new Client();
-        $client->setBaseUri($clientOptions['base_uri']);
-        $gateway = new UserGateway($client);
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway::class);
     }
     
     public function createUserProviderGateway()
@@ -86,34 +79,34 @@ class GatewayFactory
     
     public function createUserRegisterGateway()
     {
-        $clientOptions = [
-            'base_uri' => $this->baseUrl,
-        ];
-        $client = new Client();
-        $client->setBaseUri($clientOptions['base_uri']);
-        $gateway = new Tekstove\User\RegisterGateway($client);
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway::class);
     }
     
     public function createArtistGateway()
     {
-        $clientOptions = [
-            'base_uri' => $this->baseUrl,
-        ];
-        $client = new Client();
-        $client->setBaseUri($clientOptions['base_uri']);
-        $gateway = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway($client);
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway::class);
     }
     
     public function createLanguageGateway()
+    {
+        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class);
+    }
+    
+    public function createAlbumGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway::class
+        );
+    }
+    
+    protected function createTekstoveDefaultGateway($gatewayClass)
     {
         $clientOptions = [
             'base_uri' => $this->baseUrl,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
-        $gateway = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway($client);
+        $gateway = new $gatewayClass($client);
         return $gateway;
     }
 }

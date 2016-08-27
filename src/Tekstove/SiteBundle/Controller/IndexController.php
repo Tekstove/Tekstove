@@ -42,7 +42,14 @@ class IndexController extends Controller
         $viewedData = $viewedGateway->find();
         $mostViewed= $viewedData['items'];
         
-        $lastAlbums = [];
+        $albumGateway = $this->get('tekstove.gateway.album');
+        /* @var $albumGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
+        $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        $albumGateway->addOrder('id', 'DESC');
+        $albumGateway->setLimit(6);
+        $albumsData = $albumGateway->find();
+        
+        $lastAlbums = $albumsData['items'];
         
         return [
             'lastLyrics' => $lastLyrics,

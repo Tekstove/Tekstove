@@ -48,6 +48,12 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
         factory: ["@tekstove.gateway.factory", createArtistGateway]
         shared: false
+        
+    tekstove.gateway.album:
+        class: Tekstove\SiteBundle\Model\Gateway\Album\AlbumGateway
+        factory: ["@tekstove.gateway.factory", createAlbumGateway]
+        shared: false
+        
     tekstove.gateway.language:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway
         factory: ["@tekstove.gateway.factory", createLanguageGateway]
