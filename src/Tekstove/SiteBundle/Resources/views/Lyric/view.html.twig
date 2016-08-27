@@ -1,14 +1,8 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
-    <div class="row" style="background-color:#EEEEEE;">
-        <div class="col-md-6" style="background-color:#EEEEEE;">
+    <div class="row">
+        <div class="col-md-6">
             гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
-        </div>
-        
-        <div class="col-md-6" style="text-align:right;">
-            {% if (lyric.acl('edit')) %}
-                &nbsp;&nbsp;<a href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
-            {% endif %}
         </div>
     </div>
 
@@ -16,9 +10,7 @@
         <div class="col-md-10">
             <h1>
                 {% for artist in lyric.artists %}
-                    <a href="{{ path('artistBrowse', {id: artist.id}) }}">
-                        {{ artist.name }}
-                    </a>
+                    <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name }}</a>
                     {% if not loop.last %}
                         и
                     {% endif %}
@@ -30,6 +22,11 @@
                 {{ lyric.title }}
             </h1>
         </div>
+            <div class="col-md-2">
+                {% if (lyric.acl('edit')) %}
+                    <a class="btn btn-warning" href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
+                {% endif %}
+            </div>
     </div>
 
 {% if lyric.videoYoutube is not empty %}
