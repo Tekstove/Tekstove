@@ -10,6 +10,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Lyric\Lyric;
 use Tekstove\SiteBundle\Form\Type\LyricType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
@@ -73,23 +74,8 @@ class LyricController extends Controller
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {
-                // @TODO use matcher!
-                foreach ($e->getValidationErrors() as $error) {
-                    $formError = new \Symfony\Component\Form\FormError($error['message']);
-                    $formErrorMatched = false;
-                    foreach ($form as $formElement) {
-                        /* @var $formElement forme \Symfony\Component\Form\FormInterface */
-                        if ($formElement->getName() == $error['element']) {
-                            $formElement->addError($formError);
-                            $formErrorMatched = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!$formErrorMatched) {
-                        $form->addError($formError);
-                    }
-                }
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
             }
         }
         return $this->render(
@@ -176,23 +162,8 @@ class LyricController extends Controller
                 $gateway->save($lyric);
                 return $this->redirectToRoute('lyricView', ['id' => $lyric->getId()]);
             } catch (TekstoveValidationException $e) {
-                // @TODO use matcher!
-                foreach ($e->getValidationErrors() as $error) {
-                    $formError = new \Symfony\Component\Form\FormError($error['message']);
-                    $formErrorMatched = false;
-                    foreach ($form as $formElement) {
-                        /* @var $formElement forme \Symfony\Component\Form\FormInterface */
-                        if ($formElement->getName() == $error['element']) {
-                            $formElement->addError($formError);
-                            $formErrorMatched = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!$formErrorMatched) {
-                        $form->addError($formError);
-                    }
-                }
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
             }
         }
         
