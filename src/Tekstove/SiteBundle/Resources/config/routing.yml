@@ -53,7 +53,7 @@ artistList:
     defaults: { _controller: SiteBundle:Artist:list }
     
 tekstove_site_album_view:
-    path: /album/browse/{id}
+    path: /album/view/{id}
     defaults: { _controller: SiteBundle:Album:view }
     requirements:
         id: \d+
