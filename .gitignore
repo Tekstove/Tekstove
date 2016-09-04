@@ -8,6 +8,7 @@
 /app/config/parameters.yml
 /app/bootstrap.php.cache
 /var/*
+!/var/.gitkeep
 /web/bundles
 /web/js/fos_js_routes.js
 
