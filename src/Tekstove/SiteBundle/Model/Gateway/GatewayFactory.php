@@ -98,6 +98,13 @@ class GatewayFactory
         return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class);
     }
     
+    public function createForumCategoryGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            Tekstove\Forum\CategoryGateway::class
+        );
+    }
+    
     public function createAlbumGateway()
     {
         return $this->createTekstoveDefaultGateway(

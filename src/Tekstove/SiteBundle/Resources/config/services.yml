@@ -57,6 +57,11 @@ services:
         factory: ["@tekstove.gateway.factory", createAlbumGateway]
         shared: false
         
+    tekstove.gateway.forum.category:
+        class: Tekstove\SiteBundle\Model\Gateway\Forum\CategoryGateway
+        factory: ["@tekstove.gateway.factory", createForumCategoryGateway]
+        shared: false
+        
     tekstove.gateway.language:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway
         factory: ["@tekstove.gateway.factory", createLanguageGateway]

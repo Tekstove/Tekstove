@@ -75,7 +75,7 @@
                     <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" rel="search"><del>Търсачка</del></a><br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Форум</del></a><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a><br/>
                             &nbsp;&nbsp;&nbsp;<a href="{{ path("chat") }}">Чат</a>
                         </span>
                     </div>
@@ -98,7 +98,7 @@
                         <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;
                         <a href="#"><del>Албуми</del></a>&nbsp;
                         <a href="#" rel="search"><del>Търсачка</del></a>&nbsp;
-                        <a href="#"><del>Форум</del></a>&nbsp;
+                        <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>&nbsp;
                     </div>
 
                     <div class="col-md-3">
@@ -173,7 +173,7 @@
                             <br/>
                             <a href="#"><del>Нови 100 гласа</del></a>
                             <br/>
-                            <a href="#"><del>Форум</del></a>
+                            <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
                             <br/>
                             <a href="#"><del>&#187;&nbsp;Заявки за текстове</del></a>
                             <br/>

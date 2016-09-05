@@ -1,0 +1,15 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-md-6">
+                <a href="#{{ category.id }}">
+                    {{ category.name }}
+                </a>
+            </div>
+            <div class="col-md-6">
+             @todo
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
