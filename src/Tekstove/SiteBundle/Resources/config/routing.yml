@@ -57,6 +57,10 @@ tekstove_site_album_view:
     defaults: { _controller: SiteBundle:Album:view }
     requirements:
         id: \d+
+        
+tekstove.site.forum.category.list:
+    path: /forum/category/list
+    defaults: { _controller: SiteBundle:Forum\Category:list }
 
 chat:
     path: /chat

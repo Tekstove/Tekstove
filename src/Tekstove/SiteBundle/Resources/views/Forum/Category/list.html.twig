@@ -1,0 +1,28 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                Категория
+            </th>
+            <th>
+                @todo
+            </th>
+        </tr>
+        </thead>
+        {% for category in categories %}
+            <tr>
+                <td>
+                    
+                <a href="#{{ category.id }}">
+                    <div clsas="container-fluid">
+                        {{ category.name }}
+                    </div>
+                </a>
+                </td>
+                <td>
+             @todo
+                </td>
+        {% endfor %}
+    </table>
+{% endblock %}

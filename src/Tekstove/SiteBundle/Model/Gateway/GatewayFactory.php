@@ -4,8 +4,6 @@ namespace Tekstove\SiteBundle\Model\Gateway;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Client;
 
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
-
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -37,39 +35,24 @@ class GatewayFactory
 
     public function createLyricGateway(TokenStorageInterface $tokenStorage)
     {
-        $clientOptions = [
-            'base_uri' => $this->baseUrl,
-        ];
-        $client = new Client();
-        $client->setBaseUri($clientOptions['base_uri']);
-        $currentUser = $tokenStorage->getToken()->getUser();
-        if ($currentUser instanceof UserInterface) {
-            $apiKey = $currentUser->getApiKey();
-            $client->setApikey($apiKey);
-        }
-        $gateway = new LyricGateway($client);
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway::class
+        );
     }
 
-    public function createLyricCredentialsGateway(TokenStorageInterface $tokenStorage)
+    public function createLyricCredentialsGateway()
     {
-        $clientOptions = [
-            'base_uri' => $this->baseUrl,
-        ];
-        $client = new Client();
-        $client->setBaseUri($clientOptions['base_uri']);
-        $currentUser = $tokenStorage->getToken()->getUser();
-        if ($currentUser instanceof UserInterface) {
-            $apiKey = $currentUser->getApiKey();
-            $client->setApikey($apiKey);
-        }
-        $gateway = new Tekstove\Lyric\CredentialsGateway($client);
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway::class
+        );
     }
+    
     
     public function createUserGateway()
     {
-        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway::class);
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway::class
+        );
     }
     
     public function createUserProviderGateway()
@@ -85,17 +68,30 @@ class GatewayFactory
     
     public function createUserRegisterGateway()
     {
-        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway::class);
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway::class
+        );
     }
     
     public function createArtistGateway()
     {
-        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway::class);
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway::class
+        );
     }
     
     public function createLanguageGateway()
     {
-        return $this->createTekstoveDefaultGateway(\Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class);
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class
+        );
+    }
+    
+    public function createForumCategoryGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            Tekstove\Forum\CategoryGateway::class
+        );
     }
     
     public function createAlbumGateway()
