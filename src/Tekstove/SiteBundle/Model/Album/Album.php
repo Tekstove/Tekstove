@@ -16,6 +16,8 @@ class Album
     
     private $acl;
     
+    private $sendByUser;
+    
     public function __construct(array $data = [])
     {
         $fields = [
@@ -32,6 +34,10 @@ class Album
                 continue;
             }
             $this->{$field} = $data[$field];
+        }
+        
+        if (isset($data['user'])) {
+            $this->sendByUser = new \Tekstove\SiteBundle\Model\User\User($data['user']);
         }
     }
     
@@ -55,6 +61,11 @@ class Album
         return $this->year;
     }
     
+    public function getSendByUser()
+    {
+        return $this->sendByUser;
+    }
+        
     /**
      * @param string $property
      * @return int|null

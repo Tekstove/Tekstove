@@ -12,4 +12,7 @@
     {% endif %}
         
     <img src="{{ album.image }}">
+    
+    <br/>
+    Изпратено от <a href="{{ path('userView', { id:album.sendByUser.id }) }}">{{ album.getSendByUser.username }}</a>
 {% endblock %}
