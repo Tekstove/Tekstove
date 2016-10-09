@@ -14,42 +14,87 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $lyricGateway = $this->get('tesktove.gateway.lyric');
-        $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
-        /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
-        $lyricGateway->addOrder('id', 'DESC');
+        $cache = $this->get('cache.app');
+        /* @var $cache \Psr\Cache\CacheItemPoolInterface */
         
-        
-        $lastLyricsResult = $lyricGateway->find();
-        $lastLyrics = $lastLyricsResult['items'];
-        
-        $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
-        $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
-        $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
-        $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
-        $lastTranslatedResult = $lyricLastTranslatedGateway->find();
-        $lastTranslated = $lastTranslatedResult['items'];
+        $defaultCacheInterval = new \DateInterval('PT5M');
 
-        $popularGateway = $this->get('tesktove.gateway.lyric');
-        $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
-        $popularGateway->addOrder('popularity', 'DESC');
-        $popularData = $popularGateway->find();
-        $popular = $popularData['items'];
+        $cacheLatestLyric = $cache->getItem('index.lyric.latest10');
+        if ($cacheLatestLyric->isHit()) {
+            $lastLyrics = $cacheLatestLyric->get();
+        } else {
+            $cacheLatestLyric->expiresAfter($defaultCacheInterval);
+            $lyricGateway = $this->get('tesktove.gateway.lyric');
+            $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
+            $lyricGateway->addOrder('id', 'DESC');
+
+            $lastLyricsResult = $lyricGateway->find();
+            $lastLyrics = $lastLyricsResult['items'];
+            
+            $cacheLatestLyric->set($lastLyrics);
+            $cache->save($cacheLatestLyric);
+        }
         
-        $viewedGateway = $this->get('tesktove.gateway.lyric');
-        $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
-        $viewedGateway->addOrder('views', 'DESC');
-        $viewedData = $viewedGateway->find();
-        $mostViewed= $viewedData['items'];
+        $cacheLatestTranslatedLyric = $cache->getItem('index.lyric.latestTranslated10');
+        if ($cacheLatestTranslatedLyric->isHit()) {
+            $lastTranslated = $cacheLatestTranslatedLyric->get();
+        } else {
+            $cacheLatestTranslatedLyric->expiresAfter($defaultCacheInterval);
+            $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
+            $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
+            $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
+            $lastTranslatedResult = $lyricLastTranslatedGateway->find();
+            $lastTranslated = $lastTranslatedResult['items'];
+            $cacheLatestTranslatedLyric->set($lastTranslated);
+            $cache->save($cacheLatestTranslatedLyric);
+        }
         
-        $albumGateway = $this->get('tekstove.gateway.album');
-        /* @var $albumGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
-        $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
-        $albumGateway->addOrder('id', 'DESC');
-        $albumGateway->setLimit(6);
-        $albumsData = $albumGateway->find();
+        $cachePopularLyric = $cache->getItem('index.lyric.popular10');
+        if ($cachePopularLyric->isHit()) {
+            $popular = $cachePopularLyric->get();
+        } else {
+            $cachePopularLyric->expiresAfter($defaultCacheInterval);
+            $popularGateway = $this->get('tesktove.gateway.lyric');
+            $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $popularGateway->addOrder('popularity', 'DESC');
+            $popularData = $popularGateway->find();
+            $popular = $popularData['items'];
+            $cachePopularLyric->set($popular);
+            $cache->save($cachePopularLyric);
+        }
         
-        $lastAlbums = $albumsData['items'];
+        $cacheMostViewedLyric = $cache->getItem('index.lyric.viwed10');
+        if ($cacheMostViewedLyric->isHit()) {
+            $mostViewed = $cacheMostViewedLyric->get();
+        } else {
+            $cacheMostViewedLyric->expiresAfter($defaultCacheInterval);
+            $viewedGateway = $this->get('tesktove.gateway.lyric');
+            $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $viewedGateway->addOrder('views', 'DESC');
+            $viewedData = $viewedGateway->find();
+            $mostViewed= $viewedData['items'];
+            $cacheMostViewedLyric->set($mostViewed);
+            $cache->save($cacheMostViewedLyric);
+        }
+        
+        $cacheAlbums = $cache->getItem('index.albums');
+        if ($cacheAlbums->isHit()) {
+            $lastAlbums = $cacheAlbums->get();
+        } else {
+            $cacheAlbums->expiresAfter($defaultCacheInterval);
+            $albumGateway = $this->get('tekstove.gateway.album');
+            /* @var $albumGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
+            $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $albumGateway->addOrder('id', 'DESC');
+            $albumGateway->setLimit(6);
+            $albumsData = $albumGateway->find();
+
+            $lastAlbums = $albumsData['items'];
+            $cacheAlbums->set($lastAlbums);
+            $cache->save($cacheAlbums);
+        }
         
         return [
             'lastLyrics' => $lastLyrics,
