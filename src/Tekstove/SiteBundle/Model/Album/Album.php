@@ -17,6 +17,7 @@ class Album
     private $acl;
     
     private $sendByUser;
+    private $lyrics;
     
     public function __construct(array $data = [])
     {
@@ -38,6 +39,12 @@ class Album
         
         if (isset($data['user'])) {
             $this->sendByUser = new \Tekstove\SiteBundle\Model\User\User($data['user']);
+        }
+        
+        if (isset($data['lyrics'])) {
+            foreach ($data['lyrics'] as $lyricData) {
+                $this->lyrics[] = new AlbumLyric($lyricData);
+            }
         }
     }
     
@@ -65,7 +72,12 @@ class Album
     {
         return $this->sendByUser;
     }
-        
+    
+    public function getLyrics()
+    {
+        return $this->lyrics;
+    }
+            
     /**
      * @param string $property
      * @return int|null

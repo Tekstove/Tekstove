@@ -10,7 +10,20 @@
     {% if (album.acl('edit')) %}
         <a class="btn btn-warning" href="#">Промени</a>
     {% endif %}
-        
+
+    <ol>
+        {% for lyric in album.lyrics %}
+            <li>
+                {% if lyric.isLyric %}
+                    <a href="{{ path('lyricView', {id:lyric.lyric.id}) }}">
+                        {{ lyric.lyric.title }}
+                    </a>
+                {% else %}
+                    {{ lyric.getLyricName }}
+                {% endif %}
+        {% endfor %}
+    </ol>
+    
     <img src="{{ album.image }}">
     
     <br/>
