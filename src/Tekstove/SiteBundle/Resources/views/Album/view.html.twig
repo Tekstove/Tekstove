@@ -7,6 +7,11 @@
         {% endif %}
     </h1>
     
+    {% if album.artists %}
+        Изпълнители:
+        {% include '@TekstoveSite/partial/artistList.html.twig' with {'artists': album.artists} only %}
+    {% endif %}
+    
     {% if (album.acl('edit')) %}
         <a class="btn btn-warning" href="#">Промени</a>
     {% endif %}

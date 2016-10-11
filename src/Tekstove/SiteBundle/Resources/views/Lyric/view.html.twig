@@ -9,12 +9,7 @@
     <div class="row">
         <div class="col-md-10">
             <h1>
-                {% for artist in lyric.artists %}
-                    <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name }}</a>
-                    {% if not loop.last %}
-                        и
-                    {% endif %}
-                {% endfor %}
+                {% include '@TekstoveSite/partial/artistList.html.twig' with {'artists': lyric.artists} only %}
 
                 {% if lyric.artists is not empty %}
                     - 

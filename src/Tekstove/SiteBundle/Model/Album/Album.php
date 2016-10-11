@@ -3,7 +3,7 @@
 namespace Tekstove\SiteBundle\Model\Album;
 
 /**
- * Description of Album
+ * Album
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -18,6 +18,7 @@ class Album
     
     private $sendByUser;
     private $lyrics;
+    private $artists;
     
     public function __construct(array $data = [])
     {
@@ -42,8 +43,16 @@ class Album
         }
         
         if (isset($data['lyrics'])) {
+            $this->lyrics = [];
             foreach ($data['lyrics'] as $lyricData) {
                 $this->lyrics[] = new AlbumLyric($lyricData);
+            }
+        }
+        
+        if (isset($data['artists'])) {
+            $this->artists = [];
+            foreach ($data['artists'] as $artistData) {
+                $this->artists[] = new \Tekstove\SiteBundle\Model\Artist\Artist($artistData);
             }
         }
     }
@@ -77,7 +86,12 @@ class Album
     {
         return $this->lyrics;
     }
-            
+    
+    public function getArtists()
+    {
+        return $this->artists;
+    }
+
     /**
      * @param string $property
      * @return int|null
