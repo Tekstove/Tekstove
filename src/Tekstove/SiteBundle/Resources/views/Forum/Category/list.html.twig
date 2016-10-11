@@ -6,22 +6,24 @@
                 Категория
             </th>
             <th>
-                @todo
+                Най-нова тема
             </th>
         </tr>
-        </thead>
         {% for category in categories %}
             <tr>
                 <td>
-                    
-                <a href="#{{ category.id }}">
-                    <div clsas="container-fluid">
-                        {{ category.name }}
-                    </div>
-                </a>
+                    <a href="#{{ category.id }}">
+                        <div clsas="container-fluid">
+                            {{ category.name }}
+                        </div>
+                    </a>
                 </td>
                 <td>
-             @todo
+                    {% if category.lastTopic is not empty %}
+                        {{ category.lastTopic.name }}
+                        #
+                        {{ category.lastTopic.id }}
+                    {% endif %}
                 </td>
         {% endfor %}
     </table>

@@ -18,7 +18,7 @@ class CategoryController extends Controller
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\CategoryGateway */
         $gateway->addOrder('order', 'ASC');
         $gateway->setLimit(99);
-        $gateway->setGroups(['List']);
+        $gateway->setGroups(['List', 'Details']);
         $categoriesData = $gateway->find();
         $categories = $categoriesData['items'];
         return [

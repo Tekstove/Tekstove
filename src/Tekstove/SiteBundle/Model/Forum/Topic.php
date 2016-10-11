@@ -3,24 +3,25 @@
 namespace Tekstove\SiteBundle\Model\Forum;
 
 /**
- * Category
+ * Description of Topic
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class Category
+class Topic
 {
     private $id;
     private $name;
+    private $user;
     
-    private $lastTopic;
+    public $test = 'test';
     
-    public function __construct(array $data)
+    public function __construct($data)
     {
         $this->id = $data['id'];
         $this->name = $data['name'];
         
-        if (isset($data['lastTopic'])) {
-            $this->lastTopic = new Topic($data['lastTopic']);
+        if (!empty($data['user'])) {
+            $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
         }
     }
     
@@ -33,9 +34,9 @@ class Category
     {
         return $this->name;
     }
-    
-    public function getLastTopic()
+
+    public function getUser()
     {
-        return $this->lastTopic;
+        return $this->user;
     }
 }
