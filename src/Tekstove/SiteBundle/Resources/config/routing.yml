@@ -62,6 +62,12 @@ tekstove.site.forum.category.list:
     path: /forum/category/list
     defaults: { _controller: SiteBundle:Forum\Category:list }
 
+tekstove.site.forum.topic.list:
+    path: /forum/category/{categoryId}/topics
+    defaults: { _controller: SiteBundle:Forum\Topic:list }
+    requirements:
+        categoryId: \d+
+
 chat:
     path: /chat
     defaults: { _controller: SiteBundle:Chat:index }

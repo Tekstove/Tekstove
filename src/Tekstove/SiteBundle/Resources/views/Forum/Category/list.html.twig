@@ -12,7 +12,7 @@
         {% for category in categories %}
             <tr>
                 <td>
-                    <a href="#{{ category.id }}">
+                    <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:category.id }) }}">
                         <div clsas="container-fluid">
                             {{ category.name }}
                         </div>

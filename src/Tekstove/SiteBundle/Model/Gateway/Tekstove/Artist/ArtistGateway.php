@@ -31,9 +31,9 @@ class ArtistGateway extends AbstractGateway
     public function get($id)
     {
         $data = parent::get($id);
-        $lyric = new Artist($data['item']);
+        $artist = new Artist($data['item']);
         return [
-            'item' => $lyric,
+            'item' => $artist,
         ];
     }
 }

@@ -27,4 +27,13 @@ class CategoryGateway extends AbstractGateway
         unset($categoryData);
         return $data;
     }
+    
+    public function get($id)
+    {
+        $data = parent::get($id);
+        $category = new Category($data['item']);
+        return [
+            'item' => $category,
+        ];
+    }
 }

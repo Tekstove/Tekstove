@@ -1,0 +1,14 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
+    -&gt;
+    {{ category.name }}
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                Тема
+            </th>
+        </tr>
+        
+    </table>
+{% endblock %}
