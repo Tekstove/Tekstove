@@ -20,9 +20,11 @@
                 </td>
                 <td>
                     {% if category.lastTopic is not empty %}
-                        {{ category.lastTopic.name }}
-                        #
-                        {{ category.lastTopic.id }}
+                        <a href="{{ path('tekstove.site.forum.topic.view', { id:category.lastTopic.id }) }}">
+                            {{ category.lastTopic.name }}
+                        </a>
+                    {% else %}
+                        <i>няма теми :(</i>
                     {% endif %}
                 </td>
         {% endfor %}
