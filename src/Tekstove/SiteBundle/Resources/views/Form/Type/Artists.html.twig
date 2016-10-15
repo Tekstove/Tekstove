@@ -61,7 +61,7 @@
                             if (params.term) {
                                 filters = [
                                     {
-                                        value: params.term,
+                                        value: '%' + params.term + '%',
                                         operator: 'like',
                                         field: 'name'
                                     }
