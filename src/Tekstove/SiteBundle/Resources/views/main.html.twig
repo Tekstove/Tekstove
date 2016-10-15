@@ -175,11 +175,11 @@
                             <br/>
                             <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
                             <br/>
-                            <a href="#"><del>&#187;&nbsp;Заявки за текстове</del></a>
+                            <a href="{{ path('tekstove.site.forum.topic.list', { categoryId: 1 }) }}">&#187;&nbsp;Заявки за текстове</a>
                             <br/>
                             <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова заявки за текст</del></a>
                             <br/>
-                            <a href="#"><del>&#187;&nbsp;Заявки за превод</del></a>
+                            <a href="{{ path('tekstove.site.forum.topic.list', { categoryId: 6 }) }}">&#187;&nbsp;Заявки за превод</a>
                             <br/>
                             <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова&nbsp;заявка&nbsp;за&nbsp;превод</del></a>
                             <br/>
