@@ -9,6 +9,16 @@
                 Тема
             </th>
         </tr>
-        
+{% for topic in topicPagination %}
+        <tr>
+            <td>
+                {{ topic.name }}
+            </td>
+        </tr>
+{% endfor %}
     </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(topicPagination) }}
+    </div>
 {% endblock %}

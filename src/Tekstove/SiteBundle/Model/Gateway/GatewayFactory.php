@@ -94,6 +94,11 @@ class GatewayFactory
         );
     }
     
+    public function createForumTopicGateway()
+    {
+        return $this->createTekstoveDefaultGateway(Tekstove\Forum\TopicGateway::class);
+    }
+    
     public function createAlbumGateway()
     {
         return $this->createTekstoveDefaultGateway(
