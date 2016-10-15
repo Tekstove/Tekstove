@@ -43,4 +43,17 @@ class TopicController extends Controller
             'topicPagination' => $topicPagination,
         ];
     }
+    
+    public function viewAction($id)
+    {
+        $topicGateway = $this->get('tekstove.gateway.forum.topic');
+        /* @var $topicGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway */
+        $topicGateway->setGroups(CategoryGateway::GROUP_DETAILS);
+        $topicData = $topicGateway->get($id);
+        $topic = $topicData['item'];
+        
+        return [
+            'topic' => $topic,
+        ];
+    }
 }

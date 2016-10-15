@@ -13,7 +13,7 @@ class Topic
     private $name;
     private $user;
     
-    public $test = 'test';
+    private $category;
     
     public function __construct($data)
     {
@@ -22,6 +22,10 @@ class Topic
         
         if (!empty($data['user'])) {
             $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
+        }
+        
+        if (!empty($data['category'])) {
+            $this->category = new Category($data['category']);
         }
     }
     
@@ -38,5 +42,10 @@ class Topic
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

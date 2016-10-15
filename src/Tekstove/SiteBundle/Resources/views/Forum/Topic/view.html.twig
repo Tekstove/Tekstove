@@ -1,0 +1,16 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
+    -&gt;
+    <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:topic.category.id }) }}">
+        {{ topic.category.name }}
+    </a>
+    
+    <h1>
+        {{ topic.name }}
+    </h1>
+
+    <div class="navigation">
+{#        {{ knp_pagination_render(topicPagination) }}#}
+    </div>
+{% endblock %}
