@@ -23,18 +23,56 @@
                 {% endif %}
             </div>
     </div>
+            
+
+    <div id="tabs">
+        <ul>
+{% if lyric.videoYoutube is not empty %}
+            <li>
+                <a href="#lyric-video-youtube">
+                    YouTube
+                </a>
+            </li>
+{% endif %}
+{% if lyric.videoVbox7 is not empty %}
+            <li>
+                <a href="#lyric-video-vbox7">
+                    Vbox7
+                </a>
+            </li>
+{% endif %}
+
+        </ul>
+{% if lyric.videoVbox7 is not empty %}
+        <div id="lyric-video-vbox7">
+            <div class="row">
+                <script>
+                    document.write(videoVbox('{{ lyric.videoVbox7|e('js') }}'));
+                </script>
+            </div>
+        </div>
+{% endif %}
 
 {% if lyric.videoYoutube is not empty %}
-    <div class="row">
-        youtube: {{ lyric.videoYoutube }}
-    </div>
+        <div id="lyric-video-youtube">
+            <div class="row">
+                <script>
+                    document.write(videoYouTube('{{ lyric.videoYoutube|e('js') }}'));
+                </script>
+            </div>
+        </div>
 {% endif %}
+
+    </div>
+    <script>
+        $( function() {
+            $( "#tabs" ).tabs();
+        } );
+    </script>
+
+
     
-{% if lyric.videoVbox7 is not empty %}
-    <div class="row">
-        vbox7: {{ lyric.videoVbox7 }}
-    </div>
-{% endif %}
+
     
     <div class="row">
         {% if (lyric.sendByUser) %}

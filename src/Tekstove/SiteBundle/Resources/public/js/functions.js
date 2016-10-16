@@ -463,19 +463,7 @@ function videoMetacatfe(link, autoplay)
 
 function videoVbox(link, autoplay)
 {
-    var html = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\"";
-    html += 'width="450" height="403"><param name="movie" value="http://i47.vbox7.com/player/ext.swf?vid=' + video_vbox;
-    if (autoplay) {
-        html += '&autoplay=1';
-    }
-
-    html += '"><param name="quality" value="high"><embed src="http://i47.vbox7.com/player/ext.swf?vid=' + link;
-    if (autoplay) {
-        html += '&autoplay=1';
-    }
-    html += '" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"';
-    html += 'width="450" height="403"></embed></object>';
-
+    var html = '<iframe width="560" height="315" src="//www.vbox7.com/emb/external.php?vid=' + link + '" frameborder="0" allowfullscreen></iframe>';
     return html;
 
 }
@@ -484,7 +472,6 @@ function videoYouTube(link, autoplay)
 {
 
     var html = '';
-
     html += '<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/' + link;
     if (autoplay) {
         html += "?autoplay=1";
