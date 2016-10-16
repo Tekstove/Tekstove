@@ -9,8 +9,28 @@
     <h1>
         {{ topic.name }}
     </h1>
+    
+    <div class="row">
+        {% for post in postPagination %}
+            <div class="col-md-2" style="background-color: #E0E0E0;">
+                # {{ post.id }}
+            </div>
+            
+            <div class="col-md-10" style="background-color: #E0E0E0;">
+                @someinfo@
+            </div>
+            
+            <div class="col-md-2">
+                {{ post.user.username }}
+            </div>
+            
+            <div class="col-md-10">
+                {{ post.text }}
+            </div>
+        {% endfor %}
+    </div>
 
     <div class="navigation">
-{#        {{ knp_pagination_render(topicPagination) }}#}
+        {{ knp_pagination_render(postPagination) }}
     </div>
 {% endblock %}

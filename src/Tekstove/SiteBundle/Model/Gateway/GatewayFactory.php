@@ -47,7 +47,6 @@ class GatewayFactory
         );
     }
     
-    
     public function createUserGateway()
     {
         return $this->createTekstoveDefaultGateway(
@@ -97,6 +96,11 @@ class GatewayFactory
     public function createForumTopicGateway()
     {
         return $this->createTekstoveDefaultGateway(Tekstove\Forum\TopicGateway::class);
+    }
+    
+    public function createForumPostGateway()
+    {
+        return $this->createTekstoveDefaultGateway(Tekstove\Forum\PostGateway::class);
     }
     
     public function createAlbumGateway()

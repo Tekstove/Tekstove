@@ -44,16 +44,30 @@ class TopicController extends Controller
         ];
     }
     
-    public function viewAction($id)
+    public function viewAction(Request $request, $id)
     {
         $topicGateway = $this->get('tekstove.gateway.forum.topic');
         /* @var $topicGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway */
-        $topicGateway->setGroups(CategoryGateway::GROUP_DETAILS);
+        $topicGateway->setGroups([CategoryGateway::GROUP_DETAILS]);
         $topicData = $topicGateway->get($id);
         $topic = $topicData['item'];
         
+        $postGateway = $this->get('tekstove.gateway.forum.post');
+        /* @var $postGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway */
+        $postGateway->setGroups([\Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway::GROUP_DETAILS]);
+        $postGateway->addFilter('forumTopicId', $id);
+        
+        $paginator = $this->get('knp_paginator');
+        /* @var $paginator \Knp\Component\Pager\Paginator */
+        $postPagination = $paginator->paginate(
+            $postGateway,
+            $request->query->getInt('page', 1) /* page number */,
+            15 /* limit per page */
+        );
+        
         return [
             'topic' => $topic,
+            'postPagination' => $postPagination,
         ];
     }
 }

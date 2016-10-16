@@ -66,7 +66,12 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Forum\TopicGateway
         factory: ["@tekstove.gateway.factory", createForumTopicGateway]
         shared: false
-        
+
+    tekstove.gateway.forum.post:
+        class: Tekstove\SiteBundle\Model\Gateway\Forum\PostGateway
+        factory: ["@tekstove.gateway.factory", createForumPostGateway]
+        shared: false
+    
     tekstove.gateway.language:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway
         factory: ["@tekstove.gateway.factory", createLanguageGateway]
