@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\Forum\Topic;
  */
 class TopicGateway extends AbstractGateway
 {
+    const GROUP_LATEST_POST = 'LatestPost';
+    
     protected function getRelativeUrl()
     {
         return '/forum/topic';

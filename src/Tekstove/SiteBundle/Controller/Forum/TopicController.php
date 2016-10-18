@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\CategoryGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway;
 
 /**
  * TopicController
@@ -27,7 +29,13 @@ class TopicController extends Controller
         
         $topicGateway = $this->get('tekstove.gateway.forum.topic');
         /* @var $topicGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway */
-        $topicGateway->setGroups(CategoryGateway::GROUP_LIST);
+        $topicGateway->setGroups(
+            [
+                TopicGateway::GROUP_LIST,
+                TopicGateway::GROUP_LATEST_POST,
+                PostGateway::GROUP_USER,
+            ]
+        );
         $topicGateway->addFilter('forumCategoryId', $category->getId());
         
         $paginator = $this->get('knp_paginator');

@@ -11,9 +11,13 @@ class Topic
 {
     private $id;
     private $name;
+    
+    
     private $user;
     
     private $category;
+    
+    private $latestPost;
     
     public function __construct($data)
     {
@@ -27,6 +31,10 @@ class Topic
         if (!empty($data['category'])) {
             $this->category = new Category($data['category']);
         }
+        
+        if (!empty($data['latestPost'])) {
+            $this->latestPost = new Post($data['latestPost']);
+        }
     }
     
     public function getId()
@@ -38,7 +46,7 @@ class Topic
     {
         return $this->name;
     }
-
+    
     public function getUser()
     {
         return $this->user;
@@ -47,5 +55,10 @@ class Topic
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    public function getLatestPost()
+    {
+        return $this->latestPost;
     }
 }

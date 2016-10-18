@@ -320,6 +320,15 @@ class Lyric
         return null;
     }
     
+    public function isEditAllowed()
+    {
+        if (empty($this->acl)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * Check if fields is changed
      * @param string $field

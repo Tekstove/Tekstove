@@ -8,6 +8,9 @@
             <th>
                 Тема
             </th>
+            <th>
+                Последно мнение
+            </th>
         </tr>
 {% for topic in topicPagination %}
         <tr>
@@ -15,6 +18,11 @@
                 <a href="{{ path('tekstove.site.forum.topic.view', { id: topic.id }) }}">
                     {{ topic.name }}
                 </a>
+            </td>
+            <td>
+                от {{ topic.latestPost.user.username }}
+                ,
+                на {{ topic.latestPost.datetime|date }}
             </td>
         </tr>
 {% endfor %}

@@ -11,6 +11,7 @@ class Post
 {
     private $id;
     private $text;
+    private $datetime;
     
     private $user;
     
@@ -18,6 +19,7 @@ class Post
     {
         $this->id = $data['id'];
         $this->text = $data['text'];
+        $this->datetime = new \DateTime('@' . $data['datetime']);
         
         if (isset($data['user'])) {
             $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
@@ -32,6 +34,11 @@ class Post
     public function getText()
     {
         return $this->text;
+    }
+    
+    public function getDatetime()
+    {
+        return $this->datetime;
     }
     
     public function getUser()

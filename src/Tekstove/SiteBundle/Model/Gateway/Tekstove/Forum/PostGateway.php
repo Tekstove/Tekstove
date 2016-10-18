@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\Forum\Post;
  */
 class PostGateway extends AbstractGateway
 {
+    const GROUP_USER = 'Forum_Post_User';
+    
     protected function getRelativeUrl()
     {
         return '/forum/post';
