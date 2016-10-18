@@ -16,12 +16,13 @@
         <tr>
             <td>
                 <a href="{{ path('tekstove.site.forum.topic.view', { id: topic.id }) }}">
-                    {{ topic.name }}
+                    <b>
+                        {{ topic.name }}
+                    </b>
                 </a>
             </td>
             <td>
-                от {{ topic.latestPost.user.username }}
-                ,
+                от {{ topic.latestPost.user.username }},
                 на {{ topic.latestPost.datetime|date }}
             </td>
         </tr>
