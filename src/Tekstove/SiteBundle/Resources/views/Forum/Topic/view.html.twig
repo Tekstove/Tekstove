@@ -1,10 +1,12 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
-    <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
-    -&gt;
-    <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:topic.category.id }) }}">
-        {{ topic.category.name }}
-    </a>
+    <div class="row t-forum-breadcrumb">
+        <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
+        -&gt;
+        <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:topic.category.id }) }}">
+            {{ topic.category.name }}
+        </a>
+    </div>
     
     <h1>
         {{ topic.name }}

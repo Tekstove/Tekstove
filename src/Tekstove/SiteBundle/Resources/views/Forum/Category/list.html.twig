@@ -1,19 +1,23 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
-    <table class="table table-striped table-hover">
+    <div class="row t-forum-breadcrumb">
+        <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
+    </div>
+    
+    <table class="t-forum table table-striped table-hover">
         <tr>
-            <th style="background-color: #DDDDff; border-bottom: 2px solid #000;">
+            <th>
                 Категория
             </th>
-            <th style="background-color: #FCC0FF; border-bottom: 2px solid #000;">
+            <th>
                 Последно мнение
             </th>
         </tr>
         {% for category in categories %}
             <tr>
-                <td>
+                <td class="t-forum-main-td">
                     <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:category.id }) }}">
-                        <div clsas="container-fluid" style="height: 100%; margin-top: auto;">
+                        <div clsas="container-fluid">
                             <b>
                                 {{ category.name }}
                             </b>

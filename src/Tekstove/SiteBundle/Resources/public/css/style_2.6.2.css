@@ -95,11 +95,36 @@ a:visited, a:active, a{
     text-align: center;
 }
 
-.t-index-albums-container{
+.t-index-albums-container {
     border: 1px solid black;
     border-radius: 7px;
     margin-top: 5px;
-    
+}
+
+.t-forum-breadcrumb{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color: #DDDDff;
+    font-size: larger;
+}
+
+.t-forum th {
+    background-color: #DDDDff;
+    border-bottom: 2px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-style: solid;
+    border-color: #000;
+    /* background-color: #FCC0FF; */
+}
+
+.t-forum > tbody > tr > td.t-forum-main-td {
+    vertical-align: middle;
+}
+
+.t-forum > tbody > tr > td.t-forum-main-td a > div{
+    height: 100%; margin-top: auto;
 }
 
 .browse_glasuvai_buton{
