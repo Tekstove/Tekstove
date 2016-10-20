@@ -20,10 +20,11 @@ class ApiGateway extends UserGateway
     {
         $client = $this->getClient();
         $response = $client->post(
-            $this->getListRelativeUrl() . '/' . $username,
+            $this->getListRelativeUrl(),
             [
                 'body' => json_encode(
                     [
+                        'username' => $username,
                         'password' => $password,
                     ]
                 ),

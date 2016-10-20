@@ -71,6 +71,7 @@ class UserController extends Controller
             );
             try {
                 $gateway->save($request, $user);
+                return $this->redirectToRoute('login');
             } catch (TekstoveValidationException $e) {
                 $erroMatcher = new ArrayErrorPopulator();
                 $erroMatcher->populateFormErrors($form, $e->getValidationErrors());
