@@ -24,7 +24,7 @@
             </div>
     </div>
             
-
+{% if lyric.hasVideo %}
     <div id="tabs">
         <ul>
 {% if lyric.videoYoutube is not empty %}
@@ -64,6 +64,7 @@
 {% endif %}
 
     </div>
+{% endif %}
     <script>
         $( function() {
             $( "#tabs" ).tabs();

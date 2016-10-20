@@ -200,6 +200,22 @@ class Lyric
     }
     
     /**
+     * @return bool
+     */
+    public function hasVideo()
+    {
+        if ($this->getVideoYoutube()) {
+            return true;
+        }
+       
+        if ($this->getVideoVbox7()) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
      * @return Language[]
      */
     public function getLanguages()
