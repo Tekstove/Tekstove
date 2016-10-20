@@ -107,6 +107,9 @@ class LyricController extends Controller
             SubmitType::class,
             [
                 'label' => 'Send',
+                'attr' => [
+                    'class' => 'btn-success',
+                ],
             ]
         );
         

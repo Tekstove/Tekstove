@@ -8,13 +8,17 @@ body{
     font-size:13px;
     color:#333333;
 }
-a:hover, a:visited:hover{
+a:hover, a:visited:hover {
     color:#9966ff;
     text-decoration:underline;
 }
-a:visited, a:active, a{
+a:visited, a:active, a {
     color:#000000;
     text-decoration:none;
+}
+
+a.btn, a.btn:visited, a.btn:active {
+    color: #FFF;
 }
 
 .t-center-table {
