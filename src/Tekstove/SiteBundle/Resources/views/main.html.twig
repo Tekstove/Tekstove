@@ -127,6 +127,12 @@
 
             <div class="container-fluid">
                 <div class="col-md-2">
+                    
+                    {% if app.user %}
+                        <div>
+                            {% include '@TekstoveSite/Main/userMenu.html.twig' %}
+                        </div>
+                    {% endif %}
                     {#
 {% if app.user %}
                     <div class="gore_dolu_zaoblqne_blqvo">

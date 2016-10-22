@@ -25,6 +25,11 @@ class UserController extends Controller
         
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        if ($error) {
+            // fuck! Using api error is always
+            // user not found
+            $error = 'Грешни данни за вход';
+        }
         
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();

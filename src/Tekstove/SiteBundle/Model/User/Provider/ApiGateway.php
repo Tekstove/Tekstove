@@ -13,14 +13,14 @@ class ApiGateway extends UserGateway
 {
     protected function getListRelativeUrl()
     {
-        return '/users/login';
+        return '/users';
     }
 
     public function getUserByUsernameAndPassword($username, $password)
     {
         $client = $this->getClient();
         $response = $client->post(
-            $this->getListRelativeUrl(),
+            $this->getListRelativeUrl() . '/login',
             [
                 'body' => json_encode(
                     [
@@ -33,13 +33,34 @@ class ApiGateway extends UserGateway
         
         $body = (string)$response->getBody();
         $data = $this->decodeBody($body);
-        $items = $data['items'];
+        
+        if (empty($data['item'])) {
+            return null;
+        }
+        
+        $item = $data['item'];
+        
+        $user = $this->buildUser($item);
+        return $user;
+    }
+    
+    public function loadUserByApiKey($apiKey)
+    {
+        $client = $this->getClient();
+        $client->setApikey($apiKey);
+        $response = $client->get(
+            $this->getListRelativeUrl() . '/login'
+        );
+        
+        $body = (string)$response->getBody();
+        $data = $this->decodeBody($body);
+        $items = $data['item'];
         
         if (empty($items)) {
             return null;
         }
         
-        $user = $this->buildUser(current($items));
+        $user = $this->buildUser($items);
         return $user;
     }
     

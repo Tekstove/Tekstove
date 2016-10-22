@@ -64,7 +64,7 @@ class User
     {
         return $this->apiKey;
     }
-        
+    
     public function getAvatar()
     {
         return $this->avatar;

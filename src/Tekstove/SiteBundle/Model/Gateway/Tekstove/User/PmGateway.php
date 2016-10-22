@@ -23,7 +23,7 @@ class PmGateway extends AbstractGateway
         foreach ($data['items'] as &$pmData) {
             $pmData = new Pm($pmData);
         }
-        unset ($pmData);
+        unset($pmData);
         
         return $data;
     }
