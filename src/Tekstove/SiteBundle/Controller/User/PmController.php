@@ -33,6 +33,5 @@ class PmController extends Controller
         return [
             'pmPagination' => $pagination,
         ];
-        
     }
 }
