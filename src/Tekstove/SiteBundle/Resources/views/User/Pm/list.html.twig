@@ -1,0 +1,39 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    заглавие
+                </th>
+                <th>
+                    от
+                </th>
+                <th>
+                    дата
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pm in pmPagination %}
+                <tr>
+                    <td>
+                        {{ pm.title }}
+                    </td>
+                    <td>
+                        @TODO from
+                    </td>
+                    <td>
+                        @TODO date
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+    <div class="navigation">
+        {{ knp_pagination_render(pmPagination) }}
+    </div>
+     
+{% endblock %}

@@ -54,6 +54,13 @@ class GatewayFactory
         );
     }
     
+    public function createUserPmGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway::class
+        );
+    }
+    
     public function createUserProviderGateway()
     {
         $clientOptions = [

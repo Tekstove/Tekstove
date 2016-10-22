@@ -25,6 +25,10 @@ userView:
     path: /user/view/{id}
     defaults: { _controller: SiteBundle:User:view }
     
+userPmListL:
+    path: /user/pm/list
+    defaults: { _controller: SiteBundle:User\Pm:list }
+    
 lyricView:
     path: /lyric/view/{id}
     defaults: { _controller: SiteBundle:Lyric:view }
