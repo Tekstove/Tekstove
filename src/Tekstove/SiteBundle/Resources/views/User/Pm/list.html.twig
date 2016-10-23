@@ -19,13 +19,20 @@
             {% for pm in pmPagination %}
                 <tr>
                     <td>
-                        {{ pm.title }}
+                        {% if pm.read %}
+                            {{ pm.title }}
+                        {% else %}
+                            <b>
+                                {{ pm.title }}
+                            </b>
+                        {% endif %}
+                        
                     </td>
                     <td>
-                        @TODO from
+                        {{ pm.userFrom.username }}
                     </td>
                     <td>
-                        @TODO date
+                        {{ pm.datetime|date() }}
                     </td>
                 </tr>
             {% endfor %}
