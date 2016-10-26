@@ -5,6 +5,9 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Forum\Post;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+
 /**
  * PostGateway
  *
@@ -36,5 +39,34 @@ class PostGateway extends AbstractGateway
         return [
             'item' => $category,
         ];
+    }
+    
+    public function save(Post $post)
+    {
+        if ($post->getId()) {
+            throw new \Exception("Not implemented");
+        }
+        
+        $changeSet = [
+            'text' => $post->getText(),
+            'topic' => $post->getTopic()->getId(),
+        ];
+        
+        try {
+            $response = $this->getClient()
+                                        ->post(
+                                            $this->getRelativeUrl(),
+                                            ['body' => json_encode($changeSet)]
+                                        );
+        } catch (RequestException $e) {
+            if ($e->getCode() != 400) {
+                throw $e;
+            }
+            
+            $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
+            $errors = json_decode($e->getBody(), true);
+            $validationException->setValidationErrors($errors);
+            throw $validationException;
+        }
     }
 }

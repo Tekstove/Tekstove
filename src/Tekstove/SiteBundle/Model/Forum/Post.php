@@ -12,17 +12,29 @@ class Post
     private $id;
     private $text;
     private $datetime;
+    private $topic;
     
     private $user;
     
     public function __construct(array $data = [])
     {
-        $this->id = $data['id'];
-        $this->text = $data['text'];
-        $this->datetime = new \DateTime('@' . $data['datetime']);
+        $allowedSetFields = ['id', 'text'];
+        foreach ($allowedSetFields as $field) {
+            if (isset($data[$field])) {
+                $this->{$field} = $data[$field];
+            }
+        }
+        
+        if (isset($data['datetime'])) {
+            $this->datetime = new \DateTime('@' . $data['datetime']);
+        }
         
         if (isset($data['user'])) {
             $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
+        }
+        
+        if (isset($data['topic'])) {
+            $this->topic = new Topic($data['topic']);
         }
     }
     
@@ -36,6 +48,11 @@ class Post
         return $this->text;
     }
     
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
     public function getDatetime()
     {
         return $this->datetime;
@@ -44,5 +61,15 @@ class Post
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function getTopic()
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(Topic $topic)
+    {
+        $this->topic = $topic;
     }
 }

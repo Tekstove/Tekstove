@@ -77,6 +77,12 @@ tekstove.site.forum.topic.view:
     defaults: { _controller: SiteBundle:Forum\Topic:view }
     requirements:
         id: \d+
+        
+tekstove.site.forum.post.new:
+    path: /foum/topic/{topicId}/post
+    defaults: { _controller: SiteBundle:Forum\Post:add }
+    requirements:
+        id: \d+
 
 chat:
     path: /chat
