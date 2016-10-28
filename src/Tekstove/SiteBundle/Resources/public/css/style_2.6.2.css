@@ -45,7 +45,6 @@ a.btn, a.btn:visited, a.btn:active {
     background:url('/bundles/site/images/img02.gif') repeat-x;
 }
 .t-top-menu {
-    height: 100px;
     background-image: url('/bundles/site/images/logo_1_c.jpg');
     background-repeat: repeat-x;
 }
