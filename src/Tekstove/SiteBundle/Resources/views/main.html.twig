@@ -65,8 +65,8 @@
                     <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">Начало</a><br/>
-                            &nbsp;&nbsp;<a href="#" rel="search"><del>Разгледай</del></a><br/>
-                            <a href="#"><del>Албуми</del></a><br/><br/>
+                            {#&nbsp;&nbsp;<a href="#" rel="search"><del>Разгледай</del></a><br/>#}
+                            {#<a href="#"><del>Албуми</del></a><br/><br/>#}
                         </span>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Изпрати Tекст</a>&nbsp;<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Изпрати Албум</del></a>
+                            {#&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Изпрати Албум</del></a>#}
                         </span>
                     </div>
                 </div>
@@ -95,10 +95,11 @@
                     <div class="col-md-5">
                         &nbsp;&nbsp;&nbsp;
                         <a href="{{ path('index') }}">Начало</a>&nbsp;
-                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;
-                        <a href="#"><del>Албуми</del></a>&nbsp;
-                        <a href="#" rel="search"><del>Търсачка</del></a>&nbsp;
+{#                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;#}
+{#                        <a href="#"><del>Албуми</del></a>&nbsp;#}
+{#                        <a href="#" rel="search"><del>Търсачка</del></a>&nbsp;#}
                         <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>&nbsp;
+                        <a href="{{ path("chat") }}">Чат</a>
                     </div>
 
                     <div class="col-md-3">
@@ -109,7 +110,7 @@
                     <div class="col-md-4 text-right">
                         {% if app.user %}
                             <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
-                            <a href="#" class="top"><del>Потребителски данни</del></a>
+{#                            <a href="#" class="top"><del>Потребителски данни</del></a>#}
                             <a href="{{ path('logout') }}">изход</a>
                         {% else %}
                             <a href="{{ path('login') }}">Вход</a>
@@ -171,32 +172,32 @@
                         <div class="gore_dolu_zaoblqne_blqvo_margin_text">
                             <a href="#"><del>Търсачка</del></a>
                             <br/>
-                            <a href="#"><del>Топ 100 популярни</del></a>
-                            <br/>
-                            <a href="#"><del>Топ 100 гласувани</del></a>
-                            <br/>
-                            <a href="#"><del>Топ 100 преглеждани</del></a>
-                            <br/>
-                            <a href="#"><del>Нови 100 гласа</del></a>
-                            <br/>
+                            {#<a href="#"><del>Топ 100 популярни</del></a>
+                            <br/>#}
+                            {#<a href="#"><del>Топ 100 гласувани</del></a>
+                            <br/>#}
+                            {#<a href="#"><del>Топ 100 преглеждани</del></a>
+                            <br/>#}
+                            {#<a href="#"><del>Нови 100 гласа</del></a>
+                            <br/>#}
                             <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
                             <br/>
                             <a href="{{ path('tekstove.site.forum.topic.list', { categoryId: 1 }) }}">&#187;&nbsp;Заявки за текстове</a>
                             <br/>
-                            <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова заявки за текст</del></a>
-                            <br/>
+                            {#<a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова заявки за текст</del></a>
+                            <br/>#}
                             <a href="{{ path('tekstove.site.forum.topic.list', { categoryId: 6 }) }}">&#187;&nbsp;Заявки за превод</a>
                             <br/>
-                            <a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова&nbsp;заявка&nbsp;за&nbsp;превод</del></a>
-                            <br/>
+                            {#<a href="#"><del>&#187;&nbsp;&#187;&nbsp;Нова&nbsp;заявка&nbsp;за&nbsp;превод</del></a>
+                            <br/>#}
                             <a href="{{ path('lyricAdd') }}">Изпрати текст</a>
                             <br/>
-                            <a href="#"><del>Нови коментари</del></a>
-                            <br/>
-                            <a href="#"><del>Списък с Потребители</del></a>
-                            <br />
-                            <a href="#"><del>Лист потребителски групи</del></a>
-                            <br/>
+                            {#<a href="#"><del>Нови коментари</del></a>
+                            <br/>#}
+                            {#<a href="#"><del>Списък с Потребители</del></a>
+                            <br />#}
+                            {#<a href="#"><del>Лист потребителски групи</del></a>
+                            <br/>#}
                             <a href="{{ path('contactsFriends') }}">Приятелски сайтове</a>
                             <br/>
                             <a href="{{ path('contacts') }}">Връзка с нас</a>
