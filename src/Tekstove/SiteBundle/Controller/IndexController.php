@@ -102,6 +102,8 @@ class IndexController extends Controller
             'popular' => $popular,
             'mostViewed' => $mostViewed,
             'albums' => $lastAlbums,
+            
+            'ads' => true,
         ];
     }
 }

@@ -18,6 +18,11 @@ class TekstoveApiUserToken extends AbstractToken
         parent::__construct($roles);
         $this->setAuthenticated(true);
     }
+    
+    public function setUser($user)
+    {
+        parent::setUser($user);
+    }
 
     public function getCredentials()
     {

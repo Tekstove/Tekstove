@@ -29,6 +29,8 @@ class AlbumController extends Controller
         
         return [
             'album' => $albumData['item'],
+            
+            'ads' => true,
         ];
     }
 }
