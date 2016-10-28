@@ -73,22 +73,22 @@
 
     <div class="row t-index-albums-container">
         <div class="row">
-        <i><b>най-нови албуми</b></i><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i><b>най-нови албуми</b></i><br>
         </div>
         
+        <div class="row">
 {% for album in albums %}
-        <div class="col-md-2 text-center">
-            <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}">
-                <b>
-                    {{ album.name|e }}
-                    <br />
-                    <i>({{ album.year|e }})</i>
-                    <br />
-                    <img src="{{ album.image|e }}" style="width: 130px; height: 130px;" alt="Обложка" />
-                </b>
-            </a>
-        </div>
+                <div class="col-md-2 text-center">
+                    <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}">
+                        {{ album.name|truncate(8)|e }}
+                        <br/>
+                        <i>({{ album.year|e }})</i>
+                        <br/>
+                        <img src="{{ album.image|e }}" style="max-width: 100%; height: auto;" alt="Обложка" />
+                    </a>
+                </div>
 {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

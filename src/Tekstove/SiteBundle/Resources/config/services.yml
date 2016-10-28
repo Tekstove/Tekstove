@@ -121,3 +121,8 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    tekstove.site.twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        public: false
+        tags:
+            - { name: twig.extension }
