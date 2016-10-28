@@ -89,7 +89,7 @@ abstract class AbstractGateway implements GatewayInterface
         $this->params[$param] = $value;
     }
 
-    public function setGroups($groups)
+    public function setGroups(array $groups)
     {
         $this->groups = $groups;
     }

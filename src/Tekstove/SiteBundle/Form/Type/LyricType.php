@@ -172,7 +172,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
     
     private function getLanguages()
     {
-        $this->languageGateway->setGroups('List');
+        $this->languageGateway->setGroups([LanguageGateway::GROUP_LIST]);
         $languagesData = $this->languageGateway->find();
         $languages = $languagesData['items'];
         return $languages;

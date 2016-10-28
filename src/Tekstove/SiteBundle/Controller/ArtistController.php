@@ -51,7 +51,7 @@ class ArtistController extends Controller
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
-        $artistGateway->setGroups(AbstractGateway::GROUP_LIST);
+        $artistGateway->setGroups([AbstractGateway::GROUP_LIST]);
         $artistGateway->addFilter('name', "{$letter}%", AbstractGateway::FILTER_LIKE);
         $artistGateway->addOrder('name', 'ASC');
         $artistGateway->setLimit(30);
