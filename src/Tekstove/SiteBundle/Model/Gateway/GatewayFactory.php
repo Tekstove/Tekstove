@@ -17,23 +17,19 @@ class GatewayFactory
     private $baseUrl;
     private $tekenStorage;
     
-    public function __construct($baseUrl)
+    public function __construct($baseUrl, TokenStorageInterface $tekenStorage)
     {
         $this->setBaseUrl($baseUrl);
-    }
-    
-    public function setTekenStorage(TokenStorageInterface $tekenStorage)
-    {
         $this->tekenStorage = $tekenStorage;
     }
-
+    
     protected function setBaseUrl($url)
     {
         $urlClean = rtrim($url, '/');
         $this->baseUrl = $urlClean . '/';
     }
 
-    public function createLyricGateway(TokenStorageInterface $tokenStorage)
+    public function createLyricGateway()
     {
         return $this->createTekstoveDefaultGateway(
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway::class
