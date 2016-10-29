@@ -85,7 +85,7 @@ tekstove.site.forum.post.new:
         id: \d+
         
 tekstove.site.forum.post.newest:
-    path: /foum/post/newest
+    path: /forum/post/newest
     defaults: { _controller: SiteBundle:Forum\Post:listNew }
 
 chat:
