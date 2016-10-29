@@ -11,7 +11,9 @@
                 Тема
             </th>
             <th>
-                Последно мнение
+                <a href="{{ path('tekstove.site.forum.post.newest') }}">
+                    Последно мнение
+                </a>
             </th>
         </tr>
 {% for topic in topicPagination %}

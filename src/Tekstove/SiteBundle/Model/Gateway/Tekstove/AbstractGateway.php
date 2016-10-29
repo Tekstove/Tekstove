@@ -62,7 +62,10 @@ abstract class AbstractGateway implements GatewayInterface
 
     public function addOrder($field, $direction)
     {
-        $this->orders[] = [$field, $direction];
+        $this->orders[] = [
+            'field' => $field,
+            'direction' => $direction,
+        ];
     }
     
     public function getFilters()
@@ -111,9 +114,10 @@ abstract class AbstractGateway implements GatewayInterface
         $groupsFilterChar = $urlHaveParams ? '&' : '?';
         $url .=  $groupsFilterChar . $this->getGroupsUrlParam();
         
-        foreach ($this->getOrders() as $order) {
-            $url .= '&sort=' . urlencode($order[0]) . '&direction=' . urlencode($order[1]);
-        }
+        
+        $ordersQuery = http_build_query(
+            ['order' => $this->getOrders()]
+        );
         
         $filters = $this->getFilters();
         $filtersData = [
@@ -123,6 +127,7 @@ abstract class AbstractGateway implements GatewayInterface
         $allParsms = array_merge($filtersData, $this->params);
         $filtersQuery = http_build_query($allParsms);
         $url .= "&{$filtersQuery}";
+        $url .= "&{$ordersQuery}";
         $page = 1 + $this->offset / $this->limit;
         $url .= "&page={$page}";
         $url .= "&limit={$this->limit}";

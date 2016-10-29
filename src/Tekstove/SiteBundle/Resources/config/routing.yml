@@ -83,6 +83,10 @@ tekstove.site.forum.post.new:
     defaults: { _controller: SiteBundle:Forum\Post:add }
     requirements:
         id: \d+
+        
+tekstove.site.forum.post.newest:
+    path: /foum/post/newest
+    defaults: { _controller: SiteBundle:Forum\Post:listNew }
 
 chat:
     path: /chat

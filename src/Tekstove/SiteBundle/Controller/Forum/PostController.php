@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Tekstove\SiteBundle\Form\Type\Forum\Post\PostType;
 use Tekstove\SiteBundle\Model\Forum\Post;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
@@ -19,6 +20,34 @@ use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
  */
 class PostController extends Controller
 {
+    /**
+     * @Template()
+     */
+    public function listNewAction(Request $request)
+    {
+        $postGateway = $this->get('tekstove.gateway.forum.post');
+        /* @var $postGateway PostGateway */
+        
+        $postGateway->addOrder('id', PostGateway::ORDER_DESC);
+        $postGateway->setGroups([
+            PostGateway::GROUP_LIST,
+            PostGateway::GROUP_USER,
+            PostGateway::GROUP_TOPIC,
+        ]);
+        
+        $paginator = $this->get('knp_paginator');
+        /* @var $paginator \Knp\Component\Pager\Paginator */
+        $postGatewayPagination = $paginator->paginate(
+            $postGateway,
+            $request->query->getInt('page', 1) /* page number */,
+            25 /* limit per page */
+        );
+        
+        return [
+            'postPagination' => $postGatewayPagination,
+        ];
+    }
+    
     /**
      * @Template
      * @param Request $request

@@ -16,6 +16,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
 class PostGateway extends AbstractGateway
 {
     const GROUP_USER = 'Forum_Post_User';
+    const GROUP_TOPIC = 'Forum_Post_Topic';
     
     protected function getRelativeUrl()
     {
