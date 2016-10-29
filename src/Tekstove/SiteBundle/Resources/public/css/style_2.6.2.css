@@ -64,6 +64,10 @@ a.btn, a.btn:visited, a.btn:active {
     font-weight: bold;
 }
 
+.t-top-menu-right {
+    overflow: hidden;
+}
+
 .t-letters {
     color:#000000;
     background-color:#e9e9e9;

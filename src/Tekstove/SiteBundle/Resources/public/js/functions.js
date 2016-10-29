@@ -490,7 +490,7 @@ $(function () {
     var w = '', q;
 
     for (q = 0; q <= 25; q++) {
-        w += '<a href="/artist/list/' + bukvi[q] + '">&nbsp;' + bukvi[q] + '&nbsp;</a>&nbsp;';
+        w += '<a href="/artist/list/' + bukvi[q] + '"> ' + bukvi[q] + ' </a>&nbsp;';
     }
 
     w += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -500,7 +500,7 @@ $(function () {
     }
     w += '&nbsp;&nbsp;<a href="/artist/list/-">&nbsp;#&nbsp;</a>&nbsp;<br>';
     for (q = 35; q <= 64; q++) {
-        w += '<a href="/artist/list/' + bukvi[q] + '">&nbsp;' + bukvi[q] + '&nbsp;</a>&nbsp;';
+        w += '<a href="/artist/list/' + bukvi[q] + '"> ' + bukvi[q] + ' </a>&nbsp;';
     }
 
     $('#bukvi_bg').html(w);
