@@ -91,3 +91,7 @@ tekstove.site.forum.post.newest:
 chat:
     path: /chat
     defaults: { _controller: SiteBundle:Chat:index }
+
+tekstove.feed.forum.topic:
+    path: /feed/forum/topic.xml
+    defaults: { _controller: SiteBundle:Feed\Forum:Topic, _format:xml }
