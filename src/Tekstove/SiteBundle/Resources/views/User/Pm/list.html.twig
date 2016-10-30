@@ -19,14 +19,15 @@
             {% for pm in pmPagination %}
                 <tr>
                     <td>
-                        {% if pm.read %}
-                            {{ pm.title }}
-                        {% else %}
-                            <b>
+                        <a href="{{ path('tekstove.site.user.pm.view', {id: pm.id}) }}">
+                            {% if pm.read %}
                                 {{ pm.title }}
-                            </b>
-                        {% endif %}
-                        
+                            {% else %}
+                                <b>
+                                    {{ pm.title }}
+                                </b>
+                            {% endif %}
+                        </a>
                     </td>
                     <td>
                         {{ pm.userFrom.username }}

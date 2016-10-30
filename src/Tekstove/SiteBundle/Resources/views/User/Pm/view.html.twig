@@ -1,0 +1,8 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    изпратено от {{ pm.userFrom.username|e }}
+    <hr/>
+    заглавие: {{ pm.title|e }}
+    <hr/>
+    съдържание: {{ pm.text|e }}
+{% endblock %}

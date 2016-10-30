@@ -29,6 +29,11 @@ userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
     
+tekstove.site.user.pm.view:
+    path: /user/pm/view/{id}
+    defaults: { _controller: SiteBundle:User\Pm:view }
+    methods: [GET]
+    
 lyricView:
     path: /lyric/view/{id}
     defaults: { _controller: SiteBundle:Lyric:view }

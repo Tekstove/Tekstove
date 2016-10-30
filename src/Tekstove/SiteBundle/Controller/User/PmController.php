@@ -5,6 +5,7 @@ namespace Tekstove\SiteBundle\Controller\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway;
 
 /**
  * Description of PmController
@@ -19,7 +20,7 @@ class PmController extends Controller
     public function listAction(Request $request)
     {
         $pmGateway = $this->get('tekstove.gateway.user.pm');
-        /* @var $pmGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway */
+        /* @var $pmGateway PmGateway */
         
         $pmGateway->setGroups(['List']);
         $paginator = $this->get('knp_paginator');
@@ -32,6 +33,25 @@ class PmController extends Controller
         
         return [
             'pmPagination' => $pagination,
+        ];
+    }
+
+    /**
+     *
+     * @param int $id
+     *
+     * @Template()
+     */
+    public function viewAction($id)
+    {
+        $pmGateway = $this->get('tekstove.gateway.user.pm');
+        /* @var $pmGateway PmGateway */
+        $pmGateway->setGroups([PmGateway::GROUP_DETAILS]);
+        $pmData = $pmGateway->get($id);
+        $pm = $pmData['item'];
+        
+        return [
+            'pm' => $pm,
         ];
     }
 }
