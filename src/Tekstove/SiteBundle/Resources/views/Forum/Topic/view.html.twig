@@ -4,7 +4,7 @@
         <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
         -&gt;
         <a href="{{ path('tekstove.site.forum.topic.list', { categoryId:topic.category.id }) }}">
-            {{ topic.category.name }}
+            {{ topic.category.name|e }}
         </a>
     </div>
     
@@ -23,11 +23,11 @@
             </div>
             
             <div class="col-md-2">
-                {{ post.user.username }}
+                {{ post.user.username|e }}
             </div>
             
             <div class="col-md-10">
-                {{ post.text }}
+                {{ post.text|e|nl2br }}
             </div>
             
             <div class="clearfix"></div>
