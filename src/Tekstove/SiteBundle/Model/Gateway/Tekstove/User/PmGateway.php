@@ -5,6 +5,7 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\User;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\User\Pm;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
 
 /**
  * Description of PmGateway

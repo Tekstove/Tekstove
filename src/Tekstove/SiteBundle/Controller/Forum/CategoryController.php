@@ -6,8 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\CategoryGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway;
 
 /**
