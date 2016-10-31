@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
 
 /**
  * Description of PmController
@@ -49,6 +50,20 @@ class PmController extends Controller
         $pmGateway->setGroups([PmGateway::GROUP_DETAILS]);
         $pmData = $pmGateway->get($id);
         $pm = $pmData['item'];
+        /* @var $pm \Tekstove\SiteBundle\Model\User\Pm */
+        
+        // mark pm as read
+        try {
+            if (!$pm->getRead()) {
+                $pmGatewayMarkread = $this->get('tekstove.gateway.user.pm');
+                /* @var $pmGatewayMarkread PmGateway */
+                $pm->setRead(true);
+                $pmGatewayMarkread->save($pm);
+            }
+        } catch (RequestException $e) {
+            $logger = $this->get('logger');
+            $logger->critical('Can\'t mark pm as read', ['exception' => $e]);
+        }
         
         return [
             'pm' => $pm,

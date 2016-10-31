@@ -17,6 +17,8 @@ class Pm
     
     private $userFrom;
     
+    private $changeSet = [];
+    
     public function __construct(array $data = [])
     {
         if (isset($data['id'])) {
@@ -54,6 +56,12 @@ class Pm
     {
         return $this->read;
     }
+    
+    public function setRead($read)
+    {
+        $this->changeSet['read'] = 'read';
+        $this->read = (bool) $read;
+    }
 
     public function getText()
     {
@@ -68,5 +76,10 @@ class Pm
     public function getDatetime()
     {
         return $this->datetime;
+    }
+    
+    public function getChangeSet()
+    {
+        return $this->changeSet;
     }
 }
