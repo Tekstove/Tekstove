@@ -16,8 +16,9 @@ class Pm
     private $datetime;
     
     private $userFrom;
+    private $userTo;
     
-    private $changeSet = [];
+    private $changedFields = [];
     
     public function __construct(array $data = [])
     {
@@ -33,6 +34,10 @@ class Pm
             $this->title = $data['title'];
         }
         
+        if (isset($data['text'])) {
+            $this->text = $data['text'];
+        }
+        
         if (isset($data['userFrom'])) {
             $this->userFrom = new User($data['userFrom']);
         }
@@ -46,12 +51,23 @@ class Pm
     {
         return $this->id;
     }
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getTitle()
     {
         return $this->title;
     }
     
+    public function setTitle($title)
+    {
+        $this->changedFields['title'] = 'title';
+        $this->title = $title;
+    }
+        
     public function getRead()
     {
         return $this->read;
@@ -59,7 +75,7 @@ class Pm
     
     public function setRead($read)
     {
-        $this->changeSet['read'] = 'read';
+        $this->changedFields['read'] = 'read';
         $this->read = (bool) $read;
     }
 
@@ -68,18 +84,64 @@ class Pm
         return $this->text;
     }
     
+    public function setText($text)
+    {
+        $this->changedFields['text'] = 'text';
+        $this->text = $text;
+    }
+
     public function getUserFrom()
     {
         return $this->userFrom;
     }
     
+    public function setUserFrom(User $userFrom)
+    {
+        $this->userFrom = $userFrom;
+    }
+
+    public function getUserTo()
+    {
+        $this->changedFields['userTo'] = 'userTo';
+        return $this->userTo;
+    }
+    
+    public function setUserTo(User $userTo)
+    {
+        $this->userTo = $userTo;
+    }
+
     public function getDatetime()
     {
         return $this->datetime;
     }
     
+    public function getChangedFields()
+    {
+        return $this->changedFields;
+    }
+
+    /**
+     * @return array
+     */
     public function getChangeSet()
     {
-        return $this->changeSet;
+        $return = [];
+        foreach ($this->getChangedFields() as $field) {
+            $getter = 'get' . $field;
+            $value = $this->{$getter}();
+            if (is_array($value)) {
+                $return[$field] = [];
+                foreach ($value as $nestedSet) {
+                    $return[$field][] = $nestedSet->getId();
+                }
+            } elseif (is_object($value)) {
+                $return[$field] = $value->toArray();
+            } else {
+                $return[$field] = $value;
+            }
+        }
+        
+        return $return;
     }
 }

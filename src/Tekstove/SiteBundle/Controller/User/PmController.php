@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+use Tekstove\SiteBundle\Model\User\Pm;
+use Tekstove\SiteBundle\Form\Type\User\PmType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Tekstove\SiteBundle\Model\User\User;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
  * Description of PmController
@@ -68,5 +73,54 @@ class PmController extends Controller
         return [
             'pm' => $pm,
         ];
+    }
+    
+    /**
+     * @Template()
+     */
+    public function addAction(Request $request, $toUserId)
+    {
+        $pm = new Pm();
+        $user = $this->getUser();
+        $pm->setUserTo(new User(['id' => (int) $toUserId]));
+        
+        $form = $this->createCreateForm($pm);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pmGateway = $this->get('tekstove.gateway.user.pm');
+            /* @var $pmGateway PmGateway */
+            try {
+                $pmGateway->save($pm);
+                return $this->redirectToRoute('userView', ['id' => $toUserId]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+        
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+    
+    private function createCreateForm(Pm $pm)
+    {
+        $form = $this->createForm(
+            PmType::class,
+            $pm
+        );
+        $form->add(
+            'submit',
+            SubmitType::class,
+            [
+                'label' => 'Send',
+                'attr' => [
+                    'class' => 'btn-success',
+                ],
+            ]
+        );
+        
+        return $form;
     }
 }

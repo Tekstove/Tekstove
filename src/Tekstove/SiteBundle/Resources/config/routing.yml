@@ -29,6 +29,10 @@ userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
     
+userPmAdd:
+    path: /user/message/{toUserId}
+    defaults: { _controller: SiteBundle:User\Pm:add }
+    
 tekstove.site.user.pm.view:
     path: /user/pm/view/{id}
     defaults: { _controller: SiteBundle:User\Pm:view }
