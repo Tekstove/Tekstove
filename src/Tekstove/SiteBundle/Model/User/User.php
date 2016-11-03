@@ -74,4 +74,11 @@ class User
     {
         return $this->about;
     }
+    
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+        ];
+    }
 }

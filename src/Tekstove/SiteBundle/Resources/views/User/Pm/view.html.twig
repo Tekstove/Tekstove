@@ -4,5 +4,5 @@
     <hr/>
     заглавие: {{ pm.title|e }}
     <hr/>
-    съдържание: {{ pm.text|e }}
+    {{ pm.text|e|nl2br }}
 {% endblock %}
