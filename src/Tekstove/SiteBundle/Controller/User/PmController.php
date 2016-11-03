@@ -12,6 +12,7 @@ use Tekstove\SiteBundle\Form\Type\User\PmType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Tekstove\SiteBundle\Model\User\User;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 /**
  * Description of PmController
@@ -81,7 +82,6 @@ class PmController extends Controller
     public function addAction(Request $request, $toUserId)
     {
         $pm = new Pm();
-        $user = $this->getUser();
         $pm->setUserTo(new User(['id' => (int) $toUserId]));
         
         $form = $this->createCreateForm($pm);
@@ -92,7 +92,7 @@ class PmController extends Controller
             /* @var $pmGateway PmGateway */
             try {
                 $pmGateway->save($pm);
-                return $this->redirectToRoute('userView', ['id' => $toUserId]);
+                return $this->redirectToRoute('userPmList');
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());

@@ -29,7 +29,7 @@ userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
     
-userPmAdd:
+tekstove_site.user.pm.send:
     path: /user/message/{toUserId}
     defaults: { _controller: SiteBundle:User\Pm:add }
     
