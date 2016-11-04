@@ -209,17 +209,18 @@ class LyricController extends Controller
             $title = $form->get('title');
             $titleData = $title->getData();
             if ($titleData) {
-                $lyricGateway->addFilter('title', "%{$titleData}%", LyricGateway::FILTER_LIKE);
+                $titleSearchData = preg_replace('/\s/', '%', $titleData);
+                $lyricGateway->addFilter('title', "%{$titleSearchData}%", LyricGateway::FILTER_LIKE);
             }
             
             $paginator = $this->get('knp_paginator');
             /* @var $paginator \Knp\Component\Pager\Paginator */
             $lyricPaginate = $paginator->paginate(
                 $lyricGateway,
-                $request->query->getInt('lyricsPage', 1),
+                $request->query->getInt('p', 1),
                 30,
                 [
-                    'pageParameterName' => 'lyricsPage',
+                    'pageParameterName' => 'p',
                 ]
             );
         } else {
