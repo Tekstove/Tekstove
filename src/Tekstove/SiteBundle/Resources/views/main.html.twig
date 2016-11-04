@@ -74,7 +74,7 @@
 
                     <div class="t-top-menu-container">
                         <span class="top_menu_gore_dqsno">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" rel="search"><del>Търсачка</del></a><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a><br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a><br/>
                             &nbsp;&nbsp;&nbsp;<a href="{{ path("chat") }}">Чат</a>
                         </span>
@@ -170,7 +170,7 @@
 #}
                     <div class="gore_dolu_zaoblqne_blqvo">
                         <div class="gore_dolu_zaoblqne_blqvo_margin_text">
-                            <a href="#"><del>Търсачка</del></a>
+                            <a href="{{ path('tekstove_site.lyric.search') }}">Търсачка</a>
                             <br/>
                             {#<a href="#"><del>Топ 100 популярни</del></a>
                             <br/>#}
