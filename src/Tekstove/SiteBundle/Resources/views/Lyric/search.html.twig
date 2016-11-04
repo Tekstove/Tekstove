@@ -2,11 +2,11 @@
 {% block content %}
     {{ form_start(form) }}
 
-    {{ form_row(form.title) }}
-    
     {% if form.artists is defined %}
         {{ form_row(form.artists) }}
     {% endif %}
+    
+    {{ form_row(form.title) }}
     
     {{ form_rest(form) }}
     
