@@ -21,5 +21,6 @@ return array(
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
     'Save' => 'Запази',
+    'Search' => 'Търси',
     'Send' => 'Изпрати',
 );

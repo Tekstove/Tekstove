@@ -1,0 +1,25 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    {{ form_start(form) }}
+
+    {% if form.artists is defined %}
+        {{ form_row(form.artists) }}
+    {% endif %}
+    
+    {{ form_rest(form) }}
+    
+    {{ form_end(form) }}
+    
+    
+    {% for lyric in lyricPaginate %}
+        <a href="{{ path('lyricView', {id: lyric.id}) }}">
+            {{ lyric.cacheTitleShort|e }}
+        </a>
+        <br/>
+
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(lyricPaginate) }}
+    </div>
+{% endblock %}

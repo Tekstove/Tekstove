@@ -73,6 +73,11 @@ abstract class AbstractGateway implements GatewayInterface
         return $this->filters;
     }
     
+    /**
+     * @param string $field
+     * @param mixed $value
+     * @param string $operator
+     */
     public function addFilter($field, $value, $operator = '=')
     {
         $this->filters[] = [

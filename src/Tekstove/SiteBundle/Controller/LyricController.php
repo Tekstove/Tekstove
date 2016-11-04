@@ -174,4 +174,62 @@ class LyricController extends Controller
             'form' => $form->createView(),
         ];
     }
+    
+    /**
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder(null, ['csrf_protection' => false]);
+        $formBuilder->setMethod('GET');
+        $formBuilder->add(
+            'title',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+            ['required' => false]
+        );
+        
+        $formBuilder->add(
+            's',
+            SubmitType::class,
+            [
+                'label' => 'Search',
+            ]
+        );
+        $form = $formBuilder->getForm();
+        /* @var $form \Symfony\Component\Form\Form */
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $lyricGateway = $this->get('tesktove.gateway.lyric');
+            /* @var $lyricGateway LyricGateway */
+            $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
+            $lyricGateway->addOrder('id', LyricGateway::ORDER_DESC);
+            
+            $title = $form->get('title');
+            $titleData = $title->getData();
+            if ($titleData) {
+                $lyricGateway->addFilter('title', "%{$titleData}%", LyricGateway::FILTER_LIKE);
+            }
+            
+            $paginator = $this->get('knp_paginator');
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+            $lyricPaginate = $paginator->paginate(
+                $lyricGateway,
+                $request->query->getInt('lyricsPage', 1),
+                30,
+                [
+                    'pageParameterName' => 'lyricsPage',
+                ]
+            );
+        } else {
+            $lyricPaginate = false;
+        }
+        
+        
+        return [
+            'form' => $form->createView(),
+            'lyricPaginate' => $lyricPaginate,
+        ];
+    }
 }
