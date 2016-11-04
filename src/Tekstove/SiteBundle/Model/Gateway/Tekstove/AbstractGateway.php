@@ -14,6 +14,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\ClientInterface;
 abstract class AbstractGateway implements GatewayInterface
 {
     const FILTER_NOT_NULL = 'NOT_NULL';
+    const FILTER_IN = 'in';
     const FILTER_LIKE = 'like';
     
     const ORDER_ASC = 'asc';
