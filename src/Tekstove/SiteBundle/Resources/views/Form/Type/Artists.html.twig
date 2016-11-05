@@ -4,8 +4,7 @@
         
         <button class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
         <script>
-            var SelectSmartOptions = function (selector) {
-
+            var selectSmartOptions = function (selector) {
                 // @TODO check if element is only 1
                 this.element = jQuery(selector);
 
@@ -23,7 +22,7 @@
             
             /**
              * 
-             * @param {SelectSmartOptions} options
+             * @param {selectSmartOptions} options
              * @returns {undefined}
              */
             var SelectSmartRemote = function(options) {
@@ -88,7 +87,7 @@
                 $deleteElement.insertAfter(jQuery(element));
                 
                 
-                var options = new SelectSmartOptions(element);
+                var options = new selectSmartOptions(element);
                 options.setUrl('/proxy/api/artists?groups%5B0%5D=Acl&groups%5B1%5D=List');
             
                new SelectSmartRemote(options);
@@ -96,7 +95,7 @@
             
             jQuery(document).ready(function () {
 
-                jQuery('select[id^="lyric_artist"]').each(
+                jQuery('select[id*="_artist"]').each(
                     function (key, el) {
                         artistSelect(el);
                     }
@@ -105,8 +104,9 @@
                 var $addTagLink = $('#addArtist');
                 var $collectionHolder;
                 
-                // Get the ul that holds the collection of artsts
-                $collectionHolder = $('#lyric_artists');
+                // Get element that holds the collection of artsts
+                // 1st is for lyric form; 2nd is for search form
+                $collectionHolder = $('#lyric_artists, #form_artists');
 
                 // count the current form inputs we have (e.g. 2), use that as the new
                 // index when inserting a new item (e.g. 2)

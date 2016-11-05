@@ -54,6 +54,11 @@ lyricEdit:
     defaults: { _controller: SiteBundle:Lyric:edit }
     requirements:
         id: \d+
+        
+tekstove_site.lyric.search:
+    path: /lyric/search
+    defaults: { _controller: SiteBundle:Lyric:search }
+    methods: [GET]
 
 artistBrowse:
     path: /artist/browse/{id}

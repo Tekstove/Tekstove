@@ -174,4 +174,116 @@ class LyricController extends Controller
             'form' => $form->createView(),
         ];
     }
+    
+    /**
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder(null, ['csrf_protection' => false]);
+        $formBuilder->setMethod('GET');
+        $formBuilder->add(
+            'title',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+            ['required' => false]
+        );
+        
+        $artistGateway = $this->get('tekstove.gateway.artist');
+        $formBuilder->addEventListener(
+            \Symfony\Component\Form\FormEvents::PRE_SET_DATA,
+            function (\Symfony\Component\Form\FormEvent $event) use ($request, $artistGateway) {
+                $posts = $request->query->all();
+                $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
+                $potentialArtistIds = [];
+                foreach ($it as $key => $v) {
+                    if (is_int($key)) {
+                        $potentialArtistIds[$v] = $v;
+                    }
+                }
+                
+                if (!empty($potentialArtistIds)) {
+                    $artistGateway->addFilter('id', $potentialArtistIds, 'in');
+                }
+                $artistGateway->setGroups(['List']);
+                $artistsData = $artistGateway->find();
+
+                $form = $event->getForm();
+                $form->add(
+                    'artists',
+                    \Tekstove\SiteBundle\Form\Field\ArtistsType::class,
+                    [
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'by_reference' => false,
+                        'entry_type' => \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class,
+
+                        'entry_options' => [
+                            'required' => true,
+                            'choice_label' => 'name',
+                            'choice_value' => 'id',
+                            'choices' => $artistsData['items'],
+                            'label' => 'Artist',
+                        ]
+                    ]
+                );
+            }
+        );
+        
+        $formBuilder->add(
+            's',
+            SubmitType::class,
+            [
+                'label' => 'Search',
+            ]
+        );
+        $form = $formBuilder->getForm();
+        /* @var $form \Symfony\Component\Form\Form */
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $lyricGateway = $this->get('tesktove.gateway.lyric');
+            /* @var $lyricGateway LyricGateway */
+            $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
+            $lyricGateway->addOrder('id', LyricGateway::ORDER_DESC);
+            
+            $title = $form->get('title');
+            $titleData = $title->getData();
+            if ($titleData) {
+                $titleSearchData = preg_replace('/\s/', '%', $titleData);
+                $lyricGateway->addFilter('title', "%{$titleSearchData}%", LyricGateway::FILTER_LIKE);
+            }
+            
+            $artists = $form->get('artists');
+            $artistsData = $artists->getData();
+            if (!empty($artistsData)) {
+                $artistIds = [];
+                foreach ($artistsData as $artist) {
+                    /* @var $artist \Tekstove\SiteBundle\Model\Artist\Artist */
+                    $artistIds[$artist->getId()] = $artist->getId();
+                }
+                
+                $lyricGateway->addFilter('ArtistId', $artistIds, LyricGateway::FILTER_IN);
+            }
+            
+            $paginator = $this->get('knp_paginator');
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+            $lyricPaginate = $paginator->paginate(
+                $lyricGateway,
+                $request->query->getInt('p', 1),
+                30,
+                [
+                    'pageParameterName' => 'p',
+                ]
+            );
+        } else {
+            $lyricPaginate = false;
+        }
+        
+        
+        return [
+            'form' => $form->createView(),
+            'lyricPaginate' => $lyricPaginate,
+        ];
+    }
 }
