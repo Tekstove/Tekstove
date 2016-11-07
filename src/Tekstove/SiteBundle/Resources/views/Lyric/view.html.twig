@@ -1,4 +1,13 @@
 {% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    {{ lyric.cacheTitleShort|e }} |
+    текст
+    {% if (lyric.getTextBg) %}
+    и превод
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-6">

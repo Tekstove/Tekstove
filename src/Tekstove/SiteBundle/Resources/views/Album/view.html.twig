@@ -1,7 +1,12 @@
 {% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    {{ album.name }} | Албуми
+{% endblock %}
+
 {% block content %}
     <h1>
-        {{ album.name }}
+        {{ album.name|e }}
         {% if album.year is not empty %}
             ({{ album.year }})
         {% endif %}
@@ -21,16 +26,16 @@
             <li>
                 {% if lyric.isLyric %}
                     <a href="{{ path('lyricView', {id:lyric.lyric.id}) }}">
-                        {{ lyric.lyric.title }}
+                        {{ lyric.lyric.title|e }}
                     </a>
                 {% else %}
-                    {{ lyric.getLyricName }}
+                    {{ lyric.getLyricName|e }}
                 {% endif %}
         {% endfor %}
     </ol>
     
-    <img src="{{ album.image }}">
+    <img src="{{ album.image|e }}">
     
     <br/>
-    Изпратено от <a href="{{ path('userView', { id:album.sendByUser.id }) }}">{{ album.getSendByUser.username }}</a>
+    Изпратено от <a href="{{ path('userView', { id:album.sendByUser.id }) }}">{{ album.getSendByUser.username|e }}</a>
 {% endblock %}

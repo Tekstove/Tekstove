@@ -1,4 +1,9 @@
 {% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    Форум | {{ parent() }}
+{% endblock %}
+
 {% block content %}
     <div class="row t-forum-breadcrumb">
         <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
