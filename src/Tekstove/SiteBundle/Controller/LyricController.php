@@ -230,6 +230,12 @@ class LyricController extends Controller
         );
         
         $formBuilder->add(
+            'text',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+            ['required' => false]
+        );
+        
+        $formBuilder->add(
             's',
             SubmitType::class,
             [
@@ -249,7 +255,7 @@ class LyricController extends Controller
             
             $title = $form->get('title');
             $titleData = $title->getData();
-            if ($titleData) {
+            if ($titleData !== '') {
                 $titleSearchData = preg_replace('/\s/', '%', $titleData);
                 $lyricGateway->addFilter('title', "%{$titleSearchData}%", LyricGateway::FILTER_LIKE);
             }
@@ -264,6 +270,14 @@ class LyricController extends Controller
                 }
                 
                 $lyricGateway->addFilter('ArtistId', $artistIds, LyricGateway::FILTER_IN);
+            }
+            
+            $text = $form->get('text')->getData();
+            if ($text !== '') {
+                $textExploded = explode(' ', $text);
+                foreach ($textExploded as $wordToSearch) {
+                    $lyricGateway->addFilter('text', "%{$wordToSearch}%", LyricGateway::FILTER_LIKE);
+                }
             }
             
             $paginator = $this->get('knp_paginator');
