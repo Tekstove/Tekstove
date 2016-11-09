@@ -5,4 +5,12 @@
     заглавие: {{ pm.title|e }}
     <hr/>
     {{ pm.text|e|nl2br }}
+    
+    <div class="clearfix"></div>
+    
+    <br/>
+    
+    <a href="{{ path('tekstove_site.user.pm.send', {toUserId: pm.userFrom.id, title: "Re: "~pm.title}) }}" class="btn btn-success">
+        Отговори
+    </a>
 {% endblock %}

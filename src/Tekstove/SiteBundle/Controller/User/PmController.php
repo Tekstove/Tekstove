@@ -79,12 +79,13 @@ class PmController extends Controller
     /**
      * @Template()
      */
-    public function addAction(Request $request, $toUserId)
+    public function addAction(Request $request, $toUserId, $title)
     {
         // @TODO user must be logged.
         // Anyway, api will not validate request....
         
         $pm = new Pm();
+        $pm->setTitle($title);
         $pm->setUserTo(new User(['id' => (int) $toUserId]));
         
         $form = $this->createCreateForm($pm);
