@@ -23,12 +23,13 @@ $apcLoader->register(true);
 // I know this is ugly...but...sry...
 function errorToException($errNumber, $errMsg, $errFile, $errLine) {
     
-    $errorMsg = "Error#{$errNumber}. $errMsg in $errFile : $errLine";
-    \error_log($errorMsg);
-    
     if (error_reporting() === 0) {
         return true;
     }
+    
+    $errorMsg = "Error#{$errNumber}. $errMsg in $errFile : $errLine";
+    \error_log($errorMsg);
+    
      throw new \Exception($errMsg);
 }
 
