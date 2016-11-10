@@ -36,6 +36,7 @@ class LyricController extends Controller
         );
         $lyricData = $lyricGateway->get($id);
         $lyric = $lyricData['item'];
+        /* @var $lyric Lyric */
         
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
@@ -44,6 +45,7 @@ class LyricController extends Controller
         
         return [
             'lyric' => $lyric,
+            'ads' => !$lyric->isCensor(),
         ];
     }
     

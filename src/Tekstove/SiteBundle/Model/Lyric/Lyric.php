@@ -47,6 +47,8 @@ class Lyric
      */
     private $views;
     
+    private $censor;
+    
     /**
      * Allowed edit options
      * @var array
@@ -86,6 +88,10 @@ class Lyric
                 continue;
             }
             $this->{$field} = $data[$field];
+        }
+        
+        if (isset($data['censor'])) {
+            $this->censor = (bool) $data['censor'];
         }
         
         if (!empty($data['artists'])) {
@@ -318,6 +324,15 @@ class Lyric
         return $this->views;
     }
     
+    public function isCensor()
+    {
+        if ($this->censor === null) {
+            throw new \RuntimeException("Field censor not set");
+        }
+        
+        return $this->censor;
+    }
+        
     public function getPopularity()
     {
         return $this->popularity;
