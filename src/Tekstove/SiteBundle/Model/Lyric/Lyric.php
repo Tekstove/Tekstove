@@ -70,6 +70,7 @@ class Lyric
             'title',
             'text',
             'textBg',
+            'extraInfo',
             'sendBy',
             'download',
             

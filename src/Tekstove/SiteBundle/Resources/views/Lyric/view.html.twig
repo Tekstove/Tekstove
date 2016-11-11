@@ -71,19 +71,15 @@
             </div>
         </div>
 {% endif %}
-
     </div>
 {% endif %}
+
     <script>
         $( function() {
             $( "#tabs" ).tabs();
         } );
     </script>
 
-
-    
-
-    
     <div class="row">
         {% if (lyric.sendByUser) %}
             <div style="float:left;">
@@ -109,16 +105,25 @@
         {% endif %}
     </div>
 
+    {% if lyric.extraInfo is not empty %}
+        <div class="panel panel-default">
+            <div class="panel-heading">Допълнителна информация</div>
+            <div class="panel-body">
+                {{ lyric.extraInfo|e|nl2br }}
+            </div>
+        </div>
+    {% endif %}
+    
     {% include '@TekstoveSite/Ads/lyric.view.above-text.html.twig' %}
     
     <br/>
     <div class="row">
         <div class="col-md-6">
-            {{ lyric.text|nl2br }}
+            {{ lyric.text|e|nl2br }}
         </div>
 {% if (lyric.getTextBg) %}
         <div class="col-md-6">
-            {{ lyric.textBg|nl2br }}
+            {{ lyric.textBg|e|nl2br }}
         </div>
 {% endif %}
     </div>
