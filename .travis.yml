@@ -12,7 +12,7 @@ script:
     - Test/codeSniffer/vendor/bin/phpcs --standard=Test/codeSniffer/phpcs.xml src/
     - cp app/config/parameters.yml.dist app/config/parameters.yml
     - composer install --prefer-dist
-    - vendor/bin/phpunit -c Test/Phpunit/phpunit.xml --no-coverage 
+    - vendor/bin/phpunit -c Test/phpUnit/phpunit.xml --no-coverage 
 
 matrix:
     allow_failures:
