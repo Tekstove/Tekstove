@@ -82,4 +82,20 @@ class LyricTest extends TestCase
         $lyric = new Lyric(['id' => 4]);
         $this->assertSame(4, $lyric->getId());
     }
+    
+    public function testConstructCensor()
+    {
+        $lyricWithoutCensor = new Lyric(['censor' => false]);
+        $this->assertFalse($lyricWithoutCensor->isCensor());
+        
+        $lyricWithCensor = new Lyric(['censor' => true]);
+        $this->assertTrue($lyricWithCensor->isCensor());
+    }
+    
+    public function testGetCensorWithNoData()
+    {
+        $this->expectException(\Exception::class);
+        $lyric = new Lyric();
+        $lyric->isCensor();
+    }
 }
