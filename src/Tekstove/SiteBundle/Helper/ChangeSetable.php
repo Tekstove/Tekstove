@@ -50,7 +50,7 @@ trait ChangeSetable
                 foreach ($value as $nestedSet) {
                     $return[$field][] = $nestedSet->getId();
                 }
-            } elseif ($value instanceof ArrayableInterface){
+            } elseif ($value instanceof ArrayableInterface) {
                 $return[$field] = $value->toArray();
             } else {
                 $return[$field] = $value;
