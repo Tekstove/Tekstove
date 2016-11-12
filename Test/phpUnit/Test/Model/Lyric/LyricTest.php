@@ -1,6 +1,6 @@
 <?php
 
-namespace TekstoveTest\Site\Model\Lyric;
+namespace Test\Model\Lyric;
 
 use PHPUnit\Framework\TestCase;
 use Tekstove\SiteBundle\Model\Lyric\Lyric;

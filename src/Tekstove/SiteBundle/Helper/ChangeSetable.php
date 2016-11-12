@@ -2,6 +2,8 @@
 
 namespace Tekstove\SiteBundle\Helper;
 
+use Tekstove\SiteBundle\Helper\ArrayableInterface;
+
 /**
  * @author potaka
  */
@@ -48,6 +50,8 @@ trait ChangeSetable
                 foreach ($value as $nestedSet) {
                     $return[$field][] = $nestedSet->getId();
                 }
+            } elseif ($value instanceof ArrayableInterface){
+                $return[$field] = $value->toArray();
             } else {
                 $return[$field] = $value;
             }
