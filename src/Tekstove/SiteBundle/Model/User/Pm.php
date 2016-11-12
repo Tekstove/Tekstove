@@ -9,6 +9,8 @@ namespace Tekstove\SiteBundle\Model\User;
  */
 class Pm
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+    
     private $id;
     private $title;
     private $read;
@@ -17,8 +19,6 @@ class Pm
     
     private $userFrom;
     private $userTo;
-    
-    private $changedFields = [];
     
     public function __construct(array $data = [])
     {
@@ -116,12 +116,8 @@ class Pm
         return $this->datetime;
     }
     
-    public function getChangedFields()
-    {
-        return $this->changedFields;
-    }
-
     /**
+     * @TODO move to trait. There is difference. Clear it!
      * @return array
      */
     public function getChangeSet()

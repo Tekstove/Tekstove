@@ -13,6 +13,8 @@ use Tekstove\SiteBundle\Model\Language;
  */
 class Lyric
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+    
     private $id;
     
     private $cacheTitleShort;
@@ -54,11 +56,6 @@ class Lyric
      * @var array
      */
     private $acl = [];
-    
-    /**
-     * @var array
-     */
-    private $changedFields = [];
     
     /**
      * @param array $data
@@ -359,49 +356,5 @@ class Lyric
         }
         
         return true;
-    }
-    
-    /**
-     * Check if fields is changed
-     * @param string $field
-     * @return boolean
-     */
-    public function isChanged($field)
-    {
-        if (isset($this->changedFields[$field])) {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getChangedFields()
-    {
-        return $this->changedFields;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getChangeSet()
-    {
-        $return = [];
-        foreach ($this->getChangedFields() as $field) {
-            $getter = 'get' . $field;
-            $value = $this->{$getter}();
-            if (is_array($value)) {
-                $return[$field] = [];
-                foreach ($value as $nestedSet) {
-                    $return[$field][] = $nestedSet->getId();
-                }
-            } else {
-                $return[$field] = $value;
-            }
-        }
-        
-        return $return;
     }
 }
