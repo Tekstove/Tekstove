@@ -5,10 +5,12 @@ namespace Tekstove\SiteBundle\Model\User;
 /**
  * Description of Pm
  *
- * @author potaka
+ * @author po_taka
  */
 class Pm
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+    
     private $id;
     private $title;
     private $read;
@@ -17,8 +19,6 @@ class Pm
     
     private $userFrom;
     private $userTo;
-    
-    private $changedFields = [];
     
     public function __construct(array $data = [])
     {
@@ -102,46 +102,17 @@ class Pm
 
     public function getUserTo()
     {
-        $this->changedFields['userTo'] = 'userTo';
         return $this->userTo;
     }
     
     public function setUserTo(User $userTo)
     {
+        $this->changedFields['userTo'] = 'userTo';
         $this->userTo = $userTo;
     }
 
     public function getDatetime()
     {
         return $this->datetime;
-    }
-    
-    public function getChangedFields()
-    {
-        return $this->changedFields;
-    }
-
-    /**
-     * @return array
-     */
-    public function getChangeSet()
-    {
-        $return = [];
-        foreach ($this->getChangedFields() as $field) {
-            $getter = 'get' . $field;
-            $value = $this->{$getter}();
-            if (is_array($value)) {
-                $return[$field] = [];
-                foreach ($value as $nestedSet) {
-                    $return[$field][] = $nestedSet->getId();
-                }
-            } elseif (is_object($value)) {
-                $return[$field] = $value->toArray();
-            } else {
-                $return[$field] = $value;
-            }
-        }
-        
-        return $return;
     }
 }

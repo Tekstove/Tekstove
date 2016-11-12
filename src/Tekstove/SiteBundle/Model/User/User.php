@@ -2,12 +2,14 @@
 
 namespace Tekstove\SiteBundle\Model\User;
 
+use \Tekstove\SiteBundle\Helper\ArrayableInterface;
+
 /**
  * User
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class User
+class User implements ArrayableInterface
 {
     private $id;
     private $username;
