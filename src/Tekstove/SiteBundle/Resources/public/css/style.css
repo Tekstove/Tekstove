@@ -26,11 +26,11 @@ a.btn, a.btn:visited, a.btn:active {
 }
 
 .t-nopadding {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .t-nomargin {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .t-menu-horizontal {
