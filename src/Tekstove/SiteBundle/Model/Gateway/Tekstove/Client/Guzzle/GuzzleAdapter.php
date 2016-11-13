@@ -6,6 +6,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\ClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException as TekstoveRequestException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundException as TesktoveNotFoundException;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Response as TekstoveResponse;
@@ -103,7 +104,21 @@ class GuzzleAdapter implements ClientInterface
      */
     public function get($url)
     {
+        try {
         $guzzleResponse = $this->guzzle->get($url);
+        } catch (GuzzleRequestException $e) {
+            $tekstoveException = new TesktoveNotFoundException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e->getPrevious()
+            );
+            
+            $response = $e->getResponse();
+            $responseBody = $response->getBody()->getContents();
+            $tekstoveException->setBody($responseBody);
+            
+            throw $tekstoveException;
+        }
         $tekstoveResponse = new TekstoveResponse($guzzleResponse->getBody());
         return $tekstoveResponse;
     }

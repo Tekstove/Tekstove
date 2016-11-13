@@ -12,6 +12,7 @@ use Tekstove\SiteBundle\Form\Type\LyricType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
@@ -34,7 +35,11 @@ class LyricController extends Controller
                 LyricGateway::GROUP_ACL,
             ]
         );
-        $lyricData = $lyricGateway->get($id);
+        try {
+            $lyricData = $lyricGateway->get($id);
+        } catch (NotFoundException $e) {
+            throw $this->createNotFoundException("Песента не съществува");
+        }
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
         
