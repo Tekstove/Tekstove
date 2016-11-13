@@ -463,7 +463,9 @@ function videoMetacatfe(link, autoplay)
 
 function videoVbox(link, autoplay)
 {
-    var html = '<iframe width="560" height="315" src="//www.vbox7.com/emb/external.php?vid=' + link + '" frameborder="0" allowfullscreen></iframe>';
+    var html = '<div class="video-wrapper">';
+    html += '<iframe src="//www.vbox7.com/emb/external.php?vid=' + link + '" frameborder="0" allowfullscreen></iframe>';
+    html += '</div>';
     return html;
 
 }
@@ -471,12 +473,13 @@ function videoVbox(link, autoplay)
 function videoYouTube(link, autoplay)
 {
 
-    var html = '';
-    html += '<iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/' + link;
+    var html = '<div class="video-wrapper">';
+    html += '<iframe title="YouTube video player" height="auto" src="http://www.youtube.com/embed/' + link;
     if (autoplay) {
         html += "?autoplay=1";
     }
     html += '" frameborder="0" autoplay="1" allowfullscreen></iframe>';
+    html += '</div>';
 
     return html;
 
