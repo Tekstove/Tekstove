@@ -105,7 +105,7 @@ class GuzzleAdapter implements ClientInterface
     public function get($url)
     {
         try {
-        $guzzleResponse = $this->guzzle->get($url);
+            $guzzleResponse = $this->guzzle->get($url);
         } catch (GuzzleRequestException $e) {
             $tekstoveException = new TesktoveNotFoundException(
                 $e->getMessage(),
