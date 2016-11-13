@@ -76,7 +76,6 @@
             <nav>
                 <div class="row t-menu-horizontal">
                     <div class="col-md-5">
-                        &nbsp;&nbsp;&nbsp;
                         <a href="{{ path('index') }}">Начало</a>&nbsp;
 {#                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;#}
 {#                        <a href="#"><del>Албуми</del></a>&nbsp;#}
@@ -90,7 +89,7 @@
 {#                        <a href="#"><del>Изпрати Албум</del></a>&nbsp;#}
                     </div>
 
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-4">
                         {% if app.user %}
                             <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
 {#                            <a href="#" class="top"><del>Потребителски данни</del></a>#}
