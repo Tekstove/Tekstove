@@ -116,40 +116,7 @@
                             {% include '@TekstoveSite/Main/userMenu.html.twig' %}
                         </div>
                     {% endif %}
-                    {#
-{% if app.user %}
-                    <div class="gore_dolu_zaoblqne_blqvo">
-                        <div class="gore_dolu_zaoblqne_blqvo_margin_text">
 
-                            <i>Моето&nbsp;Меню:</i><br/>
-                            Ранг:&nbsp;
-                            {{ app.user.className|e }}
-                            <br/>
-                            <a href="#" title="Непрочетени Лични Съобщения">
-                                <del>Непрочетени&nbsp;ЛС:&nbsp;<b>0</b></del>
-                            </a>
-                            <br/>
-
-                            <a href="#">
-                                <del>Превод Заявки: <b>630</b></del>
-                            </a>
-                            <br/>
-                            <a href="#">
-                                <del>Проблеми <b>4598</b></del>
-                            </a>
-                            <br/>
-                            <a href="{{ path('userView', {id: app.user.id}) }}">Профил</a>
-                            <br/>
-                            <a href="#"><del>Слушай <b>любими</b></del></a>
-                            <br/>
-                            <a href="#"><del>Мои преводи</del></a>
-                            <br/>
-                            <a href="#"><del>Изтрити песни (всички)</del></a>
-                            <br/>
-                        </div>
-                    </div>
-{% endif %}
-#}
                     <div class="gore_dolu_zaoblqne_blqvo">
                         <div class="gore_dolu_zaoblqne_blqvo_margin_text">
                             <a href="{{ path('tekstove_site.lyric.search') }}">Търсачка</a>

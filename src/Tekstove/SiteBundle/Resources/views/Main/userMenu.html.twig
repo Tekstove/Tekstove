@@ -1,3 +1,23 @@
-<a href="{{ path('userPmList') }}">
-    Напрочетени ЛС <span class="badge">{{ app.user.getUnreadPmCount }}</span>
-</a>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <a href="{{ path('userPmList') }}">
+            Лични съобщения 
+            {% if app.user.getUnreadPmCount > 0 %}
+                <span class="badge">{{ app.user.getUnreadPmCount }}</span>
+            {% endif %}
+        </a>
+        
+        <a href="{{ path('userView', {id: app.user.id}) }}">Профил</a>
+
+        {#
+        <i>Моето&nbsp;Меню:</i><br/>
+        Ранг:&nbsp;
+        {{ app.user.className|e }}
+        Превод Заявки: <b>630</b>
+        Проблеми <b>4598
+        Слушай <b>любими</b>
+        Мои преводи
+        Изтрити песни (всички)
+        #}
+    </div>
+</div>
