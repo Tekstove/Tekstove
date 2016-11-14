@@ -75,9 +75,9 @@
 {% endif %}
 
     <script>
-        $( function() {
-            $( "#tabs" ).tabs();
-        } );
+        $(function(){
+            $("#tabs").tabs();
+        });
     </script>
 
     <div class="row">
@@ -119,11 +119,19 @@
     <br/>
     <div class="row">
         <div class="col-md-6">
-            {{ lyric.text|e|nl2br }}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ lyric.text|e|nl2br }}
+                </div>
+            </div>
         </div>
 {% if (lyric.getTextBg) %}
         <div class="col-md-6">
-            {{ lyric.textBg|e|nl2br }}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ lyric.textBg|e|nl2br }}
+                </div>
+            </div>
         </div>
 {% endif %}
     </div>

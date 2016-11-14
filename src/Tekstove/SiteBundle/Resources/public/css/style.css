@@ -4,7 +4,7 @@ body {
     padding:0;
     background-color:#F3F3F3;
     font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-    font-size:13px;
+    font-size:16px;
     color:#333333;
 }
 a:hover, a:visited:hover {
@@ -41,6 +41,18 @@ a.btn, a.btn:visited, a.btn:active {
     color: white;
 }
 
+@media (min-width: 992px) {
+    .t-menu-horizontal > div:last-child {
+        text-align: right;
+   }
+}
+
+@media (max-width: 992px) {
+    .t-menu-horizontal a, .t-menu-horizontal a:visited {
+        line-height: 1.6;
+    }
+}
+
 .menu_logo {
     width: 100%;
     height: 100px;
@@ -55,7 +67,6 @@ a.btn, a.btn:visited, a.btn:active {
 }
 
 .t-top-letters-above {
-    font-size:4px;
     height:8px;
     background:url('/bundles/site/images/img02.gif') repeat-x;
 }
@@ -89,13 +100,13 @@ a.btn, a.btn:visited, a.btn:active {
     text-align:center;
 }
 .t-letters a:hover , .t-letters a:visited:hover{
-    font-size:15px;
+    font-size: 95%;
     color:#9966ff;
     text-decoration:underline;
 }
 .t-letters a, .t-letters a:visited{
     color:#000000;
-    font-size:15px;
+    font-size: 95%;
     text-decoration:none;
 }
 
@@ -115,6 +126,11 @@ a.btn, a.btn:visited, a.btn:active {
 
 .t-index-lyrics-block-lyrics-container {
     text-align: center;
+}
+@media (max-width: 991px) {
+    .t-index-lyrics-block-lyrics-container {
+        line-height: 1.6;
+    }
 }
 
 .t-index-albums-container {
