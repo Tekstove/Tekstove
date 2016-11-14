@@ -42,7 +42,7 @@ a.btn, a.btn:visited, a.btn:active {
 }
 
 @media (min-width: 992px) {
-    .t-menu-horizontal:last-child {
+    .t-menu-horizontal > div:last-child {
         text-align: right;
    }
 }
