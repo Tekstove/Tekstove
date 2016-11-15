@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
 
 /**
  * Description of UserController
@@ -43,8 +44,8 @@ class UserController extends Controller
     public function viewAction($id)
     {
         $userGateway = $this->get('tekstove.gateway.user');
-        /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
-        $userGateway->setGroups(['Details']);
+        /* @var $userGateway UserGateway */
+        $userGateway->setGroups([UserGateway::GROUP_DETAILS, UserGateway::GROUP_PERMISSION_GROUPS]);
         $user = $userGateway->get($id)['item'];
         return [
             'user' => $user,

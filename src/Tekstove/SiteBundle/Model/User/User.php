@@ -3,6 +3,7 @@
 namespace Tekstove\SiteBundle\Model\User;
 
 use \Tekstove\SiteBundle\Helper\ArrayableInterface;
+use Tekstove\SiteBundle\Model\User\Acl\Group;
 
 /**
  * User
@@ -18,6 +19,9 @@ class User implements ArrayableInterface
     private $apiKey;
     private $avatar;
     private $about;
+    
+    
+    private $groups;
     
     /**
      * @param array $data
@@ -39,6 +43,13 @@ class User implements ArrayableInterface
                 continue;
             }
             $this->{$field} = $data[$field];
+        }
+        
+        if (isset($data['permissionGroups'])) {
+            $this->groups = [];
+            foreach ($data['permissionGroups'] as $groupData) {
+                $this->groups[] = new Group($groupData);
+            }
         }
     }
     
@@ -77,6 +88,14 @@ class User implements ArrayableInterface
         return $this->about;
     }
     
+    public function getGroups()
+    {
+        if ($this->groups === null) {
+            throw new \RuntimeException("Groups not set");
+        }
+        return $this->groups;
+    }
+        
     public function toArray()
     {
         return [

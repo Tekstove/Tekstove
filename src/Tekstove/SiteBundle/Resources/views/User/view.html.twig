@@ -13,13 +13,28 @@
     
     
     <a href="{{ path('tekstove_site.user.pm.send', {toUserId: user.id}) }}">
-        <img src="{{ asset('bundles/site/images/icons/mail/mail.png') }}"  style="width: 20px;"/>
-        изпрати ЛС
+        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> изпрати ЛС 
     </a>
-    
+        
     <br/>
     <br/>
     {{ user.about|e|nl2br }}
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Групи
+        </div>
+        <div class="panel-body"
+             <ul>
+                {% for group in user.groups %}
+                    <li>
+                        {{ group.name|e }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     
 {#    {% if user.roles %}
         <br/>

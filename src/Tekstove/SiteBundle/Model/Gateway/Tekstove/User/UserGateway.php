@@ -13,6 +13,9 @@ use Tekstove\SiteBundle\Model\User\User;
  */
 class UserGateway extends AbstractGateway
 {
+    
+    const GROUP_PERMISSION_GROUPS = 'PermissionGroups';
+    
     protected function getRelativeUrl()
     {
         return '/users';
