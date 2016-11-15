@@ -9,130 +9,132 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
+    <div itemscope itemtype="http://schema.org/MusicGroup">
+        <div class="row">
+            <div class="col-md-6">
+                гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-10">
-            <h1>
-                {% include '@TekstoveSite/partial/artistList.html.twig' with {'artists': lyric.artists} only %}
+        <div class="row">
+            <div class="col-md-10" itemprop="name">
+                <h1>
+                    {% include '@TekstoveSite/partial/artistList.html.twig' with {'artists': lyric.artists} only %}
 
-                {% if lyric.artists is not empty %}
-                    - 
-                {% endif %}
-                {{ lyric.title }}
-            </h1>
-        </div>
+                    {% if lyric.artists is not empty %}
+                        - 
+                    {% endif %}
+                    {{ lyric.title }}
+                </h1>
+            </div>
             <div class="col-md-2">
                 {% if (lyric.isEditAllowed) %}
                     <a class="btn btn-warning" href="{{ path('lyricEdit', {id:lyric.id}) }}">Промени</a>
                 {% endif %}
             </div>
-    </div>
+        </div>
             
 {% if lyric.hasVideo %}
-    <div class="row" id="tabs">
-        <ul>
+        <div class="row" id="tabs">
+            <ul>
 {% if lyric.videoYoutube is not empty %}
-            <li>
-                <a href="#lyric-video-youtube">
-                    YouTube
-                </a>
-            </li>
+                <li>
+                    <a href="#lyric-video-youtube">
+                        YouTube
+                    </a>
+                </li>
 {% endif %}
 {% if lyric.videoVbox7 is not empty %}
-            <li>
-                <a href="#lyric-video-vbox7">
-                    Vbox7
-                </a>
-            </li>
+                <li>
+                    <a href="#lyric-video-vbox7">
+                        Vbox7
+                    </a>
+                </li>
 {% endif %}
 
         </ul>
 {% if lyric.videoVbox7 is not empty %}
-        <div id="lyric-video-vbox7">
-            <div class="row">
-                <script>
-                    document.write(videoVbox('{{ lyric.videoVbox7|e('js') }}'));
-                </script>
+            <div id="lyric-video-vbox7">
+                <div class="row">
+                    <script>
+                        document.write(videoVbox('{{ lyric.videoVbox7|e('js') }}'));
+                    </script>
+                </div>
             </div>
-        </div>
 {% endif %}
 
 {% if lyric.videoYoutube is not empty %}
-        <div id="lyric-video-youtube">
-            <div class="row">
-                <script>
-                    document.write(videoYouTube('{{ lyric.videoYoutube|e('js') }}'));
-                </script>
-            </div>
-        </div>
-{% endif %}
-    </div>
-{% endif %}
-
-    <script>
-        $(function(){
-            $("#tabs").tabs();
-        });
-    </script>
-
-    <div class="row">
-        {% if (lyric.sendByUser) %}
-            <div style="float:left;">
-                изпратено от:
-                <b>
-                    <a href="{{ path('userView', { id:lyric.sendByUser.id }) }}">
-                        {{ lyric.sendByUser.username }}
-                    </a>
-                </b> 
-            </div>
-        {% endif %}
-    </div>
-
-    <div class="row">
-        {% if lyric.languages is not empty %}
-            езици:
-            {% for language in lyric.languages %}
-                {{ language.name }}
-                {% if not loop.last %}
-                    ,
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </div>
-
-    {% if lyric.extraInfo is not empty %}
-        <div class="panel panel-default">
-            <div class="panel-heading">Допълнителна информация</div>
-            <div class="panel-body">
-                {{ lyric.extraInfo|e|nl2br }}
-            </div>
-        </div>
-    {% endif %}
-    
-    {% include '@TekstoveSite/Ads/lyric.view.above-text.html.twig' %}
-    
-    <br/>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ lyric.text|e|nl2br }}
+            <div id="lyric-video-youtube">
+                <div class="row">
+                    <script>
+                        document.write(videoYouTube('{{ lyric.videoYoutube|e('js') }}'));
+                    </script>
                 </div>
             </div>
+{% endif %}
         </div>
+{% endif %}
+
+        <script>
+            $(function(){
+                $("#tabs").tabs();
+            });
+        </script>
+
+        <div class="row">
+            {% if (lyric.sendByUser) %}
+                <div style="float:left;">
+                    изпратено от:
+                    <b>
+                        <a href="{{ path('userView', { id:lyric.sendByUser.id }) }}">
+                            {{ lyric.sendByUser.username }}
+                        </a>
+                    </b> 
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {% if lyric.languages is not empty %}
+                езици:
+                {% for language in lyric.languages %}
+                    {{ language.name }}
+                    {% if not loop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if lyric.extraInfo is not empty %}
+            <div class="panel panel-default">
+                <div class="panel-heading">Допълнителна информация</div>
+                <div class="panel-body">
+                    {{ lyric.extraInfo|e|nl2br }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% include '@TekstoveSite/Ads/lyric.view.above-text.html.twig' %}
+
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ lyric.text|e|nl2br }}
+                    </div>
+                </div>
+            </div>
 {% if (lyric.getTextBg) %}
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ lyric.textBg|e|nl2br }}
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ lyric.textBg|e|nl2br }}
+                    </div>
                 </div>
             </div>
-        </div>
 {% endif %}
+        </div>
     </div>
 {% endblock %}
