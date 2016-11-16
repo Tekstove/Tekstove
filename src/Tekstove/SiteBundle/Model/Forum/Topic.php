@@ -19,21 +19,23 @@ class Topic
     
     private $latestPost;
     
-    public function __construct($data)
+    public function __construct(array $data = [])
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        
-        if (!empty($data['user'])) {
-            $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
-        }
-        
-        if (!empty($data['category'])) {
-            $this->category = new Category($data['category']);
-        }
-        
-        if (!empty($data['latestPost'])) {
-            $this->latestPost = new Post($data['latestPost']);
+        if (!empty($data)) {
+            $this->id = $data['id'];
+            $this->name = $data['name'];
+
+            if (!empty($data['user'])) {
+                $this->user = new \Tekstove\SiteBundle\Model\User\User($data['user']);
+            }
+
+            if (!empty($data['category'])) {
+                $this->category = new Category($data['category']);
+            }
+
+            if (!empty($data['latestPost'])) {
+                $this->latestPost = new Post($data['latestPost']);
+            }
         }
     }
     
@@ -47,16 +49,29 @@ class Topic
         return $this->name;
     }
     
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+        
     public function getUser()
     {
         return $this->user;
     }
     
+    /**
+     * @return Category
+     */
     public function getCategory()
     {
         return $this->category;
     }
     
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+        
     public function getLatestPost()
     {
         return $this->latestPost;

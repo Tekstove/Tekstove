@@ -4,6 +4,7 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Forum\Topic;
+use Tekstove\SiteBundle\Model\Forum\Post;
 
 /**
  * TopicGateway
@@ -36,5 +37,31 @@ class TopicGateway extends AbstractGateway
         return [
             'item' => $category,
         ];
+    }
+    
+    public function save(Topic $topic)
+    {
+        if ($topic->getId()) {
+            throw new \Exception("Not implemented");
+        } else {
+            if (!$topic instanceof \Tekstove\SiteBundle\Model\Forum\TopicNew) {
+                throw new \Exception("Please pass TopicNew instead of Topic");
+            }
+            
+            $response = $this->getClient()
+                                ->post(
+                                    $this->getRelativeUrl(),
+                                    [
+                                        'body' => json_encode([
+                                            'name' => $topic->getName(),
+                                            'postText' => $topic->getPostText(),
+                                            'category' => $topic->getCategory()->getId(),
+                                        ]),
+                                    ]
+                                );
+            
+            dump($response); die;
+            
+        }
     }
 }
