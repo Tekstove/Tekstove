@@ -1,22 +1,25 @@
 <?php
 
-namespace Tekstove\SiteBundle\Form\Type\Forum\Post;
+namespace Tekstove\SiteBundle\Form\Type\Forum\Topic;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
- * Description of PostType
+ * Description of TopicNewType
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class PostType extends \Symfony\Component\Form\AbstractType
+class TopicEditType extends \Symfony\Component\Form\AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'text',
-            \Symfony\Component\Form\Extension\Core\Type\TextareaType::class
+            'name',
+            TextType::class
         );
     }
     
@@ -29,10 +32,9 @@ class PostType extends \Symfony\Component\Form\AbstractType
     {
         $resolver->setDefaults(
             array(
-                'class' => \Tekstove\SiteBundle\Model\Forum\Post::class,
                 'attr' => [
                     'novalidate' => 'novalidate',
-                ]
+                ],
             )
         );
     }

@@ -15,6 +15,8 @@ class ArrayErrorPopulator
     private $formErrorMessageKey = 'message';
     private $formErrorElementKey = 'element';
     
+    private $aliases = [];
+    
     /**
      * Populate form with errors from given array
      * @param FormInterface $form
@@ -27,7 +29,7 @@ class ArrayErrorPopulator
             $formErrorMatched = false;
             foreach ($form as $formElement) {
                 /* @var $formElement FormInterface */
-                if ($formElement->getName() == $error[$this->formErrorElementKey]) {
+                if (in_array($error[$this->formErrorElementKey], $this->getMatchinFormElements($formElement->getName()))) {
                     $formElement->addError($formError);
                     $formErrorMatched = true;
                     break;
@@ -38,5 +40,23 @@ class ArrayErrorPopulator
                 $form->addError($formError);
             }
         }
+    }
+    
+    private function getMatchinFormElements($element)
+    {
+        $elements = [$element];
+        if (isset($this->aliases[$element])) {
+            $elements = array_merge($this->aliases[$element], $elements);
+        }
+        
+        return $elements;
+    }
+    
+    public function addAlias($formElement, $errorElement)
+    {
+        if (!!isset($this->aliases[$formElement])) {
+            $this->aliases[$formElement] = [];
+        }
+        $this->aliases[$formElement][] = $errorElement;
     }
 }
