@@ -41,7 +41,7 @@
     </table>
 
     <a
-        href="{{ path('tekstove.site.forum.topic.new', { categoryId: category.id }) }}"
+        href="{{ path('tekstove.site.forum.topic.new', { categoryId: category.id })|loggedOnly() }}"
         class="btn btn-success"
         >
         нова тема
