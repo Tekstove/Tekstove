@@ -7,6 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\CategoryGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway;
@@ -78,6 +81,50 @@ class TopicController extends Controller
             'topic' => $topic,
             'postPagination' => $postPagination,
             'ads' => true,
+        ];
+    }
+    
+    public function newAction(Request $request, $categoryId)
+    {
+        $categoryGateway = $this->get('tekstove.gateway.forum.category');
+        /* @car $categoryGateway CategoryGateway */
+        $categoryGateway->setGroups([CategoryGateway::GROUP_LIST]);
+        $categoryData = $categoryGateway->get($categoryId);
+        $category = $categoryData['item'];
+        /* @var $postGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\PostGateway */
+        
+        $topic = new \Tekstove\SiteBundle\Model\Forum\TopicNew();
+        $topic->setCategory($category);
+        
+        $form = $this->createForm(
+            \Tekstove\SiteBundle\Form\Type\Forum\Topic\TopicNewType::class,
+            $topic
+        );
+        
+        $form->add('Add', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $topicGateway = $this->get('tekstove.gateway.forum.topic');
+            /* @var $topicGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum\TopicGateway */
+            
+            try {
+                $topicGateway->save($topic);
+                return $this->redirectToRoute(
+                    'tekstove.site.forum.topic.view',
+                    ['id' => $topic->getId()]
+                );
+            } catch (TekstoveValidationException $e) {
+                $formPopulator = new ArrayErrorPopulator();
+                $formPopulator->addAlias('postText', 'text');
+                $formPopulator->populateFormErrors($form, $e->getValidationErrors());
+                dump($e->getValidationErrors());
+            }
+        }
+        
+        return [
+            'category' => $category,
+            'form' => $form->createView(),
         ];
     }
 }

@@ -92,6 +92,12 @@ tekstove.site.forum.topic.view:
     requirements:
         id: \d+
         
+tekstove.site.forum.topic.new:
+    path: /forum/category/{categoryId}/topic/add
+    defaults: { _controller: SiteBundle:Forum\Topic:new }
+    requirements:
+        categoryId: \d+
+        
 tekstove.site.forum.post.new:
     path: /foum/topic/{topicId}/post
     defaults: { _controller: SiteBundle:Forum\Post:add }
