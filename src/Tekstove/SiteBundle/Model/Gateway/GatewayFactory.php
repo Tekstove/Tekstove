@@ -61,6 +61,7 @@ class GatewayFactory
     {
         $clientOptions = [
             'base_uri' => $this->baseUrl,
+            'timeout' => 4,
         ];
         $client = new Client();
         $client->setBaseUri($clientOptions['base_uri']);
@@ -117,6 +118,7 @@ class GatewayFactory
     {
         $clientOptions = [
             'base_uri' => $this->baseUrl,
+            'timeout' => 4,
         ];
         $client = new Client();
         $currentUser = $this->tekenStorage->getToken()->getUser();
