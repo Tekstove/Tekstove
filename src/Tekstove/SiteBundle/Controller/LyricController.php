@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundRedirectException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
@@ -28,7 +29,7 @@ class LyricController extends Controller
     public function viewAction($id)
     {
         $lyricGateway = $this->get('tesktove.gateway.lyric');
-        /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
+        /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups(
             [
                 LyricGateway::GROUP_DETAILS,
@@ -37,6 +38,14 @@ class LyricController extends Controller
         );
         try {
             $lyricData = $lyricGateway->get($id);
+        } catch (NotFoundRedirectException $e) {
+            return $this->redirectToRoute(
+                'lyricView',
+                [
+                    'id' => $e->getRedirectTo(),
+                ],
+                301
+            );
         } catch (NotFoundException $e) {
             throw $this->createNotFoundException("Песента не съществува");
         }

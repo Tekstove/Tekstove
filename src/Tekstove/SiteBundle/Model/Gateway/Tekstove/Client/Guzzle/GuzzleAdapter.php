@@ -7,6 +7,7 @@ use GuzzleHttp\Client as GuzzleClient;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException as TekstoveRequestException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundException as TesktoveNotFoundException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundRedirectException as TesktoveNotFoundRedirectException;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Response as TekstoveResponse;
@@ -107,6 +108,21 @@ class GuzzleAdapter implements ClientInterface
         try {
             $guzzleResponse = $this->guzzle->get($url);
         } catch (GuzzleRequestException $e) {
+            
+            $responseParsed = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);
+            
+            if (isset($responseParsed['redirect']['id'])) {
+                $redirectId = $responseParsed['redirect']['id'];
+                $tekstoveException = new TesktoveNotFoundRedirectException(
+                    $e->getMessage(),
+                    $e->getCode(),
+                    $e->getPrevious()
+                );
+                
+                $tekstoveException->setRedirectTo($redirectId);
+                throw $tekstoveException;
+            }
+            
             $tekstoveException = new TesktoveNotFoundException(
                 $e->getMessage(),
                 $e->getCode(),
