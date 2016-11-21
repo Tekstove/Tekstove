@@ -5,7 +5,25 @@
         {{ artist.name }}
     </h1>
     
-    @TODO albums
+    {% if artist.albums %}
+        <div class="container t-artist-albums">
+            Албуми
+            <div class="clearfix"></div>
+            {% for album in artist.albums %}
+                <div class="col-md-3">
+                    <a href="{{ path('tekstove_site_album_view', {id: album.id}) }}">
+                        {% if album.year %}
+                            ({{ album.year }})
+                            <br/>
+                        {% endif %}
+                        {{ album.name|e }}
+                        <img src="{{ album.image|e }}" alt="Обложка на албума" />
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
     <br/>
     <br/> <br/>
     

@@ -2,6 +2,8 @@
 
 namespace Tekstove\SiteBundle\Model\Artist;
 
+use Tekstove\SiteBundle\Model\Album\Album;
+
 /**
  * Description of Artist
  *
@@ -11,6 +13,8 @@ class Artist
 {
     private $name;
     private $id;
+    
+    private $albums;
 
     public function __construct($data = [])
     {
@@ -24,6 +28,13 @@ class Artist
                 continue;
             }
             $this->{$field} = $data[$field];
+        }
+        
+        if (isset($data['albums'])) {
+            $this->albums = [];
+            foreach ($data['albums'] as $albumData) {
+                $this->albums[] = new Album($albumData);
+            }
         }
     }
 
@@ -46,5 +57,13 @@ class Artist
     public function setName($name)
     {
         $this->name = $name;
+    }
+    
+    public function getAlbums()
+    {
+        if ($this->albums === null) {
+            throw new Exception("Albums not set");
+        }
+        return $this->albums;
     }
 }

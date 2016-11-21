@@ -133,6 +133,13 @@ a.btn, a.btn:visited, a.btn:active {
     }
 }
 
+.t-artist-albums img {
+    min-width: 100px;
+    max-width: 250px;
+    min-height: 100px;
+    max-height: 250px;
+}
+
 .t-index-albums-container {
     border: 1px solid black;
     border-radius: 7px;

@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 
 class ArtistController extends Controller
 {
@@ -17,13 +19,18 @@ class ArtistController extends Controller
     public function browseAction(Request $request, $id)
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
-        /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
-        $artistGateway->setGroups([AbstractGateway::GROUP_DETAILS]);
+        /* @var $artistGateway ArtistGateway */
+        $artistGateway->setGroups(
+            [
+                ArtistGateway::GROUP_DETAILS,
+                ArtistGateway::GROUP_ALBUMS,
+            ]
+        );
         $artistData = $artistGateway->get($id);
         $artist = $artistData['item'];
         $lyricGateway = $this->get("tesktove.gateway.lyric");
-        /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway */
-        $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
+        /* @var $lyricGateway LyricGateway */
+        $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
         $lyricGateway->addFilter('artist', $artist->getId());
         $lyricGateway->addOrder('title', 'ASC');
         $paginator = $this->get('knp_paginator');
@@ -36,11 +43,9 @@ class ArtistController extends Controller
                 'pageParameterName' => 'lyricsPage',
             ]
         );
-        $albums = [];
         return [
             'artist' => $artist,
             'lyrics' => $lyrics,
-            'albums' => $albums,
         ];
     }
 
