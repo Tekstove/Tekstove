@@ -48,6 +48,9 @@
     RewriteCond %{QUERY_STRING} id=([0-9]+)$
     RewriteRule browsepoartist\.php /artist/browse/%1? [L,R=301]
 
+    # search
+    RewriteRule search\.php /lyric/search [L,R=301]
+
 
     <Directory /var/www/tekstove-site/stable/web>
             RewriteCond %{REQUEST_FILENAME} !-f
