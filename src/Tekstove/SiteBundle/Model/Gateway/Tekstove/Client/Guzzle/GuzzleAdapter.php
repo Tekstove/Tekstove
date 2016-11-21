@@ -109,7 +109,7 @@ class GuzzleAdapter implements ClientInterface
             $guzzleResponse = $this->guzzle->get($url);
         } catch (GuzzleRequestException $e) {
             
-            $responseParsed = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);
+            $responseParsed = json_decode($e->getResponse()->getBody(), true);
             
             if (isset($responseParsed['redirect']['id'])) {
                 $redirectId = $responseParsed['redirect']['id'];
