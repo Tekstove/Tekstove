@@ -12,46 +12,6 @@
     RewriteCond %{HTTP_HOST} ^www\.tekstove\.info$ [NC]
     RewriteRule (.*) http://tekstove.info$1 [L,R=301]
 
-    # lyric redirect
-    RewriteCond %{QUERY_STRING} ^.*id=([0-9]+).*$
-    RewriteRule browse\.php /lyric/view/%1? [L,R=301]                                                                                                
-
-    # album redirect                                                                                                                                 
-    RewriteCond %{QUERY_STRING} id=([0-9]+)$                                                                                                         
-    RewriteRule albumvij\.php /album/view/%1? [L,R=301]                                                                                              
-
-    # user profile redirect                                                                                                                          
-    RewriteCond %{QUERY_STRING} profile=([0-9]+)$                                                                                                    
-    RewriteRule profile\.php /user/view/%1? [L,R=301]                                                                                                
-
-    # forum
-    RewriteRule forum\.php /forum/category/list [L,R=301]
-
-    # forum category
-    RewriteCond %{QUERY_STRING} razdel=([0-9]+)$
-    RewriteRule forum_razdel_vij\.php /forum/category/%1/topics? [L,R=301]
-
-    # forum topic
-    RewriteCond %{QUERY_STRING} id=([0-9]+)$
-    RewriteRule forum_topic_vij\.php /forum/topic/%1? [L,R=301]
-
-    # chat
-    RewriteRule _chat /chat [L,R=301]
-
-    # contacts
-    RewriteRule contact\.php /contacts [L,R=301]
-
-    # forum new posts
-    RewriteRule forum_novi_mneniq\.php /forum/post/newest [L,R=301]
-
-    #artist browse
-    RewriteCond %{QUERY_STRING} id=([0-9]+)$
-    RewriteRule browsepoartist\.php /artist/browse/%1? [L,R=301]
-
-    # search
-    RewriteRule search\.php /lyric/search [L,R=301]
-
-
     <Directory /var/www/tekstove-site/stable/web>
             RewriteCond %{REQUEST_FILENAME} !-f
             RewriteCond %{REQUEST_URI} !^/proxy/
