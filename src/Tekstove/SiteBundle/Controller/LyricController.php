@@ -316,4 +316,39 @@ class LyricController extends Controller
             'lyricPaginate' => $lyricPaginate,
         ];
     }
+    
+    /**
+     * @Template()
+     */
+    public function topAction($sort)
+    {
+        switch ($sort) {
+            case 'popular':
+                $sortField = LyricGateway::FIELD_POPULARITY;
+                break;
+            default:
+                throw $this->createNotFoundException("Top 100 by `{$sort}` do not exists");
+        }
+        
+        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        /* @var $lyricGateway LyricGateway */
+        $lyricGateway->setGroups(
+            [
+                LyricGateway::GROUP_LIST,
+            ]
+        );
+        
+        $lyricGateway->setLimit(100);
+        
+        $lyricGateway->addOrder($sortField, LyricGateway::ORDER_DESC);
+       
+        $lyricData = $lyricGateway->find();
+        $lyrics = $lyricData['items'];
+        /* @var $lyric Lyric */
+        
+        return [
+            'lyrics' => $lyrics,
+            'ads' => true,
+        ];
+    }
 }

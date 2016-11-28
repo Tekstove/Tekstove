@@ -1,0 +1,12 @@
+{% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    Топ 100 Популярни песни
+{% endblock %}
+
+{% block content %}
+    {% for lyric in lyrics %}
+        {{ lyric.cacheTitleShort|e }}
+        <br/>
+    {% endfor %}
+{% endblock %}
