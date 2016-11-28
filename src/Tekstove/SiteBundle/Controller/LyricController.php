@@ -322,9 +322,25 @@ class LyricController extends Controller
      */
     public function topAction($sort)
     {
+        $lyricGatewayGroups = [
+            LyricGateway::GROUP_LIST,
+        ];
         switch ($sort) {
             case 'popular':
                 $sortField = LyricGateway::FIELD_POPULARITY;
+                $viewTitle = 'Популярни песни | Топ 100';
+                $viewH1 = 'Топ 100 Популярни песни';
+                $viewSortTableRow = 'Популярност';
+                $viewLyricGetter = 'popularity';
+                $lyricGatewayGroups[] = LyricGateway::GROUP_POPULARITY;
+                break;
+            case 'viewed':
+                $sortField = LyricGateway::FIELD_VIEWS;
+                $viewTitle = 'Най-преглеждани песни | Топ 100';
+                $viewH1 = 'Топ 100 Най-преглеждани песни';
+                $viewSortTableRow = 'Видяна';
+                $viewLyricGetter = 'views';
+                $lyricGatewayGroups[] = LyricGateway::GROUP_VIEWS;
                 break;
             default:
                 throw $this->createNotFoundException("Top 100 by `{$sort}` do not exists");
@@ -332,11 +348,7 @@ class LyricController extends Controller
         
         $lyricGateway = $this->get('tesktove.gateway.lyric');
         /* @var $lyricGateway LyricGateway */
-        $lyricGateway->setGroups(
-            [
-                LyricGateway::GROUP_LIST,
-            ]
-        );
+        $lyricGateway->setGroups($lyricGatewayGroups);
         
         $lyricGateway->setLimit(100);
         
@@ -348,6 +360,10 @@ class LyricController extends Controller
         
         return [
             'lyrics' => $lyrics,
+            'title' => $viewTitle,
+            'tableSortName' => $viewSortTableRow,
+            'lyricGetter' => $viewLyricGetter,
+            'h1' => $viewH1,
             'ads' => true,
         ];
     }

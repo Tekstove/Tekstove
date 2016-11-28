@@ -37,7 +37,7 @@
     <div class="col-md-6">
         <div class="t-index-lyrics-block-container">
             <div class="t-index-lyrics-block-header">
-                <a href="{{ path('tekstove_api_lyric_top100') }}">текстове популярни напоследък</a>
+                <a href="{{ path('tekstove_api_lyric_top100', {sort: 'popular'}) }}">текстове популярни напоследък</a>
             </div>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in popular %}
@@ -52,7 +52,7 @@
     <div class="col-md-6">
         <div class="t-index-lyrics-block-container">
             <div class="t-index-lyrics-block-header">
-                <b>най-преглеждани текстове</b>
+                <a href="{{ path('tekstove_api_lyric_top100', {sort: 'viewed'}) }}">най-преглеждани текстове</a>
             </div>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in mostViewed %}
