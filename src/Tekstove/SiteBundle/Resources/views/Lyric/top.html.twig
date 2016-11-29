@@ -1,0 +1,43 @@
+{% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    
+    <h1>
+        {{ h1|e }}
+    </h1>
+    
+    <table class="table">
+        <tr>
+            <thead>
+                <th>
+                    №
+                </th>
+                <th>
+                    Песен
+                </th>
+                <th>
+                    {{ tableSortName|e }}
+                </th>
+            </thead>
+        </tr>
+        {% for lyric in lyrics %}
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    <a href="{{ path('lyricView', { id: lyric.id }) }}">
+                        {{ lyric.cacheTitleShort }}
+                    </a>
+                </td>
+                <td>
+                    {{ attribute(lyric, lyricGetter)|number_format() }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

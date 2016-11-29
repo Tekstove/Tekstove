@@ -16,6 +16,12 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
  */
 class LyricGateway extends AbstractGateway
 {
+    const FIELD_POPULARITY = 'popularity';
+    const FIELD_VIEWS = 'views';
+    
+    const GROUP_POPULARITY = 'Popularity';
+    const GROUP_VIEWS = 'Views';
+    
     protected function getRelativeUrl()
     {
         return '/lyrics';

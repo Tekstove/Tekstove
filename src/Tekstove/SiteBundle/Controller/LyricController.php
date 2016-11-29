@@ -316,4 +316,55 @@ class LyricController extends Controller
             'lyricPaginate' => $lyricPaginate,
         ];
     }
+    
+    /**
+     * @Template()
+     */
+    public function topAction($sort)
+    {
+        $lyricGatewayGroups = [
+            LyricGateway::GROUP_LIST,
+        ];
+        switch ($sort) {
+            case 'popular':
+                $sortField = LyricGateway::FIELD_POPULARITY;
+                $viewTitle = 'Популярни песни | Топ 100';
+                $viewH1 = 'Топ 100 Популярни песни';
+                $viewSortTableRow = 'Популярност';
+                $viewLyricGetter = 'popularity';
+                $lyricGatewayGroups[] = LyricGateway::GROUP_POPULARITY;
+                break;
+            case 'viewed':
+                $sortField = LyricGateway::FIELD_VIEWS;
+                $viewTitle = 'Най-преглеждани песни | Топ 100';
+                $viewH1 = 'Топ 100 Най-преглеждани песни';
+                $viewSortTableRow = 'Видяна';
+                $viewLyricGetter = 'views';
+                $lyricGatewayGroups[] = LyricGateway::GROUP_VIEWS;
+                break;
+            default:
+                throw $this->createNotFoundException("Top 100 by `{$sort}` do not exists");
+        }
+        
+        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        /* @var $lyricGateway LyricGateway */
+        $lyricGateway->setGroups($lyricGatewayGroups);
+        
+        $lyricGateway->setLimit(100);
+        
+        $lyricGateway->addOrder($sortField, LyricGateway::ORDER_DESC);
+       
+        $lyricData = $lyricGateway->find();
+        $lyrics = $lyricData['items'];
+        /* @var $lyric Lyric */
+        
+        return [
+            'lyrics' => $lyrics,
+            'title' => $viewTitle,
+            'tableSortName' => $viewSortTableRow,
+            'lyricGetter' => $viewLyricGetter,
+            'h1' => $viewH1,
+            'ads' => true,
+        ];
+    }
 }

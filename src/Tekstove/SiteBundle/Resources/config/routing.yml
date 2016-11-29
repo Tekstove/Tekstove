@@ -44,6 +44,11 @@ lyricView:
     requirements:
         id:  \d+
 
+tekstove_api_lyric_top100:
+    path: "/lyrics/top100/{sort}"
+    defaults: { _controller: SiteBundle:Lyric:top }
+    methods: [GET]
+
 lyricAdd:
     path: /lyric/add
     defaults: { _controller: SiteBundle:Lyric:add }
