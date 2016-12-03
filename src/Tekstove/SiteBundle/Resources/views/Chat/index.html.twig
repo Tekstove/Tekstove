@@ -105,8 +105,6 @@
                 <label for="chat_option_checkbox" style="size: 10px;">
                     Опции
                 </label>
-                <input type="button" id="chat_emoticons" value=":)" style="size: 10px;">
-                <div id="chat_emoticons_menu"></div>
             </td>
         </tr>
 
@@ -168,7 +166,7 @@
 
 		<tr>
 			<td>
-				<div id="bbcode_butoni"></div>
+				
 			</td>
 			<td>
 				<a href="/forum_topic_vij.php?id=568" target="_BLANK" style="color: red;">правила</a>
@@ -177,8 +175,8 @@
 	</table>
 </div>
 
-
-<div id="online_list"><!-- online users list --></div>
+{# temporary disabled #}
+{#<div id="online_list"><!-- online users list --></div>#}
 <a name="page_bottom" />
 
 <script>
@@ -243,8 +241,7 @@
     function ban_minutes_max() {
         return 0;
     }
-                    
-                        
+
     $('#chat_text').keypress(function(e) {
         if ($('#chat_option_enterSend').is(":checked") === false) {
             return;
@@ -287,7 +284,10 @@
                     alert('Бисквитките са задължителни, може би е изтекла сесията, ще презаредя');
                     location.reload();
                 }
-                },
+            },
+            error: function() {
+                alert('Възника грешка докато изпращам ссъобщението :(');
+            },
             success: function(data) {
                 chat_update();
             }
@@ -297,15 +297,24 @@
     function chat_update() {
         $.ajax({
             type: "GET",
-            url: "get_messages.php",
+            url: "/proxy/api/chat/messages",
             data: ({
-                start    : message_id_start,
-                lastEdit : message_last_edit_timestamp
+                groups: [
+                    'List'
+                ],
+                filters: [
+                    {
+                        value: message_id_start,
+                        operator: '>',
+                        field: 'id'
+                    }
+                ]
             }),
             dataType: 'json',
             cache: false,
             success: function (data) {
-                if (!data) {
+                var messagesData = data.items;
+                if (!messagesData) {
                     if (chat_update_interval < 30000) {
                         chat_update_interval += 250;
                     }
@@ -313,7 +322,7 @@
                 }
                           
                 chat_update_interval = 2000;
-                $.each(data, function(jsonKey, message) {
+                $.each(messagesData, function(jsonKey, message) {
                     chat_parse(message);
                 });
                 
@@ -349,10 +358,10 @@
     }
                         
     function chat_parse(data) {
-        var user = new User({
+        {#var user = new User({
             id: data.username_id,
             name: data.username_name
-        });
+        });#}
                                     
         // update start id
         if (data.id > get_message_id_start() ) {
@@ -367,14 +376,13 @@
             data.username_avatar = '<img src="' + data.username_avatar + '" class="chat_avatar_limit">';
         }
 
-        if (data.username_mood.length > 0 ) {
+        {#if (data.username_mood.length > 0 ) {
             data.username_mood = ' (' + data.username_mood + ')';
-        }
+        }#}
                                                     
         data.message = data.message.replace(/\n/g, '<br>');
-        data.message = bbcode_make(data.message);
                                                             
-        var html_data = '<div id="message_'+data.id+'" class="message">';
+        var html_data = '<div id="message_' + data.id + '" class="message">';
         
         html_data += '<div class="message_avatar">';
             if (data.username_avatar) {
@@ -384,24 +392,22 @@
                 + data.username_avatar
                 + '</a>';
             }
-                
-        html_data += '</div>';
 
+        html_data += '</div>';
 
         html_data += '<div style="display: table-cell;vertical-align: top;">';
 
         html_data += '<div class="message_data_and_username"><span class="message_date">' + data.date + ' от </span>';
 
+{#        html_data += user.getProfileLink();#}
 
-        html_data += user.getProfileLink();
-
-        if (data.username_mood.length > 1) {
+        {#if (data.username_mood.length > 1) {
             html_data += data.username_mood;
-        }
+        }#}
 
-        if (data.classAsName.length > 0) {
+        {#if (data.classAsName.length > 0) {
             html_data += ', ' + data.classAsName;
-        }
+        }#}
 
         html_data += ' <span class="message_date">#';
         html_data += data.id;
@@ -428,7 +434,7 @@
         if (!windowIsFocused) {
             thereIsUnreadedMessage = true;
         }
-    } // function parsexml
+    }
                 
     function chat_auto_update() {
         chat_update();
@@ -440,14 +446,6 @@
         setTimeout("chatIAmOnlineAutoUpdate()", 31000);
     }
                                                                             
-    function chat_emot_icon_chosen(code) {
-        return; // @TODO temp disabled
-        //  $('#chat_text').append(' '+code+' ');
-        $('#chat_text').val($('#chat_text').val() + ' ' + code + ' ');
-        $("#chat_emoticons_menu").dialog('close');
-        $('#chat_text').focus();
-    }
-
     var windowIsFocused = true;
     var defaultTitle = document.title;
     var thereIsUnreadedMessage = false;
@@ -455,30 +453,6 @@
     $(function() {
         var i;
         $("button, #chat_autoscroll, #chat_option_checkbox, #chat_emoticons").button();
-        for (i = 0; i < emot_icons_id.length; i++) {
-            break; // @TODO temp disabled
-            $('#chat_emoticons_menu').append('<img src="/emic/' + emot_icons_id[i] + '" onclick="chat_emot_icon_chosen(\'' + emot_icons_code[i] + '\');"> ');
-        }
-                                                                                            
-        $("#chat_emoticons_menu").dialog({
-            autoOpen: false,
-            show: "blind",
-            hide: "fade",
-            closeOnEscape: true,
-            draggable: true,
-            resizable: false,
-            position: 'bottom',
-            title: 'EmotIcons',
-            dialogClass: 'dialogRelative'
-        });
-
-
-        $("#chat_emoticons").click(function() {
-            $(' #chat_emoticons_menu ').dialog('close');
-            $("#chat_emoticons_menu").dialog("open");
-            $("#chat_emoticons_menu").focus();
-            return false;
-        });
 
         $('#online_list').dialog({
             autoOpen: true,
