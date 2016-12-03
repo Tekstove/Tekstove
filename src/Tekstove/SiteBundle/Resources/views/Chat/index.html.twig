@@ -198,15 +198,15 @@
     function User(data) {
         if (data) {
             this.id = data.id;
+            this.username = data.username;
         } else {
             this.id = null;
+            this.username = "Гост";
         }
 
         var self = this;
 
-        console.log(data);
-
-        this.getProfileLink = function() {
+        this.getProfileLinkHtml = function() {
             var html = '';
 
             console.log(self);
@@ -214,10 +214,10 @@
             if (self.id) {
                 html += '<a href="';
                 html += '">';
-                html += '@TODO';
+                html += _.escape(self.username);
                 html += '</a>';
             } else {
-                html += 'Гост';
+                html += _.escape(self.username);
             }
             
             return html;
@@ -225,7 +225,7 @@
     };
 
     function get_message_id_start() {
-    return message_id_start;
+        return message_id_start;
     }
 
     function set_message_id_start(id) {
@@ -314,8 +314,7 @@
             url: "/proxy/api/chat/messages",
             data: ({
                 text : input_text,
-                user_mood: $('#chat_user_mood').val(),
-                hesh: '<?php echo md5(session_id()); ?>'
+                user_mood: $('#chat_user_mood').val()
             }),
             statusCode: {
                 403: function() {
@@ -386,7 +385,7 @@
                     var user = new User(
                         message.user
                     );
-                    html += user.getProfileLink() + '<br/>';
+                    html += user.getProfileLinkHtml() + '<br/>';
                 });
 
                 if ($('#online_list:visible').length > 0) {
@@ -432,15 +431,16 @@
 
         html_data += '<div style="display: table-cell;vertical-align: top;">';
 
-        html_data += '<div class="message_data_and_username"><span class="message_date">' + data.date + ' от </span>';
+        html_data += '<div class="message_data_and_username">';
+{#        html += '<span class="message_date">' + data.date + ' от </span>';#}
+        html_data += '<span class="message_date"> от </span>';
 
-        html_data += user.getProfileLink();
+        html_data += user.getProfileLinkHtml();
 
         html_data += ' <span class="message_date">#';
         html_data += data.id;
         html_data += ' ' + getBanLinkHtml(data);
         html_data += ' ' + getCensoreHtml(data);
-        html_data += ' ' + data.ip;
         html_data += '</span>';
         html_data += '</div>';
         html_data += '<div class="message_text">' + data.message + '</div>';
