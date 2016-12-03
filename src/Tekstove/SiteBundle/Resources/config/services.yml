@@ -109,6 +109,7 @@ services:
 
     tekstove.site.gateway_pagination:
         class: Tekstove\SiteBundle\Subscriber\TekstoveGatewayPaginationSubscriber
+        arguments: ['@request_stack']
         tags:
             - { name: knp_paginator.subscriber }
 

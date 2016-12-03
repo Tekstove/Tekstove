@@ -3,33 +3,33 @@
 namespace Tekstove\SiteBundle\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Knp\Component\Pager\Event\ItemsEvent;
 use Tekstove\SiteBundle\Model\Gateway\GatewayInterface;
 
 /**
- * Description of TekstoveGatewayPaginationSubscriber
+ * Paginate gateway result
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
 class TekstoveGatewayPaginationSubscriber implements EventSubscriberInterface
 {
+    /** @var RequestStack */
+    private $requestStack;
+    
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     public function items(ItemsEvent $event)
     {
         $gateway = $event->target;
         if ($gateway instanceof GatewayInterface) {
+            $request = $this->requestStack->getCurrentRequest();
             $sortFieldParamName = $event->options['sortFieldParameterName'];
-            if (isset($_GET[$sortFieldParamName])) {
+            if ($request->get($sortFieldParamName)) {
                 throw new \Exception("Not implemented");
-                $direction = strtolower($_GET[$event->options['sortDirectionParameterName']]) === 'asc' ? 'asc' : 'desc';
-                $part = $_GET[$sortFieldParamName];
-
-                if (isset($event->options['sortFieldWhitelist'])) {
-                    if (!in_array($_GET[$sortFieldParamName], $event->options['sortFieldWhitelist'])) {
-                        throw new \UnexpectedValueException("Cannot sort by: [{$_GET[$sortFieldParamName]}] this field is not in whitelist");
-                    }
-                }
-                
-                $gateway->orderBy($part, $direction);
             }
             
             $limit = $event->getLimit();
