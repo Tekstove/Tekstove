@@ -18,5 +18,5 @@ rules:
         max_length: 100
     symfony.controller.action_method_too_long:
         enabled: true
-        max_length: 50
+        max_length: 100
         threshold: 1
