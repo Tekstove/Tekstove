@@ -122,6 +122,12 @@ a.btn, a.btn:visited, a.btn:active {
 
 .t-index-lyrics-block-header {
     font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.t-index-lyrics-block-header a {
+    width: 100%;
 }
 
 .t-index-lyrics-block-lyrics-container {
