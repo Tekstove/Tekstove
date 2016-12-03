@@ -183,6 +183,47 @@
     var message_id_start = 0;
     var message_last_edit_timestamp = 0;
     var chat_update_interval = 5000;
+
+    var apiKey= null;
+
+    {% if app.user %}
+        apiKey = '{{ app.user.apiKey }}';
+        $.ajaxSetup({
+            data: {
+                'tekstove-apikey': apiKey
+            }
+        });
+    {% endif %}
+
+    function User(data) {
+        if (data) {
+            this.id = data.id;
+        } else {
+            this.id = null;
+        }
+
+        var self = this;
+
+        console.log(data);
+
+        this.getProfileLink = function() {
+            var html = '';
+
+            console.log(self);
+
+            if (self.id) {
+                html += '<a href="';
+                html += '">';
+                html += '@TODO';
+                html += '</a>';
+            } else {
+                html += 'Гост';
+            }
+            
+            return html;
+        };
+    };
+
     function get_message_id_start() {
     return message_id_start;
     }
@@ -270,7 +311,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "new.php",
+            url: "/proxy/api/chat/messages",
             data: ({
                 text : input_text,
                 user_mood: $('#chat_user_mood').val(),
@@ -300,7 +341,7 @@
             url: "/proxy/api/chat/messages",
             data: ({
                 groups: [
-                    'List'
+                    'Details'
                 ],
                 filters: [
                     {
@@ -342,10 +383,9 @@
                 var html = '';
                 $.each(data, function(jsonKey, message) {
                     userOnlineCount++;
-                    var user = new User({
-                        id: message.id,
-                        name: message.username
-                    });
+                    var user = new User(
+                        message.user
+                    );
                     html += user.getProfileLink() + '<br/>';
                 });
 
@@ -358,11 +398,10 @@
     }
                         
     function chat_parse(data) {
-        {#var user = new User({
-            id: data.username_id,
-            name: data.username_name
-        });#}
-                                    
+        var user = new User(
+            data.user
+        );
+
         // update start id
         if (data.id > get_message_id_start() ) {
             message_id_start = data.id;
@@ -371,15 +410,11 @@
         if (message_last_edit_timestamp < data.editTimestamp) {
             message_last_edit_timestamp = data.editTimestamp;
         }
-        
+
         if (data.username_avatar) {
             data.username_avatar = '<img src="' + data.username_avatar + '" class="chat_avatar_limit">';
         }
 
-        {#if (data.username_mood.length > 0 ) {
-            data.username_mood = ' (' + data.username_mood + ')';
-        }#}
-                                                    
         data.message = data.message.replace(/\n/g, '<br>');
                                                             
         var html_data = '<div id="message_' + data.id + '" class="message">';
@@ -399,15 +434,7 @@
 
         html_data += '<div class="message_data_and_username"><span class="message_date">' + data.date + ' от </span>';
 
-{#        html_data += user.getProfileLink();#}
-
-        {#if (data.username_mood.length > 1) {
-            html_data += data.username_mood;
-        }#}
-
-        {#if (data.classAsName.length > 0) {
-            html_data += ', ' + data.classAsName;
-        }#}
+        html_data += user.getProfileLink();
 
         html_data += ' <span class="message_date">#';
         html_data += data.id;
