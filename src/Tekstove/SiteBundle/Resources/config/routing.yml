@@ -1,18 +1,25 @@
 index:
     path:     /
     defaults: { _controller: SiteBundle:Index:index }
+    methods: [GET]
+
 contactsFriends:
     path: /contacts/partners
     defaults: { _controller: SiteBundle:Contacts:partners }
+    methods: [GET]
+
 contacts:
     path: /contacts
     defaults: { _controller: SiteBundle:Contacts:contacts }
+    methods: [GET]
 
 login:
     path: /login
     defaults: { _controller: SiteBundle:User:login }
+
 loginCheck:
     path: /loginCheck
+
 logout:
     path: /logout
 
@@ -24,7 +31,8 @@ register:
 userView:
     path: /user/view/{id}
     defaults: { _controller: SiteBundle:User:view }
-    
+    methods: [GET]
+
 userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
@@ -43,6 +51,7 @@ lyricView:
     defaults: { _controller: SiteBundle:Lyric:view }
     requirements:
         id:  \d+
+    methods: [GET]
 
 tekstove_api_lyric_top100:
     path: "/lyrics/top100/{sort}"
@@ -59,6 +68,7 @@ lyricEdit:
     defaults: { _controller: SiteBundle:Lyric:edit }
     requirements:
         id: \d+
+    methods: [GET, POST]
         
 tekstove_site.lyric.search:
     path: /lyric/search
@@ -70,48 +80,57 @@ artistBrowse:
     defaults: { _controller: SiteBundle:Artist:browse }
     requirements:
         id: \d+
+    methods: [GET]
     
 artistList:
     path: /artist/list/{letter}
     defaults: { _controller: SiteBundle:Artist:list }
+    methods: [GET]
     
 tekstove_site_album_view:
     path: /album/view/{id}
     defaults: { _controller: SiteBundle:Album:view }
     requirements:
         id: \d+
+    methods: [GET]
         
 tekstove.site.forum.category.list:
     path: /forum/category/list
     defaults: { _controller: SiteBundle:Forum\Category:list }
+    methods: [GET]
 
 tekstove.site.forum.topic.list:
     path: /forum/category/{categoryId}/topics
     defaults: { _controller: SiteBundle:Forum\Topic:list }
     requirements:
         categoryId: \d+
+    methods: [GET]
         
 tekstove.site.forum.topic.view:
     path: /forum/topic/{id}
     defaults: { _controller: SiteBundle:Forum\Topic:view }
     requirements:
         id: \d+
+    methods: [GET]
         
 tekstove.site.forum.topic.new:
     path: /forum/category/{categoryId}/topic/add
     defaults: { _controller: SiteBundle:Forum\Topic:new }
     requirements:
         categoryId: \d+
+    methods: [GET, POST]
         
 tekstove.site.forum.post.new:
     path: /foum/topic/{topicId}/post
     defaults: { _controller: SiteBundle:Forum\Post:add }
     requirements:
         id: \d+
+    methods: [GET, POST]
         
 tekstove.site.forum.post.newest:
     path: /forum/post/newest
     defaults: { _controller: SiteBundle:Forum\Post:listNew }
+    methods: [GET]
 
 chat:
     path: /chat
@@ -120,3 +139,4 @@ chat:
 tekstove.feed.forum.topic:
     path: /feed/forum/topic.xml
     defaults: { _controller: SiteBundle:Feed\Forum:Topic, _format:xml }
+    methods: [GET]
