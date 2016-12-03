@@ -3,6 +3,7 @@
 namespace Tekstove\SiteBundle\Model\Artist;
 
 use Tekstove\SiteBundle\Model\Album\Album;
+use Tekstove\SiteBundle\Model\Artist\Exception\ArtistException as Exception;
 
 /**
  * Description of Artist
