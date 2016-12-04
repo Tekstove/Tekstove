@@ -422,8 +422,9 @@
         html_data += '<div style="display: table-cell;vertical-align: top;">';
 
         html_data += '<div class="message_data_and_username">';
-{#        html += '<span class="message_date">' + data.date + ' от </span>';#}
-        html_data += '<span class="message_date"> от </span>';
+        var messageTimestamp = data.date;
+        var date = new Date(messageTimestamp * 1000);
+        html_data += '<span class="message_date">' + date.getHours() + ':' + date.getMinutes() + ' от </span>';
 
         html_data += user.getProfileLinkHtml();
 
