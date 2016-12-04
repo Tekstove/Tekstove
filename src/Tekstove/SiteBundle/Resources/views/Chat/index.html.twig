@@ -1,8 +1,529 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
-    <iframe
-        style="width: 100%; height: 100%; min-height: 600px; min-width: 400px;"
-        src="http://webchat.freenode.net?channels=%23tekstoveinfo">
-    </iframe>
+<style type="text/css">
+    .message {
+        border-width: 1px 0 0 0;
+        border-style: dotted;
+        border-color: cornflowerblue;
+        padding: 1px;
+        margin: 0 0 0 0;
+        width: 95%;
+        vertical-align: text-top;
+    }
 
+    .message_text {
+        word-wrap: break-word;
+        max-width: 660px;
+        overflow: auto;
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .message_date {
+        font-size: 80%;
+        padding-right: 5px;
+        color: darkgray;
+        font-weight: normal;
+    }
+
+    .message_data_and_username {
+        color: #656565;
+        font-weight: bold;
+    }
+
+    div.message_avatar {
+        display: table-cell;
+        padding-right: 4px;
+        width: 60px;
+        height: 67px;
+    }
+
+    div.message_avatar img{
+        max-width: 60px;
+        max-height: 62px;
+    }
+
+    img.chat_avatar_big_limit {
+        max-width:350px;
+        max-height:300px;
+
+        display: block;
+        position: absolute;
+        z-index: 100;
+
+    }
+
+    #chat_messages {
+
+        word-wrap:break-word;
+        font-size: 120%;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+
+    }
+
+    .dialogRelative {
+        position: relative;
+        top: 0 !important;
+        position: fixed;
+
+    }
+
+    .online_list_dialog {
+        position: relative;
+        top: 0 !important;
+        right:0 !important;
+        left:auto !important;
+        position: fixed;
+    }
+
+</style>
+
+
+<div id="chat_messages">
+
+</div>
+
+<br/><br/>
+
+<div style="border: dotted 1px">
+    <table>
+        <tr>
+            <td>
+                <textarea class="textarea_resizable bbcode_input" 
+                          style="width: 630px; height: 60px;"
+                          cols="30" rows="5" 
+                          id="chat_text"
+                          ></textarea>
+            </td>
+            <td>
+                <button class="btn btn-default" style="height: 40px;font-weight: bold;" onclick="chat_send();" >изпрати</button>
+                <div style="height: 5px;"> </div>
+                <input type="checkbox" id="chat_option_checkbox" onchange="$('#chat_options').toggle(); $('html, body').scrollTop($(document).height());"/>
+                <label for="chat_option_checkbox" style="size: 10px;">
+                    Опции
+                </label>
+            </td>
+        </tr>
+
+		<tr>
+			<td>
+				<div id="chat_options" style="display: none;">
+					<input type="checkbox" checked id="chat_autoscroll">
+                    <label for="chat_autoscroll" style="font-size: 10px;">авто скролиране</label>
+
+					<br>
+					размер на буквите
+                    <select onchange="$('#chat_messages').css('font-size', this.value + '%');">
+						<option value="60">60%
+						<option value="80">80%
+						<option value="100">100%
+						<option selected value="120">120%
+						<option value="140">140%
+						<option value="160">160%
+						<option value="200">200%
+					</select>
+
+					<br>
+
+					шрифт:
+                    <select onchange="$('#chat_messages').css('font-family', this.value);">
+						<option value="Georgia, serif">Georgia, serif
+						<option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype, Book Antiqua, Palatino, serif
+						<option value='"Times New Roman", Times, serif'>Times New Roman", Times, serif
+						<option value='Arial, Helvetica, sans-serif'>Arial, Helvetica, sans-serif
+						<option value='Arial Black, Gadget, sans-serif'>Arial Black, Gadget, sans-serif
+						<option value='"Comic Sans MS", cursive, sans-serif'>Comic Sans MS, cursive, sans-serif
+						<option value='Impact, Charcoal, sans-serif'>Impact, Charcoal, sans-serif
+						<option value='"Lucida Sans Unicode", "Lucida Grande", sans-serif'>Lucida Sans Unicode, Lucida Grande, sans-serif
+						<option value='Tahoma, Geneva, sans-serif'>Tahoma, Geneva, sans-serif
+						<option value='"Trebuchet MS", Helvetica, sans-serif'>Trebuchet MS, Helvetica, sans-serif
+						<option value='Verdana, Geneva, sans-serif'>Verdana, Geneva, sans-serif
+						<option value='"Courier New", Courier, monospace'>Courier New, Courier, monospace
+						<option value='"Lucida Console", Monaco, monospace'>Lucida Console, Monaco, monospace
+					</select>
+					<br>
+					<input type="checkbox" checked id="chat_option_enterSend">
+                    <label for="chat_option_enterSend">изпращане на съобщение с enter</label>
+
+					<div id="dialog-message" title="Mood" style="display: none;">
+						Mood се добавя след името Ви, в скоби
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				
+			</td>
+			<td>
+				<a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+{# temporary disabled #}
+{#<div id="online_list"><!-- online users list --></div>#}
+<a name="page_bottom" />
+
+<script>
+    var message_id_start = 0;
+    var message_last_edit_timestamp = 0;
+    var chat_update_interval = 5000;
+
+    var apiKey= null;
+
+    {% if app.user %}
+        apiKey = '{{ app.user.apiKey }}';
+        $.ajaxSetup({
+            data: {
+                'tekstove-apikey': apiKey
+            }
+        });
+    {% endif %}
+
+    function User(data) {
+        if (data) {
+            this.id = data.id;
+            this.username = data.username;
+            this.avatar = data.avatar;
+        } else {
+            this.id = null;
+            this.username = "Гост";
+            this.avatar = null;
+        }
+
+        var self = this;
+
+        this.getProfileLinkHtml = function() {
+            var html = '';
+
+            if (self.id) {
+                html += '<a href="';
+                html += '">';
+                html += _.escape(self.username);
+                html += '</a>';
+            } else {
+                html += _.escape(self.username);
+            }
+            
+            return html;
+        };
+    };
+
+    function get_message_id_start() {
+        return message_id_start;
+    }
+
+    function set_message_id_start(id) {
+        message_id_start = id;
+        return true;
+    }
+
+    function isBanAllowed(message) {
+        return false;
+    }
+
+    function getBanLinkHtml(message) {
+        if (isBanAllowed(message)) {
+            // @TODO remove onclick
+            return '<a href="#" onClick="ban_vote(' + message.id + '); return false;">ban</a>';
+        }
+
+        return '';
+    }
+
+    function isCensoreAllowed(message) {
+        return false;
+    }
+
+    function getCensoreHtml(message) {
+        if (isCensoreAllowed(message)) {
+            // @TODO remove onclick
+            return '<a href="#" onClick="censore(' + message.id + '); return false;">censore</a>';
+        }
+
+        return '';
+    }
+
+    function censore(messageId) {
+        $.ajax({
+        type: "POST",
+        url: '/_chat/_ajax/censore.php',
+        data: ({
+            id : messageId
+        }),
+
+        success: function(data) {
+                if (data.status === 1) {
+                    alert('ok');
+                } else {
+                    alert('error');
+                }
+            }
+        });
+    }
+
+
+                
+    function ban_minutes_max() {
+        return 0;
+    }
+
+    $('#chat_text').keypress(function(e) {
+        if ($('#chat_option_enterSend').is(":checked") === false) {
+            return;
+        }
+        var keynum = 0;
+
+        if (window.event) { // IE
+            keynum = e.keyCode;
+        }
+        else if (e.which) { // Netscape/Firefox/Opera
+            keynum = e.which;
+        }
+
+        if (keynum === 13) {
+            chat_send();
+        }
+    });
+                        
+    function chat_send() {
+        var input_text = $('#chat_text').val();
+        $('#chat_text').val('');
+        $('#chat_text').focus();
+        input_text = jQuery.trim(input_text);
+        $.ajax({
+            type: "POST",
+            url: "/proxy/api/chat/messages?tekstove-apikey=" + apiKey,
+            dataType: 'json',
+            data: JSON.stringify({
+                message : input_text
+            }),
+            error: function(xhr) {
+                if (xhr.status === 400) {
+                    var responseJson = xhr.responseJSON;
+                    var firstError = responseJson[0];
+                    switch (firstError.element) {
+                        case 'message':
+                            alert('полето "съобщение": ' + firstError.message);
+                            break;
+
+                        default:
+                            alert(firstError.element + ' ' + firstError.message);
+                            break;
+                    }
+                    return;
+                }
+                alert('Възника грешка докато изпращам ссъобщението :(');
+            },
+            success: function(data) {
+                chat_update();
+            }
+        });
+    }
+    
+    function chat_update() {
+        $.ajax({
+            type: "GET",
+            url: "/proxy/api/chat/messages",
+            data: ({
+                groups: [
+                    'Details'
+                ],
+                filters: [
+                    {
+                        value: message_id_start,
+                        operator: '>',
+                        field: 'id'
+                    }
+                ]
+            }),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                var messagesData = data.items;
+                if (!messagesData) {
+                    if (chat_update_interval < 30000) {
+                        chat_update_interval += 250;
+                    }
+                    return true;
+                }
+                          
+                chat_update_interval = 2000;
+                $.each(messagesData, function(jsonKey, message) {
+                    chat_parse(message);
+                });
+                
+                
+            }
+        });
+    }
+    
+    function chatIAmOnline() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/_chat/online.php",
+            cache: false,
+            success: function (data) {
+                var userOnlineCount = 0;
+                var html = '';
+                $.each(data, function(jsonKey, message) {
+                    userOnlineCount++;
+                    var user = new User(
+                        message.user
+                    );
+                    html += user.getProfileLinkHtml() + '<br/>';
+                });
+
+                if ($('#online_list:visible').length > 0) {
+                    $('#online_list').html(html);
+                    $('#online_list').dialog({title:'Online (' + userOnlineCount + ')'});
+                }
+            }
+        });
+    }
+                        
+    function chat_parse(data) {
+        var user = new User(
+            data.user
+        );
+
+        // update start id
+        if (data.id > get_message_id_start() ) {
+            message_id_start = data.id;
+        }
+
+        if (message_last_edit_timestamp < data.editTimestamp) {
+            message_last_edit_timestamp = data.editTimestamp;
+        }
+
+        var messageHtml = _.escape(data.message);
+        data.message = messageHtml.replace(/\n/g, '<br>');
+                                                            
+        var html_data = '<div id="message_' + data.id + '" class="message">';
+        
+        html_data += '<div class="message_avatar">';
+        if (user.avatar) {
+            html_data += '<img src="' + _.escape(user.avatar) + '" />';
+        }
+        html_data += '</div>';
+
+        html_data += '<div style="display: table-cell;vertical-align: top;">';
+
+        html_data += '<div class="message_data_and_username">';
+        var messageTimestamp = data.date;
+        var date = new Date(messageTimestamp * 1000);
+        html_data += '<span class="message_date">' +  ('0' + date.getHours()).slice(-2) + ':' + ( '0' + date.getMinutes()).slice(-2) + ' от </span>';
+
+        html_data += user.getProfileLinkHtml();
+
+        html_data += ' <span class="message_date">#';
+        html_data += data.id;
+        html_data += getBanLinkHtml(data);
+        html_data += getCensoreHtml(data);
+        if (data.ip) {
+            html_data += ', ip: ' + _.escape(data.ip);
+        }
+        html_data += '</span>';
+        html_data += '</div>';
+        html_data += '<div class="message_text">' + data.message + '</div>';
+        html_data += '</div>';
+
+        // append new text, insted of createing new msg
+        if ($('#message_' + data.id).length > 0) {
+            $('#message_' + data.id + ' .message_text ').html(data.message);
+            $('#message_' + data.id).effect('highlight', {}, 1000);
+        } else {
+            $('#chat_messages').append(html_data);
+        }
+
+        if ($('#chat_autoscroll').is(":checked")) {
+
+            $('html, body').scrollTop($(document).height());
+        }
+        if (!windowIsFocused) {
+            thereIsUnreadedMessage = true;
+        }
+    }
+                
+    function chat_auto_update() {
+        chat_update();
+        setTimeout("chat_auto_update()", chat_update_interval);
+    }
+                                                                         
+    function chatIAmOnlineAutoUpdate() {
+        chatIAmOnline();
+        setTimeout("chatIAmOnlineAutoUpdate()", 31000);
+    }
+                                                                            
+    var windowIsFocused = true;
+    var defaultTitle = document.title;
+    var thereIsUnreadedMessage = false;
+                                                
+    $(function() {
+        var i;
+        $("button, #chat_autoscroll, #chat_option_checkbox, #chat_emoticons").button();
+
+        $('#online_list').dialog({
+            autoOpen: true,
+            show: "blind",
+            hide: "fade",
+            closeOnEscape: false,
+            draggable: false,
+            resizable: false,
+            position: ['right', 'top'],
+            width: 200,
+            title: 'Online',
+            dialogClass: 'online_list_dialog'
+        });
+
+        chat_auto_update();
+        chatIAmOnlineAutoUpdate();
+
+        $('#chat_messages').on('mouseover', '.chat_avatar_limit', function() {
+            $(this).addClass('chat_avatar_big_limit');
+        });
+        $('#chat_messages').on('mouseout', '.chat_avatar_limit', function() {
+            $(this).removeClass('chat_avatar_big_limit');
+        });
+
+        $([window, document]).focusin(function() {
+            windowIsFocused = true;
+            thereIsUnreadedMessage = false;
+            document.title = defaultTitle;
+        }).focusout(function(){
+            windowIsFocused = false;
+            thereIsUnreadedMessage = false;
+        });
+
+        setInterval(function() {
+            if (!windowIsFocused && thereIsUnreadedMessage) {
+                var charToAnimate = Math.floor(Math.random() * 10);
+                var symbol = '!';
+                switch (charToAnimate) {
+                    case 0:
+                        symbol = '#';
+                        break;
+                    case 1:
+                        symbol = '|';
+                        break;
+                    case 2:
+                        symbol = ':';
+                        break;
+                    case 3:
+                        symbol = '+';
+                        break;
+                    default:
+                        symbol = '!';
+                        break;
+                }
+                document.title = symbol + ' Ново съобщение ' + symbol;
+            }
+        }, 1000);
+    });
+                                                                                    
+</script>
 {% endblock %}
