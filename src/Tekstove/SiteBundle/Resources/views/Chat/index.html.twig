@@ -98,8 +98,7 @@
                           ></textarea>
             </td>
             <td>
-
-                <button onclick="chat_send();" style="height: 40px;font-weight: bold;">изпрати</button>
+                <button class="btn btn-default" style="height: 40px;font-weight: bold;" onclick="chat_send();" >изпрати</button>
                 <div style="height: 5px;"> </div>
                 <input type="checkbox" id="chat_option_checkbox" onchange="$('#chat_options').toggle(); $('html, body').scrollTop($(document).height());"/>
                 <label for="chat_option_checkbox" style="size: 10px;">
@@ -209,8 +208,6 @@
         this.getProfileLinkHtml = function() {
             var html = '';
 
-            console.log(self);
-
             if (self.id) {
                 html += '<a href="';
                 html += '">';
@@ -306,26 +303,29 @@
         $('#chat_text').val('');
         $('#chat_text').focus();
         input_text = jQuery.trim(input_text);
-        if (input_text === '') {
-            return;
-        }
         $.ajax({
             type: "POST",
             url: "/proxy/api/chat/messages",
-            data: ({
-                text : input_text,
+            dataType: 'json',
+            data: JSON.stringify({
+                message : input_text,
                 user_mood: $('#chat_user_mood').val()
             }),
-            statusCode: {
-                403: function() {
-                    alert('Временно не може да пишеш');
-                },
-                401: function() {
-                    alert('Бисквитките са задължителни, може би е изтекла сесията, ще презаредя');
-                    location.reload();
+            error: function(xhr) {
+                if (xhr.status === 400) {
+                    var responseJson = xhr.responseJSON;
+                    var firstError = responseJson[0];
+                    switch (firstError.element) {
+                        case 'message':
+                            alert('полето "съобщение": ' + firstError.message);
+                            break;
+
+                        default:
+                            alert(firstError.element + ' ' + firstError.message);
+                            break;
+                    }
+                    return;
                 }
-            },
-            error: function() {
                 alert('Възника грешка докато изпращам ссъобщението :(');
             },
             success: function(data) {
