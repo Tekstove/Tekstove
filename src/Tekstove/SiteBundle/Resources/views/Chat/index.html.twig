@@ -200,8 +200,7 @@
             var html = '';
 
             if (self.id) {
-                html += '<a href="';
-                html += '">';
+                html += '<a href="/user/view/' + self.id + '">';
                 html += _.escape(self.username);
                 html += '</a>';
             } else {
