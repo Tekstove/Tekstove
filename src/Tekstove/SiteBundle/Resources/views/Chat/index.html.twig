@@ -20,7 +20,7 @@
     }
 
     .message_date {
-        font-size: 10px;
+        font-size: 80%;
         padding-right: 5px;
         color: darkgray;
         font-weight: normal;
@@ -58,7 +58,7 @@
     #chat_messages {
 
         word-wrap:break-word;
-        font-size: 16px;
+        font-size: 120%;
         font-family: "Comic Sans MS", cursive, sans-serif;
 
     }
@@ -114,24 +114,15 @@
                     <label for="chat_autoscroll" style="font-size: 10px;">авто скролиране</label>
 
 					<br>
-
-					<a href="#page_bottom" onclick="$('#dialog-message').dialog({modal: true, buttons: { Ok: function() {  $(this).dialog('close'); }}});">mood: </a><input type="text" id="chat_user_mood">
-					<br/>
 					размер на буквите
-                    <select onchange="$('#chat_messages').css('font-size', this.value + 'px');">
-						<option value="12">12
-						<option value="13">13
-						<option value="14">14
-						<option value="15">15
-						<option selected value="16">16
-						<option value="17">17
-						<option value="18">18
-						<option value="19">19
-						<option value="20">20
-						<option value="21">21
-						<option value="22">22
-						<option value="23">23
-						<option value="24">24
+                    <select onchange="$('#chat_messages').css('font-size', this.value + '%');">
+						<option value="60">60%
+						<option value="80">80%
+						<option value="100">100%
+						<option selected value="120">120%
+						<option value="140">140%
+						<option value="160">160%
+						<option value="200">200%
 					</select>
 
 					<br>
@@ -168,7 +159,7 @@
 				
 			</td>
 			<td>
-				<a href="/forum_topic_vij.php?id=568" target="_BLANK" style="color: red;">правила</a>
+				<a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
 			</td>
 		</tr>
 	</table>
@@ -308,8 +299,7 @@
             url: "/proxy/api/chat/messages",
             dataType: 'json',
             data: JSON.stringify({
-                message : input_text,
-                user_mood: $('#chat_user_mood').val()
+                message : input_text
             }),
             error: function(xhr) {
                 if (xhr.status === 400) {
