@@ -31,18 +31,16 @@
         font-weight: bold;
     }
 
-    img.chat_avatar_limit {
-        max-width: 60px;
-        max-height: 62px;
-    }
-
-
     div.message_avatar {
         display: table-cell;
         padding-right: 4px;
         width: 60px;
         height: 67px;
+    }
 
+    div.message_avatar img{
+        max-width: 60px;
+        max-height: 62px;
     }
 
     img.chat_avatar_big_limit {
@@ -189,9 +187,11 @@
         if (data) {
             this.id = data.id;
             this.username = data.username;
+            this.avatar = data.avatar;
         } else {
             this.id = null;
             this.username = "Гост";
+            this.avatar = null;
         }
 
         var self = this;
@@ -250,10 +250,10 @@
     function censore(messageId) {
         $.ajax({
         type: "POST",
-                url: '/_chat/_ajax/censore.php',
-                data: ({
-                id : messageId
-            }),
+        url: '/_chat/_ajax/censore.php',
+        data: ({
+            id : messageId
+        }),
 
         success: function(data) {
                 if (data.status === 1) {
@@ -296,7 +296,7 @@
         input_text = jQuery.trim(input_text);
         $.ajax({
             type: "POST",
-            url: "/proxy/api/chat/messages",
+            url: "/proxy/api/chat/messages?tekstove-apikey=" + apiKey,
             dataType: 'json',
             data: JSON.stringify({
                 message : input_text
@@ -400,23 +400,15 @@
             message_last_edit_timestamp = data.editTimestamp;
         }
 
-        if (data.username_avatar) {
-            data.username_avatar = '<img src="' + data.username_avatar + '" class="chat_avatar_limit">';
-        }
-
-        data.message = data.message.replace(/\n/g, '<br>');
+        var messageHtml = _.escape(data.message);
+        data.message = messageHtml.replace(/\n/g, '<br>');
                                                             
         var html_data = '<div id="message_' + data.id + '" class="message">';
         
         html_data += '<div class="message_avatar">';
-            if (data.username_avatar) {
-                html_data += '<a href="/profile.php?profile='
-                + data.username_id
-                + '" target="_blank" >'
-                + data.username_avatar
-                + '</a>';
-            }
-
+        if (user.avatar) {
+            html_data += '<img src="' + _.escape(user.avatar) + '" />'
+        }
         html_data += '</div>';
 
         html_data += '<div style="display: table-cell;vertical-align: top;">';
