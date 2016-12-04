@@ -424,7 +424,7 @@
         html_data += '<div class="message_data_and_username">';
         var messageTimestamp = data.date;
         var date = new Date(messageTimestamp * 1000);
-        html_data += '<span class="message_date">' + date.getHours() + ':' + date.getMinutes() + ' от </span>';
+        html_data += '<span class="message_date">' +  ('0' + date.getHours()).slice(-2) + ':' + ( '0' + date.getMinutes()).slice(-2) + ' от </span>';
 
         html_data += user.getProfileLinkHtml();
 
