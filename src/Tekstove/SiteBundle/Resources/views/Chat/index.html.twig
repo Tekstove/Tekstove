@@ -407,7 +407,7 @@
         
         html_data += '<div class="message_avatar">';
         if (user.avatar) {
-            html_data += '<img src="' + _.escape(user.avatar) + '" />'
+            html_data += '<img src="' + _.escape(user.avatar) + '" />';
         }
         html_data += '</div>';
 
@@ -422,8 +422,11 @@
 
         html_data += ' <span class="message_date">#';
         html_data += data.id;
-        html_data += ' ' + getBanLinkHtml(data);
-        html_data += ' ' + getCensoreHtml(data);
+        html_data += getBanLinkHtml(data);
+        html_data += getCensoreHtml(data);
+        if (data.ip) {
+            html_data += ', ip: ' + _.escape(data.ip);
+        }
         html_data += '</span>';
         html_data += '</div>';
         html_data += '<div class="message_text">' + data.message + '</div>';
