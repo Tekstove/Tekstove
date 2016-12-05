@@ -163,8 +163,7 @@
 	</table>
 </div>
 
-{# temporary disabled #}
-{#<div id="online_list"><!-- online users list --></div>#}
+<div id="online_list"><!-- online users list --></div>
 <a name="page_bottom" />
 
 <script>
@@ -360,19 +359,22 @@
         });
     }
     
-    function chatIAmOnline() {
+    function chatGetOnlineList() {
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/_chat/online.php",
+            url: "/proxy/api/chat/online",
+            data: {
+                groups: ['List']
+            },
             cache: false,
             success: function (data) {
                 var userOnlineCount = 0;
                 var html = '';
-                $.each(data, function(jsonKey, message) {
+                $.each(data.items, function(jsonKey, userData) {
                     userOnlineCount++;
                     var user = new User(
-                        message.user
+                        userData
                     );
                     html += user.getProfileLinkHtml() + '<br/>';
                 });
@@ -454,8 +456,8 @@
     }
                                                                          
     function chatIAmOnlineAutoUpdate() {
-        chatIAmOnline();
-        setTimeout("chatIAmOnlineAutoUpdate()", 31000);
+        chatGetOnlineList();
+        setTimeout("chatIAmOnlineAutoUpdate()", 5 * 1000);
     }
                                                                             
     var windowIsFocused = true;
@@ -470,6 +472,7 @@
             autoOpen: true,
             show: "blind",
             hide: "fade",
+            closeText: null,
             closeOnEscape: false,
             draggable: false,
             resizable: false,
