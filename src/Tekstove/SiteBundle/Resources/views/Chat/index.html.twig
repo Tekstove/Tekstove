@@ -386,6 +386,15 @@
             }
         });
     }
+
+    function chatMarkMeOnline()
+    {
+         $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "/proxy/api/chat/online"
+        });
+    }
                         
     function chat_parse(data) {
         var user = new User(
@@ -455,11 +464,6 @@
         setTimeout("chat_auto_update()", chat_update_interval);
     }
                                                                          
-    function chatIAmOnlineAutoUpdate() {
-        chatGetOnlineList();
-        setTimeout("chatIAmOnlineAutoUpdate()", 5 * 1000);
-    }
-                                                                            
     var windowIsFocused = true;
     var defaultTitle = document.title;
     var thereIsUnreadedMessage = false;
@@ -483,7 +487,6 @@
         });
 
         chat_auto_update();
-        chatIAmOnlineAutoUpdate();
 
         $('#chat_messages').on('mouseover', '.chat_avatar_limit', function() {
             $(this).addClass('chat_avatar_big_limit');
@@ -500,6 +503,11 @@
             windowIsFocused = false;
             thereIsUnreadedMessage = false;
         });
+
+        chatMarkMeOnline();
+        setInterval('chatMarkMeOnline()', 1 * 60 * 1000);
+        chatGetOnlineList();
+        setInterval('chatGetOnlineList()', 10 * 1000);
 
         setInterval(function() {
             if (!windowIsFocused && thereIsUnreadedMessage) {
