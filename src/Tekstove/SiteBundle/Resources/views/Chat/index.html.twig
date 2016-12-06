@@ -1,5 +1,6 @@
-{% extends 'SiteBundle::main.html.twig' %}
-{% block content %}
+{% extends 'SiteBundle::Main/html.html.twig' %}
+{% block htmlBody %}
+
 <style type="text/css">
     .message {
         border-width: 1px 0 0 0;
@@ -78,93 +79,95 @@
 
 </style>
 
+<div class="container-fluid">
+    <div class="row" style="position: fixed; width: 100%;">
+        <nav>
+            <div class="row t-menu-horizontal">
+                <div class="col-xs-8">
+                    <a href="{{ path('index') }}">Начало</a>&nbsp;
+                    <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>&nbsp;
+                    <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>&nbsp;
+                </div>
 
-<div id="chat_messages">
+                <div class="col-xs-4">
+                    {% if app.user %}
+                        <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
+                        <a href="{{ path('logout') }}">изход</a>
+                    {% else %}
+                        <a href="{{ path('login') }}">Вх.</a>
+                        <a href="{{ path('register') }}">Рег.</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="chat_messages"></div>
+
+    <br/><br/>
+
+    <div class="container" style="border-top: 1px solid black;">
+        <textarea class=""
+                  rows="1"
+                  style="width: 100%; height: auto;"
+                  id="chat_text"
+                  ></textarea>
+        <br class="clearfix" />
+
+        <button class="btn btn-default" style="font-weight: bold;" onclick="chat_send();" >изпрати</button>
+        <button class="btn btn-sm btn-default" onclick="$('#chat_options').toggle(); $('html, body').scrollTop($(document).height());">опции</button>
+
+        <div id="chat_options" style="display: none;">
+            <input type="checkbox" checked id="chat_autoscroll">
+            <label for="chat_autoscroll" style="font-size: 10px;">авто скролиране</label>
+
+            <br>
+            размер на буквите
+            <select onchange="$('#chat_messages').css('font-size', this.value + '%');">
+                <option value="60">60%
+                <option value="80">80%
+                <option value="100">100%
+                <option selected value="120">120%
+                <option value="140">140%
+                <option value="160">160%
+                <option value="200">200%
+            </select>
+
+            <br>
+
+            шрифт:
+            <select onchange="$('#chat_messages').css('font-family', this.value);">
+                <option value="Georgia, serif">Georgia, serif
+                <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype, Book Antiqua, Palatino, serif
+                <option value='"Times New Roman", Times, serif'>Times New Roman", Times, serif
+                <option value='Arial, Helvetica, sans-serif'>Arial, Helvetica, sans-serif
+                <option value='Arial Black, Gadget, sans-serif'>Arial Black, Gadget, sans-serif
+                <option value='"Comic Sans MS", cursive, sans-serif'>Comic Sans MS, cursive, sans-serif
+                <option value='Impact, Charcoal, sans-serif'>Impact, Charcoal, sans-serif
+                <option value='"Lucida Sans Unicode", "Lucida Grande", sans-serif'>Lucida Sans Unicode, Lucida Grande, sans-serif
+                <option value='Tahoma, Geneva, sans-serif'>Tahoma, Geneva, sans-serif
+                <option value='"Trebuchet MS", Helvetica, sans-serif'>Trebuchet MS, Helvetica, sans-serif
+                <option value='Verdana, Geneva, sans-serif'>Verdana, Geneva, sans-serif
+                <option value='"Courier New", Courier, monospace'>Courier New, Courier, monospace
+                <option value='"Lucida Console", Monaco, monospace'>Lucida Console, Monaco, monospace
+            </select>
+            <br>
+            <input type="checkbox" checked id="chat_option_enterSend">
+            <label for="chat_option_enterSend">изпращане на съобщение с enter</label>
+
+            <div id="dialog-message" title="Mood" style="display: none;">
+                Mood се добавя след името Ви, в скоби
+            </div>
+        </div>
+
+        <a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
+
+    </div>
+
+    <div id="online_list"><!-- online users list --></div>
+    <a name="page_bottom" />
 
 </div>
-
-<br/><br/>
-
-<div style="border: dotted 1px">
-    <table>
-        <tr>
-            <td>
-                <textarea class="textarea_resizable bbcode_input" 
-                          style="width: 630px; height: 60px;"
-                          cols="30" rows="5" 
-                          id="chat_text"
-                          ></textarea>
-            </td>
-            <td>
-                <button class="btn btn-default" style="height: 40px;font-weight: bold;" onclick="chat_send();" >изпрати</button>
-                <div style="height: 5px;"> </div>
-                <input type="checkbox" id="chat_option_checkbox" onchange="$('#chat_options').toggle(); $('html, body').scrollTop($(document).height());"/>
-                <label for="chat_option_checkbox" style="size: 10px;">
-                    Опции
-                </label>
-            </td>
-        </tr>
-
-		<tr>
-			<td>
-				<div id="chat_options" style="display: none;">
-					<input type="checkbox" checked id="chat_autoscroll">
-                    <label for="chat_autoscroll" style="font-size: 10px;">авто скролиране</label>
-
-					<br>
-					размер на буквите
-                    <select onchange="$('#chat_messages').css('font-size', this.value + '%');">
-						<option value="60">60%
-						<option value="80">80%
-						<option value="100">100%
-						<option selected value="120">120%
-						<option value="140">140%
-						<option value="160">160%
-						<option value="200">200%
-					</select>
-
-					<br>
-
-					шрифт:
-                    <select onchange="$('#chat_messages').css('font-family', this.value);">
-						<option value="Georgia, serif">Georgia, serif
-						<option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype, Book Antiqua, Palatino, serif
-						<option value='"Times New Roman", Times, serif'>Times New Roman", Times, serif
-						<option value='Arial, Helvetica, sans-serif'>Arial, Helvetica, sans-serif
-						<option value='Arial Black, Gadget, sans-serif'>Arial Black, Gadget, sans-serif
-						<option value='"Comic Sans MS", cursive, sans-serif'>Comic Sans MS, cursive, sans-serif
-						<option value='Impact, Charcoal, sans-serif'>Impact, Charcoal, sans-serif
-						<option value='"Lucida Sans Unicode", "Lucida Grande", sans-serif'>Lucida Sans Unicode, Lucida Grande, sans-serif
-						<option value='Tahoma, Geneva, sans-serif'>Tahoma, Geneva, sans-serif
-						<option value='"Trebuchet MS", Helvetica, sans-serif'>Trebuchet MS, Helvetica, sans-serif
-						<option value='Verdana, Geneva, sans-serif'>Verdana, Geneva, sans-serif
-						<option value='"Courier New", Courier, monospace'>Courier New, Courier, monospace
-						<option value='"Lucida Console", Monaco, monospace'>Lucida Console, Monaco, monospace
-					</select>
-					<br>
-					<input type="checkbox" checked id="chat_option_enterSend">
-                    <label for="chat_option_enterSend">изпращане на съобщение с enter</label>
-
-					<div id="dialog-message" title="Mood" style="display: none;">
-						Mood се добавя след името Ви, в скоби
-					</div>
-				</div>
-			</td>
-		</tr>
-
-		<tr>
-			<td>
-				
-			</td>
-			<td>
-				<a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
-			</td>
-		</tr>
-	</table>
-</div>
-
-<div id="online_list"><!-- online users list --></div>
-<a name="page_bottom" />
 
 <script>
     var message_id_start = 0;
@@ -269,7 +272,7 @@
         return 0;
     }
 
-    $('#chat_text').keypress(function(e) {
+    $('#chat_text').keyup(function(e) {
         if ($('#chat_option_enterSend').is(":checked") === false) {
             return;
         }
@@ -469,9 +472,6 @@
     var thereIsUnreadedMessage = false;
                                                 
     $(function() {
-        var i;
-        $("button, #chat_autoscroll, #chat_option_checkbox, #chat_emoticons").button();
-
         $('#online_list').dialog({
             autoOpen: true,
             show: "blind",
