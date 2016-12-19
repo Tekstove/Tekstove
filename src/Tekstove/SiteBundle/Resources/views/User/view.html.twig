@@ -19,13 +19,14 @@
     <br/>
     <br/>
     {{ user.about|e|nl2br }}
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Групи
-        </div>
-        <div class="panel-body"
-             <ul>
+
+    <div id="userActivities">
+        <ul>
+            <li><a href="#userGroups">Групи</a></li>
+            <li><a href="#userLyrics" id="userLyricsButton">Изпратени текстове</a></li>
+        </ul>
+        <div id="userGroups">
+            <ul>
                 {% for group in user.groups %}
                     <li>
                         {{ group.name|e }}
@@ -33,19 +34,65 @@
                 {% endfor %}
             </ul>
         </div>
+            <div id="userLyrics">
+                <ol id="listUserLyrics">
+                </ol>
+                <button id="listUserLyricsMore" class="btn btn-default">зареди още</button>
+            </div>
     </div>
 
-    
-{#    {% if user.roles %}
-        <br/>
-        Групи:
-        {% for role in user.roles %}
-            <img 
-                src="{{ asset(role.image) }}" 
-                alt="{{ role.name|e }}"
-                title="{{ role.name|e }}"
-            />
-        {% endfor %}
-    {% endif %}#}
-     
+    <script>
+        var userLyricsListPage = 1;
+
+        function loadUserLyrics() {
+            var options = {
+                groups: ['List'],
+                page: userLyricsListPage,
+                limit: 25,
+                filters: [
+                    {
+                        field: 'user',
+                        value: {{ user.id }},
+                        operator: '='
+                    }
+                ]
+            };
+            $.ajax({
+                url: "/proxy/api/lyrics",
+                data: options
+            }).done(function(data) {
+                var items = data.items;
+                $(items).each(function (key, item) {
+                    var liHtml = '<li>';
+                    liHtml += '<a href="/lyric/view/' + item.id + '">';
+                    liHtml += _.escape(item.cacheTitleShort);
+                    liHtml += '</a>';
+                    liHtml += '</li>';
+                    $('#listUserLyrics').append(liHtml);
+                });
+
+                if (userLyricsListPage === 1) {
+                    $('#userLyricsButton').append(' (' + data.pagination.totalItemCount + ')');
+                }
+
+                userLyricsListPage++;
+
+                if (data.pagination.currentPage * data.pagination.itemNumberPerPage >= data.pagination.totalItemCount) {
+                    $('#listUserLyricsMore').hide();
+                }
+            });
+        }
+        
+
+        $('#listUserLyricsMore').click(function () { loadUserLyrics(); });
+
+        $('#userActivities').tabs({
+            activate: function (event, ui) {
+                var $target = $(ui.newPanel[0]);
+                if ($target.attr('id') === 'userLyrics') {
+                    loadUserLyrics();
+                }
+            }
+        });
+    </script>
 {% endblock %}
