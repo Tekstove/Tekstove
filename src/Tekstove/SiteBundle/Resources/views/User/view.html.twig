@@ -27,11 +27,15 @@
         </ul>
         <div id="userGroups">
             <ul>
-                {% for group in user.groups %}
-                    <li>
-                        {{ group.name|e }}
-                    </li>
-                {% endfor %}
+                {% if user.groups is not empty %}
+                    {% for group in user.groups %}
+                        <li>
+                            {{ group.name|e }}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>Потребител</li>
+                {% endif %}
             </ul>
         </div>
             <div id="userLyrics">
