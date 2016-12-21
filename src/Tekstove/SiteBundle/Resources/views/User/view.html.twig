@@ -71,6 +71,11 @@
                     $('#listUserLyrics').append(liHtml);
                 });
 
+                if (data.pagination.totalItemCount === 0) {
+                    $('#listUserLyrics').append('<li>Няма нищо :(</li>');
+                }
+
+
                 if (userLyricsListPage === 1) {
                     $('#userLyricsButton').append(' (' + data.pagination.totalItemCount + ')');
                 }
