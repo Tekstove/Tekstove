@@ -13,6 +13,8 @@ use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
 
+use Tekstove\SiteBundle\Form\Type\User\UserType;
+
 /**
  * Description of UserController
  *
@@ -91,6 +93,23 @@ class UserController extends Controller
         return [
             'form' => $form->createView(),
             'recpatchaKey' => $recaptchaKey,
+        ];
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $userGateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway UserGateway */
+        $userGateway->setGroups([UserGateway::GROUP_DETAILS, UserGateway::GROUP_PERMISSION_GROUPS]);
+        $user = $userGateway->get($id)['item'];
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->add('submit', SubmitType::class);
+
+        return [
+            'user' => $user,
+            'form' => $form->createView(),
         ];
     }
 }

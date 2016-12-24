@@ -6,6 +6,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Tekstove\SiteBundle\Model\User\User;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 /**
  * Description of UserType
  *
@@ -22,8 +24,7 @@ class UserType extends \Symfony\Component\Form\AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id');
-        $builder->add('username');
+        $builder->add('about', TextareaType::class);
     }
     
     /**
