@@ -53,11 +53,11 @@ class User implements ArrayableInterface
             }
         }
 
-        if (isset($data['editableFields'])) {
-            $this->editableFields = $data['editableFields'];
+        if (isset($data['_editableFields'])) {
+            $this->editableFields = $data['_editableFields'];
         }
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -103,6 +103,9 @@ class User implements ArrayableInterface
 
     public function getEditableFields()
     {
+        if ($this->editableFields === null) {
+            throw new \RuntimeException("Editable fields not set");
+        }
         return $this->editableFields;
     }
 

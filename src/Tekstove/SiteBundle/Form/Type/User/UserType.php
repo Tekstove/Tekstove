@@ -25,9 +25,15 @@ class UserType extends \Symfony\Component\Form\AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($options); die;
-        $builder->add('about', TextareaType::class);
-        $builder->add('avatar', TextType::class);
+        $allowedFields = $options['fields'];
+
+        if (isset($allowedFields['about'])) {
+            $builder->add('about', TextareaType::class);
+        }
+
+        if (isset($allowedFields['avatar'])) {
+            $builder->add('avatar', TextType::class);
+        }
     }
     
     /**
@@ -37,6 +43,7 @@ class UserType extends \Symfony\Component\Form\AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('fields');
         $resolver->setDefaults([]);
     }
 }
