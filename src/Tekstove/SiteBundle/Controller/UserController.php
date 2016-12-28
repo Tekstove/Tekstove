@@ -100,10 +100,26 @@ class UserController extends Controller
     {
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway UserGateway */
-        $userGateway->setGroups([UserGateway::GROUP_DETAILS, UserGateway::GROUP_PERMISSION_GROUPS]);
-        $user = $userGateway->get($id)['item'];
+        $userGateway->setGroups(
+            [
+                UserGateway::GROUP_DETAILS,
+                UserGateway::GROUP_PERMISSION_GROUPS,
+                UserGateway::GROUP_EDITABLE_FIELDS,
+            ]
+        );
 
-        $form = $this->createForm(UserType::class, $user);
+        $data = $userGateway->get($id);
+
+        $user = $data['item'];
+        /* @var $user \Tekstove\SiteBundle\Model\User\User */
+
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'fields' => $user->getEditableFields(),
+            ]
+        );
 
         $form->add('submit', SubmitType::class);
 

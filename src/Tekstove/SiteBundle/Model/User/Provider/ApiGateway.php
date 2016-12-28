@@ -20,7 +20,7 @@ class ApiGateway extends UserGateway
     {
         $client = $this->getClient();
         $response = $client->post(
-            $this->getListRelativeUrl() . '/login',
+            $this->getListRelativeUrl() . '/login?XDEBUG_SESSION_START=netbeans-xdebug',
             [
                 'body' => json_encode(
                     [

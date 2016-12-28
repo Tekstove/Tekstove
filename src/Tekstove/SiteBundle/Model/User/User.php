@@ -22,6 +22,7 @@ class User implements ArrayableInterface
     
     
     private $groups;
+    private $editableFields;
     
     /**
      * @param array $data
@@ -50,6 +51,10 @@ class User implements ArrayableInterface
             foreach ($data['permissionGroups'] as $groupData) {
                 $this->groups[] = new Group($groupData);
             }
+        }
+
+        if (isset($data['editableFields'])) {
+            $this->editableFields = $data['editableFields'];
         }
     }
     
@@ -95,7 +100,12 @@ class User implements ArrayableInterface
         }
         return $this->groups;
     }
-        
+
+    public function getEditableFields()
+    {
+        return $this->editableFields;
+    }
+
     public function toArray()
     {
         return [
