@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\User\Acl\Group;
  */
 class User implements ArrayableInterface
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
     private $id;
     private $username;
     private $password;
@@ -93,6 +95,12 @@ class User implements ArrayableInterface
         return $this->about;
     }
     
+    public function setAbout($about)
+    {
+        $this->changedFields['about'] = 'about';
+        $this->about = $about;
+    }
+
     public function getGroups()
     {
         if ($this->groups === null) {

@@ -123,6 +123,17 @@ class UserController extends Controller
 
         $form->add('submit', SubmitType::class);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $userGateway->save($user);
+            } catch (Exception $ex) {
+                // @FIXME
+                throw $ex;
+            }
+        }
+
         return [
             'user' => $user,
             'form' => $form->createView(),
