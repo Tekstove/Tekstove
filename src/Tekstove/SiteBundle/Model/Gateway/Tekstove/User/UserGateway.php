@@ -18,6 +18,7 @@ class UserGateway extends AbstractGateway
 {
     
     const GROUP_PERMISSION_GROUPS = 'PermissionGroups';
+    const GROUP_EDITABLE_FIELDS = 'User.EditableFields';
     
     protected function getRelativeUrl()
     {

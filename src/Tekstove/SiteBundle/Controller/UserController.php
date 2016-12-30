@@ -128,6 +128,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $userGateway->save($user);
+                return $this->redirectToRoute('userView', ['id' => $user->getId()]);
             } catch (Exception $ex) {
                 // @FIXME
                 throw $ex;
