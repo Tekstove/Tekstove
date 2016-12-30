@@ -129,9 +129,9 @@ class UserController extends Controller
             try {
                 $userGateway->save($user);
                 return $this->redirectToRoute('userView', ['id' => $user->getId()]);
-            } catch (Exception $ex) {
-                // @FIXME
-                throw $ex;
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
             }
         }
 

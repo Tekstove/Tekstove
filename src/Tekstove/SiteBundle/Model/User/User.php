@@ -89,7 +89,13 @@ class User implements ArrayableInterface
     {
         return $this->avatar;
     }
-    
+
+    public function setAvatar($avatar)
+    {
+        $this->changedFields['avatar'] = 'avatar';
+        $this->avatar = $avatar;
+    }
+
     public function getAbout()
     {
         return $this->about;

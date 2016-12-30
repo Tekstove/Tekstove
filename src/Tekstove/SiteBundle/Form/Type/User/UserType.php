@@ -16,9 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class UserType extends \Symfony\Component\Form\AbstractType
 {
-    protected $options = array(
+    protected $options = [
         'data_class' => User::class,
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -44,6 +44,12 @@ class UserType extends \Symfony\Component\Form\AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('fields');
-        $resolver->setDefaults([]);
+        $resolver->setDefaults(
+            [
+                'attr' => [
+                    'id' => 'user-edit-form',
+                ],
+            ]
+        );
     }
 }
