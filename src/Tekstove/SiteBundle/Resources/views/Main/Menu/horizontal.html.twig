@@ -17,7 +17,7 @@
         <div class="col-md-4">
             {% if app.user %}
                 <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
-                {#                            <a href="#" class="top"><del>Потребителски данни</del></a>#}
+                <a href="{{ path('tekstove.site.user.edit', {id: app.user.id}) }}">Потребителски данни</a>
                 <a href="{{ path('logout') }}">изход</a>
             {% else %}
                 <a href="{{ path('login') }}">Вход</a>

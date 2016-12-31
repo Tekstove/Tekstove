@@ -13,6 +13,8 @@ use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
 
+use Tekstove\SiteBundle\Form\Type\User\UserType;
+
 /**
  * Description of UserController
  *
@@ -91,6 +93,51 @@ class UserController extends Controller
         return [
             'form' => $form->createView(),
             'recpatchaKey' => $recaptchaKey,
+        ];
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $userGateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway UserGateway */
+        $userGateway->setGroups(
+            [
+                UserGateway::GROUP_DETAILS,
+                UserGateway::GROUP_PERMISSION_GROUPS,
+                UserGateway::GROUP_EDITABLE_FIELDS,
+            ]
+        );
+
+        $data = $userGateway->get($id);
+
+        $user = $data['item'];
+        /* @var $user \Tekstove\SiteBundle\Model\User\User */
+
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'fields' => $user->getEditableFields(),
+            ]
+        );
+
+        $form->add('submit', SubmitType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $userGateway->save($user);
+                return $this->redirectToRoute('userView', ['id' => $user->getId()]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+
+        return [
+            'user' => $user,
+            'form' => $form->createView(),
         ];
     }
 }

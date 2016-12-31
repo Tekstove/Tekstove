@@ -1,0 +1,11 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <h1>
+        {{ user.username|e }}
+    </h1>
+
+    {{ form_start(form) }}
+
+
+    {{ form_end(form) }}
+{% endblock %}

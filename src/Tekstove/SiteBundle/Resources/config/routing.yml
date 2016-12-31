@@ -33,6 +33,11 @@ userView:
     defaults: { _controller: SiteBundle:User:view }
     methods: [GET]
 
+tekstove.site.user.edit:
+    path: /user/edit/{id}
+    defaults: { _controller: SiteBundle:User:edit }
+    methods: [GET, POST]
+
 userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }

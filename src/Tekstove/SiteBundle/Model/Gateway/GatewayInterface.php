@@ -16,4 +16,5 @@ interface GatewayInterface
     public function setLimit($limit);
     public function setOffset($offset);
     public function addFilter($field, $value, $operator = '=');
+    public function setGroups(array $groups);
 }

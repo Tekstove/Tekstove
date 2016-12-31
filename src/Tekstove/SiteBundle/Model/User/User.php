@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\User\Acl\Group;
  */
 class User implements ArrayableInterface
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
     private $id;
     private $username;
     private $password;
@@ -22,6 +24,7 @@ class User implements ArrayableInterface
     
     
     private $groups;
+    private $editableFields;
     
     /**
      * @param array $data
@@ -51,8 +54,12 @@ class User implements ArrayableInterface
                 $this->groups[] = new Group($groupData);
             }
         }
+
+        if (isset($data['_editableFields'])) {
+            $this->editableFields = $data['_editableFields'];
+        }
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -82,12 +89,24 @@ class User implements ArrayableInterface
     {
         return $this->avatar;
     }
-    
+
+    public function setAvatar($avatar)
+    {
+        $this->changedFields['avatar'] = 'avatar';
+        $this->avatar = $avatar;
+    }
+
     public function getAbout()
     {
         return $this->about;
     }
     
+    public function setAbout($about)
+    {
+        $this->changedFields['about'] = 'about';
+        $this->about = $about;
+    }
+
     public function getGroups()
     {
         if ($this->groups === null) {
@@ -95,7 +114,15 @@ class User implements ArrayableInterface
         }
         return $this->groups;
     }
-        
+
+    public function getEditableFields()
+    {
+        if ($this->editableFields === null) {
+            throw new \RuntimeException("Editable fields not set");
+        }
+        return $this->editableFields;
+    }
+
     public function toArray()
     {
         return [
