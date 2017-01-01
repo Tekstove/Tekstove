@@ -44,6 +44,7 @@ tekstove.site.user.edit:
 userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
+    methods: [GET]
     
 tekstove_site.user.pm.send:
     path: /user/message/{toUserId}/{title}
