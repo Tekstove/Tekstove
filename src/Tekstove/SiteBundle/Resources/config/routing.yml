@@ -16,12 +16,15 @@ contacts:
 login:
     path: /login
     defaults: { _controller: SiteBundle:User:login }
+    methods: [GET, POST]
 
 loginCheck:
     path: /loginCheck
+    methods: [GET, POST]
 
 logout:
     path: /logout
+    methods: [GET, POST]
 
 register:
     path: /user/register
@@ -45,6 +48,7 @@ userPmList:
 tekstove_site.user.pm.send:
     path: /user/message/{toUserId}/{title}
     defaults: { _controller: SiteBundle:User\Pm:add, title: '' }
+    methods: [GET, POST]
     
 tekstove.site.user.pm.view:
     path: /user/pm/view/{id}
@@ -140,6 +144,7 @@ tekstove.site.forum.post.newest:
 chat:
     path: /chat
     defaults: { _controller: SiteBundle:Chat:index }
+    methods: [GET]
 
 tekstove.feed.forum.topic:
     path: /feed/forum/topic.xml
