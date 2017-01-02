@@ -18,7 +18,7 @@ class TopicGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/forum/topic';
+        return '/forum/topic/';
     }
     
     public function find()

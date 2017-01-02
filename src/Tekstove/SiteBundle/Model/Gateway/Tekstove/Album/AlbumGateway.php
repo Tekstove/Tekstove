@@ -14,7 +14,7 @@ class AlbumGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return '/albums';
+        return '/albums/';
     }
     
     public function find()

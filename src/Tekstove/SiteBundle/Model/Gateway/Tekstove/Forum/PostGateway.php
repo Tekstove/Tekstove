@@ -20,7 +20,7 @@ class PostGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/forum/post';
+        return '/forum/post/';
     }
     
     public function find()

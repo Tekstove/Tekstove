@@ -24,7 +24,7 @@ class LyricGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/lyrics';
+        return '/lyrics/';
     }
     
     public function find()
@@ -65,7 +65,7 @@ class LyricGateway extends AbstractGateway
                 
                 $response = $this->getClient()
                                     ->patch(
-                                        $this->getRelativeUrl() . '/' . $lyric->getId(),
+                                        $this->getRelativeUrl() . $lyric->getId(),
                                         ['body' => json_encode($pathData)]
                                     );
             } else {
