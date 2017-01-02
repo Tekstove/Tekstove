@@ -16,7 +16,7 @@ class PmGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return 'users/pm';
+        return 'users/pm/';
     }
     
     public function find()

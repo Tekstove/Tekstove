@@ -14,6 +14,6 @@ class CredentialsGateway extends AbstractGateway
     protected function getRelativeUrl()
     {
         $this->setGroups(['List']);
-        return '/lyrics/credentials';
+        return '/lyrics/credentials/';
     }
 }

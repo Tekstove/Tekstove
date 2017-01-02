@@ -15,7 +15,7 @@ class ArtistGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/artists';
+        return '/artists/';
     }
     
     public function find()

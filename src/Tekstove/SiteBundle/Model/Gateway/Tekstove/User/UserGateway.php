@@ -22,7 +22,7 @@ class UserGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/users';
+        return '/users/';
     }
         
     public function buildUser($data)
@@ -99,7 +99,7 @@ class UserGateway extends AbstractGateway
             try {
                 $response = $this->getClient()
                                         ->patch(
-                                            $this->getRelativeUrl() . '/' . $user->getId(),
+                                            $this->getRelativeUrl() . $user->getId(),
                                             ['body' => json_encode($pathData)]
                                         );
                 $responseData = $this->decodeBody($response->getBody());
