@@ -227,11 +227,6 @@
     }
 
     function getBanLinkHtml(message) {
-        if (isBanAllowed(message)) {
-            // @TODO remove onclick
-            return '<a href="#" onClick="ban_vote(' + message.id + '); return false;">ban</a>';
-        }
-
         return '';
     }
 
@@ -240,11 +235,6 @@
     }
 
     function getCensoreHtml(message) {
-        if (isCensoreAllowed(message)) {
-            // @TODO remove onclick
-            return '<a href="#" onClick="censore(' + message.id + '); return false;">censore</a>';
-        }
-
         return '';
     }
 
@@ -459,14 +449,42 @@
         }
         if (!windowIsFocused) {
             thereIsUnreadedMessage = true;
+
+            if ('Notification' in window) {
+                // browser notification
+                var notificationOption = {
+                    body: data.message
+                };
+
+                if (user && user.avatar) {
+                    notificationOption.icon = user.avatar;
+                }
+
+                var notification = new Notification(
+                    user.username,
+                    notificationOption
+                );
+
+                notification.onshow = function() {
+                    setTimeout(
+                        function () {
+                            notification.close();
+                        },
+                        3000);
+                };
+            }
         }
     }
-                
+
+    if ('Notification' in window) {
+        Notification.requestPermission(function (permission){});
+    }
+    
     function chat_auto_update() {
         chat_update();
         setTimeout("chat_auto_update()", chat_update_interval);
     }
-                                                                         
+
     var windowIsFocused = true;
     var defaultTitle = document.title;
     var thereIsUnreadedMessage = false;
