@@ -56,7 +56,7 @@ class PmGateway extends AbstractGateway
                 
                 $response = $this->getClient()
                                     ->patch(
-                                        $this->getRelativeUrl() . '/' . $pm->getId(),
+                                        $this->getRelativeUrl() . $pm->getId(),
                                         ['body' => json_encode($pathData)]
                                     );
             } else {
