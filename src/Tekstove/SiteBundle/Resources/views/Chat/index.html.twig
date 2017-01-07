@@ -449,32 +449,36 @@
         }
         if (!windowIsFocused) {
             thereIsUnreadedMessage = true;
-            
-            // browser notification
-            var notificationOption = {
-                body: data.message
-            };
-            
-            if (user && user.avatar) {
-                notificationOption.icon = user.avatar;
+
+            if ('Notification' in window) {
+                // browser notification
+                var notificationOption = {
+                    body: data.message
+                };
+
+                if (user && user.avatar) {
+                    notificationOption.icon = user.avatar;
+                }
+
+                var notification = new Notification(
+                    user.username,
+                    notificationOption
+                );
+
+                notification.onshow = function() {
+                    setTimeout(
+                        function () {
+                            notification.close();
+                        },
+                        3000);
+                };
             }
-            
-            var notification = new Notification(
-                user.username,
-                notificationOption
-            );
-    
-            notification.onshow = function() {
-                setTimeout(
-                    function () {
-                        notification.close();
-                    },
-                    3000);
-            };
         }
     }
-    
-    Notification.requestPermission(function (permission){});
+
+    if ('Notification' in window) {
+        Notification.requestPermission(function (permission){});
+    }
     
     function chat_auto_update() {
         chat_update();
