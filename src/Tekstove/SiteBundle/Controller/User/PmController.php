@@ -70,9 +70,19 @@ class PmController extends Controller
             $logger = $this->get('logger');
             $logger->critical('Can\'t mark pm as read', ['exception' => $e]);
         }
+
+        $pmHistoryGateway = $this->get('tekstove.gateway.user.pm');
+        /* @var $pmHistoryGateway PmGateway */
+        $pmHistoryGateway->setGroups([PmGateway::GROUP_DETAILS]);
+        $pmHistoryGateway->addFilter('userTo', $this->getUser()->getId());
+        $pmHistoryGateway->addFilter('userFrom', $pm->getUserFrom()->getId());
+        // I'm not sure if there should be filter to exclude current PM
+        $pmHistoryGateway->addOrder('id', PmGateway::ORDER_DESC);
+        $pmHistoryData = $pmHistoryGateway->find();
         
         return [
             'pm' => $pm,
+            'pmHistory' => $pmHistoryData['items'],
         ];
     }
     

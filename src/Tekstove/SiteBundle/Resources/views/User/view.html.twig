@@ -10,12 +10,11 @@
         <br/>
         <img src="{{ user.avatar|e }}" />
     {% endif %}
-    
-    
-    <a href="{{ path('tekstove_site.user.pm.send', {toUserId: user.id}) }}">
+
+    <a href="{{ path('tekstove_site.user.pm.send', {toUserId: user.id})|loggedOnly() }}">
         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> изпрати ЛС 
     </a>
-        
+
     <br/>
     <br/>
     {{ user.about|e|nl2br }}

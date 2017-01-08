@@ -90,8 +90,15 @@ class Pm
         $this->text = $text;
     }
 
+    /**
+     *
+     * @return User
+     */
     public function getUserFrom()
     {
+        if ($this->userFrom === null) {
+            throw new \RuntimeException("UserTo not set!");
+        }
         return $this->userFrom;
     }
     

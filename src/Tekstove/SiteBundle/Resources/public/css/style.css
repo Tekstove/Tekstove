@@ -20,6 +20,10 @@ a.btn, a.btn:visited, a.btn:active {
     color: #FFF;
 }
 
+a.btn-default, a.btn-default:visited, a.btn-default:active {
+    color: #000;
+}
+
 .t-center-table {
     margin: 0 auto !important;
     float: none !important;
