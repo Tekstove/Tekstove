@@ -20,7 +20,7 @@ class RegisterGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return '/users/register';
+        return '/users/register/';
     }
     
     /**

@@ -15,7 +15,7 @@ class CategoryGateway extends AbstractGateway
 {
     protected function getRelativeUrl()
     {
-        return '/forum/category';
+        return '/forum/category/';
     }
     
     public function find()

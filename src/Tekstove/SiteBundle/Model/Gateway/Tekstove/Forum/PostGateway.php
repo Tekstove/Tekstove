@@ -20,7 +20,7 @@ class PostGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/forum/post';
+        return '/forum/post/';
     }
     
     public function find()
@@ -54,11 +54,11 @@ class PostGateway extends AbstractGateway
         ];
         
         try {
-            $response = $this->getClient()
-                                        ->post(
-                                            $this->getRelativeUrl(),
-                                            ['body' => json_encode($changeSet)]
-                                        );
+            $this->getClient()
+                        ->post(
+                            $this->getRelativeUrl(),
+                            ['body' => json_encode($changeSet)]
+                        );
         } catch (RequestException $e) {
             if ($e->getCode() != 400) {
                 throw $e;

@@ -5,7 +5,7 @@
     "description": "Tekstove.info website",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "Tekstove\\SiteBundle\\": "src/Tekstove/SiteBundle/"
         },
         "classmap": [
             "app/AppKernel.php",

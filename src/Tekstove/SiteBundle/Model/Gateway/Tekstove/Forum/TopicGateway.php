@@ -4,7 +4,6 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Forum;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Forum\Topic;
-use Tekstove\SiteBundle\Model\Forum\Post;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
@@ -19,7 +18,7 @@ class TopicGateway extends AbstractGateway
     
     protected function getRelativeUrl()
     {
-        return '/forum/topic';
+        return '/forum/topic/';
     }
     
     public function find()

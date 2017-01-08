@@ -6,6 +6,9 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 
 use Tekstove\SiteBundle\Model\User\User;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+
 /**
  * Description of LyricGateway
  *
@@ -15,10 +18,11 @@ class UserGateway extends AbstractGateway
 {
     
     const GROUP_PERMISSION_GROUPS = 'PermissionGroups';
+    const GROUP_EDITABLE_FIELDS = 'User.EditableFields';
     
     protected function getRelativeUrl()
     {
-        return '/users';
+        return '/users/';
     }
         
     public function buildUser($data)
@@ -72,6 +76,47 @@ class UserGateway extends AbstractGateway
                 if ($user->getId() == $userId) {
                     $item->{$setter}($user);
                 }
+            }
+        }
+    }
+
+    public function save(User $user)
+    {
+        if (!$user->getId()) {
+            throw new \Exception("Not implemented");
+        } else {
+            $changeSet = $user->getChangeSet();
+            
+            $pathData = [];
+            foreach ($changeSet as $property => $value) {
+                $pathData[] = [
+                    'op' => 'replace',
+                    'path' => '/' . $property,
+                    'value' => $value,
+                ];
+            }
+
+            try {
+                $response = $this->getClient()
+                                        ->patch(
+                                            $this->getRelativeUrl() . $user->getId(),
+                                            ['body' => json_encode($pathData)]
+                                        );
+                $responseData = $this->decodeBody($response->getBody());
+                return $responseData;
+            } catch (RequestException $requestException) {
+                if ($requestException->getCode() != 400) {
+                    throw $requestException;
+                }
+
+                $validationException = new TekstoveValidationException(
+                    $requestException->getMessage(),
+                    0,
+                    $requestException
+                );
+                $errors = json_decode($requestException->getBody(), true);
+                $validationException->setValidationErrors($errors);
+                throw $validationException;
             }
         }
     }

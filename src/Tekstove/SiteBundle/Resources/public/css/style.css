@@ -185,6 +185,10 @@ a.btn, a.btn:visited, a.btn:active {
     text-align:center;
 }
 
+#user-edit-form #user_about {
+    min-height: 300px;
+}
+
 /* see http://stackoverflow.com/questions/15844500/shrink-a-youtube-video-to-responsive-width */
 .video-wrapper {
     float: none;

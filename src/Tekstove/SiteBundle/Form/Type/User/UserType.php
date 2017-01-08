@@ -6,6 +6,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Tekstove\SiteBundle\Model\User\User;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
  * Description of UserType
  *
@@ -13,17 +16,24 @@ use Tekstove\SiteBundle\Model\User\User;
  */
 class UserType extends \Symfony\Component\Form\AbstractType
 {
-    protected $options = array(
+    protected $options = [
         'data_class' => User::class,
-    );
+    ];
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id');
-        $builder->add('username');
+        $allowedFields = $options['fields'];
+
+        if (isset($allowedFields['about'])) {
+            $builder->add('about', TextareaType::class);
+        }
+
+        if (isset($allowedFields['avatar'])) {
+            $builder->add('avatar', TextType::class);
+        }
     }
     
     /**
@@ -33,6 +43,13 @@ class UserType extends \Symfony\Component\Form\AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([]);
+        $resolver->setRequired('fields');
+        $resolver->setDefaults(
+            [
+                'attr' => [
+                    'id' => 'user-edit-form',
+                ],
+            ]
+        );
     }
 }

@@ -152,7 +152,7 @@ abstract class AbstractGateway implements GatewayInterface
     public function get($id)
     {
         $url = $this->getRelativeUrl();
-        $url .= '/' . $id;
+        $url .= $id;
         $urlHaveParams = strpos($url, '?');
         $groupsFilterChar = $urlHaveParams ? '&' : '?';
         $url .= $groupsFilterChar . $this->getGroupsUrlParam();
@@ -173,7 +173,7 @@ abstract class AbstractGateway implements GatewayInterface
     public function delete($id)
     {
         $url = $this->getRelativeUrl();
-        $url .= '/' . $id;
+        $url .= $id;
         $response = $this->client->delete($url);
         $body = $response->getBody();
         $data = json_decode($body, true);
