@@ -18,6 +18,7 @@
         overflow: auto;
         display: table-cell;
         vertical-align: top;
+        line-height: normal;
     }
 
     .message_date {
@@ -403,8 +404,7 @@
             message_last_edit_timestamp = data.editTimestamp;
         }
 
-        var messageHtml = _.escape(data.message);
-        data.message = messageHtml.replace(/\n/g, '<br>');
+        var messageHtml = data.messageHtml;
                                                             
         var html_data = '<div id="message_' + data.id + '" class="message">';
         
@@ -432,13 +432,14 @@
         }
         html_data += '</span>';
         html_data += '</div>';
-        html_data += '<div class="message_text">' + data.message + '</div>';
+        html_data += '<div class="message_text">' + messageHtml + '</div>';
         html_data += '</div>';
 
         // append new text, insted of createing new msg
         if ($('#message_' + data.id).length > 0) {
-            $('#message_' + data.id + ' .message_text ').html(data.message);
-            $('#message_' + data.id).effect('highlight', {}, 1000);
+            // message already shown
+            // probably delay in connection
+            return true;
         } else {
             $('#chat_messages').append(html_data);
         }

@@ -95,7 +95,7 @@ class IndexController extends Controller
             $cacheAlbums->set($lastAlbums);
             $cache->save($cacheAlbums);
         }
-        
+
         return [
             'lastLyrics' => $lastLyrics,
             'lastTranslated' => $lastTranslated,
