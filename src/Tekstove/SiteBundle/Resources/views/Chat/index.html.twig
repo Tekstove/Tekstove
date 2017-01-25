@@ -288,8 +288,12 @@
         input_text = jQuery.trim(input_text);
         $.ajax({
             type: "POST",
-            url: "/proxy/api/chat/messages?tekstove-apikey=" + apiKey,
+            url: "/proxy/api/chat/messages?tekstove-apikey=" + (apiKey ? apiKey : ''),
             dataType: 'json',
+
+            // see http://stackoverflow.com/questions/17532018/submitting-jquery-ajax-data-with-string-containing-it-changes-value-to-jq
+            jsonp: false,
+
             data: JSON.stringify({
                 message : input_text
             }),
