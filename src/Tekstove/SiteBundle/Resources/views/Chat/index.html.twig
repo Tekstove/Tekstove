@@ -163,11 +163,32 @@
 
         <a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
 
+        <button class="btn btn-default" onclick="$('#buttons').toggle();">бутони</button>
+        
     </div>
 
     <div id="online_list"><!-- online users list --></div>
     <a name="page_bottom" />
 
+</div>
+
+<div id="buttons" style="
+     display: none;
+     position: fixed; min-width: 30%;
+     left: 0; bottom: 0; right: 0;
+     margin-right: auto; margin-left: auto;
+     text-align: center;
+     border: 1px solid black;
+     background-color: white;">
+    <button class="btn btn-warning" onclick="$('#buttons').toggle();">затвори</button>
+    <br/>
+    <button class="btn btn-default" onclick="bbcode(3);"><b>удебелен</b></button>
+    <button class="btn btn-default" onclick="bbcode(4);"><u>подчертан</u></button>
+    <button class="btn btn-default" onclick="bbcode(5);"><i>наклонен</i></button>
+    <br/>
+    <button class="btn btn-default" onclick="bbcode(2);">link</button>
+    <br/>
+    <button class="btn btn-warning" onclick="$('#buttons').toggle();">затвори</button>
 </div>
 
 <script>
@@ -185,6 +206,70 @@
             }
         });
     {% endif %}
+
+    // this code is BAD and must be rewritten!
+    function bbcode(number) {
+        var bba = null;
+        var bbb = null;
+
+        var returnData = '';
+
+        switch (number) {
+            case 1:
+                bba = prompt('линк към картинката');
+                if (bba) {
+                    returnData = '[img]' + bba + '[/img]';
+                }
+                break;
+
+            case 2:
+                bba = prompt('Линк','http://');
+                if (bba) {
+                    bbb = prompt('Текст към линка');
+                }
+                if (bbb) {
+                    returnData = '[url=' + bba + ']' + bbb + '[/url]';
+                }
+                break;
+
+            case 3:
+                returnData = '[b][/b]';
+                break;
+
+            case 4:
+                returnData = '[u][/u]';
+                break;
+
+            case 5:
+                returnData = '[i][/i]';
+                break;
+            /*
+            case 6:
+                smart_bbcode('[color=' + $('#bb_code_color').val() + ']','[/color]');
+                break;
+            case 7:
+                var ytube = prompt('линк на видеото');
+                if(ytube)
+                {
+                    emot_icons('[youtube]'+ytube+'[/youtube]');
+                }
+                break;
+            case 8:
+                smart_bbcode('[quote]','[/quote]');
+                break;
+            default:
+                emot_icons(number);
+                break;
+            */
+        };
+
+        var oldInput = $('#chat_text').val();
+        var newInput = (oldInput + returnData).trim();
+        $('#chat_text').val(newInput);
+        $('#buttons').hide();
+        $('#chat_text').focus();
+    };
+
 
     function User(data) {
         if (data) {
