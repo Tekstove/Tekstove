@@ -200,8 +200,10 @@ class LyricController extends Controller
         $formBuilder->setMethod('GET');
         $formBuilder->add(
             'title',
-            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
-            ['required' => false]
+            \Symfony\Component\Form\Extension\Core\Type\SearchType::class,
+            [
+                'required' => false,
+            ]
         );
         
         $artistGateway = $this->get('tekstove.gateway.artist');
@@ -247,8 +249,10 @@ class LyricController extends Controller
         
         $formBuilder->add(
             'text',
-            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
-            ['required' => false]
+            \Symfony\Component\Form\Extension\Core\Type\SearchType::class,
+            [
+                'required' => false,
+            ]
         );
         
         $formBuilder->add(
