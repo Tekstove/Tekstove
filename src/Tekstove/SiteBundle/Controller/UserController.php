@@ -60,7 +60,15 @@ class UserController extends Controller
         $formBuilder->add('username');
         $formBuilder->add('password', PasswordType::class);
         $formBuilder->add('mail');
-        $formBuilder->add('submit', SubmitType::class);
+        $formBuilder->add(
+            'Регистрация',
+            SubmitType::class,
+            [
+                'attr' => [
+                    'class' => 'btn-success',
+                ]
+            ]
+        );
         $formBuilder->setMapped('POST');
         $form = $formBuilder->getForm();
         /* @var $form \Symfony\Component\Form\Form */
