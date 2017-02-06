@@ -193,6 +193,7 @@
     <br/>
     <button class="btn btn-default" onclick="bbcode(2);">link</button>
     <button class="btn btn-default" onclick="bbcode(1);">картинка</button>
+    <button class="btn btn-default" onclick="bbcode(6);">youtube</button>
     <br/>
     <button class="btn btn-warning" onclick="$('#buttons').toggle();">затвори</button>
 </div>
@@ -248,6 +249,13 @@
 
             case 5:
                 returnData = '[i][/i]';
+                break;
+
+            case 6:
+                bba = prompt('линк към видеото');
+                if (bba) {
+                    returnData = '[youtube]' + bba + '[/youtube]';
+                }
                 break;
             /*
             case 6:
