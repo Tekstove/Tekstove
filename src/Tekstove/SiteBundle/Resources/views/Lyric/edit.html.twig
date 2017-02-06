@@ -1,5 +1,15 @@
 {% extends 'SiteBundle::main.html.twig' %}
 {% block content %}
+
+    {% if not app.user %}
+        <div class="alert alert-warning">
+            Не си влязъл в профила си. Няма да можеш да правиш бъдещи промени по текста.
+            <a href="{{ path('login') }}" class="btn btn-success">
+                Вход
+            </a>
+        </div>
+    {% endif %}
+
     {{ form_start(form) }}
 
     {% if form.artists is defined %}
