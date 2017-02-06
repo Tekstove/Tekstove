@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
@@ -59,7 +60,7 @@ class UserController extends Controller
         $formBuilder = $this->createFormBuilder();
         $formBuilder->add('username');
         $formBuilder->add('password', PasswordType::class);
-        $formBuilder->add('mail');
+        $formBuilder->add('mail', EmailType::class);
         $formBuilder->add(
             'Регистрация',
             SubmitType::class,
