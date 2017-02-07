@@ -20,7 +20,7 @@ class AppKernel extends Kernel
              * Vendor
              */
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new \SunCat\MobileDetectBundle\MobileDetectBundle(),
+            
             
             /*
              * Local

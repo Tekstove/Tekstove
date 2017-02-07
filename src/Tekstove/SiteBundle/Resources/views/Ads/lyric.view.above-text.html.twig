@@ -1,16 +1,14 @@
-{% if not is_mobile() %}
-    {% if (not is_granted('IS_AUTHENTICATED_FULLY')) and (ads is defined and ads is not empty) %}
-        <div class="row" style="max-height: 120px;">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- lyric-view-above-text -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-9814286074038098"
-                 data-ad-slot="7152947018"
-                 data-ad-format="horizontal"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-    {% endif %}
+{% if (not is_granted('IS_AUTHENTICATED_FULLY')) and (ads is defined and ads is not empty) %}
+    <div class="row" style="max-height: 120px;">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- lyric-view-above-text -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-9814286074038098"
+             data-ad-slot="7152947018"
+             data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 {% endif %}
