@@ -6,6 +6,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Cl
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Description of GatewayFactory
@@ -16,11 +17,13 @@ class GatewayFactory
 {
     private $baseUrl;
     private $tekenStorage;
+    private $requestStack;
     
-    public function __construct($baseUrl, TokenStorageInterface $tekenStorage)
+    public function __construct($baseUrl, TokenStorageInterface $tekenStorage, RequestStack $requestStack)
     {
         $this->setBaseUrl($baseUrl);
         $this->tekenStorage = $tekenStorage;
+        $this->requestStack = $requestStack;
     }
     
     protected function setBaseUrl($url)
@@ -127,6 +130,7 @@ class GatewayFactory
             $client->setApikey($apiKey);
         }
         $client->setBaseUri($clientOptions['base_uri']);
+        $client->setIp($this->requestStack->getCurrentRequest()->getClientIp());
         $gateway = new $gatewayClass($client);
         return $gateway;
     }

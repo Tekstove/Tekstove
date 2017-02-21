@@ -35,4 +35,9 @@ interface ClientInterface
     public function delete($url);
     
     public function setApikey($apiKey);
+
+    /**
+     * @param string $ip
+     */
+    public function setIp($ip);
 }

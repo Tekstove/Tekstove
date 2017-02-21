@@ -152,4 +152,14 @@ class GuzzleAdapter implements ClientInterface
         $config['headers']['tekstove-apikey'] = $apiKey;
         $this->guzzle = new GuzzleClient($config);
     }
+
+    public function setIp($ip)
+    {
+        $config = $this->guzzle->getConfig();
+        if (empty($config['headers'])) {
+            $config['headers'] = [];
+        }
+        $config['headers']['X-FORWARDED-FOR'] = $ip;
+        $this->guzzle = new GuzzleClient($config);
+    }
 }
