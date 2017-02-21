@@ -6,7 +6,7 @@ services:
             
     tekstove.gateway.factory:
         class: Tekstove\SiteBundle\Model\Gateway\GatewayFactory
-        arguments: ["%tekstove.api_url%", "@security.token_storage"]
+        arguments: ["%tekstove.api_url%", "@security.token_storage", "@request_stack"]
             
     tekstove.gateway.userProvider:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiGateway
