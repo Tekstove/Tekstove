@@ -18,6 +18,9 @@ $loader->unregister();
 $apcLoader->register(true);
 */
 
+// see https://github.com/Tekstove/Tekstove/issues/80
+Request::setTrustedHeaderName(Request::HEADER_FORWARDED, null);
+
 //require_once __DIR__.'/../app/AppCache.php';
 
 // I know this is ugly...but...sry...
