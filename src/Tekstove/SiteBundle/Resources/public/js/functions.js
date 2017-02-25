@@ -474,7 +474,7 @@ function videoYouTube(link, autoplay)
 {
 
     var html = '<div class="video-wrapper">';
-    html += '<iframe title="YouTube video player" height="auto" src="http://www.youtube.com/embed/' + link;
+    html += '<iframe title="YouTube video player" height="auto" src="//www.youtube.com/embed/' + link;
     if (autoplay) {
         html += "?autoplay=1";
     }
