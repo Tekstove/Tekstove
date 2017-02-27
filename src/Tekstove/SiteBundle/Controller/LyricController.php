@@ -59,7 +59,7 @@ class LyricController extends Controller
         
         return [
             'lyric' => $lyric,
-            'ads' => !$lyric->isCensor(),
+            'ads' => (int)!$lyric->isCensor(),
         ];
     }
     

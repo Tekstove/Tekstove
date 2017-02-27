@@ -47,6 +47,10 @@
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
             ga('create', 'UA-4588309-1', 'auto');
+            ga('set', {
+                logged: {% if (is_granted('IS_AUTHENTICATED_FULLY')) %} true {% else %} false {% endif %},
+                ads: {% if ads is not defined %} null {% else %} {{ ads|e('js') }} {% endif %}
+            });
             ga('send', 'pageview');
         </script>
 
