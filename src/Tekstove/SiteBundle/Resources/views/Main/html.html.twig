@@ -33,8 +33,7 @@
         <link rel="shortcut icon" href="{{ asset('bundles/site/images/favicon.ico') }}">
         {% endblock %}
 
-        
-
+        {% include '@TekstoveSite/Ads/page.mobile.html.twig' %}
     </head>
     <body>
         {% block htmlBody %}
@@ -63,7 +62,6 @@
         <!-- End Cookie Consent plugin -->
 
         {% block htmlBodyEnd %}
-            {% include '@TekstoveSite/Ads/page.mobile.html.twig' %}
         {% endblock %}
     </body>
 </html>
