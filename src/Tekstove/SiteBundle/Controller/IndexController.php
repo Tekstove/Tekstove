@@ -103,7 +103,7 @@ class IndexController extends Controller
             'mostViewed' => $mostViewed,
             'albums' => $lastAlbums,
             
-            'ads' => true,
+            'ads' => 2,
         ];
     }
 }
