@@ -390,7 +390,7 @@ class LyricController extends Controller
 
         $gateway = $this->get('tekstove.gateway.lyric.popularity.history');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway */
-        $gateway->addOrder('id', LyricPopularHistoryGateway::ORDER_DESC);
+        $gateway->addOrder('popularity', LyricPopularHistoryGateway::ORDER_DESC);
         $gateway->addFilter(
             'date',
             [
@@ -400,12 +400,15 @@ class LyricController extends Controller
             LyricPopularHistoryGateway::FILTER_RANGE
         );
         $gateway->setGroups([LyricPopularHistoryGateway::GROUP_LIST]);
+        $gateway->setLimit(100);
         $data = $gateway->find();
 
-        dump($datetime);
+        $monthFullname = $datetime->format('F');
 
         return [
             'lyricsHistory' => $data['items'],
+            'monthName' => $monthFullname,
+            'year' => $year,
         ];
     }
 }

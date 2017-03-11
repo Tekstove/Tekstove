@@ -10,16 +10,22 @@ namespace Tekstove\SiteBundle\Model\Lyric;
 class LyricPopularityHistory
 {
     private $lyric;
-    // private $popularity;
+    private $popularity;
 
     public function __construct(array $data)
     {
         $this->lyric = new Lyric($data['lyric']);
+        $this->popularity = $data['popularity'];
     }
 
     
     public function getLyric()
     {
         return $this->lyric;
+    }
+
+    public function getPopularity()
+    {
+        return $this->popularity;
     }
 }
