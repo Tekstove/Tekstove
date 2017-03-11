@@ -16,6 +16,8 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundExceptio
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundRedirectException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway;
+
 /**
  * LyricController
  *
@@ -388,7 +390,16 @@ class LyricController extends Controller
 
         $gateway = $this->get('tekstove.gateway.lyric.popularity.history');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway */
-        $gateway->setGroups([\Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway::GROUP_LIST]);
+        $gateway->addOrder('id', LyricPopularHistoryGateway::ORDER_DESC);
+        $gateway->addFilter(
+            'date',
+            [
+                'min' => $datetime->format('Y-M-01'),
+                'max' => $datetime->format('Y-M-t'),
+            ],
+            LyricPopularHistoryGateway::FILTER_RANGE
+        );
+        $gateway->setGroups([LyricPopularHistoryGateway::GROUP_LIST]);
         $data = $gateway->find();
 
         dump($datetime);
