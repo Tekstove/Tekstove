@@ -38,6 +38,12 @@ services:
         factory: ["@tekstove.gateway.factory", createLyricCredentialsGateway]
         arguments: ["@security.token_storage"]
         shared: false
+        
+    tekstove.gateway.lyric.popularity.history:
+        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway
+        factory: ["@tekstove.gateway.factory", createLyricPopularityHistoryGateway]
+        arguments: ["@security.token_storage"]
+        shared: false
 
     tekstove.gateway.artist:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway

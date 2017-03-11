@@ -1,0 +1,33 @@
+{% extends 'SiteBundle::main.html.twig' %}
+
+{% block content %}
+
+    <h1>
+{#        {{ h1|e }}#}
+    </h1>
+
+    <table class="table">
+        <tr>
+            <thead>
+                <th>
+                    №
+                </th>
+                <th>
+                    Песен
+                </th>
+            </thead>
+        </tr>
+        {% for lyricHistory in lyricsHistory %}
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    <a href="{{ path('lyricView', { id: lyricHistory.lyric.id }) }}">
+                        {{ lyricHistory.lyric.cacheTitleShort }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

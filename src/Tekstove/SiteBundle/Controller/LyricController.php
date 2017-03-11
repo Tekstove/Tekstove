@@ -19,6 +19,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
 /**
  * LyricController
  *
+ * @Template()
  * @author po_taka <angel.koilov@gmail.com>
  */
 class LyricController extends Controller
@@ -64,7 +65,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Add new lyric
      */
     public function addAction(Request $request)
     {
@@ -147,7 +148,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Edit existing lyric
      */
     public function editAction($id, Request $request)
     {
@@ -192,7 +193,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Search for lyrics
      */
     public function searchAction(Request $request)
     {
@@ -322,7 +323,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Top100 stats
      */
     public function topAction($sort)
     {
@@ -369,6 +370,31 @@ class LyricController extends Controller
             'lyricGetter' => $viewLyricGetter,
             'h1' => $viewH1,
             'ads' => true,
+        ];
+    }
+
+    /**
+     * History of top popular lyrics
+     *
+     * @param type $year
+     * @param type $month
+     */
+    public function popularHistoryAction($year, $month)
+    {
+        $datetime = \DateTime::createFromFormat('Y-M', "{$year}-{$month}");
+        if ($datetime === false) {
+            throw new \InvalidArgumentException("{$year}-{$month} can't be converted to datetime");
+        }
+
+        $gateway = $this->get('tekstove.gateway.lyric.popularity.history');
+        /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway */
+        $gateway->setGroups([\Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway::GROUP_LIST]);
+        $data = $gateway->find();
+
+        dump($datetime);
+
+        return [
+            'lyricsHistory' => $data['items'],
         ];
     }
 }
