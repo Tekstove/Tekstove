@@ -405,10 +405,26 @@ class LyricController extends Controller
 
         $monthFullname = $datetime->format('F');
 
+        $nextMonthDatetime = clone $datetime;
+        $nextMonthDatetime->modify('+1 month');
+        $nextMonthLink = $this->generateUrl(
+            'tekstove.site.popular.history',
+            [
+                'year' => $nextMonthDatetime->format('Y'),
+                'month' => $nextMonthDatetime->format('M'),
+            ]
+        );
+
+        // @TODO do not allow next month link in future
+
+        // @TODO do not allo prev month before 1st history record
+
         return [
             'lyricsHistory' => $data['items'],
             'monthName' => $monthFullname,
             'year' => $year,
+
+            'nextMonthLink' => $nextMonthLink,
         ];
     }
 }
