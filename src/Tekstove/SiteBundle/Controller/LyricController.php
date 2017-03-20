@@ -383,10 +383,13 @@ class LyricController extends Controller
      */
     public function popularHistoryAction($year, $month)
     {
-        $datetime = \DateTime::createFromFormat('Y-M', "{$year}-{$month}");
+        $datetime = \DateTime::createFromFormat('Y-M-d', "{$year}-{$month}-01");
         if ($datetime === false) {
+            dump("{$year}-{$month}-01");
+            dump(\DateTime::getLastErrors()); die;
             throw new \InvalidArgumentException("{$year}-{$month} can't be converted to datetime");
         }
+        $datetime->setTime(0, 0, 0);
 
         $gateway = $this->get('tekstove.gateway.lyric.popularity.history');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway */
@@ -407,15 +410,22 @@ class LyricController extends Controller
 
         $nextMonthDatetime = clone $datetime;
         $nextMonthDatetime->modify('+1 month');
-        $nextMonthLink = $this->generateUrl(
-            'tekstove.site.popular.history',
-            [
-                'year' => $nextMonthDatetime->format('Y'),
-                'month' => $nextMonthDatetime->format('M'),
-            ]
-        );
+        
+        $currentMonth = new \DateTime('first day of this month');
+        $currentMonth->setTime(0, 0, 0);
 
-        // @TODO do not allow next month link in future
+        if ($nextMonthDatetime >= $currentMonth) {
+            $nextMonthLink = null;
+            $monthFullname = null;
+        } else {
+            $nextMonthLink = $this->generateUrl(
+                'tekstove.site.popular.history',
+                [
+                    'year' => $nextMonthDatetime->format('Y'),
+                    'month' => $nextMonthDatetime->format('M'),
+                ]
+            );
+        }
 
         // @TODO do not allo prev month before 1st history record
 

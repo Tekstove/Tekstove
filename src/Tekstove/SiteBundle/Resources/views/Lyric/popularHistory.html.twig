@@ -1,5 +1,7 @@
 {% extends 'SiteBundle::main.html.twig' %}
 
+{# @TODO add title! #}
+
 {% block content %}
 
     <h1>
@@ -37,7 +39,9 @@
         {% endfor %}
     </table>
 
-        <a href="{{ nextMonthLink }}">
-            Следващ месец
-        </a>
+        {% if nextMonthLink %}
+            <a href="{{ nextMonthLink }}">
+                Следващ месец
+            </a>
+        {% endif %}
 {% endblock %}
