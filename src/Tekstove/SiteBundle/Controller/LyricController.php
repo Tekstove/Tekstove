@@ -426,7 +426,7 @@ class LyricController extends Controller
         }
 
         // do not allow prev month before 1st history record
-        $firtRecord = new \DateTime('2017-03-01 00:00:00');
+        $firtRecord = new \DateTime('2017-02-01 00:00:00');
         if ($datetime <= $firtRecord) {
             $prevMonthLink = null;
         } else {
