@@ -429,7 +429,7 @@ class LyricController extends Controller
 
         // do not allow prev month before 1st history record
         $firtRecord = new \DateTime('2017-03-01 00:00:00');
-        if ($datetime->getTimestamp() <= $firtRecord->getTimestamp()) {
+        if ($datetime <= $firtRecord) {
             $prevMonthLink = null;
         } else {
             $prevMonthDatetime = clone $datetime;
@@ -441,6 +441,11 @@ class LyricController extends Controller
                     'month' => $prevMonthDatetime->format('M'),
                 ]
             );
+        }
+
+        if ($datetime < $firtRecord && $nextMonthDatetime >= $currentMonth) {
+            $error = $this->createNotFoundException("Нямаме записи за търсеният период :(");
+            throw $error;
         }
 
         return [
