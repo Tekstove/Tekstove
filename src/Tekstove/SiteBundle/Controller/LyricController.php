@@ -385,8 +385,6 @@ class LyricController extends Controller
     {
         $datetime = \DateTime::createFromFormat('Y-M-d', "{$year}-{$month}-01");
         if ($datetime === false) {
-            dump("{$year}-{$month}-01");
-            dump(\DateTime::getLastErrors()); die;
             throw new \InvalidArgumentException("{$year}-{$month} can't be converted to datetime");
         }
         $datetime->setTime(0, 0, 0);
