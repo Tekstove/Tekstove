@@ -427,7 +427,21 @@ class LyricController extends Controller
             );
         }
 
-        // @TODO do not allo prev month before 1st history record
+        // do not allow prev month before 1st history record
+        $firtRecord = new \DateTime('2017-03-01 00:00:00');
+        if ($datetime->getTimestamp() <= $firtRecord->getTimestamp()) {
+            $prevMonthLink = null;
+        } else {
+            $prevMonthDatetime = clone $datetime;
+            $prevMonthDatetime->modify('-1 month');
+            $prevMonthLink = $this->generateUrl(
+                'tekstove.site.popular.history',
+                [
+                    'year' => $prevMonthDatetime->format('Y'),
+                    'month' => $prevMonthDatetime->format('M'),
+                ]
+            );
+        }
 
         return [
             'lyricsHistory' => $data['items'],
@@ -435,6 +449,7 @@ class LyricController extends Controller
             'year' => $year,
 
             'nextMonthLink' => $nextMonthLink,
+            'prevMonthLink' => $prevMonthLink,
         ];
     }
 }

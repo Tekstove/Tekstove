@@ -39,6 +39,12 @@
         {% endfor %}
     </table>
 
+        {% if prevMonthLink %}
+            <a href="{{ prevMonthLink }}">
+                Предишен месец
+            </a>
+        {% endif %}
+
         {% if nextMonthLink %}
             <a href="{{ nextMonthLink }}">
                 Следващ месец
