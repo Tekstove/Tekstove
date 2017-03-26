@@ -45,6 +45,13 @@ class GatewayFactory
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway::class
         );
     }
+
+    public function createLyricPopularityHistoryGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway::class
+        );
+    }
     
     public function createUserGateway()
     {

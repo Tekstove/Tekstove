@@ -9,6 +9,7 @@ return array(
     'Choose artist' => 'Избер изпълнител',
     'delete' => 'изтрии',
     'Download link' => 'Линк за сваляне',
+    'February' => 'Февруари',
     'This value is already stored in your database' => 'Вече имаме запис с такава стойност',
     'This value is not a valid captcha.' => 'Невалиден код срещу ботове',
     'Translation' => 'Превод',

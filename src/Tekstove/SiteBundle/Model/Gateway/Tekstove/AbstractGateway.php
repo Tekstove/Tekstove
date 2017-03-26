@@ -16,6 +16,7 @@ abstract class AbstractGateway implements GatewayInterface
     const FILTER_NOT_NULL = 'NOT_NULL';
     const FILTER_IN = 'in';
     const FILTER_LIKE = 'like';
+    const FILTER_RANGE = 'range';
     
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';

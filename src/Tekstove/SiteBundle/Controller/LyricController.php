@@ -16,9 +16,12 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundExceptio
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundRedirectException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway;
+
 /**
  * LyricController
  *
+ * @Template()
  * @author po_taka <angel.koilov@gmail.com>
  */
 class LyricController extends Controller
@@ -64,7 +67,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Add new lyric
      */
     public function addAction(Request $request)
     {
@@ -147,7 +150,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Edit existing lyric
      */
     public function editAction($id, Request $request)
     {
@@ -192,7 +195,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Search for lyrics
      */
     public function searchAction(Request $request)
     {
@@ -322,7 +325,7 @@ class LyricController extends Controller
     }
     
     /**
-     * @Template()
+     * Top100 stats
      */
     public function topAction($sort)
     {
@@ -369,6 +372,86 @@ class LyricController extends Controller
             'lyricGetter' => $viewLyricGetter,
             'h1' => $viewH1,
             'ads' => true,
+        ];
+    }
+
+    /**
+     * History of top popular lyrics
+     *
+     * @param type $year
+     * @param type $month
+     */
+    public function popularHistoryAction($year, $month)
+    {
+        $datetime = \DateTime::createFromFormat('Y-M-d', "{$year}-{$month}-01");
+        if ($datetime === false) {
+            throw new \InvalidArgumentException("{$year}-{$month} can't be converted to datetime");
+        }
+        $datetime->setTime(0, 0, 0);
+
+        $gateway = $this->get('tekstove.gateway.lyric.popularity.history');
+        /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway */
+        $gateway->addOrder('popularity', LyricPopularHistoryGateway::ORDER_DESC);
+        $gateway->addFilter(
+            'date',
+            [
+                'min' => $datetime->format('Y-M-01'),
+                'max' => $datetime->format('Y-M-t'),
+            ],
+            LyricPopularHistoryGateway::FILTER_RANGE
+        );
+        $gateway->setGroups([LyricPopularHistoryGateway::GROUP_LIST]);
+        $gateway->setLimit(100);
+        $data = $gateway->find();
+
+        $monthFullname = $datetime->format('F');
+
+        $nextMonthDatetime = clone $datetime;
+        $nextMonthDatetime->modify('+1 month');
+        
+        $currentMonth = new \DateTime('first day of this month');
+        $currentMonth->setTime(0, 0, 0);
+
+        if ($nextMonthDatetime >= $currentMonth) {
+            $nextMonthLink = null;
+        } else {
+            $nextMonthLink = $this->generateUrl(
+                'tekstove.site.popular.history',
+                [
+                    'year' => $nextMonthDatetime->format('Y'),
+                    'month' => $nextMonthDatetime->format('M'),
+                ]
+            );
+        }
+
+        // do not allow prev month before 1st history record
+        $firtRecord = new \DateTime('2017-02-01 00:00:00');
+        if ($datetime <= $firtRecord) {
+            $prevMonthLink = null;
+        } else {
+            $prevMonthDatetime = clone $datetime;
+            $prevMonthDatetime->modify('-1 month');
+            $prevMonthLink = $this->generateUrl(
+                'tekstove.site.popular.history',
+                [
+                    'year' => $prevMonthDatetime->format('Y'),
+                    'month' => $prevMonthDatetime->format('M'),
+                ]
+            );
+        }
+
+        if ($datetime < $firtRecord && $nextMonthDatetime >= $currentMonth) {
+            $error = $this->createNotFoundException("Нямаме записи за търсеният период :(");
+            throw $error;
+        }
+
+        return [
+            'lyricsHistory' => $data['items'],
+            'monthName' => $monthFullname,
+            'year' => $year,
+
+            'nextMonthLink' => $nextMonthLink,
+            'prevMonthLink' => $prevMonthLink,
         ];
     }
 }

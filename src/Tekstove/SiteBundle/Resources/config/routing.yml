@@ -67,6 +67,11 @@ tekstove_api_lyric_top100:
     path: "/lyrics/top100/{sort}"
     defaults: { _controller: SiteBundle:Lyric:top }
     methods: [GET]
+    
+tekstove.site.popular.history:
+    path: "/lyrics/popular/{year}/{month}"
+    defaults: { _controller: SiteBundle:Lyric:popularHistory }
+    methods: [GET]
 
 lyricAdd:
     path: /lyric/add
