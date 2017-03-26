@@ -414,7 +414,6 @@ class LyricController extends Controller
 
         if ($nextMonthDatetime >= $currentMonth) {
             $nextMonthLink = null;
-            $monthFullname = null;
         } else {
             $nextMonthLink = $this->generateUrl(
                 'tekstove.site.popular.history',
