@@ -200,7 +200,6 @@
 
 <script>
     var message_id_start = 0;
-    var message_last_edit_timestamp = 0;
     var chat_update_interval = 5000;
 
     var apiKey= null;
@@ -306,8 +305,8 @@
                 html += _.escape(self.username);
                 html += '</a>';
             } else {
-                html += _.escape(self.username);
-            }
+                    html += _.escape(self.username);
+                }
             
             return html;
         };
@@ -455,7 +454,27 @@
             }
         });
     }
-    
+
+    function generateAvatar(userId, canvas)
+    {
+        var ctx = canvas.getContext('2d');
+
+        var redColor = (userId.toString().charCodeAt(0) * userId.toString().charCodeAt(1) % 16).toString(16);
+        var greenColor = (userId.toString().charCodeAt(2) * userId.toString().charCodeAt(3) % 16).toString(16);
+        var blueColor = (userId.toString().charCodeAt(4) * userId.toString().charCodeAt(5) % 16).toString(16);
+
+        ctx.fillStyle = '#' + redColor + greenColor + blueColor;
+
+
+        console.log(userId);
+        console.log('' + redColor + greenColor + blueColor);
+
+
+        ctx.fillStyle=
+        ctx.fillRect(0, 0, 60, 60);
+        
+    }
+
     function chatGetOnlineList() {
         $.ajax({
             type: "GET",
@@ -470,10 +489,16 @@
                 var html = '';
                 $.each(data.items, function(jsonKey, userData) {
                     userOnlineCount++;
-                    var user = new User(
+
+                    if (userData.id) {
+                        var user = new User(
                         userData
                     );
-                    html += user.getProfileLinkHtml() + '<br/>';
+                    html += user.getProfileLinkHtml();
+                    } else {
+                        html += 'Гост ' + _.escape(userData.username);
+                    }
+                    html += '<br/>';
                 });
 
                 if ($('#online_list:visible').length > 0) {
@@ -503,10 +528,6 @@
             message_id_start = data.id;
         }
 
-        if (message_last_edit_timestamp < data.editTimestamp) {
-            message_last_edit_timestamp = data.editTimestamp;
-        }
-
         var messageHtml = data.messageHtml;
                                                             
         var html_data = '<div id="message_' + data.id + '" class="message">';
@@ -514,7 +535,18 @@
         html_data += '<div class="message_avatar">';
         if (user.avatar) {
             html_data += '<img src="' + _.escape(user.avatar) + '" />';
+        } else if (!data.user) {
+           var canvasId = _.uniqueId('avatar_canvas');
+           html_data += '<canvas id="' + canvasId + '" width="60" height="60">';
+           setTimeout(
+                function() {
+                    var canvas = document.getElementById(canvasId);
+                    generateAvatar(data.username, canvas);
+                },
+                1000
+            );
         }
+
         html_data += '</div>';
 
         html_data += '<div style="display: table-cell;vertical-align: top;">';

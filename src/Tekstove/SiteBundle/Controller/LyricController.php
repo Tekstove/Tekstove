@@ -71,6 +71,12 @@ class LyricController extends Controller
      */
     public function addAction(Request $request)
     {
+        $ua = $request->headers->get('user-agent', '');
+
+        dump($request->headers);
+        dump($ua);
+        die;
+
         $lyric = new Lyric();
         
         $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
