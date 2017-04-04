@@ -5,8 +5,5 @@ services:
     image: tekstoveinfo/site.web:latest
     volumes:
       - ../:/var/www/tekstove-site
-    ports:
-    - "82:80"
-
     external_links:
         - docker_tekstove.api-web_1
