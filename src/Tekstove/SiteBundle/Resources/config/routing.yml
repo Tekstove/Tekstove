@@ -17,6 +17,7 @@ login:
     path: /login
     defaults: { _controller: SiteBundle:User:login }
     methods: [GET, POST]
+    schemes:  [https]
 
 loginCheck:
     path: /loginCheck
@@ -30,6 +31,7 @@ register:
     path: /user/register
     defaults: { _controller: SiteBundle:User:register }
     methods: [GET, POST]
+    schemes:  [https]
 
 userView:
     path: /user/view/{id}
