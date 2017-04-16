@@ -47,8 +47,8 @@
 
             ga('create', 'UA-4588309-1', 'auto');
             ga('send', 'pageview', {
-                metric0: {% if (is_granted('IS_AUTHENTICATED_FULLY')) %} 1 {% else %} 0 {% endif %},
-                metric1: {% if ads is not defined %} -1 {% else %} {{ ads|e('js') }} {% endif %}
+                dimension1: {% if (is_granted('IS_AUTHENTICATED_FULLY')) %} 'logged' {% else %} 'anon.' {% endif %},
+                dimension2: {% if ads is not defined %} 'n/a' {% else %} {{ ads|e('js') }} {% endif %}
             });
         </script>
 
