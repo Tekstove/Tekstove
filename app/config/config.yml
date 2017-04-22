@@ -42,6 +42,7 @@ twig:
     form_themes:
         - "@TekstoveSite/Form/Type/Artists.html.twig"
         - "bootstrap_3_layout.html.twig"
+    autoescape: name
 
 # Doctrine Configuration
 doctrine:

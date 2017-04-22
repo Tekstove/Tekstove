@@ -33,7 +33,8 @@
 
         "knplabs/knp-paginator-bundle": "2.*",
         "guzzlehttp/guzzle": "6.*",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "potaka/bbcode": "^0.1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~5.6",
