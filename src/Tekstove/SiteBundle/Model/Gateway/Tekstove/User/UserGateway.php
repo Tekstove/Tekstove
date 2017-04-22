@@ -120,4 +120,65 @@ class UserGateway extends AbstractGateway
             }
         }
     }
+
+    public function passwordResetRequest($email, $link)
+    {
+        $client = $this->getClient();
+        try {
+            $response = $client->post(
+                $this->getRelativeUrl() . 'password-reset/request',
+                [
+                    'body' => json_encode(
+                        [
+                            'user' => [
+                                'mail' => $email,
+                            ],
+                            'link' => $link,
+                        ]
+                    )
+                ]
+            );
+
+            $responseData = $this->decodeBody($response->getBody());
+            return $responseData;
+        } catch (RequestException $e) {
+            if ($e->getCode() != 400) {
+                throw $e;
+            }
+
+            $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
+            $errors = json_decode($e->getBody(), true);
+            $validationException->setValidationErrors($errors);
+            throw $validationException;
+        }
+    }
+
+    public function passwordResetConfirm($key)
+    {
+        $client = $this->getClient();
+        try {
+            $response = $client->post(
+                $this->getRelativeUrl() . 'password-reset/confirm',
+                [
+                    'body' => json_encode(
+                        [
+                            'key' => $key,
+                        ]
+                    )
+                ]
+            );
+
+            $responseData = $this->decodeBody($response->getBody());
+            return $responseData;
+        } catch (RequestException $e) {
+            if ($e->getCode() != 400) {
+                throw $e;
+            }
+
+            $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
+            $errors = json_decode($e->getBody(), true);
+            $validationException->setValidationErrors($errors);
+            throw $validationException;
+        }
+    }
 }
