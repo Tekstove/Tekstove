@@ -105,6 +105,77 @@ class UserController extends Controller
         ];
     }
 
+    public function passwordResetRequestAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add(
+            'mail',
+            EmailType::class,
+            [
+                'attr' => [
+                    "autocomplete" => "off",
+                ],
+            ]
+        );
+        $formBuilder->add(
+            'submit',
+            SubmitType::class,
+            [
+                'label' => 'Искам нова парола',
+            ]
+        );
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+        $message = '';
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $gateway = $this->get('tekstove.gateway.user');
+            /* @var $userGateway UserGateway */
+
+            try {
+                $gateway->passwordResetRequest(
+                    $form->get('mail')->getData(),
+                    $this->generateUrl(
+                        'tekstove_site.user.password_reset.confirm',
+                        ['key' => '::key::'],
+                        \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL
+                    )
+                );
+
+                $message = 'Изпратихме ти писмо за потвърждение, провери пощата моля!';
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
+            'message' => $message,
+        ];
+    }
+
+    public function passwordResetConfirmAction($key)
+    {
+        $gateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway UserGateway */
+
+        $errors = [];
+
+        try {
+            $gateway->passwordResetConfirm($key);
+        } catch (TekstoveValidationException $e) {
+            foreach ($e->getValidationErrors() as $error) {
+                $errors[] = $error['message'];
+            }
+        }
+
+        return [
+            'errors' => $errors,
+        ];
+    }
+
     public function editAction(Request $request, $id)
     {
         $userGateway = $this->get('tekstove.gateway.user');

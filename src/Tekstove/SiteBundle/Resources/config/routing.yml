@@ -33,6 +33,18 @@ register:
     methods: [GET, POST]
     schemes:  [https]
 
+tekstove_site.user.password_reset.request:
+    path: /user/password-reset/request
+    defaults: { _controller: SiteBundle:User:passwordResetRequest}
+    methods: [GET, POST]
+    schemes: [https]
+    
+tekstove_site.user.password_reset.confirm:
+    path: /user/password-reset/confirm/{key}
+    defaults: { _controller: SiteBundle:User:passwordResetConfirm}
+    methods: [GET, POST]
+    schemes: [https]
+
 userView:
     path: /user/view/{id}
     defaults: { _controller: SiteBundle:User:view }
