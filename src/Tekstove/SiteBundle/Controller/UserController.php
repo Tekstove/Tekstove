@@ -108,7 +108,15 @@ class UserController extends Controller
     public function passwordResetRequestAction(Request $request)
     {
         $formBuilder = $this->createFormBuilder();
-        $formBuilder->add('mail', EmailType::class);
+        $formBuilder->add(
+            'mail',
+            EmailType::class,
+            [
+                'attr' => [
+                    "autocomplete" => "off",
+                ],
+            ]
+        );
         $formBuilder->add(
             'submit',
             SubmitType::class,
