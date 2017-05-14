@@ -42,16 +42,22 @@
     </table>
 
     <nav>
+        <ul class="pagination">
         {% if prevMonthLink %}
-            <a href="{{ prevMonthLink }}">
-                Предишен месец
-            </a>
+            <li>
+                <a href="{{ prevMonthLink }}">
+                    « Предишен месец
+                </a>
+            </li>
         {% endif %}
 
         {% if nextMonthLink %}
-            <a href="{{ nextMonthLink }}">
-                Следващ месец
-            </a>
+            <li>
+                <a href="{{ nextMonthLink }}">
+                    Следващ месец »
+                </a>
+            </li>
         {% endif %}
+        </ul>
     </nav>
 {% endblock %}
