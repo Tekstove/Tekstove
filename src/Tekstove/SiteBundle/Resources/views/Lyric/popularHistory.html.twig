@@ -43,21 +43,25 @@
 
     <nav>
         <ul class="pagination">
-        {% if prevMonthLink %}
-            <li>
+            <li
+                {% if prevMonthLink is empty %}
+                    class="disabled"
+                {% endif %}
+            >
                 <a href="{{ prevMonthLink }}">
                     « Предишен месец
                 </a>
             </li>
-        {% endif %}
 
-        {% if nextMonthLink %}
-            <li>
+            <li
+                {% if nextMonthLink is empty %}
+                    class="disabled"
+                {% endif %}
+            >
                 <a href="{{ nextMonthLink }}">
                     Следващ месец »
                 </a>
             </li>
-        {% endif %}
         </ul>
     </nav>
 {% endblock %}
