@@ -1,6 +1,20 @@
 <?php
 
-return array(
+return [
+    // months
+    'January' => 'Януари',
+    'February' => 'Февруари',
+    'March' => 'Март',
+    'April' => 'Април',
+    'May' => 'Май',
+    'June' => 'Юни',
+    'July' => 'Юли',
+    'August' => 'Август',
+    'September' => 'Септември',
+    'October' => 'Октомври',
+    'November' => 'Ноември',
+    'December' => 'Декември',
+
     'Add artist' => 'Добави изпълнител',
     'Artist' => 'Изпълнител',
     'Artists' => 'Изпълнители',
@@ -9,7 +23,6 @@ return array(
     'Choose artist' => 'Избер изпълнител',
     'delete' => 'изтрии',
     'Download link' => 'Линк за сваляне',
-    'February' => 'Февруари',
     'This value is already stored in your database' => 'Вече имаме запис с такава стойност',
     'This value is not a valid captcha.' => 'Невалиден код срещу ботове',
     'Translation' => 'Превод',
@@ -24,4 +37,4 @@ return array(
     'Save' => 'Запази',
     'Search' => 'Търси',
     'Send' => 'Изпрати',
-);
+];
