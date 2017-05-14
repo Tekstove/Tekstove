@@ -206,6 +206,10 @@ class LyricController extends Controller
             \Symfony\Component\Form\Extension\Core\Type\SearchType::class,
             [
                 'required' => false,
+                'attr' => [
+                    'maxlength' => 50,
+                    'autocomplete' => 'off',
+                ],
             ]
         );
         
@@ -255,6 +259,10 @@ class LyricController extends Controller
             \Symfony\Component\Form\Extension\Core\Type\SearchType::class,
             [
                 'required' => false,
+                'attr' => [
+                    'maxlength' => 50,
+                    'autocomplete' => 'off',
+                ],
             ]
         );
         
