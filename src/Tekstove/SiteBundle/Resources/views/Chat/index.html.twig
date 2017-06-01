@@ -204,6 +204,11 @@
 
     var apiKey= null;
 
+    var currentUser = {
+        canCensore: false
+    };
+
+
     {% if app.user %}
         apiKey = '{{ app.user.apiKey }}';
         $.ajaxSetup({
@@ -211,6 +216,8 @@
                 'tekstove-apikey': apiKey
             }
         });
+
+        currentUser.canCensore = true;
     {% endif %}
 
     // this code is BAD and must be rewritten!
@@ -535,7 +542,11 @@
             url: "/proxy/api/chat/online"
         });
     }
-                        
+
+    function censore(messageId) {
+        alert("@TODO censore " + messageId);
+    }
+
     function chat_parse(data) {
         var user = new User(
             data.user
@@ -584,6 +595,13 @@
             html_data += ', ip: ' + _.escape(data.ip);
         }
         html_data += '</span>';
+
+        if (currentUser.canCensore) {
+            html_data += '<span>';
+            html_data += '<button onclick="censore(' + data.id + ')">censore</button>';
+            html_data += '</span>';
+        }
+
         html_data += '</div>';
         html_data += '<div class="message_text">' + messageHtml + '</div>';
         html_data += '</div>';
