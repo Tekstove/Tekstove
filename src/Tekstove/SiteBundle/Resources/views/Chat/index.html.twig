@@ -204,11 +204,6 @@
 
     var apiKey= null;
 
-    var currentUser = {
-        canCensore: false
-    };
-
-
     {% if app.user %}
         apiKey = '{{ app.user.apiKey }}';
         $.ajaxSetup({
@@ -216,8 +211,6 @@
                 'tekstove-apikey': apiKey
             }
         });
-
-        currentUser.canCensore = true;
     {% endif %}
 
     // this code is BAD and must be rewritten!
@@ -346,21 +339,18 @@
 
     function censore(messageId) {
         $.ajax({
-        type: "POST",
-        url: '/_chat/_ajax/censore.php',
-        data: ({
-            id : messageId
-        }),
+            type: "POST",
+            url: '/proxy/api/chat/messages/censore',
+            data: ({
+                id : messageId
+            }),
 
-        success: function(data) {
-                if (data.status === 1) {
-                    alert('ok');
-                } else {
-                    alert('error');
-                }
+            success: function(data) {},
+            error: function(jqXHR, textStatus, error) {
+                alert(error);
             }
         });
-    }
+    };
 
 
                 
@@ -543,19 +533,20 @@
         });
     }
 
-    function censore(messageId) {
-        alert("@TODO censore " + messageId);
-    }
-
     function chat_parse(data) {
-        var user = new User(
-            data.user
-        );
-
         // update start id
         if (data.id > get_message_id_start() ) {
             message_id_start = data.id;
         }
+
+        if (data.idOverride) {
+            $('#message_' + data.idOverride + ' .message_text').html(data.messageHtml);
+            return true;
+        }
+
+        var user = new User(
+            data.user
+        );
 
         var messageHtml = data.messageHtml;
                                                             
@@ -596,7 +587,7 @@
         }
         html_data += '</span>';
 
-        if (currentUser.canCensore) {
+        if (data._meta.censore) {
             html_data += '<span>';
             html_data += '<button onclick="censore(' + data.id + ')">censore</button>';
             html_data += '</span>';
