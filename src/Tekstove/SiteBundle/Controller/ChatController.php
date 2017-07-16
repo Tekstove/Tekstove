@@ -12,6 +12,8 @@ class ChatController extends Controller
      */
     public function indexAction()
     {
-        return [];
+        return [
+            'apiUrl' => $this->getParameter('tekstove.api_url'),
+        ];
     }
 }

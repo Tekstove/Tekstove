@@ -340,7 +340,7 @@
     function censore(messageId) {
         $.ajax({
             type: "POST",
-            url: '/proxy/api/chat/messages/censore',
+            url: '{{ apiUrl|e('js') }}chat/messages/censore',
             data: ({
                 id : messageId
             }),
@@ -383,7 +383,7 @@
         input_text = jQuery.trim(input_text);
         $.ajax({
             type: "POST",
-            url: "/proxy/api/chat/messages?tekstove-apikey=" + (apiKey ? apiKey : ''),
+            url: "{{ apiUrl|e('js') }}chat/messages?tekstove-apikey=" + (apiKey ? apiKey : ''),
             dataType: 'json',
 
             // see http://stackoverflow.com/questions/17532018/submitting-jquery-ajax-data-with-string-containing-it-changes-value-to-jq
@@ -418,7 +418,7 @@
     function chat_update() {
         $.ajax({
             type: "GET",
-            url: "/proxy/api/chat/messages",
+            url: "{{ apiUrl|e('js') }}chat/messages",
             data: ({
                 groups: [
                     'Details'
@@ -490,7 +490,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/proxy/api/chat/online",
+            url: "{{ apiUrl|e('js') }}chat/online",
             data: {
                 groups: ['List']
             },
@@ -529,7 +529,7 @@
          $.ajax({
             type: "POST",
             dataType: 'json',
-            url: "/proxy/api/chat/online"
+            url: "{{ apiUrl|e('js') }}chat/online"
         });
     }
 
