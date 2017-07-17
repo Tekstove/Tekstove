@@ -1,7 +1,7 @@
 {% block artists_widget %}
     {% spaceless %}
         {{ block('collection_widget') }}
-        
+
         <button class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
         <script>
             var selectSmartOptions = function (selector) {
@@ -88,7 +88,7 @@
                 
                 
                 var options = new selectSmartOptions(element);
-                options.setUrl('/proxy/api/artists/?groups%5B0%5D=Acl&groups%5B1%5D=List');
+                options.setUrl('{{ tekstove_api_url }}artists/?groups%5B0%5D=Acl&groups%5B1%5D=List');
             
                new SelectSmartRemote(options);
             };
