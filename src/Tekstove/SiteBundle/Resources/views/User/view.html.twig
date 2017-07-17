@@ -61,7 +61,7 @@
                 ]
             };
             $.ajax({
-                url: "/proxy/api/lyrics/",
+                url: "{{ tekstove_api_url }}lyrics/",
                 data: options
             }).done(function(data) {
                 var items = data.items;

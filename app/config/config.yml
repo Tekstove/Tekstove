@@ -43,6 +43,8 @@ twig:
     form_themes:
         - "@TekstoveSite/Form/Type/Artists.html.twig"
         - "bootstrap_3_layout.html.twig"
+    globals:
+        tekstove_api_url: '%tekstove.api_url%'
 
 # Doctrine Configuration
 doctrine:
