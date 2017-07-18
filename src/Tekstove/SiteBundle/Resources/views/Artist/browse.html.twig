@@ -1,6 +1,10 @@
 {% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    {{ artist.name|e }} | изпълнител
+{% endblock %}
+
 {% block content %}
-    
     <h1>
         {{ artist.name }}
     </h1>
