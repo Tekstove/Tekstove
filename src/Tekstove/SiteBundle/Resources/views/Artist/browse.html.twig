@@ -8,10 +8,20 @@
     <h1>
         {{ artist.name }}
     </h1>
-    
+
+    {% if artist.about %}
+        <div class="t-artist-info-legend">
+            Информация:
+        </div>
+
+        <div class="t-artist-info">
+            {{ artist.about|e|nl2br }}
+        </div>
+    {% endif %}
+
     {% if artist.albums %}
         <div class="container t-artist-albums">
-            Албуми
+            <h2>Албуми</h2>
             <div class="clearfix"></div>
             {% for album in artist.albums %}
                 <div class="col-md-3">
@@ -30,7 +40,8 @@
     
     <br/>
     <br/> <br/>
-    
+
+    <h2>Песни</h2>
     {% for lyric in lyrics %}
         <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
         <br/>
