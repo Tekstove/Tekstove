@@ -150,6 +150,15 @@ a.btn-default, a.btn-default:visited, a.btn-default:active {
     max-height: 250px;
 }
 
+.t-artist-info-legend {
+    color: gray;
+    font-style: italic;
+}
+
+.t-artist-info {
+    padding-left: 7px;
+}
+
 .t-index-albums-container {
     border: 1px solid black;
     border-radius: 7px;

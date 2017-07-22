@@ -14,6 +14,7 @@ class Artist
 {
     private $name;
     private $id;
+    private $about;
     
     private $albums;
 
@@ -22,6 +23,7 @@ class Artist
         $fields = [
             'id',
             'name',
+            'about',
         ];
         
         foreach ($fields as $field) {
@@ -66,5 +68,15 @@ class Artist
             throw new Exception("Albums not set");
         }
         return $this->albums;
+    }
+
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    public function setAbout($about)
+    {
+        $this->about = $about;
     }
 }
