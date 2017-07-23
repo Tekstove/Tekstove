@@ -23,6 +23,7 @@ class AlbumController extends Controller
             [
                 AbstractGateway::GROUP_DETAILS,
                 AbstractGateway::GROUP_ACL,
+                \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway::GROUP_DETAILS,
             ]
         );
         $albumData = $albumGateway->get($id);

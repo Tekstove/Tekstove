@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\Album\Album;
  */
 class AlbumGateway extends AbstractGateway
 {
+    const GROUP_DETAILS = 'Album.Details';
+
     protected function getRelativeUrl()
     {
         return '/albums/';
