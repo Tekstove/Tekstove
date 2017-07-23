@@ -5,26 +5,26 @@ namespace Tekstove\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
+use Tekstove\SiteBundle\Model\Artist\Artist;
 
+/**
+ * @Template()
+ */
 class ArtistController extends Controller
 {
-
-    /**
-     * @Template()
-     */
     public function browseAction(Request $request, $id)
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway ArtistGateway */
         $artistGateway->setGroups(
-            [
-                ArtistGateway::GROUP_DETAILS,
-                ArtistGateway::GROUP_ALBUMS,
-            ]
+                [
+                    ArtistGateway::GROUP_DETAILS,
+                    ArtistGateway::GROUP_ALBUMS,
+                    ArtistGateway::GROUP_ACL,
+                ]
         );
         $artistData = $artistGateway->get($id);
         $artist = $artistData['item'];
@@ -40,8 +40,8 @@ class ArtistController extends Controller
             $request->query->getInt('lyricsPage', 1),
             30,
             [
-                'pageParameterName' => 'lyricsPage',
-            ]
+            'pageParameterName' => 'lyricsPage',
+                ]
         );
         return [
             'artist' => $artist,
@@ -67,9 +67,51 @@ class ArtistController extends Controller
             $request->query->getInt('page', 1) /* page number */,
             30 /* limit per page */
         );
-        
+
         return [
             'pagination' => $pagination,
         ];
+    }
+
+    public function editAction($id, Request $request)
+    {
+        $artistGateway = $this->get("tekstove.gateway.artist");
+        /* @var $artistGateway ArtistGateway */
+        $artistGateway->setGroups(
+                [
+                    ArtistGateway::GROUP_DETAILS,
+                    ArtistGateway::GROUP_ACL,
+                ]
+        );
+        $artistData = $artistGateway->get($id);
+        $artist = $artistData['item'];
+
+        // @FIXME use real allowed fields
+        $form = $this->createArtistForm($artist, ['name']);
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    protected function createArtistForm(Artist $artist, $allowedFields)
+    {
+        $form = $this->createForm(
+            \Tekstove\SiteBundle\Form\Type\Artist\ArtistType::class,
+            $artist,
+            [
+                'fields' => $allowedFields
+            ]
+        );
+
+        $form->add(
+            'submit',
+            \Symfony\Component\Form\Extension\Core\Type\SubmitType::class,
+            [
+                'label' => 'Save',
+            ]
+        );
+
+        return $form;
     }
 }

@@ -9,6 +9,10 @@
         {{ artist.name }}
     </h1>
 
+    {% if artist.isEditAllowed %}
+        <a class="btn btn-warning" href="{{ path('artistEdit', {id:artist.id}) }}">Промени</a>
+    {% endif %}
+
     {% if artist.about %}
         <div class="t-artist-info-legend">
             Информация:

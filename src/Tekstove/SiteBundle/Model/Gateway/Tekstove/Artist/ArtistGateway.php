@@ -12,6 +12,7 @@ use Tekstove\SiteBundle\Model\Artist\Artist;
 class ArtistGateway extends AbstractGateway
 {
     const GROUP_ALBUMS = 'Albums';
+    const GROUP_ACL = 'Artist.Acl';
     
     protected function getRelativeUrl()
     {

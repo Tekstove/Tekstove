@@ -18,12 +18,15 @@ class Artist
     
     private $albums;
 
+    private $acl;
+
     public function __construct($data = [])
     {
         $fields = [
             'id',
             'name',
             'about',
+            'acl',
         ];
         
         foreach ($fields as $field) {
@@ -78,5 +81,24 @@ class Artist
     public function setAbout($about)
     {
         $this->about = $about;
+    }
+
+    public function getAcl()
+    {
+        return $this->acl;
+    }
+
+    public function setAcl(array $acl)
+    {
+        $this->acl = $acl;
+    }
+
+    public function isEditAllowed()
+    {
+        if (empty($this->acl)) {
+            return false;
+        }
+
+        return true;
     }
 }

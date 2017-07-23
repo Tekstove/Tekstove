@@ -116,6 +116,11 @@ artistList:
     defaults: { _controller: SiteBundle:Artist:list }
     methods: [GET]
     
+artistEdit:
+    path: /artist/edit/{id}
+    defaults: { _controller: SiteBundle:Artist:edit }
+    methods: [GET, POST]
+    
 tekstove_site_album_view:
     path: /album/view/{id}
     defaults: { _controller: SiteBundle:Album:view }
