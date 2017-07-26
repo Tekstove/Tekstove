@@ -9,6 +9,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Artist\Artist;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
  * @Template()
@@ -77,6 +78,7 @@ class ArtistController extends Controller
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway ArtistGateway */
+        
         $artistGateway->setGroups(
                 [
                     ArtistGateway::GROUP_DETAILS,
@@ -88,6 +90,18 @@ class ArtistController extends Controller
 
         // @FIXME use real allowed fields
         $form = $this->createArtistForm($artist, ['name']);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $artistGateway->save($artist);
+                return $this->redirectToRoute('artistView', ['id' => $artist->getId()]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
 
         return [
             'form' => $form->createView(),
@@ -109,6 +123,9 @@ class ArtistController extends Controller
             \Symfony\Component\Form\Extension\Core\Type\SubmitType::class,
             [
                 'label' => 'Save',
+                'attr' => [
+                    'class' => 'btn-success',
+                ],
             ]
         );
 

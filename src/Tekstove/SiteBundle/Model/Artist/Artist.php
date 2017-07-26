@@ -12,6 +12,8 @@ use Tekstove\SiteBundle\Model\Artist\Exception\ArtistException as Exception;
  */
 class Artist
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
     private $name;
     private $id;
     private $about;
@@ -62,6 +64,7 @@ class Artist
 
     public function setName($name)
     {
+        $this->changedFields['name'] = 'name';
         $this->name = $name;
     }
     
@@ -80,6 +83,7 @@ class Artist
 
     public function setAbout($about)
     {
+        $this->changedFields['about'] = 'about';
         $this->about = $about;
     }
 
