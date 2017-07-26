@@ -10,6 +10,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Artist\Artist;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 /**
  * @Template()
