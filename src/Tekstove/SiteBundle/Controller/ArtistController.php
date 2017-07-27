@@ -89,15 +89,21 @@ class ArtistController extends Controller
         $artistData = $artistGateway->get($id);
         $artist = $artistData['item'];
 
-        // @FIXME use real allowed fields
-        $form = $this->createArtistForm($artist, ['name']);
+        $credentialsGateway = $this->get('tekstove.gateway.artist.credentials');
+        /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\CredentialsGateway */
+        $credentials = $credentialsGateway->get($artist->getId());
+
+        $form = $this->createArtistForm(
+            $artist,
+            $credentials['item']['fields']
+        );
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $artistGateway->save($artist);
-                return $this->redirectToRoute('artistView', ['id' => $artist->getId()]);
+                return $this->redirectToRoute('artistBrowse', ['id' => $artist->getId()]);
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());

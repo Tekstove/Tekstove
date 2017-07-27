@@ -92,8 +92,15 @@ class GatewayFactory
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway::class
         );
     }
-    
-    public function createLanguageGateway()
+
+    public function createArtistCredentialsGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\CredentialsGateway::class
+        );
+    }
+
+        public function createLanguageGateway()
     {
         return $this->createTekstoveDefaultGateway(
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class

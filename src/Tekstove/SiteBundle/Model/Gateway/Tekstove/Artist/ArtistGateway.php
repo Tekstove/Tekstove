@@ -5,6 +5,7 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Artist\Artist;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
  * @author po_taka <angel.koilov@gmail.com>

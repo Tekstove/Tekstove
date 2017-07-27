@@ -4,6 +4,7 @@ namespace Tekstove\SiteBundle\Form\Type\Artist;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -22,6 +23,10 @@ class ArtistType extends \Symfony\Component\Form\AbstractType
 
         if (in_array('name', $fields)) {
             $builder->add('name', TextType::class);
+        }
+
+        if (in_array('about', $fields)) {
+            $builder->add('about', TextareaType::class);
         }
     }
 
