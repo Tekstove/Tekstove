@@ -22,11 +22,11 @@ class ArtistController extends Controller
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway ArtistGateway */
         $artistGateway->setGroups(
-                [
-                    ArtistGateway::GROUP_DETAILS,
-                    ArtistGateway::GROUP_ALBUMS,
-                    ArtistGateway::GROUP_ACL,
-                ]
+            [
+                ArtistGateway::GROUP_DETAILS,
+                ArtistGateway::GROUP_ALBUMS,
+                ArtistGateway::GROUP_ACL,
+            ]
         );
         $artistData = $artistGateway->get($id);
         $artist = $artistData['item'];
@@ -81,10 +81,10 @@ class ArtistController extends Controller
         /* @var $artistGateway ArtistGateway */
         
         $artistGateway->setGroups(
-                [
-                    ArtistGateway::GROUP_DETAILS,
-                    ArtistGateway::GROUP_ACL,
-                ]
+            [
+                ArtistGateway::GROUP_DETAILS,
+                ArtistGateway::GROUP_ACL,
+            ]
         );
         $artistData = $artistGateway->get($id);
         $artist = $artistData['item'];

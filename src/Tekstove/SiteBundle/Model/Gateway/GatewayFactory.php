@@ -100,7 +100,7 @@ class GatewayFactory
         );
     }
 
-        public function createLanguageGateway()
+    public function createLanguageGateway()
     {
         return $this->createTekstoveDefaultGateway(
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway::class
