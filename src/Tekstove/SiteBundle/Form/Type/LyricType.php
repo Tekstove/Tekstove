@@ -110,11 +110,27 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         }
         
         if (in_array('videoYoutube', $fields)) {
-            $builder->add('videoYoutube', TextType::class, []);
+            $builder->add(
+                'videoYoutube',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => 'https://www.youtube.com/watch?v=lRSKu21CtCk',
+                    ],
+                ]
+            );
         }
         
         if (in_array('videoVbox7', $fields)) {
-            $builder->add('videoVbox7', TextType::class, []);
+            $builder->add(
+                'videoVbox7',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => 'https://www.vbox7.com/play:e2ff8f05',
+                    ],
+                ]
+            );
         }
         
         if (in_array('extraInfo', $fields)) {
