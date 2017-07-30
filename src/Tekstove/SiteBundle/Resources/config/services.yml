@@ -50,6 +50,12 @@ services:
         factory: ["@tekstove.gateway.factory", createArtistGateway]
         shared: false
         
+    tekstove.gateway.artist.credentials:
+        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\CredentialsGateway
+        class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
+        factory: ["@tekstove.gateway.factory", createArtistCredentialsGateway]
+        shared: false
+        
     tekstove.gateway.album:
         class: Tekstove\SiteBundle\Model\Gateway\Album\AlbumGateway
         factory: ["@tekstove.gateway.factory", createAlbumGateway]

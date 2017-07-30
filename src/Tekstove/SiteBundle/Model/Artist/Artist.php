@@ -12,11 +12,15 @@ use Tekstove\SiteBundle\Model\Artist\Exception\ArtistException as Exception;
  */
 class Artist
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
     private $name;
     private $id;
     private $about;
     
     private $albums;
+
+    private $acl;
 
     public function __construct($data = [])
     {
@@ -24,6 +28,7 @@ class Artist
             'id',
             'name',
             'about',
+            'acl',
         ];
         
         foreach ($fields as $field) {
@@ -59,6 +64,7 @@ class Artist
 
     public function setName($name)
     {
+        $this->changedFields['name'] = 'name';
         $this->name = $name;
     }
     
@@ -77,6 +83,26 @@ class Artist
 
     public function setAbout($about)
     {
+        $this->changedFields['about'] = 'about';
         $this->about = $about;
+    }
+
+    public function getAcl()
+    {
+        return $this->acl;
+    }
+
+    public function setAcl(array $acl)
+    {
+        $this->acl = $acl;
+    }
+
+    public function isEditAllowed()
+    {
+        if (empty($this->acl)) {
+            return false;
+        }
+
+        return true;
     }
 }
