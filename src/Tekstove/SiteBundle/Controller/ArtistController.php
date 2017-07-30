@@ -42,8 +42,8 @@ class ArtistController extends Controller
             $request->query->getInt('lyricsPage', 1),
             30,
             [
-            'pageParameterName' => 'lyricsPage',
-                ]
+                'pageParameterName' => 'lyricsPage',
+            ]
         );
         return [
             'artist' => $artist,
