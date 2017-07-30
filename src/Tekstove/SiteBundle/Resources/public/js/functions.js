@@ -464,7 +464,7 @@ function videoMetacatfe(link, autoplay)
 function videoVbox(link, autoplay)
 {
     var html = '<div class="video-wrapper">';
-    html += '<iframe src="//www.vbox7.com/emb/external.php?vid=' + link + '" frameborder="0" allowfullscreen></iframe>';
+    html += '<iframe src="//www.vbox7.com/emb/external.php?vid=' + link + '" title="vbox7 video player" frameborder="0" allowfullscreen></iframe>';
     html += '</div>';
     return html;
 
