@@ -163,6 +163,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 CheckboxType::class,
                 [
                     'mapped' => false,
+                    'label' => 'Delete',
                 ]
             );
         }
