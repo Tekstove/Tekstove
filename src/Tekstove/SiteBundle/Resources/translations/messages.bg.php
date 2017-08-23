@@ -18,6 +18,8 @@ return [
     'Add artist' => 'Добави изпълнител',
     'Artist' => 'Изпълнител',
     'Artists' => 'Изпълнители',
+    'Text' =>'Текст',
+    'Title' => 'Заглавие',
     'Bad credentials.' => 'Невалидни данни за вход.',
     'Bad credentials' => 'Невалидни данни за вход',
     'Choose artist' => 'Избер изпълнител',
@@ -34,7 +36,17 @@ return [
     'Mail' => 'Поща',
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
+    'Extra info' => "Допълнителна информация",
+
+    // form common fields
     'Save' => 'Запази',
     'Search' => 'Търси',
     'Send' => 'Изпрати',
+    'Submit' => 'Изпрати',
+
+    // pagination common fields
+    'Next' => 'Следващи',
+    'Previous' => 'Предишни',
+
+    'Languages' => 'Езици',
 ];
