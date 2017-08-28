@@ -2,7 +2,7 @@
     {% spaceless %}
         {{ block('collection_widget') }}
 
-        <button class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
+        <button type="button" class="btn btn-success" id="addArtist" class="add_tag_link">{{ 'Add artist'|trans }}</button>
         <script>
             var selectSmartOptions = function (selector) {
                 // @TODO check if element is only 1
@@ -80,7 +80,7 @@
             
             
             function artistSelect(element) {
-                var $deleteElement = jQuery('<button class="btn btn-danger">{{ 'delete'|trans }}</button>');
+                var $deleteElement = jQuery('<button type="button" class="btn btn-danger">{{ 'Delete'|trans }}</button>');
                 $deleteElement.click(function() {
                     jQuery(this).parents('.form-group:first').remove();
                 });
