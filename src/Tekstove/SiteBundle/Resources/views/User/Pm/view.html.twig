@@ -26,7 +26,7 @@
 
     {% for previousPm in pmHistory %}
         <div>
-            заглавие: <b>{{ previousPm.title|e }}</b>
+            заглавие: <b>{{ previousPm.title|e }}</b>, от {{ previousPm.userFrom.username }}
             <br/>
             {{ previousPm.text|e|nl2br }}
         </div>

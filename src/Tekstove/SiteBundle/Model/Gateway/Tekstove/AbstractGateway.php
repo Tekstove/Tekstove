@@ -7,8 +7,6 @@ use Tekstove\SiteBundle\Model\Gateway\GatewayInterface;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\ClientInterface;
 
 /**
- * Description of Abstractgateway
- *
  * @author po_taka <angel.koilov@gmail.com>
  */
 abstract class AbstractGateway implements GatewayInterface
@@ -17,6 +15,8 @@ abstract class AbstractGateway implements GatewayInterface
     const FILTER_IN = 'in';
     const FILTER_LIKE = 'like';
     const FILTER_RANGE = 'range';
+    const FILER_AND = 'and';
+    const FILER_OR = 'or';
     
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
@@ -88,9 +88,18 @@ abstract class AbstractGateway implements GatewayInterface
             'operator' => $operator,
         ];
     }
-    
+
+    /**
+     * @param CompositeFilter $filter
+     */
+    public function addCompositeFilter(CompositeFilter $filter)
+    {
+        $this->filters[] = $filter->toArray();
+    }
+
     /**
      * Add param in client request
+     *
      * @param string $param
      * @param string $value
      */

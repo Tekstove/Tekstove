@@ -28,6 +28,7 @@ class PmController extends Controller
     {
         $pmGateway = $this->get('tekstove.gateway.user.pm');
         /* @var $pmGateway PmGateway */
+        $pmGateway->addFilter('userTo', $this->getUser()->getId());
         
         $pmGateway->setGroups(['List']);
         $paginator = $this->get('knp_paginator');
@@ -57,7 +58,7 @@ class PmController extends Controller
         $pmData = $pmGateway->get($id);
         $pm = $pmData['item'];
         /* @var $pm \Tekstove\SiteBundle\Model\User\Pm */
-        
+
         // mark pm as read
         try {
             if (!$pm->getRead()) {
@@ -74,8 +75,21 @@ class PmController extends Controller
         $pmHistoryGateway = $this->get('tekstove.gateway.user.pm');
         /* @var $pmHistoryGateway PmGateway */
         $pmHistoryGateway->setGroups([PmGateway::GROUP_DETAILS]);
-        $pmHistoryGateway->addFilter('userTo', $this->getUser()->getId());
-        $pmHistoryGateway->addFilter('userFrom', $pm->getUserFrom()->getId());
+
+        $compositeFilter = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\CompositeFilter(PmGateway::FILER_OR);
+
+        $compositeFilterFrom = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\CompositeFilter(PmGateway::FILER_AND);
+        $compositeFilterFrom->addFilter('userTo', $this->getUser()->getId());
+        $compositeFilterFrom->addFilter('userFrom', $pm->getUserFrom()->getId());
+
+        $compositeFilterTo = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\CompositeFilter(PmGateway::FILER_AND);
+        $compositeFilterTo->addFilter('userTo', $pm->getUserFrom()->getId());
+        $compositeFilterTo->addFilter('userFrom', $this->getUser()->getId());
+
+        $compositeFilter->addCompositeFilter($compositeFilterFrom);
+        $compositeFilter->addCompositeFilter($compositeFilterTo);
+
+        $pmHistoryGateway->addCompositeFilter($compositeFilter);
         // I'm not sure if there should be filter to exclude current PM
         $pmHistoryGateway->addOrder('id', PmGateway::ORDER_DESC);
         $pmHistoryData = $pmHistoryGateway->find();
