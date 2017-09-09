@@ -53,7 +53,7 @@ class CompositeFilter
     /**
      * @return array
      */
-    public function toArray() : Array
+    public function toArray() : array
     {
         $filters = $this->filters;
         foreach ($this->compositeFilters as $filter) {
