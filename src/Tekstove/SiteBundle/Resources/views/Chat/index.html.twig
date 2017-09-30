@@ -322,20 +322,30 @@
     }
 
     function isBanAllowed(message) {
-        return false;
+        return message._meta.ban;
     }
 
     function getBanLinkHtml(message) {
-        return '';
+        if (!isBanAllowed(message)) {
+            return '';
+        }
+
+        return '<button onclick="ban(' + message.id + ');">ban</button>';
     }
 
-    function isCensoreAllowed(message) {
-        return false;
-    }
-
-    function getCensoreHtml(message) {
-        return '';
-    }
+    function ban(messageId) {
+        $.ajax({
+            type: "POST",
+            url: '{{ apiUrl|e('js') }}chat/messages/ban',
+            data: ({
+                id : messageId
+            }),
+            success: function(data) {},
+            error: function(jqXHR, textStatus, error) {
+                alert(error);
+            }
+        });
+    };
 
     function censore(messageId) {
         $.ajax({
@@ -351,12 +361,6 @@
             }
         });
     };
-
-
-                
-    function ban_minutes_max() {
-        return 0;
-    }
 
     $('#chat_text').keyup(function(e) {
         if ($('#chat_option_enterSend').is(":checked") === false) {
@@ -580,8 +584,6 @@
 
         html_data += ' <span class="message_date">#';
         html_data += data.id;
-        html_data += getBanLinkHtml(data);
-        html_data += getCensoreHtml(data);
         if (data.ip) {
             html_data += ', ip: ' + _.escape(data.ip);
         }
@@ -592,6 +594,8 @@
             html_data += '<button onclick="censore(' + data.id + ')">censore</button>';
             html_data += '</span>';
         }
+        
+        html_data += getBanLinkHtml(data);
 
         html_data += '</div>';
         html_data += '<div class="message_text">' + messageHtml + '</div>';
