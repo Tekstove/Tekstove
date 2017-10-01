@@ -334,14 +334,32 @@
     }
 
     function ban(messageId) {
+
+        var minutes = prompt("Минути", 2);
+
         $.ajax({
             type: "POST",
             url: '{{ apiUrl|e('js') }}chat/messages/ban',
             data: ({
-                id : messageId
+                id : messageId,
+                minutes: minutes
             }),
             success: function(data) {},
             error: function(jqXHR, textStatus, error) {
+                if (jqXHR.status === 400) {
+                    var responseJson = jqXHR.responseJSON;
+                    var firstError = responseJson[0];
+                    switch (firstError.element) {
+                        case 'maxMinutes':
+                            alert('полето "maxMinutes": ' + firstError.message);
+                            break;
+
+                        default:
+                            alert(firstError.element + ' ' + firstError.message);
+                            break;
+                    }
+                    return;
+                };
                 alert(error);
             }
         });
