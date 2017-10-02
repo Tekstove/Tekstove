@@ -59,10 +59,14 @@ class LyricController extends Controller
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
         $userGateway->setGroups([LyricGateway::GROUP_LIST]);
         $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
+
+        $mobileDetector = $this->get('mobile_detect.mobile_detector');
+        /* @var $mobileDetector \Detection\MobileDetect */
         
         return [
             'lyric' => $lyric,
             'ads' => (int)!$lyric->isCensor(),
+            'mobileDetector' => $mobileDetector,
         ];
     }
     
