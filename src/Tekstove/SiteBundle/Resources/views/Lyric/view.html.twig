@@ -113,8 +113,12 @@
             </div>
         </div>
     {% endif %}
-    
-    {% include '@TekstoveSite/Ads/lyric.view.above-text.html.twig' %}
+
+    {% if mobileDetector.isMobile %}
+        {% include '@TekstoveSite/Ads/page.mobile.html.twig' %}
+    {% else %}
+        {% include '@TekstoveSite/Ads/lyric.view.above-text.html.twig' %}
+    {% endif %}
     
     <br/>
     <div class="row">
