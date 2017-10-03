@@ -7,3 +7,4 @@ services:
       - ../:/var/www/tekstove-site
     external_links:
         - docker_tekstove.api-web_1
+    restart: always
