@@ -1,3 +1,5 @@
+/.web-server-pid
+
 /composer.lock
 
 /vendor

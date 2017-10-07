@@ -1,8 +1,7 @@
 services:
     tekstove.provider.user:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiProvider
-        arguments:
-            gateway: "@tekstove.gateway.userProvider"
+        arguments: ["@tekstove.gateway.userProvider"]
             
     tekstove.gateway.factory:
         class: Tekstove\SiteBundle\Model\Gateway\GatewayFactory
