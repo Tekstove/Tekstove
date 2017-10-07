@@ -73,6 +73,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    },
-    "branch-alias": null
+    }
 }
