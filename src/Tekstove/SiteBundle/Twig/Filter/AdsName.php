@@ -17,7 +17,8 @@ class AdsName extends \Twig_Extension
     }
 
 
-    public function getFilters() {
+    public function getFilters()
+    {
         return [
             new \Twig_SimpleFilter(
                 'ad_name',
