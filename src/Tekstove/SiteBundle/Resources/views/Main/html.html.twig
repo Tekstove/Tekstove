@@ -32,6 +32,8 @@
         </title>
 
         <link rel="shortcut icon" href="{{ asset('bundles/site/images/favicon.ico') }}">
+
+        {% include '@TekstoveSite/Ads/page.mobile.html.twig' %}
         {% endblock %}
     </head>
     <body>
@@ -47,7 +49,7 @@
             ga('create', 'UA-4588309-1', 'auto');
             ga('send', 'pageview', {
                 dimension1: {% if (is_granted('IS_AUTHENTICATED_FULLY')) %} 'logged' {% else %} 'anon.' {% endif %},
-                dimension2: {% if ads is not defined %} 'n/a' {% else %} {{ ads|e('js') }} {% endif %}
+                dimension2: '{% if ads is not defined %}n/a{% else %}{{ ads|ad_name|e('js') }}{% endif %}'
             });
         </script>
 
