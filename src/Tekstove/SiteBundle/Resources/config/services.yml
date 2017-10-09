@@ -135,3 +135,13 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    tekstove.site.twig.extension.ads_name:
+        class: Tekstove\SiteBundle\Twig\Filter\AdsName
+        argumetns:
+        public: false
+        arguments: ["@tekstove.site.ads"]
+        tags:
+            - { name: twig.extension }
+
+    tekstove.site.ads:
+        class: Tekstove\SiteBundle\Ads\Ads
