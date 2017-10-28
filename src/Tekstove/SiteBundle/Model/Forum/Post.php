@@ -54,7 +54,8 @@ class Post
         $this->text = $text;
     }
 
-    public function getTextHtml() {
+    public function getTextHtml()
+    {
         return $this->textHtml;
     }
 
