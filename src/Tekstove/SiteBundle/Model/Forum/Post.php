@@ -11,6 +11,7 @@ class Post
 {
     private $id;
     private $text;
+    private $textHtml;
     private $datetime;
     private $topic;
     
@@ -18,7 +19,7 @@ class Post
     
     public function __construct(array $data = [])
     {
-        $allowedSetFields = ['id', 'text'];
+        $allowedSetFields = ['id', 'text', 'textHtml'];
         foreach ($allowedSetFields as $field) {
             if (isset($data[$field])) {
                 $this->{$field} = $data[$field];
@@ -51,6 +52,11 @@ class Post
     public function setText($text)
     {
         $this->text = $text;
+    }
+
+    public function getTextHtml()
+    {
+        return $this->textHtml;
     }
 
     public function getDatetime()
