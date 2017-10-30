@@ -88,7 +88,8 @@ class Topic
         return $this->latestPost;
     }
 
-    public function getPostCount() {
+    public function getPostCount()
+    {
         return $this->postCount;
     }
 }
