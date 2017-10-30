@@ -36,6 +36,7 @@ class TopicController extends Controller
             [
                 TopicGateway::GROUP_LIST,
                 TopicGateway::GROUP_LATEST_POST,
+                TopicGateway::GROUP_POST_COUNT,
                 PostGateway::GROUP_USER,
             ]
         );
@@ -48,10 +49,25 @@ class TopicController extends Controller
             $request->query->getInt('page', 1) /* page number */,
             15 /* limit per page */
         );
-        
+
+        $topicLinks = [];
+        foreach ($topicPagination as $topic) {
+            $lastPage = (int)(
+                $topic->getPostCount() / 15
+            ) + 1;
+            $topicLinks[$topic->getId()] = $this->generateUrl(
+                'tekstove.site.forum.topic.view',
+                [
+                    'id' => $topic->getId(),
+                    'page' => $lastPage,
+                ]
+            );
+        }
+
         return [
             'category' => $category,
             'topicPagination' => $topicPagination,
+            'topicLinks' => $topicLinks,
             'ads' => true,
         ];
     }

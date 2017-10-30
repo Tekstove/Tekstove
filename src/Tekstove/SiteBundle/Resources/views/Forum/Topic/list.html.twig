@@ -24,7 +24,7 @@
 {% for topic in topicPagination %}
         <tr>
             <td class="t-forum-main-td">
-                <a href="{{ path('tekstove.site.forum.topic.view', { id: topic.id }) }}">
+                <a href="{{ attribute(topicLinks, topic.id) }}#post{{ topic.latestPost.id }}">
                     <div class="container-fluid">
                         <b>
                             {{ topic.name }}

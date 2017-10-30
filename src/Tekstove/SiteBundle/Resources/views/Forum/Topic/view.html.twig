@@ -19,8 +19,10 @@
     
     <div class="row">
         {% for post in postPagination %}
-            <div class="col-md-2" style="background-color: #E0E0E0;">
-                # {{ post.id }}
+            <div id="post{{ post.id }}" class="col-md-2" style="background-color: #E0E0E0;">
+                <a href="#post{{ post.id }}">
+                    # {{ post.id }}
+                </a>
             </div>
             
             <div class="col-md-10" style="background-color: #E0E0E0;">
