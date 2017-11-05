@@ -15,6 +15,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
 class TopicGateway extends AbstractGateway
 {
     const GROUP_LATEST_POST = 'LatestPost';
+    const GROUP_POST_COUNT = 'CountPost';
     
     protected function getRelativeUrl()
     {

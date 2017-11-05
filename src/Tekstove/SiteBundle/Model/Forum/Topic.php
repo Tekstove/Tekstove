@@ -18,7 +18,9 @@ class Topic
     private $category;
     
     private $latestPost;
-    
+
+    private $postCount;
+
     public function __construct(array $data = [])
     {
         if (!empty($data)) {
@@ -35,6 +37,10 @@ class Topic
 
             if (!empty($data['latestPost'])) {
                 $this->latestPost = new Post($data['latestPost']);
+            }
+
+            if (isset($data['postCount'])) {
+                $this->postCount = $data['postCount'];
             }
         }
     }
@@ -80,5 +86,10 @@ class Topic
     public function getLatestPost()
     {
         return $this->latestPost;
+    }
+
+    public function getPostCount()
+    {
+        return $this->postCount;
     }
 }
