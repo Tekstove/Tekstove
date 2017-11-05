@@ -52,9 +52,9 @@ class TopicController extends Controller
 
         $topicLinks = [];
         foreach ($topicPagination as $topic) {
-            $lastPage = (int)(
+            $lastPage = ceil(
                 $topic->getPostCount() / 15
-            ) + 1;
+            );
             $topicLinks[$topic->getId()] = $this->generateUrl(
                 'tekstove.site.forum.topic.view',
                 [
