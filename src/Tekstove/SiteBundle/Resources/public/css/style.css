@@ -57,6 +57,55 @@ a.btn-default, a.btn-default:visited, a.btn-default:active {
     }
 }
 
+
+div.t-menu-horizontal > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.t-menu-horizontal-group {
+    float: left;
+    width: 33.3%;
+}
+
+.t-menu-horizontal-group ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float:left;
+}
+
+.t-menu-horizontal-group:last-child ul {
+    float:right;
+}
+
+.t-menu-horizontal-group ul li {
+    padding-left: 5px;
+    float: left;
+}
+
+#t-menu-horizontal-toggle {
+    background-color: #000;
+}
+
+#t-menu-horizontal-toggle button {
+    min-width: 20%;
+    float: right;
+}
+
+@media screen and (min-width: 992px) {
+    #t-menu-horizontal-toggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .t-menu-horizontal {
+        display: none;
+    }
+}
+
 .menu_logo {
     width: 100%;
     height: 100px;

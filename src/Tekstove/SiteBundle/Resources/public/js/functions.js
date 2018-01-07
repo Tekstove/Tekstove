@@ -1,5 +1,10 @@
 jQuery(function () {
     jQuery('.t-selectSmart').select2();
+
+    jQuery('#t-menu-horizontal-toggle').click(function() {
+        var menu = jQuery('.t-menu-horizontal').slideToggle();
+        console.log('debug');
+    });
 });
 
 $.ajaxSetup({
