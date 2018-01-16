@@ -1,11 +1,23 @@
-<div id="t-menu-horizontal-toggle" class="row">
-    <button class="btn btn-default btn-sm">
-        Menu <span class="glyphicon glyphicon-th-list"></span>
-    </button>
+<div  class="row" id="t-horizontal-menu-mobile">
+    <div class="t-menu-horizontal-mobile">
+        <a href="{{ path('index') }}">Начало</a>
+        |
+        <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>
+        |
+        <a href="{{ path("chat") }}">Чат</a>
+        |
+        {% if not app.user %}
+            <a href="{{ path('login') }}">Вход</a>
+        {% endif %}
+        |
+        <div id="t-menu-horizontal-toggle" class="pull-right">
+            Menu <span class="glyphicon glyphicon-th-list"></span>
+        </div>
+    </div>
 </div>
 
 <nav>
-    <div class="row t-menu-horizontal">
+    <div id="t-menu-horizontal" class="row t-menu-horizontal">
         <ul>
             <li class="t-menu-horizontal-group">
                 <ul>

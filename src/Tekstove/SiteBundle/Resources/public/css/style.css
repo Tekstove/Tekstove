@@ -41,52 +41,89 @@ a.btn-default, a.btn-default:visited, a.btn-default:active {
     background: black;
 }
 
+.t-menu-horizontal-mobile {
+    background: black;
+}
+
+.t-menu-horizontal-mobile a, .t-menu-horizontal-mobile a:visited {
+    color: white;
+}
+
 .t-menu-horizontal a, .t-menu-horizontal a:visited {
     color: white;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .t-menu-horizontal > div:last-child {
         text-align: right;
    }
+
+   #t-horizontal-menu-mobile {
+       display: none;
+   }
 }
 
-@media (max-width: 992px) {
+.t-menu-horizontal-group ul {
+    list-style-type: none;
+}
+
+div.t-menu-horizontal > ul {
+    list-style-type: none;
+}
+
+@media (min-width: 767px) {
+    .t-menu-horizontal-group {
+        float: left;
+        width: 30%;
+    }
+
+    .t-menu-horizontal-group ul {
+        margin: 0;
+        padding: 0;
+        float:left;
+    }
+
+    .t-menu-horizontal-group ul li {
+        padding-left: 5px;
+        float: left;
+    }
+
+    div.t-menu-horizontal > ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .t-menu-horizontal-group:last-child ul {
+        float:right;
+    }
+}
+
+@media (max-width: 768px) {
+    .t-menu-horizontal-group {
+        float: left;
+        width: 50%;
+    }
+
+    .t-menu-horizontal-group li {
+        font-size: larger;
+    }
+}
+
+@media (max-width: 767px) {
     .t-menu-horizontal a, .t-menu-horizontal a:visited {
         line-height: 1.6;
     }
 }
 
 
-div.t-menu-horizontal > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
 
-.t-menu-horizontal-group {
-    float: left;
-    width: 33.3%;
-}
 
-.t-menu-horizontal-group ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    float:left;
-}
 
-.t-menu-horizontal-group:last-child ul {
-    float:right;
-}
 
-.t-menu-horizontal-group ul li {
-    padding-left: 5px;
-    float: left;
-}
 
 #t-menu-horizontal-toggle {
     background-color: #000;
+    color: #FFF;
 }
 
 #t-menu-horizontal-toggle button {
@@ -94,14 +131,14 @@ div.t-menu-horizontal > ul {
     float: right;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     #t-menu-horizontal-toggle {
         display: none;
     }
 }
 
-@media screen and (max-width: 991px) {
-    .t-menu-horizontal {
+@media screen and (max-width: 767px) {
+    #t-menu-horizontal {
         display: none;
     }
 }
