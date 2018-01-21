@@ -50,7 +50,6 @@ services:
         shared: false
         
     tekstove.gateway.artist.credentials:
-        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\CredentialsGateway
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
         factory: ["@tekstove.gateway.factory", createArtistCredentialsGateway]
         shared: false
@@ -137,7 +136,6 @@ services:
             - { name: twig.extension }
     tekstove.site.twig.extension.ads_name:
         class: Tekstove\SiteBundle\Twig\Filter\AdsName
-        argumetns:
         public: false
         arguments: ["@tekstove.site.ads"]
         tags:
