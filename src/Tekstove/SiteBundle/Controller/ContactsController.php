@@ -17,9 +17,4 @@ class ContactsController extends Controller
     {
         return [];
     }
-    
-    public function partnersAction()
-    {
-        return [];
-    }
 }
