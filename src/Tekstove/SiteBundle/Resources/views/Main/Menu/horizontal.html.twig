@@ -1,28 +1,65 @@
+<div  class="row" id="t-horizontal-menu-mobile">
+    <div class="t-menu-horizontal-mobile">
+        <a href="{{ path('index') }}">Начало</a>
+        |
+        <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>
+        |
+        <a href="{{ path("chat") }}">Чат</a>
+        |
+        {% if not app.user %}
+            <a href="{{ path('login') }}">Вход</a>
+        {% else %}
+            <a href="{{ path('logout') }}">Изход</a>
+        {% endif %}
+        |
+        <div id="t-menu-horizontal-toggle" class="pull-right">
+            Menu <span class="glyphicon glyphicon-th-list"></span>
+        </div>
+    </div>
+</div>
+
 <nav>
-    <div class="row t-menu-horizontal">
-        <div class="col-md-5">
-            <a href="{{ path('index') }}">Начало</a>&nbsp;
-            {#                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;#}
+    <div id="t-menu-horizontal" class="row t-menu-horizontal">
+        <ul>
+            <li class="t-menu-horizontal-group">
+                <ul>
+                    <li><a href="{{ path('index') }}">Начало</a></li>
+            {#                        <a href="#" rel="search"><del>Разгледай</del></a>&nbsp;
             {#                        <a href="#"><del>Албуми</del></a>&nbsp;#}
-            <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>&nbsp;
-            <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>&nbsp;
-            <a href="{{ path("chat") }}">Чат</a>
-        </div>
+                    <li><a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a></li>
+                    <li><a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a></li>
+                    <li><a href="{{ path("chat") }}">Чат</a></li>
+                </ul>
+            </li>
 
-        <div class="col-md-3">
-            <a href="{{ path('lyricAdd') }}" class="top">Изпрати Tекст</a>&nbsp;
-            {#                        <a href="#"><del>Изпрати Албум</del></a>&nbsp;#}
-        </div>
+            <li class="t-menu-horizontal-group">
+                <ul>
+                    <li><a href="{{ path('lyricAdd') }}" class="top">Изпрати Tекст</a></li>
+                    {#                        <a href="#"><del>Изпрати Албум</del></a>&nbsp;#}
+                </ul>
+            </li>
 
-        <div class="col-md-4">
+            <li class="t-menu-horizontal-group">
+                <ul>
+                    {% if app.user %}
+                        <li><a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a></li>
+                        <li><a href="{{ path('tekstove.site.user.edit', {id: app.user.id}) }}">Потребителски данни</a></li>
+                        <li><a href="{{ path('logout') }}">изход</a></li>
+                    {% else %}
+                        <li><a href="{{ path('login') }}">Вход</a></li>
+                        <li><a href="{{ path('register') }}">Регистрация</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+
             {% if app.user %}
-                <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
-                <a href="{{ path('tekstove.site.user.edit', {id: app.user.id}) }}">Потребителски данни</a>
-                <a href="{{ path('logout') }}">изход</a>
-            {% else %}
-                <a href="{{ path('login') }}">Вход</a>
-                <a href="{{ path('register') }}">Регистрация</a>
+            <li class="t-menu-horizontal-group visible-xs">
+                <ul>
+                    {% include '@TekstoveSite/Main/UserMenu/list.html.twig' %}
+                </ul>
+            </li>
             {% endif %}
-        </div>
+
+        </ul>
     </div>
 </nav>
