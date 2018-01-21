@@ -3,11 +3,6 @@ index:
     defaults: { _controller: SiteBundle:Index:index }
     methods: [GET]
 
-contactsFriends:
-    path: /contacts/partners
-    defaults: { _controller: SiteBundle:Contacts:partners }
-    methods: [GET]
-
 contacts:
     path: /contacts
     defaults: { _controller: SiteBundle:Contacts:contacts }
