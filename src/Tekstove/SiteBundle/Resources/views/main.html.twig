@@ -50,8 +50,10 @@
             <div class="col-md-2">
 
                 {% if app.user %}
-                    <div>
-                        {% include '@TekstoveSite/Main/userMenu.html.twig' %}
+                    <div class="panel panel-default hidden-xs">
+                        <div class="panel-body">
+                            {% include '@TekstoveSite/Main/userMenu.html.twig' %}
+                        </div>
                     </div>
                 {% endif %}
 

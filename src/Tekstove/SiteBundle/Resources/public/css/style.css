@@ -115,15 +115,10 @@ div.t-menu-horizontal > ul {
     }
 }
 
-
-
-
-
-
-
 #t-menu-horizontal-toggle {
     background-color: #000;
     color: #FFF;
+    cursor: pointer;
 }
 
 #t-menu-horizontal-toggle button {

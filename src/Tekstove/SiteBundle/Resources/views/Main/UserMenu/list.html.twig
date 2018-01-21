@@ -1,0 +1,13 @@
+<li>
+    <a href="{{ path('userPmList') }}">
+        {% if app.user.getUnreadPmCount > 0 %}
+            Ново ЛС <span class="badge">{{ app.user.getUnreadPmCount }}</span>
+        {% else %}
+            Лични съобщения
+        {% endif %}
+    </a>
+</li>
+
+<li>
+    <a href="{{ path('userView', {id: app.user.id}) }}">Профил</a>
+</li>
