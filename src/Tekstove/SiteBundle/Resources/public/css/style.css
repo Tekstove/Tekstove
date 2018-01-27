@@ -71,6 +71,11 @@ div.t-menu-horizontal > ul {
     list-style-type: none;
 }
 
+ul.t-menu-list {
+    list-style-type: none;
+    padding: 0;
+}
+
 @media (min-width: 767px) {
     .t-menu-horizontal-group {
         float: left;
