@@ -31,7 +31,7 @@ class CategoryController extends Controller
         $categories = $categoriesData['items'];
         return [
             'categories' => $categories,
-            'ads' => true,
+            'ads' => 1,
         ];
     }
 }
