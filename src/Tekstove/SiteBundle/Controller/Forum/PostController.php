@@ -45,7 +45,7 @@ class PostController extends Controller
         
         return [
             'postPagination' => $postGatewayPagination,
-            'ads' => true,
+            'ads' => 1,
         ];
     }
     

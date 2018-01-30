@@ -63,9 +63,17 @@ class LyricController extends Controller
         $mobileDetector = $this->get('mobile_detect.mobile_detector');
         /* @var $mobileDetector \Detection\MobileDetect */
         
+        if ($this->getUser()) {
+            $ads = \Tekstove\SiteBundle\Ads\Ads::NOT_ALLOWED;
+        } elseif ($lyric->isCensor()) {
+            $ads = \Tekstove\SiteBundle\Ads\Ads::ALLOWED_ONLY_NOT_SAFE;
+        } else {
+            $ads = \Tekstove\SiteBundle\Ads\Ads::ALLOWED;
+        }
+
         return [
             'lyric' => $lyric,
-            'ads' => (int)!$lyric->isCensor(),
+            'ads' => $ads,
             'mobileDetector' => $mobileDetector,
         ];
     }
@@ -383,7 +391,7 @@ class LyricController extends Controller
             'tableSortName' => $viewSortTableRow,
             'lyricGetter' => $viewLyricGetter,
             'h1' => $viewH1,
-            'ads' => true,
+            'ads' => 1,
         ];
     }
 

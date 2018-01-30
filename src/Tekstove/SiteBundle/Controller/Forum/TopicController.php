@@ -68,7 +68,7 @@ class TopicController extends Controller
             'category' => $category,
             'topicPagination' => $topicPagination,
             'topicLinks' => $topicLinks,
-            'ads' => true,
+            'ads' => 1,
         ];
     }
     
@@ -96,7 +96,7 @@ class TopicController extends Controller
         return [
             'topic' => $topic,
             'postPagination' => $postPagination,
-            'ads' => true,
+            'ads' => 1,
         ];
     }
     
