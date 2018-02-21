@@ -1,14 +1,21 @@
-{% if (not is_granted('IS_AUTHENTICATED_FULLY')) and (ads is defined and ads is same as (1)) %}
-    <div class="row" style="max-height: 120px; min-width: 125px;">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- lyric-view-above-text -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-9814286074038098"
-             data-ad-slot="7152947018"
-             data-ad-format="horizontal"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+{% if (not is_granted('IS_AUTHENTICATED_FULLY')) %}
+    {% if (ads is defined and ads is same as (1)) %}
+        <div class="row" style="max-height: 120px; min-width: 125px;">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- lyric-view-above-text -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9814286074038098"
+                 data-ad-slot="7152947018"
+                 data-ad-format="horizontal"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    {% elseif (ads is defined and ads is same as (3)) %}
+        <div class="row">
+            <div class="pull-right">ads</div>
+            <style>#M311862ScriptRootC203164 {min-height: 300px;}</style> <!-- Composite Start --> <div id="M311862ScriptRootC203164"> <div id="M311862PreloadC203164"> Loading... </div> <script> (function(){ var D=new Date(),d=document,b='body',ce='createElement',ac='appendChild',st='style',ds='display',n='none',gi='getElementById'; var i=d[ce]('iframe');i[st][ds]=n;d[gi]("M311862ScriptRootC203164")[ac](i);try{var iw=i.contentWindow.document;iw.open();iw.writeln("<ht"+"ml><bo"+"dy></bo"+"dy></ht"+"ml>");iw.close();var c=iw[b];} catch(e){var iw=d;var c=d[gi]("M311862ScriptRootC203164");}var dv=iw[ce]('div');dv.id="MG_ID";dv[st][ds]=n;dv.innerHTML=203164;c[ac](dv); var s=iw[ce]('script');s.async='async';s.defer='defer';s.charset='utf-8';s.src="//jsc.mgid.com/t/e/tekstove.info.203164.js?t="+D.getYear()+D.getMonth()+D.getDate()+D.getHours();c[ac](s);})(); </script> </div> <!-- Composite End -->
+        </div>
+    {% endif  %}
 {% endif %}
