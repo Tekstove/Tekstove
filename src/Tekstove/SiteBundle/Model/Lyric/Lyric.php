@@ -28,6 +28,7 @@ class Lyric
     private $text;
     private $textBg;
     private $extraInfo;
+    private $extraInfoHtml;
     
     private $sendBy;
     private $sendByUser;
@@ -68,6 +69,7 @@ class Lyric
             'text',
             'textBg',
             'extraInfo',
+            'extraInfoHtml',
             'sendBy',
             'download',
             
@@ -301,11 +303,19 @@ class Lyric
     }
     
     /**
-     * @return string
+     * @return string|null
      */
     public function getExtraInfo()
     {
         return $this->extraInfo;
+    }
+
+    /**
+     *
+     * @return string|null
+     */
+    public function getExtraInfoHtml() {
+        return $this->extraInfoHtml;
     }
 
     /**
