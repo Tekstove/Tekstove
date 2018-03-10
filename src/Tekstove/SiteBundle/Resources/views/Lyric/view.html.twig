@@ -105,11 +105,11 @@
         {% endif %}
     </div>
 
-    {% if lyric.extraInfo is not empty %}
+    {% if lyric.extraInfoHtml is not empty %}
         <div class="panel panel-default">
             <div class="panel-heading">Допълнителна информация</div>
             <div class="panel-body">
-                {{ lyric.extraInfo|e|nl2br }}
+                {{ lyric.extraInfoHtml|raw }}
             </div>
         </div>
     {% endif %}
