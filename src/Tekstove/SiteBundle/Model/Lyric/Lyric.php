@@ -314,7 +314,8 @@ class Lyric
      *
      * @return string|null
      */
-    public function getExtraInfoHtml() {
+    public function getExtraInfoHtml()
+    {
         return $this->extraInfoHtml;
     }
 
