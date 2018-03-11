@@ -20,3 +20,6 @@ rules:
         enabled: true
         max_length: 100
         threshold: 1
+    twig.xss_vulnerability:
+        # bbcode to html is done in api. We have false-positive xss vulnerabilities.
+        enabled: false
