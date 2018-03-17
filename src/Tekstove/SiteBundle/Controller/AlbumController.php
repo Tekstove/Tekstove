@@ -6,6 +6,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
+use Symfony\Component\HttpFoundation\Request;
+
+use Tekstove\SiteBundle\Model\Album\Album;
+use Tekstove\SiteBundle\Form\Type\Album\AlbumType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
+use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 /**
  * Description of AlbumController
@@ -33,5 +40,73 @@ class AlbumController extends Controller
             
             'ads' => true,
         ];
+    }
+
+    public function addAction(Request $request)
+    {
+        $album = new Album();
+
+        $credentialsGateway = $this->get('tekstove.gateway.album.credentials');
+        /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
+        $credentialsData = $credentialsGateway->find();
+        $allowedFields = $credentialsData['item']['fields'];
+
+        // @FIXME remove dumps
+        dump($allowedFields);
+//        die;
+
+        $form = $this->createCreateForm($album, $allowedFields);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $gateway = $this->get('tekstove.gateway.album');
+            /* @var $gateway LyricGateway */
+            try {
+                $album->setName($form->get('name')->getData());
+                $gateway->save($album);
+
+                return $this->redirectToRoute('lyricView', ['id' => $album->getId()]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+        return $this->render(
+            'SiteBundle::Lyric/edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+        private function createBaseForm(Album $album, $allowedFields)
+    {
+        $form = $this->createForm(
+            AlbumType::class,
+            $album,
+            [
+                'fields' => $allowedFields
+            ]
+        );
+
+        return $form;
+    }
+
+    private function createCreateForm(Album $album, $allowedFields)
+    {
+        $form = $this->createBaseForm($album, $allowedFields);
+        $form->add(
+            'submit',
+            SubmitType::class,
+            [
+                'label' => 'Send',
+                'attr' => [
+                    'class' => 'btn-success',
+                ],
+            ]
+        );
+
+        return $form;
     }
 }

@@ -67,6 +67,10 @@ class Album
         return $this->name;
     }
 
+    public function setName($name) {
+        $this->name = $name;
+    }
+
     public function getImage()
     {
         return $this->image;

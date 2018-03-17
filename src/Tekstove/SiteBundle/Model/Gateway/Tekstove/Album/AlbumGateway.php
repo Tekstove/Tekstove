@@ -4,6 +4,8 @@ namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Album;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Album\Album;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
  * Description of AlbumGateway
@@ -38,5 +40,40 @@ class AlbumGateway extends AbstractGateway
         return [
             'item' => $album,
         ];
+    }
+
+    public function save(Album $album)
+    {
+        if ($album->getId()) {
+            // @FIXME
+            throw new \Exception("Not implemented");
+        } else {
+            try {
+                $response = $this->getClient()
+                                    ->post(
+                                        $this->getRelativeUrl(),
+                                        [
+                                            'body' => json_encode(
+                                                [
+                                                    'name' => $album->getName(),
+                                                ]
+                                            ),
+                                        ]
+                                    );
+            } catch (RequestException $e) {
+                if ($e->getCode() != 400) {
+                    throw $e;
+                }
+
+                $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
+                $errors = json_decode($e->getBody(), true);
+                $validationException->setValidationErrors($errors);
+                throw $validationException;
+            }
+            $parsedResponse = json_decode($response->getBody(), true);
+            $album->setId($parsedResponse['item']['id']);
+        }
+
+        return $album;
     }
 }

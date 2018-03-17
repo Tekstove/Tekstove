@@ -130,6 +130,13 @@ class GatewayFactory
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway::class
         );
     }
+
+    public function createAlbumCredentialsGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumCredentialsGateway::class
+        );
+    }
     
     protected function createTekstoveDefaultGateway($gatewayClass)
     {
