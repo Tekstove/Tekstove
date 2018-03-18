@@ -54,9 +54,7 @@ class AlbumGateway extends AbstractGateway
                                         $this->getRelativeUrl(),
                                         [
                                             'body' => json_encode(
-                                                [
-                                                    'name' => $album->getName(),
-                                                ]
+                                                $album->getChangeSet()
                                             ),
                                         ]
                                     );

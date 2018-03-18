@@ -2,6 +2,8 @@
 
 namespace Tekstove\SiteBundle\Model\Album;
 
+use Tekstove\SiteBundle\Model\Artist\Artist;
+
 /**
  * Album
  *
@@ -9,6 +11,8 @@ namespace Tekstove\SiteBundle\Model\Album;
  */
 class Album
 {
+    use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
     private $id;
     private $name;
     private $image;
@@ -62,12 +66,17 @@ class Album
         return $this->id;
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function getName()
     {
         return $this->name;
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
@@ -80,7 +89,13 @@ class Album
     {
         return $this->year;
     }
-    
+
+    public function setYear($year)
+    {
+        $this->changedFields['year'] = 'year';
+        $this->year = $year;
+    }
+
     public function getSendByUser()
     {
         return $this->sendByUser;
@@ -94,6 +109,26 @@ class Album
     public function getArtists()
     {
         return $this->artists;
+    }
+
+    /**
+     * @param Artist $artist
+     */
+    public function addArtist(Artist $artist)
+    {
+        $this->changedFields['artists'] = 'artists';
+        $this->artists[] = $artist;
+    }
+
+    public function removeArtist(Artist $artistToRemove)
+    {
+        $this->changedFields['artists'] = 'artists';
+        foreach ($this->artists as $artistKey => $existingArtist) {
+            if ($existingArtist->getId() == $artistToRemove->getId()) {
+                unset($this->artists[$artistKey]);
+                return true;
+            }
+        }
     }
 
     /**

@@ -39,6 +39,7 @@ return [
     'Extra info' => "Допълнителна информация",
 
     // form common fields
+    'Name' => 'Име',
     'Save' => 'Запази',
     'Search' => 'Търси',
     'Send' => 'Изпрати',

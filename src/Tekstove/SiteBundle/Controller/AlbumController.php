@@ -44,7 +44,11 @@ class AlbumController extends Controller
 
     public function addAction(Request $request)
     {
-        $album = new Album();
+        $album = new Album(
+            [
+                'artists' => [],
+            ]
+        );
 
         $credentialsGateway = $this->get('tekstove.gateway.album.credentials');
         /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
@@ -61,12 +65,10 @@ class AlbumController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tekstove.gateway.album');
-            /* @var $gateway LyricGateway */
+            /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
             try {
-                $album->setName($form->get('name')->getData());
                 $gateway->save($album);
-
-                return $this->redirectToRoute('lyricView', ['id' => $album->getId()]);
+                return $this->redirectToRoute('tekstove_site_album_view', ['id' => $album->getId()]);
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());

@@ -122,6 +122,12 @@ services:
         tags:
             - { name: form.type }
 
+    tekstove.form.album:
+        class: Tekstove\SiteBundle\Form\Type\Album\AlbumType
+        arguments: ['@request_stack', '@tekstove.gateway.artist', '@tekstove.gateway.language']
+        tags:
+            - { name: form.type }
+
     tekstove.site.gateway_pagination:
         class: Tekstove\SiteBundle\Subscriber\TekstoveGatewayPaginationSubscriber
         arguments: ['@request_stack']
