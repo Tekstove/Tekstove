@@ -4,19 +4,11 @@ namespace Tekstove\SiteBundle\Form\Type\Album;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Tekstove\SiteBundle\Form\Field\ArtistsType;
-
 use Symfony\Component\HttpFoundation\RequestStack;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Tekstove\SiteBundle\Form\Type\Artist\ArtistCollectionType;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 
 /**
  * Description of AlbumType
@@ -41,9 +33,6 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
     {
         $fields = $options['fields'];
 
-//        $request = $this->request;
-//        $artistGateway = $this->artistGateway;
-
         if (in_array('name', $fields)) {
             $builder->add('name');
         }
@@ -57,50 +46,16 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
             $request = $this->request;
             $artistGateway = $this->artistGateway;
 
+            $artistCollectionType = new ArtistCollectionType($request, $artistGateway);
+
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($request, $artistGateway) {
-                    $posts = $request->request->all();
-                    $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
-                    $potentialArtistIds = [];
-                    foreach ($it as $key => $v) {
-                        if (is_int($key)) {
-                            $potentialArtistIds[$v] = $v;
-                        }
-                    }
-
-                    $form = $event->getForm();
-                    $album = $event->getData();
-                    foreach ($album->getArtists() as $album) {
-                        $potentialArtistIds[] = $album->getId();
-                    }
-
-                    if (!empty($potentialArtistIds)) {
-                        $artistGateway->addFilter('id', $potentialArtistIds, 'in');
-                    }
-                    $artistGateway->setGroups(['List']);
-                    $artistsData = $artistGateway->find();
-
-                    $form->add(
-                        'artists',
-                        ArtistsType::class,
-                        [
-                            'allow_add' => true,
-                            'allow_delete' => true,
-                            'by_reference' => false,
-                            'entry_type' => ChoiceType::class,
-
-                            'entry_options' => [
-                                'required' => true,
-                                'choice_label' => 'name',
-                                'choice_value' => 'id',
-                                'choices' => $artistsData['items'],
-                                'label' => 'Artist',
-                            ],
-                        ]
-                    );
-                }
+                $artistCollectionType
             );
+        }
+
+        if (in_array('image', $fields)) {
+            $builder->add('image');
         }
     }
 
