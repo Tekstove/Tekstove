@@ -60,7 +60,7 @@ class Album
             }
         }
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -105,7 +105,19 @@ class Album
     {
         return $this->lyrics;
     }
-    
+
+    public function addLyric($lyric)
+    {
+        $this->changedFields['lyrics'] = 'lyrics';
+        $this->lyrics[] = $lyric;
+    }
+
+    public function removeLyric(AlbumLyric $lyric)
+    {
+        $this->changedFields['lyrics'] = 'lyrics';
+        // @FIXME do nothing
+    }
+
     public function getArtists()
     {
         return $this->artists;

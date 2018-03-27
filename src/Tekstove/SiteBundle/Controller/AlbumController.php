@@ -47,6 +47,7 @@ class AlbumController extends Controller
         $album = new Album(
             [
                 'artists' => [],
+                'lyrics' => [],
             ]
         );
 
@@ -56,7 +57,7 @@ class AlbumController extends Controller
         $allowedFields = $credentialsData['item']['fields'];
 
         // @FIXME remove dumps
-        dump($allowedFields);
+//        dump($allowedFields);
 //        die;
 
         $form = $this->createCreateForm($album, $allowedFields);
@@ -75,7 +76,7 @@ class AlbumController extends Controller
             }
         }
         return $this->render(
-            'SiteBundle::Lyric/edit.html.twig', // @FIXME change template!
+            'SiteBundle::Album/edit.html.twig', // @FIXME change template!
             [
                 'form' => $form->createView(),
             ]

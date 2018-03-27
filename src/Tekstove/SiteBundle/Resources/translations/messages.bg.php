@@ -37,6 +37,8 @@ return [
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
     'Extra info' => "Допълнителна информация",
+    'Release date' => 'Дата на издаване',
+    'Image' => 'Картинка',
 
     // form common fields
     'Name' => 'Име',

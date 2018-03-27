@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Tekstove\SiteBundle\Form\Type\Artist\ArtistCollectionType;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * Description of AlbumType
@@ -17,7 +18,14 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
  */
 class AlbumType extends \Symfony\Component\Form\AbstractType
 {
+    /**
+     * @var RequestStack
+     */
     private $request;
+
+    /**
+     * @var ArtistGateway
+     */
     private $artistGateway;
 
     public function __construct(RequestStack $requestStack, ArtistGateway $artistGateway)
@@ -38,7 +46,16 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         }
 
         if (in_array('year', $fields)) {
-            $builder->add('year', IntegerType::class);
+            $builder->add(
+                'year',
+                IntegerType::class,
+                [
+                    'label' => 'Release date',
+                    'attr' => [
+                        'placeholder' => 2010,
+                    ],
+                ]
+            );
         }
 
         if (in_array('artists', $fields)) {
@@ -46,6 +63,7 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
             $request = $this->request;
             $artistGateway = $this->artistGateway;
 
+            // @FIXME inject?
             $artistCollectionType = new ArtistCollectionType($request, $artistGateway);
 
             $builder->addEventListener(
@@ -55,7 +73,31 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         }
 
         if (in_array('image', $fields)) {
-            $builder->add('image');
+            $builder->add(
+                'image',
+                null,
+                [
+                    'attr' => [
+                        'placeholder' => 'https://en.wikipedia.org/wiki/50_Cent#/media/File:50-cent-face.png',
+                    ]
+                ]
+            );
+        }
+
+        if (in_array('lyrics', $fields)) {
+            $builder->add(
+                'lyrics',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                    'entry_options' => [
+                        'label' => false,
+                    ],
+                    'entry_type' => LyricType::class,
+                ]
+            );
         }
     }
 

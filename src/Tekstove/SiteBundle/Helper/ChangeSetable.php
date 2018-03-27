@@ -40,7 +40,7 @@ trait ChangeSetable
      * @return array
      */
     public function getChangeSet()
-    {
+    { // @FIXME refactor!
         $return = [];
         foreach ($this->getChangedFields() as $field) {
             $getter = 'get' . $field;
@@ -48,7 +48,11 @@ trait ChangeSetable
             if (is_array($value)) {
                 $return[$field] = [];
                 foreach ($value as $nestedSet) {
-                    $return[$field][] = $nestedSet->getId();
+                    if ($nestedSet instanceof ArrayableInterface) {
+                        $return[$field][] = $nestedSet->toArray();
+                    } else {
+                        $return[$field][] = $nestedSet->getId();
+                    }
                 }
             } elseif ($value instanceof ArrayableInterface) {
                 $return[$field] = $value->toArray();
