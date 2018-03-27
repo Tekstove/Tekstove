@@ -51,6 +51,7 @@ class Lyric
     private $views;
     
     private $censor;
+    private $manualCensore;
     
     /**
      * Allowed edit options
@@ -92,6 +93,10 @@ class Lyric
         
         if (isset($data['censor'])) {
             $this->censor = (bool) $data['censor'];
+        }
+
+        if (isset($data['manualCensore'])) {
+            $this->manualCensore = (bool) $data['manualCensore'];
         }
         
         if (!empty($data['artists'])) {
@@ -341,7 +346,23 @@ class Lyric
         
         return $this->censor;
     }
-        
+
+    public function isManualCensore()
+    {
+        return $this->manualCensore;
+    }
+
+    public function getManualCensore()
+    {
+        return $this->isManualCensore();
+    }
+
+    public function setManualCensore($manualCensore)
+    {
+        $this->changedFields['manualCensore'] = 'manualCensore';
+        $this->manualCensore = $manualCensore;
+    }
+
     public function getPopularity()
     {
         return $this->popularity;

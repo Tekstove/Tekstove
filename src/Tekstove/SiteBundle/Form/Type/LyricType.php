@@ -108,6 +108,13 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             );
         }
+
+        if (in_array('manualCensore', $fields)) {
+            $builder->add(
+                'manualCensore',
+                CheckboxType::class
+            );
+        }
         
         if (in_array('videoYoutube', $fields)) {
             $builder->add(
