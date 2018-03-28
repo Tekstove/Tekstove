@@ -109,12 +109,12 @@ class LyricType extends \Symfony\Component\Form\AbstractType
             );
         }
 
-        if (in_array('manualCensore', $fields)) {
+        if (in_array('manualCensor', $fields)) {
             $builder->add(
-                'manualCensore',
+                'manualCensor',
                 CheckboxType::class,
                 [
-                    'label' => 'Censore',
+                    'label' => 'Censor',
                 ]
             );
         }
