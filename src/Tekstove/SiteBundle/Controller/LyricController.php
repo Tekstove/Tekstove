@@ -172,7 +172,7 @@ class LyricController extends Controller
             [
                 LyricGateway::GROUP_ACL,
                 LyricGateway::GROUP_DETAILS,
-                'ManualCensore', // @FIXME
+                LyricGateway::GROUP_MANUAL_CENSORE,
             ]
         );
         $data = $gateway->get($id);

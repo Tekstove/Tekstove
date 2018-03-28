@@ -37,6 +37,7 @@ return [
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
     'Extra info' => "Допълнителна информация",
+    'Censore' => "Цензура",
 
     // form common fields
     'Save' => 'Запази',

@@ -21,6 +21,7 @@ class LyricGateway extends AbstractGateway
     
     const GROUP_POPULARITY = 'Popularity';
     const GROUP_VIEWS = 'Views';
+    const GROUP_MANUAL_CENSORE = 'ManualCensore';
     
     protected function getRelativeUrl()
     {
