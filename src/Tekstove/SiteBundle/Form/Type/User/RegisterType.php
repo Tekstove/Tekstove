@@ -38,6 +38,11 @@ class RegisterType extends BaseAbstractType
                 ],
             ]
         );
+
+        $builder->add(
+            'termsAccepted',
+            'checkbox'
+        );
     }
     
     /**

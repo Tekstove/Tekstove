@@ -21,6 +21,7 @@ class User implements ArrayableInterface
     private $apiKey;
     private $avatar;
     private $about;
+    private $termsAccepted;
     
     
     private $groups;
@@ -39,6 +40,7 @@ class User implements ArrayableInterface
             'apiKey',
             'avatar',
             'about',
+            'termsAccepted',
         ];
         
         foreach ($fields as $field) {
@@ -105,6 +107,19 @@ class User implements ArrayableInterface
     {
         $this->changedFields['about'] = 'about';
         $this->about = $about;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getTermsAccepted()
+    {
+        return $this->termsAccepted;
+    }
+
+    public function setTermsAccepted($tosAccpeted)
+    {
+        $this->termsAccepted = (bool)$tosAccpeted;
     }
 
     public function getGroups()

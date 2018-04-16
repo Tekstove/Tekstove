@@ -9,10 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\UserGateway;
+use Tekstove\SiteBundle\Model\User\User;
 
 use Tekstove\SiteBundle\Form\Type\User\UserType;
 
@@ -62,6 +64,13 @@ class UserController extends Controller
         $formBuilder->add('password', PasswordType::class);
         $formBuilder->add('mail', EmailType::class);
         $formBuilder->add(
+            'termsAccepted',
+            CheckboxType::class,
+            [
+                'label' => 'Приемам правилата и условията',
+            ]
+        );
+        $formBuilder->add(
             'Регистрация',
             SubmitType::class,
             [
@@ -79,15 +88,17 @@ class UserController extends Controller
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = new \Tekstove\SiteBundle\Model\User\User(
+            $user = new User(
                 [
                     'username' => $form->get('username')->getData(),
                     'password' => $form->get('password')->getData(),
                     'mail' => $form->get('mail')->getData(),
+                    'termsAccepted' => true,
                 ]
             );
             try {
                 $gateway->save($request, $user);
+
                 return $this->redirectToRoute('login');
             } catch (TekstoveValidationException $e) {
                 $erroMatcher = new ArrayErrorPopulator();
