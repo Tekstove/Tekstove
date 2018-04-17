@@ -111,6 +111,12 @@ services:
           - ~
         public: false
 
+    tekstove.user.force.terms:
+        class: Tekstove\SiteBundle\Event\User\TermsForceListener
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
     tekstove.form.lyric:
         class: Tekstove\SiteBundle\Form\Type\LyricType
         arguments: ['@request_stack', '@tekstove.gateway.artist', '@tekstove.gateway.language']

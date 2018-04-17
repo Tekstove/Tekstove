@@ -28,7 +28,13 @@ class UserType extends \Symfony\Component\Form\AbstractType
         $allowedFields = $options['fields'];
 
         if (isset($allowedFields['about'])) {
-            $builder->add('about', TextareaType::class);
+            $builder->add(
+                'about',
+                TextareaType::class,
+                [
+                    'label' => 'About me',
+                ]
+            );
         }
 
         if (isset($allowedFields['avatar'])) {
