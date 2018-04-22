@@ -119,6 +119,7 @@ class User implements ArrayableInterface
 
     public function setTermsAccepted($tosAccpeted)
     {
+        $this->changedFields['termsAccepted'] = 'termsAccepted';
         $this->termsAccepted = (bool)$tosAccpeted;
     }
 

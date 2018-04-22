@@ -40,6 +40,16 @@ class UserType extends \Symfony\Component\Form\AbstractType
         if (isset($allowedFields['avatar'])) {
             $builder->add('avatar', TextType::class);
         }
+
+        if (isset($allowedFields['termsAccepted'])) {
+            $builder->add(
+                'termsAccepted',
+                \Symfony\Component\Form\Extension\Core\Type\CheckboxType::class,
+                [
+                    'label' => 'I agree to terms',
+                ]
+            );
+        }
     }
     
     /**

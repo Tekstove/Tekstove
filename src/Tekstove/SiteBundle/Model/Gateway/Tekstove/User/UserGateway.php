@@ -89,6 +89,11 @@ class UserGateway extends AbstractGateway
             
             $pathData = [];
             foreach ($changeSet as $property => $value) {
+                // dirty hack, change checkbox(bool) to datetime of accpeted terms
+                if ($property === 'termsAccepted' && $value) {
+                    $value = time();
+                }
+
                 $pathData[] = [
                     'op' => 'replace',
                     'path' => '/' . $property,

@@ -67,7 +67,7 @@ class UserController extends Controller
             'termsAccepted',
             CheckboxType::class,
             [
-                'label' => 'Приемам правилата и условията',
+                'label' => 'I agree to terms',
             ]
         );
         $formBuilder->add(
@@ -209,6 +209,53 @@ class UserController extends Controller
             $user,
             [
                 'fields' => $user->getEditableFields(),
+            ]
+        );
+
+        $form->add('submit', SubmitType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $userGateway->save($user);
+                return $this->redirectToRoute('userView', ['id' => $user->getId()]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+
+        return [
+            'user' => $user,
+            'form' => $form->createView(),
+        ];
+    }
+
+    public function forceTermsAction(Request $request, $id)
+    {
+        $userGateway = $this->get('tekstove.gateway.user');
+        /* @var $userGateway UserGateway */
+        $userGateway->setGroups(
+            [
+                UserGateway::GROUP_DETAILS,
+                UserGateway::GROUP_PERMISSION_GROUPS,
+                UserGateway::GROUP_EDITABLE_FIELDS,
+            ]
+        );
+
+        $data = $userGateway->get($id);
+
+        $user = $data['item'];
+        /* @var $user \Tekstove\SiteBundle\Model\User\User */
+
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'fields' => [
+                    'termsAccepted' => 'termsAccepted',
+                ],
             ]
         );
 

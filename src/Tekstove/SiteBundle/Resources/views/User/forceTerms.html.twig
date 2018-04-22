@@ -1,0 +1,18 @@
+{% extends 'SiteBundle::main.html.twig' %}
+{% block content %}
+    <h1>
+        {{ user.username|e }}
+    </h1>
+
+    {{ form_start(form) }}
+
+    Правила
+    <hr>
+    {% include '@TekstoveSite/Static/terms-text.html.twig' %}
+    <hr>
+
+    
+    {{ form_row(form.termsAccepted) }}
+
+    {{ form_end(form) }}
+{% endblock %}

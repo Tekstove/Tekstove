@@ -54,4 +54,7 @@ return [
     'Previous' => 'Предишни',
 
     'Languages' => 'Езици',
+
+    // user form
+    'I agree to terms' => 'Съгласен съм с условията'
 ];
