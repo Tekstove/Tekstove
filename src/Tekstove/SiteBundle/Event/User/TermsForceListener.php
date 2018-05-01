@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 /**
  * This listener ensure that logged user must accept latest terms of service
  *
- * @author potaka
+ * @author po_taka
  */
 class TermsForceListener
 {
