@@ -42,7 +42,7 @@ class User implements ArrayableInterface
             'about',
             'termsAccepted',
         ];
-        
+
         foreach ($fields as $field) {
             if (!isset($data[$field])) {
                 continue;

@@ -93,7 +93,7 @@ class UserController extends Controller
                     'username' => $form->get('username')->getData(),
                     'password' => $form->get('password')->getData(),
                     'mail' => $form->get('mail')->getData(),
-                    'termsAccepted' => true,
+                    'termsAccepted' => $form->get('termsAccepted')->getData(),
                 ]
             );
             try {
@@ -241,6 +241,7 @@ class UserController extends Controller
                 UserGateway::GROUP_DETAILS,
                 UserGateway::GROUP_PERMISSION_GROUPS,
                 UserGateway::GROUP_EDITABLE_FIELDS,
+                'User.TermsAccepted',
             ]
         );
 
