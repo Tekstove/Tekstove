@@ -47,6 +47,7 @@ class UserType extends \Symfony\Component\Form\AbstractType
                 \Symfony\Component\Form\Extension\Core\Type\CheckboxType::class,
                 [
                     'label' => 'I agree to terms',
+                    'required' => false,
                 ]
             );
         }
