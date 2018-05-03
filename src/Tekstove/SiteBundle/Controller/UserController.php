@@ -266,6 +266,11 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
+                // form is not updating object if values are the same
+                // We need to force terms updaring for now
+                $user->setTermsAccepted(
+                    $form->get('termsAccepted')->getData()
+                );
                 $userGateway->save($user);
                 return $this->redirectToRoute('userView', ['id' => $user->getId()]);
             } catch (TekstoveValidationException $e) {
