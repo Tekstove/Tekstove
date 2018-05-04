@@ -45,9 +45,16 @@ return [
     'Send' => 'Изпрати',
     'Submit' => 'Изпрати',
 
+    // user form fields
+    'About me' => 'За мен',
+    'Avatar' => 'Аватар',
+
     // pagination common fields
     'Next' => 'Следващи',
     'Previous' => 'Предишни',
 
     'Languages' => 'Езици',
+
+    // user form
+    'I agree to terms' => 'Съгласен съм с условията'
 ];

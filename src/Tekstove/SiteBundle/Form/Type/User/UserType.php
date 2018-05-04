@@ -28,11 +28,28 @@ class UserType extends \Symfony\Component\Form\AbstractType
         $allowedFields = $options['fields'];
 
         if (isset($allowedFields['about'])) {
-            $builder->add('about', TextareaType::class);
+            $builder->add(
+                'about',
+                TextareaType::class,
+                [
+                    'label' => 'About me',
+                ]
+            );
         }
 
         if (isset($allowedFields['avatar'])) {
             $builder->add('avatar', TextType::class);
+        }
+
+        if (isset($allowedFields['termsAccepted'])) {
+            $builder->add(
+                'termsAccepted',
+                \Symfony\Component\Form\Extension\Core\Type\CheckboxType::class,
+                [
+                    'label' => 'I agree to terms',
+                    'required' => false,
+                ]
+            );
         }
     }
     

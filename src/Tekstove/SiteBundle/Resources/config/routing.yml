@@ -46,6 +46,16 @@ tekstove.site.user.edit:
     defaults: { _controller: SiteBundle:User:edit }
     methods: [GET, POST]
 
+tekstove.site.user.forceTerms:
+    path: /user/force-terms/{id}
+    defaults: { _controller: SiteBundle:User:forceTerms }
+    methods: [GET, POST]
+
+tekstove.site.terms:
+    path: /terms
+    defaults: { _controller: SiteBundle:Static:terms }
+    methods: [GET]
+
 userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }

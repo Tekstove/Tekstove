@@ -11,8 +11,8 @@
         </div>
         {{ form_errors(form) }}
 
-        съгласен си с
-        <a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK"><b>правилата</b></a>
+        <a href="{{ path('tekstove.site.terms') }}" target="_BLANK"><b>правила и условия</b></a>
+        {{ form_row(form.termsAccepted) }}
         {{ form_rest(form) }}
     {{ form_end(form) }}
 

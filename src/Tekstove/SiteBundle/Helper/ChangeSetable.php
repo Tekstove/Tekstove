@@ -56,7 +56,7 @@ trait ChangeSetable
                 $return[$field] = $value;
             }
         }
-        
+
         return $return;
     }
 }
