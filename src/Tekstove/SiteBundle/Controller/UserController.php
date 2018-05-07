@@ -28,7 +28,7 @@ class UserController extends Controller
     public function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
-        
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
@@ -36,7 +36,7 @@ class UserController extends Controller
             // user not found
             $error = 'Грешни данни за вход';
         }
-        
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -45,7 +45,7 @@ class UserController extends Controller
             'error'         => $error,
         );
     }
-    
+
     public function viewAction($id)
     {
         $userGateway = $this->get('tekstove.gateway.user');
@@ -56,7 +56,7 @@ class UserController extends Controller
             'user' => $user,
         ];
     }
-    
+
     public function registerAction(Request $request)
     {
         $formBuilder = $this->createFormBuilder();
@@ -82,10 +82,10 @@ class UserController extends Controller
         $formBuilder->setMapped('POST');
         $form = $formBuilder->getForm();
         /* @var $form \Symfony\Component\Form\Form */
-        
+
         $gateway = $this->get('tekstove.gateway.user.register');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway */
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = new User(
@@ -105,11 +105,11 @@ class UserController extends Controller
                 $erroMatcher->populateFormErrors($form, $e->getValidationErrors());
             }
         }
-        
+
         $gateway->setGroups(['Register']);
         $data = $gateway->find();
         $recaptchaKey = $data['item']['recaptcha']['key'];
-        
+
         return [
             'form' => $form->createView(),
             'recpatchaKey' => $recaptchaKey,
@@ -234,6 +234,17 @@ class UserController extends Controller
 
     public function forceTermsAction(Request $request, $id)
     {
+        $id = (int)$id;
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            throw new \Exception("Not logged!");
+        }
+
+        if ($currentUser->getId() !== $id) {
+            throw new \Exception("Not allowed");
+        }
+
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway UserGateway */
         $userGateway->setGroups(
@@ -250,29 +261,42 @@ class UserController extends Controller
         $user = $data['item'];
         /* @var $user \Tekstove\SiteBundle\Model\User\User */
 
-        $form = $this->createForm(
-            UserType::class,
-            $user,
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add(
+            'termsAccepted',
+            \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class,
             [
-                'fields' => [
-                    'termsAccepted' => 'termsAccepted',
-                ],
+                'choices' => [
+                    'Избери' => null,
+                    'Приемам правилата' => 1,
+                    'Не съм съгласен с правилата и искам профилът ми да бъде изтрит' => 2,
+                ]
             ]
         );
-
-        $form->add('submit', SubmitType::class);
+        $formBuilder->add('submit', SubmitType::class);
+        $form = $formBuilder->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                // form is not updating object if values are the same
-                // We need to force terms updaring for now
-                $user->setTermsAccepted(
-                    $form->get('termsAccepted')->getData()
-                );
-                $userGateway->save($user);
-                return $this->redirectToRoute('userView', ['id' => $user->getId()]);
+                $temsChoose = $form->get('termsAccepted')->getData();
+
+                if ($temsChoose === 1) {
+                    // form is not updating object if values are the same
+                    // We need to force terms updaring for now
+                    $user->setTermsAccepted(true);
+                    $userGateway->save($user);
+
+                    return $this->redirectToRoute('userView', ['id' => $user->getId()]);
+                } elseif ($temsChoose === 2) {
+                    $userGateway->delete($id);
+
+                    // @log something in the bag?
+                    $this->get('security.token_storage')->setToken(null);
+                    $this->addFlash('info', 'Профилът е изтрит');
+                    return $this->redirect('/');
+                }
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());

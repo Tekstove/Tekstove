@@ -1,5 +1,23 @@
 {% extends 'SiteBundle::Main/html.html.twig' %}
 {% block htmlBody %}
+    {% for messageBag in app.flashes %}
+        <div class="flash-message">
+        {% for message in messageBag %}
+            {{ message }}
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <script>
+        jQuery(".flash-message").dialog({
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $(this).dialog( "close" );
+              }
+            }
+        });
+    </script>
+
     <div class="container-fluid">
         <div class="row t-top-menu">
             <div class="col-md-6 t-nomargin t-nopadding">

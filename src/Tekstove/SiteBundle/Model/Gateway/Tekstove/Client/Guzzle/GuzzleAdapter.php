@@ -19,6 +19,9 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Response as TekstoveRespon
  */
 class GuzzleAdapter implements ClientInterface
 {
+    /**
+     * @var \GuzzleHttp\ClientInterface
+     */
     private $guzzle;
     
     public function __construct()
@@ -84,6 +87,7 @@ class GuzzleAdapter implements ClientInterface
         try {
             $response = $this->guzzle->delete($url);
             $tekstoveResponse = new TekstoveResponse($response->getBody()->getContents());
+
             return $tekstoveResponse;
         } catch (GuzzleRequestException $e) {
             $tekstoveException = new TekstoveRequestException(
