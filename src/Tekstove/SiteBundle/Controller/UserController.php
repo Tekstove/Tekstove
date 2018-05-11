@@ -273,7 +273,6 @@ class UserController extends Controller
 
         $form->add('submit', SubmitType::class);
 
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
