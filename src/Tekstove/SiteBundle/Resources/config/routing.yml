@@ -51,6 +51,11 @@ tekstove.site.user.forceTerms:
     defaults: { _controller: SiteBundle:User:forceTerms }
     methods: [GET, POST]
 
+tekstove.site.user.delete:
+    path: /user/delete/{id}
+    defaults: { _controller: SiteBundle:User:delete }
+    methods: [GET, POST]
+
 tekstove.site.terms:
     path: /terms
     defaults: { _controller: SiteBundle:Static:terms }

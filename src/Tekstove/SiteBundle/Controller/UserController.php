@@ -76,7 +76,7 @@ class UserController extends Controller
             [
                 'attr' => [
                     'class' => 'btn-success',
-                ]
+                ],
             ]
         );
         $formBuilder->setMapped('POST');
@@ -261,42 +261,31 @@ class UserController extends Controller
         $user = $data['item'];
         /* @var $user \Tekstove\SiteBundle\Model\User\User */
 
-        $formBuilder = $this->createFormBuilder();
-        $formBuilder->add(
-            'termsAccepted',
-            \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class,
+        $form = $this->createForm(
+            UserType::class,
+            $user,
             [
-                'choices' => [
-                    'Избери' => null,
-                    'Приемам правилата' => 1,
-                    'Не съм съгласен с правилата и искам профилът ми да бъде изтрит' => 2,
-                ]
+                'fields' => [
+                    'termsAccepted' => 'termsAccepted',
+                ],
             ]
         );
-        $formBuilder->add('submit', SubmitType::class);
-        $form = $formBuilder->getForm();
+
+        $form->add('submit', SubmitType::class);
+
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $temsChoose = $form->get('termsAccepted')->getData();
+                // form is not updating object if values are the same
+                // We need to force terms updaring for now
+                $user->setTermsAccepted(
+                    $form->get('termsAccepted')->getData()
+                );
+                $userGateway->save($user);
 
-                if ($temsChoose === 1) {
-                    // form is not updating object if values are the same
-                    // We need to force terms updaring for now
-                    $user->setTermsAccepted(true);
-                    $userGateway->save($user);
-
-                    return $this->redirectToRoute('userView', ['id' => $user->getId()]);
-                } elseif ($temsChoose === 2) {
-                    $userGateway->delete($id);
-
-                    // @log something in the bag?
-                    $this->get('security.token_storage')->setToken(null);
-                    $this->addFlash('info', 'Профилът е изтрит');
-                    return $this->redirect('/');
-                }
+                return $this->redirectToRoute('userView', ['id' => $user->getId()]);
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
@@ -305,6 +294,58 @@ class UserController extends Controller
 
         return [
             'user' => $user,
+            'form' => $form->createView(),
+        ];
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+        $id = (int)$id;
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            throw new \Exception("Not logged!");
+        }
+
+        if ($currentUser->getId() !== $id) {
+            throw new \Exception("Not allowed");
+        }
+
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add(
+            'delete',
+            CheckboxType::class,
+            [
+                'required' => true,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\IsTrue(),
+                ],
+            ]
+        );
+        $formBuilder->add(
+            'submit',
+            SubmitType::class,
+            [
+                'attr' => [
+                    'class' => 'btn-danger',
+                ],
+                'label' => 'Delete',
+            ]
+        );
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userGateway = $this->get('tekstove.gateway.user');
+            $userGateway->delete($id);
+            $this->get('security.token_storage')->setToken(null);
+            $this->addFlash('info', 'Профилът е изтрит');
+
+            return $this->redirect('/');
+        }
+
+        return [
             'form' => $form->createView(),
         ];
     }
