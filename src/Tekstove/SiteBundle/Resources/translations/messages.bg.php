@@ -48,6 +48,7 @@ return [
     // user form fields
     'About me' => 'За мен',
     'Avatar' => 'Аватар',
+    'Profile deleted' => 'Профилът е изтрит',
 
     // pagination common fields
     'Next' => 'Следващи',

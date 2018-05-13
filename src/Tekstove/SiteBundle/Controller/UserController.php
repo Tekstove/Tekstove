@@ -339,7 +339,9 @@ class UserController extends Controller
             $userGateway = $this->get('tekstove.gateway.user');
             $userGateway->delete($id);
             $this->get('security.token_storage')->setToken(null);
-            $this->addFlash('info', 'Профилът е изтрит');
+
+            $translator = $this->get('translator');
+            $this->addFlash('info', $translator->trans('Profile deleted'));
 
             return $this->redirect('/');
         }
