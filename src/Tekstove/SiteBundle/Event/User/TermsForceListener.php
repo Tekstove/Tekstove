@@ -36,7 +36,7 @@ class TermsForceListener
             return;
         }
 
-        if (strpos($event->getRequest()->getPathInfo(), '/user/force-terms/') !== 0) {
+        if (strpos($event->getRequest()->getPathInfo(), '/user/') !== 0) {
             $response = new \Symfony\Component\HttpFoundation\RedirectResponse('/user/force-terms/' . $user->getId(), 302);
             $event->setResponse($response);
             $event->stopPropagation();

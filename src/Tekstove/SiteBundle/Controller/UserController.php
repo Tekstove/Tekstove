@@ -28,7 +28,7 @@ class UserController extends Controller
     public function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
-        
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
@@ -36,7 +36,7 @@ class UserController extends Controller
             // user not found
             $error = 'Грешни данни за вход';
         }
-        
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -45,7 +45,7 @@ class UserController extends Controller
             'error'         => $error,
         );
     }
-    
+
     public function viewAction($id)
     {
         $userGateway = $this->get('tekstove.gateway.user');
@@ -56,7 +56,7 @@ class UserController extends Controller
             'user' => $user,
         ];
     }
-    
+
     public function registerAction(Request $request)
     {
         $formBuilder = $this->createFormBuilder();
@@ -76,16 +76,16 @@ class UserController extends Controller
             [
                 'attr' => [
                     'class' => 'btn-success',
-                ]
+                ],
             ]
         );
         $formBuilder->setMapped('POST');
         $form = $formBuilder->getForm();
         /* @var $form \Symfony\Component\Form\Form */
-        
+
         $gateway = $this->get('tekstove.gateway.user.register');
         /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\User\RegisterGateway */
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = new User(
@@ -105,11 +105,11 @@ class UserController extends Controller
                 $erroMatcher->populateFormErrors($form, $e->getValidationErrors());
             }
         }
-        
+
         $gateway->setGroups(['Register']);
         $data = $gateway->find();
         $recaptchaKey = $data['item']['recaptcha']['key'];
-        
+
         return [
             'form' => $form->createView(),
             'recpatchaKey' => $recaptchaKey,
@@ -234,6 +234,17 @@ class UserController extends Controller
 
     public function forceTermsAction(Request $request, $id)
     {
+        $id = (int)$id;
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            throw new \Exception("Not logged!");
+        }
+
+        if ($currentUser->getId() !== $id) {
+            throw new \Exception("Not allowed");
+        }
+
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway UserGateway */
         $userGateway->setGroups(
@@ -272,6 +283,7 @@ class UserController extends Controller
                     $form->get('termsAccepted')->getData()
                 );
                 $userGateway->save($user);
+
                 return $this->redirectToRoute('userView', ['id' => $user->getId()]);
             } catch (TekstoveValidationException $e) {
                 $formErrorPopulator = new ArrayErrorPopulator();
@@ -281,6 +293,60 @@ class UserController extends Controller
 
         return [
             'user' => $user,
+            'form' => $form->createView(),
+        ];
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+        $id = (int)$id;
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            throw new \Exception("Not logged!");
+        }
+
+        if ($currentUser->getId() !== $id) {
+            throw new \Exception("Not allowed");
+        }
+
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add(
+            'delete',
+            CheckboxType::class,
+            [
+                'required' => true,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\IsTrue(),
+                ],
+            ]
+        );
+        $formBuilder->add(
+            'submit',
+            SubmitType::class,
+            [
+                'attr' => [
+                    'class' => 'btn-danger',
+                ],
+                'label' => 'Delete',
+            ]
+        );
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userGateway = $this->get('tekstove.gateway.user');
+            $userGateway->delete($id);
+            $this->get('security.token_storage')->setToken(null);
+
+            $translator = $this->get('translator');
+            $this->addFlash('info', $translator->trans('Profile deleted'));
+
+            return $this->redirect('/');
+        }
+
+        return [
             'form' => $form->createView(),
         ];
     }

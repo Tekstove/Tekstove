@@ -126,6 +126,19 @@ class UserGateway extends AbstractGateway
         }
     }
 
+    public function delete($userId)
+    {
+        try {
+            $this->getClient()
+                    ->delete(
+                        $this->getRelativeUrl() . $userId
+                    );
+            return true;
+        } catch (RequestException $requestException) {
+            throw $requestException;
+        }
+    }
+
     public function passwordResetRequest($email, $link)
     {
         $client = $this->getClient();
