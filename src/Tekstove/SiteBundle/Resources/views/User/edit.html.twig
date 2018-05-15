@@ -10,4 +10,9 @@
     {{ form_end(form) }}
 
     <a href="{{ path('tekstove.site.user.forceTerms', {id: user.id}) }}">Правила - преглед, съгласие и отказ от съгласие</a>
+
+    <br/>
+
+    <a href="{{ path('app.user.personalData.download', { id: user.id }) }}" class="btn btn-default">Изтегляне на лични данни</a>
+
 {% endblock %}

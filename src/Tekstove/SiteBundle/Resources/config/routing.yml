@@ -30,7 +30,7 @@ tekstove_site.user.password_reset.request:
     path: /user/password-reset/request
     defaults: { _controller: SiteBundle:User:passwordResetRequest}
     methods: [GET, POST]
-    
+
 tekstove_site.user.password_reset.confirm:
     path: /user/password-reset/confirm/{key}
     defaults: { _controller: SiteBundle:User:passwordResetConfirm}
@@ -39,6 +39,11 @@ tekstove_site.user.password_reset.confirm:
 userView:
     path: /user/view/{id}
     defaults: { _controller: SiteBundle:User:view }
+    methods: [GET]
+
+app.user.personalData.download:
+    path: /user/personal-data/download/{id}
+    defaults: { _controller: SiteBundle:User:downloadPersonalData }
     methods: [GET]
 
 tekstove.site.user.edit:
@@ -65,17 +70,17 @@ userPmList:
     path: /user/pm/list
     defaults: { _controller: SiteBundle:User\Pm:list }
     methods: [GET]
-    
+
 tekstove_site.user.pm.send:
     path: /user/message/{toUserId}/{title}
     defaults: { _controller: SiteBundle:User\Pm:add, title: '' }
     methods: [GET, POST]
-    
+
 tekstove.site.user.pm.view:
     path: /user/pm/view/{id}
     defaults: { _controller: SiteBundle:User\Pm:view }
     methods: [GET]
-    
+
 lyricView:
     path: /lyric/view/{id}
     defaults: { _controller: SiteBundle:Lyric:view }
@@ -87,7 +92,7 @@ tekstove_api_lyric_top100:
     path: "/lyrics/top100/{sort}"
     defaults: { _controller: SiteBundle:Lyric:top }
     methods: [GET]
-    
+
 tekstove.site.popular.history:
     path: "/lyrics/popular/{year}/{month}"
     defaults: { _controller: SiteBundle:Lyric:popularHistory }
@@ -104,7 +109,7 @@ lyricEdit:
     requirements:
         id: \d+
     methods: [GET, POST]
-        
+
 tekstove_site.lyric.search:
     path: /lyric/search
     defaults: { _controller: SiteBundle:Lyric:search }
@@ -116,24 +121,24 @@ artistBrowse:
     requirements:
         id: \d+
     methods: [GET]
-    
+
 artistList:
     path: /artist/list/{letter}
     defaults: { _controller: SiteBundle:Artist:list }
     methods: [GET]
-    
+
 artistEdit:
     path: /artist/edit/{id}
     defaults: { _controller: SiteBundle:Artist:edit }
     methods: [GET, POST]
-    
+
 tekstove_site_album_view:
     path: /album/view/{id}
     defaults: { _controller: SiteBundle:Album:view }
     requirements:
         id: \d+
     methods: [GET]
-        
+
 tekstove.site.forum.category.list:
     path: /forum/category/list
     defaults: { _controller: SiteBundle:Forum\Category:list }
@@ -145,28 +150,28 @@ tekstove.site.forum.topic.list:
     requirements:
         categoryId: \d+
     methods: [GET]
-        
+
 tekstove.site.forum.topic.view:
     path: /forum/topic/{id}
     defaults: { _controller: SiteBundle:Forum\Topic:view }
     requirements:
         id: \d+
     methods: [GET]
-        
+
 tekstove.site.forum.topic.new:
     path: /forum/category/{categoryId}/topic/add
     defaults: { _controller: SiteBundle:Forum\Topic:new }
     requirements:
         categoryId: \d+
     methods: [GET, POST]
-        
+
 tekstove.site.forum.post.new:
     path: /foum/topic/{topicId}/post
     defaults: { _controller: SiteBundle:Forum\Post:add }
     requirements:
         id: \d+
     methods: [GET, POST]
-        
+
 tekstove.site.forum.post.newest:
     path: /forum/post/newest
     defaults: { _controller: SiteBundle:Forum\Post:listNew }

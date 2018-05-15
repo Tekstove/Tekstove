@@ -350,4 +350,51 @@ class UserController extends Controller
             'form' => $form->createView(),
         ];
     }
+
+    public function downloadPersonalDataAction($id)
+    {
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            throw new \Exception('User not logged');
+        }
+
+        $userData = [
+            'username' => $currentUser->getUsername(),
+            'mail' => $currentUser->getMail(),
+            'avatar' => $currentUser->getAvatar(),
+        ];
+
+        $handle = tmpfile();
+
+        fputcsv(
+            $handle,
+            array_keys($userData)
+        );
+
+        fputcsv(
+            $handle,
+            $userData
+        );
+
+        fseek($handle, 0);
+
+        $csvData = '';
+        while (!feof($handle)) {
+            $csvData .= fread($handle, 8192);
+        }
+
+        $fileName = 'user' . $id . '.csv';
+
+        $response = new \Symfony\Component\HttpFoundation\Response(
+            $csvData,
+            200,
+            [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename=' . $fileName,
+            ]
+        );
+
+        return $response;
+    }
 }
