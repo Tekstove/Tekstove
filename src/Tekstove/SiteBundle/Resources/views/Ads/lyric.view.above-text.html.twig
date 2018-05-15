@@ -1,3 +1,6 @@
+{#
+ads are temporary disabled
+
 {% if (not is_granted('IS_AUTHENTICATED_FULLY')) %}
     {% if (ads is defined and ads is same as (1)) %}
         <div class="row" style="max-height: 120px; min-width: 125px;">
@@ -12,7 +15,7 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-    {% elseif (ads is defined and ads is same as (3)) %}
-        {# no ads for now #}
     {% endif  %}
 {% endif %}
+
+#}
