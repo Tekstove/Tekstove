@@ -384,6 +384,8 @@ class UserController extends Controller
             $csvData .= fread($handle, 8192);
         }
 
+        fclose($handle);
+
         $fileName = 'user' . $id . '.csv';
 
         $response = new \Symfony\Component\HttpFoundation\Response(
