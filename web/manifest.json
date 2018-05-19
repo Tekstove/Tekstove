@@ -1,0 +1,8 @@
+{
+    "name": "tekstove.info",
+    "short_name": "tekstove",
+    "description": "Текстове и преводи на песни",
+    "version": "1.0",
+    "start_url": "/",
+    "display": "standalone"
+}
