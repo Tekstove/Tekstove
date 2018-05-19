@@ -3,6 +3,13 @@
     "short_name": "tekstove",
     "description": "Текстове и преводи на песни",
     "version": "1.0",
-    "start_url": "/",
-    "display": "standalone"
+    "start_url": "/?src=webapp",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/bundles/site/images/manifest/144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ]
 }
