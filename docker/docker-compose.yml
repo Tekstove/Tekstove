@@ -2,7 +2,7 @@ version: '2'
 
 services:
   tekstove.site-web:
-    image: tekstoveinfo/site.web:latest
+    build: ./php
     volumes:
       - ../:/var/www/tekstove-site
     external_links:
