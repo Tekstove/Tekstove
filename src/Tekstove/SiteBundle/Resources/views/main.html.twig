@@ -1,5 +1,23 @@
 {% extends 'SiteBundle::Main/html.html.twig' %}
 {% block htmlBody %}
+    {% for messageBag in app.flashes %}
+        <div class="flash-message">
+        {% for message in messageBag %}
+            {{ message }}
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <script>
+        jQuery(".flash-message").dialog({
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $(this).dialog( "close" );
+              }
+            }
+        });
+    </script>
+
     <div class="container-fluid">
         <div class="row t-top-menu">
             <div class="col-md-6 t-nomargin t-nopadding">
@@ -112,7 +130,7 @@
 
                 <span style="color: #fff">www.tekstove.info 2008-2018</span>,
                 <a href="{{ path('contacts') }}" title="Искате да се свържете с нас"><span style="color: #ccc">връзка с нас</span></a>,
-                <a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: #fff;">правила</a>
+                <a href="{{ path('tekstove.site.terms') }}" target="_BLANK" style="color: #fff;">правила</a>
             </div>
         </div>
     </div>

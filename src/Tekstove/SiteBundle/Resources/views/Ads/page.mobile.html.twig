@@ -1,3 +1,6 @@
+{#
+ads are temporary disabled
+
 {% if (is_mobile() and not is_granted('IS_AUTHENTICATED_FULLY')) and (ads is defined and ads == 1) %}
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -7,3 +10,5 @@
       });
     </script>
 {% endif %}
+
+#}

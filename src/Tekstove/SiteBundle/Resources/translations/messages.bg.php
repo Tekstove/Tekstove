@@ -39,6 +39,7 @@ return [
     'Extra info' => "Допълнителна информация",
     'Release date' => 'Дата на издаване',
     'Image' => 'Картинка',
+    'Censor' => "Цензура",
 
     // form common fields
     'Name' => 'Име',
@@ -47,9 +48,17 @@ return [
     'Send' => 'Изпрати',
     'Submit' => 'Изпрати',
 
+    // user form fields
+    'About me' => 'За мен',
+    'Avatar' => 'Аватар',
+    'Profile deleted' => 'Профилът е изтрит',
+
     // pagination common fields
     'Next' => 'Следващи',
     'Previous' => 'Предишни',
 
     'Languages' => 'Езици',
+
+    // user form
+    'I agree to terms' => 'Съгласен съм с условията'
 ];

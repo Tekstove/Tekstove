@@ -89,6 +89,11 @@ class UserGateway extends AbstractGateway
             
             $pathData = [];
             foreach ($changeSet as $property => $value) {
+                // dirty hack, change checkbox(bool) to datetime of accpeted terms
+                if ($property === 'termsAccepted' && $value) {
+                    $value = time();
+                }
+
                 $pathData[] = [
                     'op' => 'replace',
                     'path' => '/' . $property,
@@ -118,6 +123,19 @@ class UserGateway extends AbstractGateway
                 $validationException->setValidationErrors($errors);
                 throw $validationException;
             }
+        }
+    }
+
+    public function delete($userId)
+    {
+        try {
+            $this->getClient()
+                    ->delete(
+                        $this->getRelativeUrl() . $userId
+                    );
+            return true;
+        } catch (RequestException $requestException) {
+            throw $requestException;
         }
     }
 
