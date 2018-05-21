@@ -10,8 +10,21 @@
 
 
 
-    {{ form_rest(form) }}
 
+
+
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.year) }}
+    {{ form_row(form.image) }}
+
+    {{ form_row(form.lyrics) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.submit) }}
+
+    {{ form_rest(form) }}
 
     <script>
 
@@ -69,7 +82,6 @@
             }
         });
     </script>
-
 
     {{ form_end(form) }}
 {% endblock %}

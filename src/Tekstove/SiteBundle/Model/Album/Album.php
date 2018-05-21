@@ -17,13 +17,13 @@ class Album
     private $name;
     private $image;
     private $year;
-    
+
     private $acl;
-    
+
     private $sendByUser;
     private $lyrics;
     private $artists;
-    
+
     public function __construct(array $data = [])
     {
         $fields = [
@@ -31,28 +31,28 @@ class Album
             'name',
             'image',
             'year',
-            
+
             'acl',
         ];
-        
+
         foreach ($fields as $field) {
             if (!isset($data[$field])) {
                 continue;
             }
             $this->{$field} = $data[$field];
         }
-        
+
         if (isset($data['user'])) {
             $this->sendByUser = new \Tekstove\SiteBundle\Model\User\User($data['user']);
         }
-        
+
         if (isset($data['lyrics'])) {
             $this->lyrics = [];
             foreach ($data['lyrics'] as $lyricData) {
                 $this->lyrics[] = new AlbumLyric($lyricData);
             }
         }
-        
+
         if (isset($data['artists'])) {
             $this->artists = [];
             foreach ($data['artists'] as $artistData) {
@@ -77,6 +77,7 @@ class Album
 
     public function setName($name)
     {
+        $this->changedFields['name'] = 'name';
         $this->name = $name;
     }
 
@@ -84,7 +85,7 @@ class Album
     {
         return $this->image;
     }
-    
+
     public function getYear()
     {
         return $this->year;
@@ -100,7 +101,7 @@ class Album
     {
         return $this->sendByUser;
     }
-    
+
     public function getLyrics()
     {
         return $this->lyrics;
@@ -152,7 +153,7 @@ class Album
         if (isset($this->acl[$property])) {
             return $this->acl[$property];
         }
-        
+
         return null;
     }
 }
