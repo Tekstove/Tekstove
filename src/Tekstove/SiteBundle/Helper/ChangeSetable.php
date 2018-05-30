@@ -13,7 +13,7 @@ trait ChangeSetable
      * @var array
      */
     protected $changedFields = [];
-    
+
     /**
      * Check if fields is changed
      * @param string $field
@@ -24,10 +24,10 @@ trait ChangeSetable
         if (isset($this->changedFields[$field])) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * @return array
      */
@@ -35,7 +35,7 @@ trait ChangeSetable
     {
         return $this->changedFields;
     }
-    
+
     /**
      * @return array
      */
@@ -60,6 +60,10 @@ trait ChangeSetable
                 $return[$field] = $value;
             }
         }
+
+//        dump($return);
+//        dump($this);
+//        die;
 
         return $return;
     }

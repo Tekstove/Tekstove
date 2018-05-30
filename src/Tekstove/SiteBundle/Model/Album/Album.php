@@ -21,6 +21,9 @@ class Album
     private $acl;
 
     private $sendByUser;
+    /**
+     * AlbumLyric[]
+     */
     private $lyrics;
     private $artists;
 
@@ -86,6 +89,11 @@ class Album
         return $this->image;
     }
 
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
     public function getYear()
     {
         return $this->year;
@@ -116,7 +124,24 @@ class Album
     public function removeLyric(AlbumLyric $lyric)
     {
         $this->changedFields['lyrics'] = 'lyrics';
-        // @FIXME do nothing
+        foreach ($this->lyrics as $key => $existingLyric) {
+            if (
+                (
+                    (
+                        (
+                            $existingLyric->getLyric() && $lyric->getLyric()
+                            && $existingLyric->getLyric()->getId() == $lyric->getLyric()->getId()
+                        )
+                        || (!$existingLyric->getLyric() && !$lyric->getLyric())
+                    )
+                    && $existingLyric->getName() == $lyric->getName()
+                )
+
+            ) {
+                unset($this->lyrics[$key]);
+                return;
+            }
+        }
     }
 
     public function getArtists()

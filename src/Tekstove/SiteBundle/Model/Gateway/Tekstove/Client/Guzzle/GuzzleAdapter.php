@@ -23,12 +23,12 @@ class GuzzleAdapter implements ClientInterface
      * @var \GuzzleHttp\ClientInterface
      */
     private $guzzle;
-    
+
     public function __construct()
     {
         $this->guzzle = new GuzzleClient([]);
     }
-    
+
     public function setBaseUri($uri)
     {
         $this->baseUri = $uri;
@@ -36,7 +36,7 @@ class GuzzleAdapter implements ClientInterface
         $config['base_uri'] = $uri;
         $this->guzzle = new GuzzleClient($config);
     }
-    
+
     public function post($url, $data)
     {
         try {
@@ -49,15 +49,15 @@ class GuzzleAdapter implements ClientInterface
                 $e->getCode(),
                 $e->getPrevious()
             );
-            
+
             $response = $e->getResponse();
             $responseBody = $response->getBody()->getContents();
             $tekstoveException->setBody($responseBody);
-            
+
             throw $tekstoveException;
         }
     }
-    
+
     public function patch($url, $data)
     {
         try {
@@ -70,15 +70,15 @@ class GuzzleAdapter implements ClientInterface
                 $e->getCode(),
                 $e->getPrevious()
             );
-            
+
             $response = $e->getResponse();
             $responseBody = $response->getBody()->getContents();
             $tekstoveException->setBody($responseBody);
-            
+
             throw $tekstoveException;
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -95,15 +95,15 @@ class GuzzleAdapter implements ClientInterface
                 $e->getCode(),
                 $e->getPrevious()
             );
-            
+
             $response = $e->getResponse();
             $responseBody = $response->getBody()->getContents();
             $tekstoveException->setBody($responseBody);
-            
+
             throw $tekstoveException;
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -112,9 +112,8 @@ class GuzzleAdapter implements ClientInterface
         try {
             $guzzleResponse = $this->guzzle->get($url);
         } catch (GuzzleRequestException $e) {
-            
             $responseParsed = json_decode($e->getResponse()->getBody(), true);
-            
+
             if (isset($responseParsed['redirect']['id'])) {
                 $redirectId = $responseParsed['redirect']['id'];
                 $tekstoveException = new TesktoveNotFoundRedirectException(
@@ -122,24 +121,28 @@ class GuzzleAdapter implements ClientInterface
                     $e->getCode(),
                     $e->getPrevious()
                 );
-                
+
                 $tekstoveException->setRedirectTo($redirectId);
                 throw $tekstoveException;
             }
-            
+
             $tekstoveException = new TesktoveNotFoundException(
                 $e->getMessage(),
                 $e->getCode(),
                 $e->getPrevious()
             );
-            
+
             $response = $e->getResponse();
             $responseBody = $response->getBody()->getContents();
             $tekstoveException->setBody($responseBody);
-            
+
             throw $tekstoveException;
         }
-        $tekstoveResponse = new TekstoveResponse($guzzleResponse->getBody());
+
+        $tekstoveResponse = new TekstoveResponse(
+            $guzzleResponse->getBody()->getContents()
+        );
+
         return $tekstoveResponse;
     }
 

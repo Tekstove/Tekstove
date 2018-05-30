@@ -34,10 +34,9 @@ class AlbumController extends Controller
             ]
         );
         $albumData = $albumGateway->get($id);
-        
+
         return [
             'album' => $albumData['item'],
-            
             'ads' => true,
         ];
     }
@@ -55,10 +54,6 @@ class AlbumController extends Controller
         /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
         $credentialsData = $credentialsGateway->find();
         $allowedFields = $credentialsData['item']['fields'];
-
-        // @FIXME remove dumps
-//        dump($allowedFields);
-//        die;
 
         $form = $this->createCreateForm($album, $allowedFields);
 
@@ -83,7 +78,47 @@ class AlbumController extends Controller
         );
     }
 
-        private function createBaseForm(Album $album, $allowedFields)
+    public function editAction($id, Request $request)
+    {
+        $gateway = $this->get('tekstove.gateway.album');
+        /* @var $gateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
+        $gateway->setGroups(
+            [
+                \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway::GROUP_DETAILS,
+                AbstractGateway::GROUP_DETAILS,
+            ]
+        );
+
+        $album = $gateway->get($id)['item'];
+
+        $credentialsGateway = $this->get('tekstove.gateway.album.credentials');
+        /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
+        $credentialsData = $credentialsGateway->find();
+        $allowedFields = $credentialsData['item']['fields'];
+
+        $form = $this->createCreateForm($album, $allowedFields);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            try {
+                $gateway->save($album);
+                return $this->redirectToRoute('tekstove_site_album_view', ['id' => $album->getId()]);
+            } catch (TekstoveValidationException $e) {
+                $formErrorPopulator = new ArrayErrorPopulator();
+                $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
+            }
+        }
+        return $this->render(
+            'SiteBundle::Album/edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    private function createBaseForm(Album $album, $allowedFields)
     {
         $form = $this->createForm(
             AlbumType::class,

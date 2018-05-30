@@ -20,7 +20,7 @@ class AlbumGateway extends AbstractGateway
     {
         return '/albums/';
     }
-    
+
     public function find()
     {
         $data = parent::find();
@@ -32,7 +32,7 @@ class AlbumGateway extends AbstractGateway
         $data['items'] = $albums;
         return $data;
     }
-    
+
     public function get($id)
     {
         $data = parent::get($id);
@@ -44,18 +44,32 @@ class AlbumGateway extends AbstractGateway
 
     public function save(Album $album)
     {
+        $changeSet = $album->getChangeSet();
+
         if ($album->getId()) {
-            // @FIXME
-            throw new \Exception("Not implemented");
+            $pathData = [];
+                foreach ($changeSet as $property => $value) {
+                    $pathData[] = [
+                        'op' => 'replace',
+                        'path' => '/' . $property,
+                        'value' => $value,
+                    ];
+                }
+
+                $response = $this->getClient()
+                                    ->patch(
+                                        $this->getRelativeUrl() . $album->getId(),
+                                        [
+                                            'body' => json_encode($pathData),
+                                        ]
+                                    );
         } else {
             try {
                 $response = $this->getClient()
                                     ->post(
                                         $this->getRelativeUrl(),
                                         [
-                                            'body' => json_encode(
-                                                $album->getChangeSet()
-                                            ),
+                                            'body' => json_encode($changeSet),
                                         ]
                                     );
             } catch (RequestException $e) {

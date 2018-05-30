@@ -6,14 +6,6 @@
         {{ form_row(form.artists) }}
     {% endif %}
 
-
-
-
-
-
-
-
-
     {{ form_row(form.name) }}
     {{ form_row(form.year) }}
     {{ form_row(form.image) }}
@@ -27,12 +19,12 @@
     {{ form_rest(form) }}
 
     <script>
-
         var $collectionHolder;
 
         // setup an "add a tag" link
         var $addTagLink = $('<button class="btn btn-success" >Добави песен</butoon>');
-        var $newLinkLi = $('#album_lyrics').append($addTagLink);
+        var $newLinkLi = $addTagLink;
+        $('#album_lyrics').append($addTagLink);
 
         jQuery(document).ready(function () {
             // Get the ul that holds the collection of tags
@@ -53,6 +45,17 @@
                 addTagForm($collectionHolder, $newLinkLi);
             });
 
+            // add delete btn for existing lyrics
+            var button = $("<button />");
+            button.addClass('btn btn-danger');
+            button.text('Изтрий');
+            button.on(
+                'click',
+                function() {
+                    $(this).parent().parent().remove();
+                }
+            );
+            $('[id^="album_lyrics_"').append(button);
 
             function addTagForm($collectionHolder, $newLinkLi) {
                 // Get the data-prototype explained earlier
@@ -70,13 +73,24 @@
                 // Replace '__name__' in the prototype's HTML to
                 // instead be a number based on how many items we have
                 newForm = newForm.replace(/__name__/g, index);
-                console.log(newForm);
 
                 // increase the index with one for the next item
                 $collectionHolder.data('index', index + 1);
 
                 // Display the form in the page in an li, before the "Add a tag" link li
                 var $newFormDiv = $('<div class="form-group"></div>').append(newForm);
+                var button = $("<button />");
+                button.addClass('btn btn-danger');
+                button.text('Изтрий');
+                button.on(
+                    'click',
+                    function() {
+                        $newFormDiv.remove();
+                    }
+                );
+                $newFormDiv.append(button);
+
+                console.log($newLinkLi);
 
                 $newLinkLi.before($newFormDiv);
             }

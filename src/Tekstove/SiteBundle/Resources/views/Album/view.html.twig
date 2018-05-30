@@ -11,14 +11,14 @@
             ({{ album.year }})
         {% endif %}
     </h1>
-    
+
     {% if album.artists %}
         Изпълнители:
         {% include '@TekstoveSite/partial/artistList.html.twig' with {'artists': album.artists} only %}
     {% endif %}
-    
+
     {% if (album.acl('edit')) %}
-        <a class="btn btn-warning" href="#">Промени</a>
+        <a class="btn btn-warning" href="{{ path('tekstove_site_album_edit', {id: album.id}) }}">Промени</a>
     {% endif %}
 
     <ol>
@@ -33,9 +33,9 @@
                 {% endif %}
         {% endfor %}
     </ol>
-    
+
     <img src="{{ album.image|e }}">
-    
+
     <br/>
     Изпратено от <a href="{{ path('userView', { id:album.sendByUser.id }) }}">{{ album.getSendByUser.username|e }}</a>
 {% endblock %}

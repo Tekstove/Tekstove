@@ -6,9 +6,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Description of LyricType
+ * This is the album lyric collection.
+ * It is either relation to lyric or string
  *
- * @author potaka
+ * @author po_taka
  */
 class LyricType extends \Symfony\Component\Form\AbstractType
 {
@@ -18,12 +19,41 @@ class LyricType extends \Symfony\Component\Form\AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'name'
+            'name',
+            null,
+            [
+                'attr' => [
+                    'autocomplete' => 'off',
+                ],
+            ]
         );
 
         $builder->add(
-            'lyric'
+            'lyric',
+            \Symfony\Component\Form\Extension\Core\Type\IntegerType::class,
+            [
+                'attr' => [
+                    'autocomplete' => 'off',
+                ],
+                'label' => 'id',
+            ]
         );
+
+        $builder->get('lyric')
+                    ->addModelTransformer(
+                        new \Symfony\Component\Form\CallbackTransformer(
+                            function($lyric) {
+                                if ($lyric instanceof \Tekstove\SiteBundle\Model\Lyric\Lyric) {
+                                    return $lyric->getId();
+                                }
+
+                                return $lyric;
+                            },
+                            function($lyric) {
+                                return $lyric;
+                            }
+                        )
+                    );
     }
 
     /**

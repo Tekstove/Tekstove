@@ -54,7 +54,7 @@ class LyricController extends Controller
         }
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
-        
+
         $userGateway = $this->get('tekstove.gateway.user');
         /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
         $userGateway->setGroups([LyricGateway::GROUP_LIST]);
@@ -62,7 +62,7 @@ class LyricController extends Controller
 
         $mobileDetector = $this->get('mobile_detect.mobile_detector');
         /* @var $mobileDetector \Detection\MobileDetect */
-        
+
         if ($this->getUser()) {
             $ads = \Tekstove\SiteBundle\Ads\Ads::NOT_ALLOWED;
         } elseif ($lyric->isCensor()) {
@@ -77,23 +77,23 @@ class LyricController extends Controller
             'mobileDetector' => $mobileDetector,
         ];
     }
-    
+
     /**
      * Add new lyric
      */
     public function addAction(Request $request)
     {
         $lyric = new Lyric();
-        
+
         $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
         /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
         $credentialsData = $credentialsGateway->find();
         $allowedFields = $credentialsData['item']['fields'];
-        
+
         $form = $this->createCreateForm($lyric, $allowedFields);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tesktove.gateway.lyric');
             /* @var $gateway LyricGateway */
@@ -116,7 +116,7 @@ class LyricController extends Controller
             ]
         );
     }
-    
+
     private function createBaseForm(Lyric $lyric, $allowedFields)
     {
         $form = $this->createForm(
@@ -126,10 +126,10 @@ class LyricController extends Controller
                 'fields' => $allowedFields
             ]
         );
-        
+
         return $form;
     }
-    
+
     private function createCreateForm(Lyric $lyric, $allowedFields)
     {
         $form = $this->createBaseForm($lyric, $allowedFields);
@@ -143,10 +143,10 @@ class LyricController extends Controller
                 ],
             ]
         );
-        
+
         return $form;
     }
-    
+
     private function createEditForm(Lyric $lyric, $allowedFields)
     {
         $form = $this->createBaseForm($lyric, $allowedFields);
@@ -157,10 +157,10 @@ class LyricController extends Controller
                 'label' => 'Save',
             ]
         );
-        
+
         return $form;
     }
-    
+
     /**
      * Edit existing lyric
      */
@@ -177,15 +177,15 @@ class LyricController extends Controller
         );
         $data = $gateway->get($id);
         $lyric = $data['item'];
-        
+
         $credentialsGateway = $this->get('tekstove.gateway.lyric.credentials');
         /* @var $credentialsGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\CredentialsGateway */
         $credentialsData = $credentialsGateway->get($id);
         $allowedFields = $credentialsData['item']['fields'];
-        
+
         $form = $this->createEditForm($lyric, $allowedFields);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $gateway = $this->get('tesktove.gateway.lyric');
             /* @var $gateway LyricGateway */
@@ -201,12 +201,12 @@ class LyricController extends Controller
                 $formErrorPopulator->populateFormErrors($form, $e->getValidationErrors());
             }
         }
-        
+
         return [
             'form' => $form->createView(),
         ];
     }
-    
+
     /**
      * Search for lyrics
      */
@@ -225,7 +225,7 @@ class LyricController extends Controller
                 ],
             ]
         );
-        
+
         $artistGateway = $this->get('tekstove.gateway.artist');
         $formBuilder->addEventListener(
             \Symfony\Component\Form\FormEvents::PRE_SET_DATA,
@@ -238,7 +238,7 @@ class LyricController extends Controller
                         $potentialArtistIds[$v] = $v;
                     }
                 }
-                
+
                 if (!empty($potentialArtistIds)) {
                     $artistGateway->addFilter('id', $potentialArtistIds, 'in');
                 }
@@ -261,12 +261,12 @@ class LyricController extends Controller
                             'choice_value' => 'id',
                             'choices' => $artistsData['items'],
                             'label' => 'Artist',
-                        ]
+                        ],
                     ]
                 );
             }
         );
-        
+
         $formBuilder->add(
             'text',
             \Symfony\Component\Form\Extension\Core\Type\SearchType::class,
@@ -278,7 +278,7 @@ class LyricController extends Controller
                 ],
             ]
         );
-        
+
         $formBuilder->add(
             's',
             SubmitType::class,
@@ -288,22 +288,22 @@ class LyricController extends Controller
         );
         $form = $formBuilder->getForm();
         /* @var $form \Symfony\Component\Form\Form */
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $lyricGateway = $this->get('tesktove.gateway.lyric');
             /* @var $lyricGateway LyricGateway */
             $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
             $lyricGateway->addOrder('id', LyricGateway::ORDER_DESC);
-            
+
             $title = $form->get('title');
             $titleData = $title->getData();
             if ($titleData !== '') {
                 $titleSearchData = preg_replace('/\s/', '%', $titleData);
                 $lyricGateway->addFilter('title', "%{$titleSearchData}%", LyricGateway::FILTER_LIKE);
             }
-            
+
             $artists = $form->get('artists');
             $artistsData = $artists->getData();
             if (!empty($artistsData)) {
@@ -312,10 +312,10 @@ class LyricController extends Controller
                     /* @var $artist \Tekstove\SiteBundle\Model\Artist\Artist */
                     $artistIds[$artist->getId()] = $artist->getId();
                 }
-                
+
                 $lyricGateway->addFilter('ArtistId', $artistIds, LyricGateway::FILTER_IN);
             }
-            
+
             $text = $form->get('text')->getData();
             if ($text !== '') {
                 $textExploded = explode(' ', $text);
@@ -323,7 +323,7 @@ class LyricController extends Controller
                     $lyricGateway->addFilter('text', "%{$wordToSearch}%", LyricGateway::FILTER_LIKE);
                 }
             }
-            
+
             $paginator = $this->get('knp_paginator');
             /* @var $paginator \Knp\Component\Pager\Paginator */
             $lyricPaginate = $paginator->paginate(
@@ -337,14 +337,14 @@ class LyricController extends Controller
         } else {
             $lyricPaginate = false;
         }
-        
-        
+
+
         return [
             'form' => $form->createView(),
             'lyricPaginate' => $lyricPaginate,
         ];
     }
-    
+
     /**
      * Top100 stats
      */
@@ -373,19 +373,19 @@ class LyricController extends Controller
             default:
                 throw $this->createNotFoundException("Top 100 by `{$sort}` do not exists");
         }
-        
+
         $lyricGateway = $this->get('tesktove.gateway.lyric');
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups($lyricGatewayGroups);
-        
+
         $lyricGateway->setLimit(100);
-        
+
         $lyricGateway->addOrder($sortField, LyricGateway::ORDER_DESC);
-       
+
         $lyricData = $lyricGateway->find();
         $lyrics = $lyricData['items'];
         /* @var $lyric Lyric */
-        
+
         return [
             'lyrics' => $lyrics,
             'title' => $viewTitle,
@@ -429,7 +429,7 @@ class LyricController extends Controller
 
         $nextMonthDatetime = clone $datetime;
         $nextMonthDatetime->modify('+1 month');
-        
+
         $currentMonth = new \DateTime('first day of this month');
         $currentMonth->setTime(0, 0, 0);
 

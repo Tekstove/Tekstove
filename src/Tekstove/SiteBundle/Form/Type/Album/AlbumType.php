@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Tekstove\SiteBundle\Form\Type\Artist\ArtistCollectionType;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Description of AlbumType
@@ -59,7 +60,6 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         }
 
         if (in_array('artists', $fields)) {
-
             $request = $this->request;
             $artistGateway = $this->artistGateway;
 
@@ -75,11 +75,11 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         if (in_array('image', $fields)) {
             $builder->add(
                 'image',
-                null,
+                TextType::class,
                 [
                     'attr' => [
                         'placeholder' => 'https://en.wikipedia.org/wiki/50_Cent#/media/File:50-cent-face.png',
-                    ]
+                    ],
                 ]
             );
         }
