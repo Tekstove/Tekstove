@@ -69,7 +69,8 @@ class Album
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id) 
+    {
         $this->id = $id;
     }
 
@@ -128,15 +129,12 @@ class Album
             if (
                 (
                     (
-                        (
-                            $existingLyric->getLyric() && $lyric->getLyric()
-                            && $existingLyric->getLyric()->getId() == $lyric->getLyric()->getId()
-                        )
-                        || (!$existingLyric->getLyric() && !$lyric->getLyric())
+                        $existingLyric->getLyric() && $lyric->getLyric()
+                        && $existingLyric->getLyric()->getId() == $lyric->getLyric()->getId()
                     )
-                    && $existingLyric->getName() == $lyric->getName()
+                    || (!$existingLyric->getLyric() && !$lyric->getLyric())
                 )
-
+                && $existingLyric->getName() == $lyric->getName()
             ) {
                 unset($this->lyrics[$key]);
                 return;

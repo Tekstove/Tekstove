@@ -40,7 +40,7 @@ trait ChangeSetable
      * @return array
      */
     public function getChangeSet()
-    { // @FIXME refactor!
+    {
         $return = [];
         foreach ($this->getChangedFields() as $field) {
             $getter = 'get' . $field;

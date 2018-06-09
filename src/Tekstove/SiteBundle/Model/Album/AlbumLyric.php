@@ -14,7 +14,7 @@ class AlbumLyric implements ArrayableInterface
     private $lyric;
     private $name;
     
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
         if (isset($data['lyric'])) {
             $this->lyric = new \Tekstove\SiteBundle\Model\Lyric\Lyric($data['lyric']);
@@ -33,7 +33,7 @@ class AlbumLyric implements ArrayableInterface
         ];
     }
 
-        public function getLyric()
+    public function getLyric()
     {
         return $this->lyric;
     }

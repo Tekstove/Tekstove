@@ -58,7 +58,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         $builder->get('lyric')
             ->addEventListener(
                 \Symfony\Component\Form\FormEvents::POST_SUBMIT,
-                function(\Symfony\Component\Form\FormEvent $event) {
+                function (\Symfony\Component\Form\FormEvent $event) {
                     $form = $event->getForm();
                     $album = $form->getParent() // album-lyric
                             ->getParent() // album-lyric collection

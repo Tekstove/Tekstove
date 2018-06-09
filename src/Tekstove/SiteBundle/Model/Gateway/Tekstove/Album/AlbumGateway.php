@@ -72,17 +72,18 @@ class AlbumGateway extends AbstractGateway
                                     );
             }
         } catch (RequestException $e) {
-                if ($e->getCode() != 400) {
-                    throw $e;
-                }
-
-                $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
-                $errors = json_decode($e->getBody(), true);
-                $validationException->setValidationErrors($errors);
-                throw $validationException;
+            if ($e->getCode() != 400) {
+                throw $e;
             }
-            $parsedResponse = json_decode($response->getBody(), true);
-            $album->setId($parsedResponse['item']['id']);
+
+            $validationException = new TekstoveValidationException($e->getMessage(), 0, $e);
+            $errors = json_decode($e->getBody(), true);
+            $validationException->setValidationErrors($errors);
+            throw $validationException;
+        }
+
+        $parsedResponse = json_decode($response->getBody(), true);
+        $album->setId($parsedResponse['item']['id']);
 
         return $album;
     }

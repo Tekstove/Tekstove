@@ -24,7 +24,8 @@ class ArtistCollectionType
         $this->gateway = $gateway;
     }
 
-    public function __invoke(FormEvent $event) {
+    public function __invoke(FormEvent $event) 
+    {
         $posts = $this->request->request->all();
         $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
         $potentialArtistIds = [];
@@ -64,5 +65,4 @@ class ArtistCollectionType
             ]
         );
     }
-
 }
