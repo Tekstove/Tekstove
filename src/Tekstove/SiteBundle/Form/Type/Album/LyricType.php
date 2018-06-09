@@ -42,14 +42,14 @@ class LyricType extends \Symfony\Component\Form\AbstractType
         $builder->get('lyric')
                     ->addModelTransformer(
                         new \Symfony\Component\Form\CallbackTransformer(
-                            function($lyric) {
+                            function ($lyric) {
                                 if ($lyric instanceof \Tekstove\SiteBundle\Model\Lyric\Lyric) {
                                     return $lyric->getId();
                                 }
 
                                 return $lyric;
                             },
-                            function($lyric) {
+                            function ($lyric) {
                                 return $lyric;
                             }
                         )
@@ -67,7 +67,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                     /* @var $album \Tekstove\SiteBundle\Model\Album\Album */
                     $album->markLyricsAsChanged();
                 }
-        );
+            );
     }
 
     /**
@@ -77,13 +77,11 @@ class LyricType extends \Symfony\Component\Form\AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => \Tekstove\SiteBundle\Model\Album\AlbumLyric::class,
-                'attr' => [
-                    'novalidate' => 'novalidate',
-                ]
-            )
-        );
+        $resolver->setDefaults([
+            'data_class' => \Tekstove\SiteBundle\Model\Album\AlbumLyric::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
+        ]);
     }
 }
