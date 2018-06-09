@@ -8,8 +8,6 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\RequestException
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 
 /**
- * Description of AlbumGateway
- *
  * @author po_taka <angel.koilov@gmail.com>
  */
 class AlbumGateway extends AbstractGateway
@@ -46,8 +44,9 @@ class AlbumGateway extends AbstractGateway
     {
         $changeSet = $album->getChangeSet();
 
-        if ($album->getId()) {
-            $pathData = [];
+        try {
+            if ($album->getId()) {
+                $pathData = [];
                 foreach ($changeSet as $property => $value) {
                     $pathData[] = [
                         'op' => 'replace',
@@ -63,8 +62,7 @@ class AlbumGateway extends AbstractGateway
                                             'body' => json_encode($pathData),
                                         ]
                                     );
-        } else {
-            try {
+            } else {
                 $response = $this->getClient()
                                     ->post(
                                         $this->getRelativeUrl(),
@@ -72,7 +70,8 @@ class AlbumGateway extends AbstractGateway
                                             'body' => json_encode($changeSet),
                                         ]
                                     );
-            } catch (RequestException $e) {
+            }
+        } catch (RequestException $e) {
                 if ($e->getCode() != 400) {
                     throw $e;
                 }
@@ -84,7 +83,6 @@ class AlbumGateway extends AbstractGateway
             }
             $parsedResponse = json_decode($response->getBody(), true);
             $album->setId($parsedResponse['item']['id']);
-        }
 
         return $album;
     }

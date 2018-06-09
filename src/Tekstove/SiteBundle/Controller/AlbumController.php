@@ -100,8 +100,10 @@ class AlbumController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        // there is a problem here....
+        // changes in album.lyrics are not updating changed fields in the album
 
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $gateway->save($album);
                 return $this->redirectToRoute('tekstove_site_album_view', ['id' => $album->getId()]);

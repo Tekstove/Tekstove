@@ -78,7 +78,7 @@ class Album
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->changedFields['name'] = 'name';
         $this->name = $name;
@@ -142,6 +142,15 @@ class Album
                 return;
             }
         }
+    }
+
+    /**
+     * The problem is that change in album-lyric do not trigger change in album.
+     * This method is called when there is change in album-lyric.....ugly
+     */
+    public function markLyricsAsChanged()
+    {
+        $this->changedFields['lyrics'] = 'lyrics';
     }
 
     public function getArtists()

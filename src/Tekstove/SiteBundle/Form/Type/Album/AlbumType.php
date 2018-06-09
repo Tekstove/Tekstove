@@ -43,7 +43,13 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         $fields = $options['fields'];
 
         if (in_array('name', $fields)) {
-            $builder->add('name');
+            $builder->add(
+                'name',
+                null,
+                [
+                    'empty_data' => '',
+                ]
+            );
         }
 
         if (in_array('year', $fields)) {

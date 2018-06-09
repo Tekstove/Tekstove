@@ -61,10 +61,6 @@ trait ChangeSetable
             }
         }
 
-//        dump($return);
-//        dump($this);
-//        die;
-
         return $return;
     }
 }
