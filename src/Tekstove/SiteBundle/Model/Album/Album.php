@@ -69,7 +69,7 @@ class Album
         return $this->id;
     }
 
-    public function setId($id) 
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -126,15 +126,14 @@ class Album
     {
         $this->changedFields['lyrics'] = 'lyrics';
         foreach ($this->lyrics as $key => $existingLyric) {
-            if (
-                (
+            if ($existingLyric->getName() == $lyric->getName()
+                && (
                     (
                         $existingLyric->getLyric() && $lyric->getLyric()
                         && $existingLyric->getLyric()->getId() == $lyric->getLyric()->getId()
                     )
                     || (!$existingLyric->getLyric() && !$lyric->getLyric())
                 )
-                && $existingLyric->getName() == $lyric->getName()
             ) {
                 unset($this->lyrics[$key]);
                 return;
