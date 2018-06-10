@@ -13,13 +13,13 @@ class AlbumLyric implements ArrayableInterface
 {
     private $lyric;
     private $name;
-    
+
     public function __construct(array $data = [])
     {
         if (isset($data['lyric'])) {
             $this->lyric = new \Tekstove\SiteBundle\Model\Lyric\Lyric($data['lyric']);
         }
-        
+
         if (isset($data['name'])) {
             $this->name = $data['name'];
         }
@@ -46,7 +46,7 @@ class AlbumLyric implements ArrayableInterface
                     'id' => (int)$lyric,
                 ]
             );
-            
+
         }
 
         if (!$lyric instanceof \Tekstove\SiteBundle\Model\Lyric\Lyric) {
@@ -71,10 +71,10 @@ class AlbumLyric implements ArrayableInterface
         if ($this->isLyric()) {
             return $this->getLyric()->getTitle();
         }
-        
+
         return $this->getName();
     }
-    
+
     public function isLyric()
     {
         return $this->lyric !== null;

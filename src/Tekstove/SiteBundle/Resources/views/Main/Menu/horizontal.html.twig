@@ -35,7 +35,10 @@
             <li class="t-menu-horizontal-group">
                 <ul>
                     <li><a href="{{ path('lyricAdd') }}" class="top">Изпрати Tекст</a></li>
-                    {#                        <a href="#"><del>Изпрати Албум</del></a>&nbsp;#}
+
+                    {% if app.user %}
+                        <li><a href="{{ path("tekstove_site_album_new") }}">Изпрати Албум</a></li>
+                    {% endif %}
                 </ul>
             </li>
 
