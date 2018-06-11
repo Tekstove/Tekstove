@@ -71,7 +71,7 @@ class AlbumController extends Controller
             }
         }
         return $this->render(
-            'SiteBundle::Album/edit.html.twig', // @FIXME change template!
+            'SiteBundle::Album/edit.html.twig',
             [
                 'form' => $form->createView(),
             ]
