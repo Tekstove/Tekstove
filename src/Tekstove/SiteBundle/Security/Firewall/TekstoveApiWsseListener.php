@@ -12,7 +12,7 @@ class TekstoveApiWsseListener extends \Symfony\Component\Security\Http\Firewall\
     {
         $username = $request->get('_username');
         $password = $request->get('_password');
-        
+
         if (!is_string($username) || !is_string($password)) {
             return;
         }
@@ -25,7 +25,6 @@ class TekstoveApiWsseListener extends \Symfony\Component\Security\Http\Firewall\
             $authToken = $this->authenticationManager->authenticate($token);
             return $authToken;
         } catch (AuthenticationException $failed) {
-            
             throw $failed;
             // ... you might log something here
 
@@ -38,7 +37,7 @@ class TekstoveApiWsseListener extends \Symfony\Component\Security\Http\Firewall\
 //             return;
         }
     }
-    
+
     protected function requiresAuthentication(Request $request)
     {
         if ($request->getMethod() === 'POST') {
@@ -46,7 +45,7 @@ class TekstoveApiWsseListener extends \Symfony\Component\Security\Http\Firewall\
         }
         return false;
     }
-    
+
     protected function attemptAuthentication(Request $request)
     {
         return $this->handlePost($request);

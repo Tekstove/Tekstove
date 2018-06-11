@@ -25,11 +25,11 @@ class ArrayErrorPopulator
     public function populateFormErrors(FormInterface $form, array $errors)
     {
         foreach ($errors as $error) {
-            $formError = new FormError($error[$this->formErrorMessageKey]);
             $formErrorMatched = false;
             foreach ($form as $formElement) {
                 /* @var $formElement FormInterface */
                 if (in_array($error[$this->formErrorElementKey], $this->getMatchinFormElements($formElement->getName()))) {
+                    $formError = new FormError($error[$this->formErrorMessageKey]);
                     $formElement->addError($formError);
                     $formErrorMatched = true;
                     break;
@@ -37,6 +37,9 @@ class ArrayErrorPopulator
             }
 
             if (!$formErrorMatched) {
+                $formError = new FormError(
+                    $error[$this->formErrorElementKey] . ' - ' . $error[$this->formErrorMessageKey]
+                );
                 $form->addError($formError);
             }
         }

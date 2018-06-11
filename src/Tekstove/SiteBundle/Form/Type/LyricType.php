@@ -23,29 +23,28 @@ class LyricType extends \Symfony\Component\Form\AbstractType
     private $request;
     private $artistGateway;
     private $languageGateway;
-    
+
     public function __construct(RequestStack $requestStack, ArtistGateway $artistGateway, LanguageGateway $languagegateway)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->artistGateway = $artistGateway;
         $this->languageGateway = $languagegateway;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $fields = $options['fields'];
-        
+
         $request = $this->request;
         $artistGateway = $this->artistGateway;
-        
+
         if (in_array('artists', $fields)) {
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) use ($request, $artistGateway) {
-
                     $posts = $request->request->all();
                     $it = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($posts));
                     $potentialArtistIds = [];
@@ -85,20 +84,18 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                             ]
                         ]
                     );
-
                 }
             );
         }
-        
-        
+
         if (in_array('title', $fields)) {
             $builder->add('title');
         }
-        
+
         if (in_array('text', $fields)) {
             $builder->add('text', TextareaType::class);
         }
-        
+
         if (in_array('textBg', $fields)) {
             $builder->add(
                 'textBg',
@@ -118,7 +115,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             );
         }
-        
+
         if (in_array('videoYoutube', $fields)) {
             $builder->add(
                 'videoYoutube',
@@ -130,7 +127,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             );
         }
-        
+
         if (in_array('videoVbox7', $fields)) {
             $builder->add(
                 'videoVbox7',
@@ -142,15 +139,15 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             );
         }
-        
+
         if (in_array('extraInfo', $fields)) {
             $builder->add('extraInfo', TextareaType::class, []);
         }
-        
+
         if (in_array('download', $fields)) {
             $builder->add('download', TextType::class, []);
         }
-        
+
         if (in_array('languages', $fields)) {
             $builder->add(
                 'languages',
@@ -166,7 +163,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
                 ]
             );
         }
-        
+
         if (in_array('delete', $fields)) {
             $builder->add(
                 'delete',
@@ -178,7 +175,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
             );
         }
     }
-    
+
     /**
      * Configures the options for this type.
      *
@@ -187,7 +184,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('fields');
-        
+
         $resolver->setDefaults(
             array(
                 'attr' => [
@@ -196,7 +193,7 @@ class LyricType extends \Symfony\Component\Form\AbstractType
             )
         );
     }
-    
+
     private function getLanguages()
     {
         $this->languageGateway->setGroups([LanguageGateway::GROUP_LIST]);

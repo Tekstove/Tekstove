@@ -13,7 +13,7 @@ trait ChangeSetable
      * @var array
      */
     protected $changedFields = [];
-    
+
     /**
      * Check if fields is changed
      * @param string $field
@@ -24,10 +24,10 @@ trait ChangeSetable
         if (isset($this->changedFields[$field])) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * @return array
      */
@@ -35,7 +35,7 @@ trait ChangeSetable
     {
         return $this->changedFields;
     }
-    
+
     /**
      * @return array
      */
@@ -48,7 +48,11 @@ trait ChangeSetable
             if (is_array($value)) {
                 $return[$field] = [];
                 foreach ($value as $nestedSet) {
-                    $return[$field][] = $nestedSet->getId();
+                    if ($nestedSet instanceof ArrayableInterface) {
+                        $return[$field][] = $nestedSet->toArray();
+                    } else {
+                        $return[$field][] = $nestedSet->getId();
+                    }
                 }
             } elseif ($value instanceof ArrayableInterface) {
                 $return[$field] = $value->toArray();

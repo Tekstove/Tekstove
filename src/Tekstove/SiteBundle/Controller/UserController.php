@@ -140,7 +140,6 @@ class UserController extends Controller
         $form->handleRequest($request);
         $message = '';
         if ($form->isSubmitted() && $form->isValid()) {
-
             $gateway = $this->get('tekstove.gateway.user');
             /* @var $userGateway UserGateway */
 

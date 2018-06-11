@@ -37,9 +37,12 @@ return [
     'Recaptcha' => 'Поле срещу ботове',
     'Repeat Password' => 'Повтори паролата',
     'Extra info' => "Допълнителна информация",
+    'Release date' => 'Дата на издаване',
+    'Image' => 'Картинка',
     'Censor' => "Цензура",
 
     // form common fields
+    'Name' => 'Име',
     'Save' => 'Запази',
     'Search' => 'Търси',
     'Send' => 'Изпрати',

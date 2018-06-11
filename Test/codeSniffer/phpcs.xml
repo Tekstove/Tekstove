@@ -13,7 +13,9 @@
         <exclude name="Generic.Files.LineLength"/>
     </rule>
     <rule ref="PSR2" />
-    
+
+    <rule ref="Generic.Commenting.Fixme"/>
+
 
     <!--<arg value="p"/>-->
 </ruleset>

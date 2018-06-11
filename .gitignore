@@ -17,5 +17,3 @@
 /app/scripts/migrations/phinx.yml
 
 /node_modules
-
-/Test/codeSniffer/vendor
