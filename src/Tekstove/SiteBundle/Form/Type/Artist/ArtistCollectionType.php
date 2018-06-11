@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Tekstove\SiteBundle\Form\Field\ArtistsType;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 
 /**
  * Actually this is event listener for FormEvents::PRE_SET_DATA
@@ -17,10 +18,9 @@ class ArtistCollectionType
     private $request;
     private $gateway;
 
-    public function __construct(Request $requst, $gateway)
+    public function __construct(Request $requst, ArtistGateway $gateway)
     {
         $this->request = $requst;
-        // @TODO check gateway type?
         $this->gateway = $gateway;
     }
 

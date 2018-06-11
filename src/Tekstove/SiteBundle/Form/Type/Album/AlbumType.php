@@ -66,11 +66,10 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
         }
 
         if (in_array('artists', $fields)) {
-            $request = $this->request;
-            $artistGateway = $this->artistGateway;
-
-            // @FIXME inject
-            $artistCollectionType = new ArtistCollectionType($request, $artistGateway);
+            $artistCollectionType = new ArtistCollectionType(
+                $this->request,
+                $this->artistGateway
+            );
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
@@ -116,12 +115,10 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
     {
         $resolver->setRequired('fields');
 
-        $resolver->setDefaults(
-            array(
-                'attr' => [
-                    'novalidate' => 'novalidate',
-                ]
-            )
-        );
+        $resolver->setDefaults([
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
+        ]);
     }
 }
