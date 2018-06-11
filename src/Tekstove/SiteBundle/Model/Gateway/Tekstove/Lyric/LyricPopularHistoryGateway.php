@@ -26,11 +26,9 @@ class LyricPopularHistoryGateway extends AbstractGateway
 
     public function find()
     {
-        
         $data = parent::find();
         $lyricsHisory = [];
         foreach ($data['items'] as $lyricData) {
-
             $lyricsHisory[] = new \Tekstove\SiteBundle\Model\Lyric\LyricPopularityHistory($lyricData);
         }
 

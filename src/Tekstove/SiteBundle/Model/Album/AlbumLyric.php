@@ -46,7 +46,6 @@ class AlbumLyric implements ArrayableInterface
                     'id' => (int)$lyric,
                 ]
             );
-
         }
 
         if (!$lyric instanceof \Tekstove\SiteBundle\Model\Lyric\Lyric) {

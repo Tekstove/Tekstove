@@ -69,7 +69,7 @@ class AlbumType extends \Symfony\Component\Form\AbstractType
             $request = $this->request;
             $artistGateway = $this->artistGateway;
 
-            // @FIXME inject?
+            // @FIXME inject
             $artistCollectionType = new ArtistCollectionType($request, $artistGateway);
 
             $builder->addEventListener(
