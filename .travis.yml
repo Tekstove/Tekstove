@@ -1,9 +1,10 @@
 language: php
 php:
   - 7.1
+  - 7.2
   - nightly
 
-  
+
 before_script:
   - phpenv rehash
   - mv app/config/parameters_travis.yml app/config/parameters.yml
@@ -14,8 +15,13 @@ script:
     - Test/codeSniffer/vendor/bin/phpcs --standard=Test/codeSniffer/phpcs.xml src/
     - cp app/config/parameters.yml.dist app/config/parameters.yml
     - composer install --prefer-dist
-    - vendor/bin/phpunit -c Test/phpUnit/phpunit.xml --no-coverage 
+    - vendor/bin/phpunit -c Test/phpUnit/phpunit.xml --no-coverage
 
 matrix:
     allow_failures:
         - php: nightly
+
+notifications:
+    on_success: never
+    on_failure: never
+    on_change: never
