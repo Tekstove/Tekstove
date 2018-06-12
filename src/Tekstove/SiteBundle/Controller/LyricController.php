@@ -416,8 +416,8 @@ class LyricController extends Controller
         $gateway->addFilter(
             'date',
             [
-                'min' => $datetime->format('Y-M-01'),
-                'max' => $datetime->format('Y-M-t'),
+                'min' => $datetime->format('Y-m-01'),
+                'max' => $datetime->format('Y-m-t'),
             ],
             LyricPopularHistoryGateway::FILTER_RANGE
         );
