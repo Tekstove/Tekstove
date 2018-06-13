@@ -11,6 +11,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 use Tekstove\SiteBundle\Model\Artist\Artist;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidationException;
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\NotFoundException;
 
 /**
  * @Template()
@@ -28,7 +29,12 @@ class ArtistController extends Controller
                 ArtistGateway::GROUP_ACL,
             ]
         );
-        $artistData = $artistGateway->get($id);
+
+        try {
+            $artistData = $artistGateway->get($id);
+        } catch (NotFoundException $e) {
+            throw $this->createNotFoundException('Artist not found');
+        }
         $artist = $artistData['item'];
         $lyricGateway = $this->get("tesktove.gateway.lyric");
         /* @var $lyricGateway LyricGateway */
@@ -79,7 +85,7 @@ class ArtistController extends Controller
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
         /* @var $artistGateway ArtistGateway */
-        
+
         $artistGateway->setGroups(
             [
                 ArtistGateway::GROUP_DETAILS,
