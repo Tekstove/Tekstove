@@ -92,6 +92,7 @@ class Album
 
     public function setImage($image)
     {
+        $this->changedFields['image'] = 'image';
         $this->image = $image;
     }
 
