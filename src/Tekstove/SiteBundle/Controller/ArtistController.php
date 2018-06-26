@@ -35,7 +35,20 @@ class ArtistController extends Controller
         } catch (NotFoundException $e) {
             throw $this->createNotFoundException('Artist not found');
         }
+
         $artist = $artistData['item'];
+
+        $albums = $artist->getAlbums();
+
+        // sort albums by year
+        usort($albums, function(\Tekstove\SiteBundle\Model\Album\Album $a, \Tekstove\SiteBundle\Model\Album\Album $b) {
+            if ($a->getYear() === $b->getYear()) {
+                return $a->getName() > $b->getName();
+            }
+
+            return $a->getYear() > $b->getYear();
+        });
+
         $lyricGateway = $this->get("tesktove.gateway.lyric");
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
