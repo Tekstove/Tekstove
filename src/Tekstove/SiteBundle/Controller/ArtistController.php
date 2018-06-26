@@ -67,6 +67,7 @@ class ArtistController extends Controller
         return [
             'artist' => $artist,
             'lyrics' => $lyrics,
+            'albums' => $albums,
         ];
     }
 
