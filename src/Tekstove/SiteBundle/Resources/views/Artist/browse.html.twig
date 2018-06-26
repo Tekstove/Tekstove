@@ -23,11 +23,11 @@
         </div>
     {% endif %}
 
-    {% if artist.albums %}
+    {% if albums %}
         <div class="container t-artist-albums">
             <h2>Албуми</h2>
             <div class="clearfix"></div>
-            {% for album in artist.albums %}
+            {% for album in albums %}
                 <div class="col-md-3">
                     <a href="{{ path('tekstove_site_album_view', {id: album.id}) }}">
                         {% if album.year %}
@@ -41,7 +41,7 @@
             {% endfor %}
         </div>
     {% endif %}
-    
+
     <br/>
     <br/> <br/>
 
