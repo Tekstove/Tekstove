@@ -27,18 +27,20 @@
         <div class="container t-artist-albums">
             <h2>Албуми</h2>
             <div class="clearfix"></div>
-            {% for album in albums %}
-                <div class="col-md-3">
-                    <a href="{{ path('tekstove_site_album_view', {id: album.id}) }}">
-                        {% if album.year %}
-                            ({{ album.year }})
-                            <br/>
-                        {% endif %}
-                        {{ album.name|e }}
-                        <img src="{{ album.image|e }}" alt="Обложка на албума" />
-                    </a>
+            <div class="t-artist-albums-container">
+                {% for album in albums %}
+                    <div class="col-md-3">
+                        <a href="{{ path('tekstove_site_album_view', {id: album.id}) }}">
+                            {% if album.year %}
+                                ({{ album.year }})
+                                <br/>
+                            {% endif %}
+                            {{ album.name|e }}
+                            <img src="{{ album.image|e }}" alt="Обложка на албума" />
+                        </a>
+                    </div>
+                {% endfor %}
                 </div>
-            {% endfor %}
         </div>
     {% endif %}
 
