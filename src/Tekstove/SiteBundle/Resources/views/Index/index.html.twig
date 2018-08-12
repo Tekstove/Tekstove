@@ -8,7 +8,7 @@
             </div>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in lastLyrics %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}" title="{{ lyric.title }}">
                         {{ lyric.cacheTitleShort }}
                     </a>
                     <br/>
@@ -23,7 +23,7 @@
             </div>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in lastTranslated %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}" title="{{ lyric.title }}">
                         {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
@@ -48,7 +48,7 @@
             </a>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in popular %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}" title="{{ lyric.title }}">
                         {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
@@ -70,7 +70,7 @@
             </a>
             <div class="t-index-lyrics-block-lyrics-container">
                 {% for lyric in mostViewed %}
-                    <a href="{{ path('lyricView', {id:lyric.id}) }}">
+                    <a href="{{ path('lyricView', {id:lyric.id}) }}" title="{{ lyric.title }}">
                         {{ lyric.cacheTitleShort }}
                     </a>
                     <br />
@@ -88,13 +88,13 @@
         
         <div class="row">
 {% for album in albums %}
-                <div class="col-md-2 text-center">
-                    <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}">
-                        {{ album.name|truncate(8)|e }}
+                <div class="col-md-2 text-center t-index-album">
+                    <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}" title="{{ album.name }}">
+                        {{ album.name }}
                         <br/>
-                        <i>({{ album.year|e }})</i>
+                        <i>({{ album.year }})</i>
                         <br/>
-                        <img src="{{ album.image|e }}" style="max-width: 100%; height: auto;" alt="Обложка" />
+                        <img src="{{ album.image }}" style="max-width: 100%; height: auto;" alt="Обложка" />
                     </a>
                 </div>
 {% endfor %}

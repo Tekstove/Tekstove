@@ -222,6 +222,9 @@ ul.t-menu-list {
 
 .t-index-lyrics-block-lyrics-container {
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 @media (max-width: 991px) {
     .t-index-lyrics-block-lyrics-container {
@@ -239,6 +242,12 @@ ul.t-menu-list {
     max-width: 250px;
     min-height: 100px;
     max-height: 250px;
+}
+
+.t-index-album {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .t-artist-info-legend {
