@@ -75,6 +75,7 @@ class LyricController extends Controller
             'lyric' => $lyric,
             'ads' => $ads,
             'mobileDetector' => $mobileDetector,
+            'apiUrl' => $this->getParameter('tekstove.api_url'),
         ];
     }
 
