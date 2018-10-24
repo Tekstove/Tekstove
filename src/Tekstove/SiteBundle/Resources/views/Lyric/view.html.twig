@@ -138,7 +138,7 @@
 
     <script>
         $.ajax({
-            url: '{{ apiUrl|e('js') }}/v4/lyrics/{{ lyric.id }}?groups%5B0%5D=Details',
+            url: '{{ apiUrl|e('js') }}v4/lyrics/{{ lyric.id }}?groups%5B0%5D=Details',
         }).done(function(data) {
             var sendDate = new Date(data.item.sendDate * 1000);
             var sendText = ", изпратена на " + sendDate.getDate() + ".";
