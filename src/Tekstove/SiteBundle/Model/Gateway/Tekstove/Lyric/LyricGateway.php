@@ -22,12 +22,23 @@ class LyricGateway extends AbstractGateway
     const GROUP_POPULARITY = 'Popularity';
     const GROUP_VIEWS = 'Views';
     const GROUP_MANUAL_CENSOR = 'ManualCensor';
-    
+    const GROUP_SEND_BY = 'lyric.sendBy';
+
+    private $relativeUrl ='/lyrics/';
+
     protected function getRelativeUrl()
     {
-        return '/lyrics/';
+        return $this->relativeUrl;
     }
-    
+
+    /**
+     * @param string $relativeUrl
+     */
+    public function setRelativeUrlToV4()
+    {
+        $this->relativeUrl = '/v4' . $this->relativeUrl;
+    }
+
     public function find()
     {
         $data = parent::find();

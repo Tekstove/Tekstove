@@ -58,6 +58,8 @@ class Lyric
      * @var array
      */
     private $acl = [];
+
+    private $sendDate;
     
     /**
      * @param array $data
@@ -83,12 +85,28 @@ class Lyric
             
             'acl',
         ];
-        
+
         foreach ($fields as $field) {
             if (!isset($data[$field])) {
                 continue;
             }
             $this->{$field} = $data[$field];
+        }
+
+        // api v3 sendBy is integer
+        // api v4 sendBy is object(array)
+        if (isset($data['sendBy'])) {
+            if (is_numeric($data['sendBy'])) {
+                $this->sendBy = $data['sendBy'];
+            } elseif (is_array($data['sendBy'])) {
+                $this->setSendByUser(new User($data['sendBy']));
+                $this->sendBy = $this->getSendByUser()->getId();
+            }
+        }
+
+        if (isset($data['sendDate'])) {
+            $this->sendDate = new \DateTime();
+            $this->sendDate->setTimestamp($data['sendDate']);
         }
         
         if (isset($data['censor'])) {
@@ -113,7 +131,15 @@ class Lyric
             }
         }
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getSendDate()
+    {
+        return $this->sendDate;
+    }
+
     public function getId()
     {
         return (int) $this->id;

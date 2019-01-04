@@ -31,11 +31,12 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups(
             [
                 LyricGateway::GROUP_DETAILS,
+                LyricGateway::GROUP_SEND_BY,
                 LyricGateway::GROUP_ACL,
             ]
         );
