@@ -56,11 +56,6 @@ class LyricController extends Controller
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
 
-        $userGateway = $this->get('tekstove.gateway.user');
-        /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
-        $userGateway->setGroups([LyricGateway::GROUP_LIST]);
-        $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
-
         $mobileDetector = $this->get('mobile_detect.mobile_detector');
         /* @var $mobileDetector \Detection\MobileDetect */
 
