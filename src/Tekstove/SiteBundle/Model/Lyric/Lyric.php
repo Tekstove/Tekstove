@@ -29,7 +29,13 @@ class Lyric
     private $textBg;
     private $extraInfo;
     private $extraInfoHtml;
-    private $forbidden;
+
+    /**
+     * @var bool
+     * By default all lyrics are forbidden.
+     * This is prevent us from accidentally displaying the lyric
+     */
+    private $forbidden = true;
     
     private $sendBy;
     private $sendByUser;
@@ -392,7 +398,7 @@ class Lyric
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
     public function isForbidden()
     {
