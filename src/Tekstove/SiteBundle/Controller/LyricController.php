@@ -289,7 +289,7 @@ class LyricController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $lyricGateway = $this->get('tesktove.gateway.lyric');
+            $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
             /* @var $lyricGateway LyricGateway */
             $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
             $lyricGateway->addOrder('id', LyricGateway::ORDER_DESC);
