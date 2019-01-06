@@ -29,6 +29,7 @@ class Lyric
     private $textBg;
     private $extraInfo;
     private $extraInfoHtml;
+    private $forbidden;
     
     private $sendBy;
     private $sendByUser;
@@ -75,6 +76,7 @@ class Lyric
             'extraInfoHtml',
             'sendBy',
             'download',
+            'forbidden',
             
             'videoYoutube',
             'videoVbox7',
@@ -387,6 +389,14 @@ class Lyric
     {
         $this->changedFields['manualCensor'] = 'manualCensor';
         $this->manualCensor = $manualCensore;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isForbidden()
+    {
+        return $this->forbidden;
     }
 
     public function getPopularity()

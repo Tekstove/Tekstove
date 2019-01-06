@@ -121,7 +121,14 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {{ lyric.text|e|nl2br }}
+                    {% if lyric.isForbidden %}
+                        Нямаме права да ви покажем текства :( <br/>
+                        Ако сте собственик на текста, моля пишете ни на tekstove.info@gmail.com за съгласие <br/>
+                        Собственици на текса са музикалната компания издала песента, изпълнителите и текстописецът. <br/>
+                        Без разрешение от тях, нямаме право да покажем текста! <br/>
+                    {% else %}
+                        {{ lyric.text|e|nl2br }}
+                    {%  endif %}
                 </div>
             </div>
         </div>
