@@ -29,6 +29,13 @@ class Lyric
     private $textBg;
     private $extraInfo;
     private $extraInfoHtml;
+
+    /**
+     * @var bool
+     * By default all lyrics are forbidden.
+     * This is prevent us from accidentally displaying the lyric
+     */
+    private $forbidden = true;
     
     private $sendBy;
     private $sendByUser;
@@ -75,6 +82,7 @@ class Lyric
             'extraInfoHtml',
             'sendBy',
             'download',
+            'forbidden',
             
             'videoYoutube',
             'videoVbox7',
@@ -387,6 +395,14 @@ class Lyric
     {
         $this->changedFields['manualCensor'] = 'manualCensor';
         $this->manualCensor = $manualCensore;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForbidden()
+    {
+        return $this->forbidden;
     }
 
     public function getPopularity()
