@@ -31,11 +31,12 @@ class LyricController extends Controller
      */
     public function viewAction($id)
     {
-        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups(
             [
                 LyricGateway::GROUP_DETAILS,
+                LyricGateway::GROUP_SEND_BY,
                 LyricGateway::GROUP_ACL,
             ]
         );
@@ -54,11 +55,6 @@ class LyricController extends Controller
         }
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
-
-        $userGateway = $this->get('tekstove.gateway.user');
-        /* @var $userGateway \Tekstove\SiteBundle\Model\Gateway\User\UserGateway */
-        $userGateway->setGroups([LyricGateway::GROUP_LIST]);
-        $userGateway->populateUsers([$lyric], 'getSendBy', 'setSendByUser');
 
         $mobileDetector = $this->get('mobile_detect.mobile_detector');
         /* @var $mobileDetector \Detection\MobileDetect */

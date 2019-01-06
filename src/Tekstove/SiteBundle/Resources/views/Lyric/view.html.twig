@@ -11,7 +11,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-6" id="lyric-stats">
-            гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}
+            гледания: {{ lyric.views }}, популярност: {{ lyric.popularity }}, изпратена на {{ lyric.getSendDate|date("m.d.Y") }}
         </div>
     </div>
 
@@ -135,15 +135,4 @@
         </div>
 {% endif %}
     </div>
-
-    <script>
-        $.ajax({
-            url: '{{ apiUrl|e('js') }}v4/lyrics/{{ lyric.id }}?groups%5B0%5D=Details',
-        }).done(function(data) {
-            var sendDate = new Date(data.item.sendDate * 1000);
-            var sendText = ", изпратена на " + sendDate.getDate() + ".";
-            sendText += sendDate.getMonth() + "." + sendDate.getFullYear();
-            $('#lyric-stats').append(sendText);
-        });
-    </script>
 {% endblock %}

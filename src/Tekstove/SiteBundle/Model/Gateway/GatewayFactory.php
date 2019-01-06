@@ -39,6 +39,14 @@ class GatewayFactory
         );
     }
 
+    public function createLyricV4Gateway()
+    {
+        $gateway = $this->createLyricGateway();
+        $gateway->setRelativeUrlToV4();
+
+        return $gateway;
+    }
+
     public function createLyricCredentialsGateway()
     {
         return $this->createTekstoveDefaultGateway(
