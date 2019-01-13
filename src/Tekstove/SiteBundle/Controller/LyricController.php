@@ -371,7 +371,7 @@ class LyricController extends Controller
                 throw $this->createNotFoundException("Top 100 by `{$sort}` do not exists");
         }
 
-        $lyricGateway = $this->get('tesktove.gateway.lyric');
+        $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups($lyricGatewayGroups);
 
