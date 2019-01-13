@@ -1,8 +1,15 @@
 {% extends 'SiteBundle::main.html.twig' %}
 
 {% block title %}
-    {{ lyric.cacheTitleShort|e }} |
-    текст
+    {% if lyric.artists|length > 0 %}
+        {{ lyric.artists.0.name }}
+        {% if lyric.artists|length > 1 %}
+            и {{ lyric.artists.1.name }}
+        {% endif %}
+        -
+    {% endif %}
+    {{ lyric.title }}
+    | текст
     {% if (lyric.getTextBg) %}
     и превод
     {% endif %}
