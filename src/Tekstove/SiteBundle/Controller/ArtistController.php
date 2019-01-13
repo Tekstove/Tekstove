@@ -49,7 +49,7 @@ class ArtistController extends Controller
             return $a->getYear() > $b->getYear();
         });
 
-        $lyricGateway = $this->get("tesktove.gateway.lyric");
+        $lyricGateway = $this->get("tesktove.gateway.v4.lyric");
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
         $lyricGateway->addFilter('artist', $artist->getId());
