@@ -24,7 +24,7 @@ class IndexController extends Controller
             $lastLyrics = $cacheLatestLyric->get();
         } else {
             $cacheLatestLyric->expiresAfter($defaultCacheInterval);
-            $lyricGateway = $this->get('tesktove.gateway.lyric');
+            $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
             $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
             /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
             $lyricGateway->addOrder('id', 'DESC');
@@ -41,7 +41,7 @@ class IndexController extends Controller
             $lastTranslated = $cacheLatestTranslatedLyric->get();
         } else {
             $cacheLatestTranslatedLyric->expiresAfter($defaultCacheInterval);
-            $lyricLastTranslatedGateway = $this->get('tesktove.gateway.lyric');
+            $lyricLastTranslatedGateway = $this->get('tesktove.gateway.v4.lyric');
             $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
             $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
@@ -56,7 +56,7 @@ class IndexController extends Controller
             $popular = $cachePopularLyric->get();
         } else {
             $cachePopularLyric->expiresAfter($defaultCacheInterval);
-            $popularGateway = $this->get('tesktove.gateway.lyric');
+            $popularGateway = $this->get('tesktove.gateway.v4.lyric');
             $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $popularGateway->addOrder('popularity', 'DESC');
             $popularData = $popularGateway->find();
@@ -70,7 +70,7 @@ class IndexController extends Controller
             $mostViewed = $cacheMostViewedLyric->get();
         } else {
             $cacheMostViewedLyric->expiresAfter($defaultCacheInterval);
-            $viewedGateway = $this->get('tesktove.gateway.lyric');
+            $viewedGateway = $this->get('tesktove.gateway.v4.lyric');
             $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $viewedGateway->addOrder('views', 'DESC');
             $viewedData = $viewedGateway->find();
