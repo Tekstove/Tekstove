@@ -53,6 +53,11 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
         factory: ["@tekstove.gateway.factory", createArtistGateway]
         shared: false
+
+    tekstove.gateway.v4.artist:
+        class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
+        factory: ["@tekstove.gateway.factory", createArtistV4Gateway]
+        shared: false
         
     tekstove.gateway.artist.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway

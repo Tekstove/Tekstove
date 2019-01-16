@@ -17,6 +17,7 @@ class Artist
     private $name;
     private $id;
     private $about;
+    private $facebookPageId;
     
     private $albums;
 
@@ -29,6 +30,7 @@ class Artist
             'name',
             'about',
             'acl',
+            'facebookPageId',
         ];
         
         foreach ($fields as $field) {
@@ -85,6 +87,22 @@ class Artist
     {
         $this->changedFields['about'] = 'about';
         $this->about = $about;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFacebookPageId(): ?string
+    {
+        return $this->facebookPageId;
+    }
+
+    /**
+     * @param mixed $facebookPageId
+     */
+    public function setFacebookPageId(string $facebookPageId = null)
+    {
+        $this->facebookPageId = $facebookPageId;
     }
 
     public function getAcl()

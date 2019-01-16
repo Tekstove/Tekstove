@@ -21,6 +21,7 @@ class ArtistController extends Controller
     public function browseAction(Request $request, $id)
     {
         $artistGateway = $this->get("tekstove.gateway.artist");
+
         /* @var $artistGateway ArtistGateway */
         $artistGateway->setGroups(
             [
@@ -37,6 +38,16 @@ class ArtistController extends Controller
         }
 
         $artist = $artistData['item'];
+
+        try {
+            $artistGatewayV4 = $this->get("tekstove.gateway.v4.artist");
+            $artistGatewayV4->setGroups([ArtistGateway::GROUP_DETAILS]);
+            $artistV4Data = $artistGatewayV4->get($id);
+            $artistV4 = $artistV4Data['item'];
+            $artist->setFacebookPageId($artistV4->getFacebookPageId());
+        } catch (\Exception $ex) {
+            $this->get('logger')->error('Artist version 4 not found', ['ex' => $e]);
+        }
 
         $albums = $artist->getAlbums();
 
