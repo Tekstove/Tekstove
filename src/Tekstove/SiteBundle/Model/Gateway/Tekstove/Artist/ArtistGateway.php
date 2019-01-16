@@ -14,10 +14,20 @@ class ArtistGateway extends AbstractGateway
 {
     const GROUP_ALBUMS = 'Albums';
     const GROUP_ACL = 'Artist.Acl';
+
+    private $relativeUrl = '/artists/';
     
     protected function getRelativeUrl()
     {
-        return '/artists/';
+        return $this->relativeUrl;
+    }
+
+    /**
+     * @param string $relativeUrl
+     */
+    public function setRelativeUrlToV4()
+    {
+        $this->relativeUrl = '/v4' . $this->relativeUrl;
     }
 
     public function find()

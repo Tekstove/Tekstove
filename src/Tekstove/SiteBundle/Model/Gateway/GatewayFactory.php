@@ -2,6 +2,7 @@
 
 namespace Tekstove\SiteBundle\Model\Gateway;
 
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Client;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -94,11 +95,19 @@ class GatewayFactory
         );
     }
     
-    public function createArtistGateway()
+    public function createArtistGateway(): ArtistGateway
     {
         return $this->createTekstoveDefaultGateway(
-            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway::class
+            ArtistGateway::class
         );
+    }
+
+    public function createArtistV4Gateway()
+    {
+        $gateway = $this->createArtistGateway();
+        $gateway->setRelativeUrlToV4();
+
+        return $gateway;
     }
 
     public function createArtistCredentialsGateway()

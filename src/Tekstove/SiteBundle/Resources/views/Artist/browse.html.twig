@@ -47,11 +47,24 @@
     <br/>
     <br/> <br/>
 
-    <h2>Песни</h2>
-    {% for lyric in lyrics %}
-        <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
-        <br/>
-    {% endfor %}
+    <div class="container">
+        <div class="col-md-6">
+            <h2>Песни</h2>
+            {% for lyric in lyrics %}
+                <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
+                <br/>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-6">
+            {% if artist.facebookPageId %}
+                <a href="https://fb.com/{{ artist.facebookPageId }}">
+                    <img src="{{ asset('bundles/site/images/fb/f-ogo_RGB_HEX-58.png') }}" alt="facebook logo" /> Следвай {{ artist.Name }}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="navigation">
         {{ knp_pagination_render(lyrics) }}
     </div>
