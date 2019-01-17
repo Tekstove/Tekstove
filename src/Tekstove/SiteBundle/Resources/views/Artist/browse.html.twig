@@ -61,6 +61,19 @@
                 <a href="https://fb.com/{{ artist.facebookPageId }}">
                     <img src="{{ asset('bundles/site/images/fb/f-ogo_RGB_HEX-58.png') }}" alt="facebook logo" /> Следвай {{ artist.Name }}
                 </a>
+
+                <br><br>
+
+                <div class="fb-page" data-href="https://www.facebook.com/{{ artist.facebookPageId }}/"
+                     data-tabs="timeline"
+                     data-small-header="true"
+                     data-hide-cover="true"
+                     data-adapt-container-width="true"
+                     data-show-facepile="false">
+                    <blockquote cite="https://www.facebook.com/{{ artist.facebookPageId }}/" class="fb-xfbml-parse-ignore">
+                        <a href="https://www.facebook.com/{{ artist.facebookPageId }}/">текстове.инфо</a>
+                    </blockquote>
+                </div>
             {% endif %}
         </div>
     </div>
