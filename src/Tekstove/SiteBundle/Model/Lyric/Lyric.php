@@ -14,6 +14,13 @@ use Tekstove\SiteBundle\Model\Language;
 class Lyric
 {
     use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
+    /**
+     * No information available
+     */
+    const AUTHORIZATION_NA = 1;
+    const AUTHORIZATION_ALLOWED = 2;
+    const AUTHORIZATION_ARTIST_FORBIDDEN = 3;
     
     private $id;
     
@@ -41,7 +48,7 @@ class Lyric
      * @var int
      * By default status is "Not Available"
      */
-    private $authorizationStatus = 1;
+    private $authorizationStatus = self::AUTHORIZATION_NA;
     
     private $sendBy;
     private $sendByUser;

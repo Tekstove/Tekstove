@@ -128,10 +128,10 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {% if lyric.authorizationStatus == 2 %}
+                    {% if lyric.authorizationStatus is constant('Tekstove\\SiteBundle\\Model\\Lyric\\Lyric::AUTHORIZATION_ALLOWED') %}
                         {{ lyric.text|e|nl2br }}
-                    {% elseif  lyric.authorizationStatus == 3 %}
-                        Имаме забрана за текстовете на изпълнителя!
+                    {% elseif  lyric.authorizationStatus is constant('Tekstove\\SiteBundle\\Model\\Lyric\\Lyric::AUTHORIZATION_ARTIST_FORBIDDEN') %}
+                        Имаме забрана от изпълнителя!
                     {% else %}
                         Нямаме права да ви покажем текства :( <br/>
                         Собственици на текса може да са:
