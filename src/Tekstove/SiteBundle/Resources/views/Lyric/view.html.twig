@@ -128,7 +128,11 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {% if lyric.isForbidden %}
+                    {% if lyric.authorizationStatus == 2 %}
+                        {{ lyric.text|e|nl2br }}
+                    {% elseif  lyric.authorizationStatus == 3 %}
+                        Имаме забрана за текстовете на изпълнителя!
+                    {% else %}
                         Нямаме права да ви покажем текства :( <br/>
                         Собственици на текса може да са:
                         <ul>
@@ -140,8 +144,6 @@
                         Без разрешение, ние нямаме право да покажем текста! <br/>
                         Ако сте собственик на текста, моля пишете ни на tekstove.info@gmail.com за съгласие.<br/>
                         Съобщение &quot;Съгласен съм текстовете ми да бъдат показвани на сайта&quot; е напълно достатъчно!<br/>
-                    {% else %}
-                        {{ lyric.text|e|nl2br }}
                     {%  endif %}
                 </div>
             </div>

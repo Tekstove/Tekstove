@@ -36,6 +36,12 @@ class Lyric
      * This is prevent us from accidentally displaying the lyric
      */
     private $forbidden = true;
+
+    /**
+     * @var int
+     * By default status is "Not Available"
+     */
+    private $authorizationStatus = 1;
     
     private $sendBy;
     private $sendByUser;
@@ -83,6 +89,7 @@ class Lyric
             'sendBy',
             'download',
             'forbidden',
+            'authorizationStatus',
             
             'videoYoutube',
             'videoVbox7',
@@ -409,7 +416,15 @@ class Lyric
     {
         return $this->popularity;
     }
-    
+
+    /**
+     * @return int
+     */
+    public function getAuthorizationStatus(): int
+    {
+        return $this->authorizationStatus;
+    }
+
     /**
      * @param string $property
      * @return int|null
