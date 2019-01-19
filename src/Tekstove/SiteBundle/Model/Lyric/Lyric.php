@@ -14,6 +14,13 @@ use Tekstove\SiteBundle\Model\Language;
 class Lyric
 {
     use \Tekstove\SiteBundle\Helper\ChangeSetable;
+
+    /**
+     * No information available
+     */
+    const AUTHORIZATION_NA = 1;
+    const AUTHORIZATION_ALLOWED = 2;
+    const AUTHORIZATION_ARTIST_FORBIDDEN = 3;
     
     private $id;
     
@@ -36,6 +43,12 @@ class Lyric
      * This is prevent us from accidentally displaying the lyric
      */
     private $forbidden = true;
+
+    /**
+     * @var int
+     * By default status is "Not Available"
+     */
+    private $authorizationStatus = self::AUTHORIZATION_NA;
     
     private $sendBy;
     private $sendByUser;
@@ -83,6 +96,7 @@ class Lyric
             'sendBy',
             'download',
             'forbidden',
+            'authorizationStatus',
             
             'videoYoutube',
             'videoVbox7',
@@ -409,7 +423,15 @@ class Lyric
     {
         return $this->popularity;
     }
-    
+
+    /**
+     * @return int
+     */
+    public function getAuthorizationStatus(): int
+    {
+        return $this->authorizationStatus;
+    }
+
     /**
      * @param string $property
      * @return int|null
