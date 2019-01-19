@@ -45,7 +45,7 @@ class ArtistController extends Controller
             $artistV4Data = $artistGatewayV4->get($id);
             $artistV4 = $artistV4Data['item'];
             $artist->setFacebookPageId($artistV4->getFacebookPageId());
-        } catch (\Exception $ex) {
+        } catch (\Exception $e) {
             $this->get('logger')->error('Artist version 4 not found', ['ex' => $e]);
         }
 
