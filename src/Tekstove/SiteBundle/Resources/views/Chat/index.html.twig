@@ -338,7 +338,7 @@
         var minutes = prompt("Минути", 2);
 
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: '{{ apiUrl|e('js') }}chat/messages/ban',
             data: ({
                 id : messageId,
@@ -367,7 +367,7 @@
 
     function censore(messageId) {
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: '{{ apiUrl|e('js') }}chat/messages/censore',
             data: ({
                 id : messageId
@@ -404,7 +404,7 @@
         $('#chat_text').focus();
         input_text = jQuery.trim(input_text);
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: "{{ apiUrl|e('js') }}chat/messages?tekstove-apikey=" + (apiKey ? apiKey : ''),
             dataType: 'json',
 
@@ -442,7 +442,7 @@
     
     function chat_update() {
         $.ajax({
-            type: "GET",
+            method: "GET",
             url: "{{ apiUrl|e('js') }}chat/messages",
             data: ({
                 groups: [
@@ -513,7 +513,7 @@
 
     function chatGetOnlineList() {
         $.ajax({
-            type: "GET",
+            method: "GET",
             dataType: 'json',
             url: "{{ apiUrl|e('js') }}chat/online",
             data: {
@@ -552,7 +552,7 @@
     function chatMarkMeOnline()
     {
          $.ajax({
-            type: "POST",
+            method: "POST",
             dataType: 'json',
             url: "{{ apiUrl|e('js') }}chat/online"
         });
