@@ -207,11 +207,9 @@
     {% if app.user %}
         apiKey = '{{ app.user.apiKey }}';
         $.ajaxSetup({
-            // "beforeSend": function (jqXHR) {
-            //     jqXHR.setRequestHeader('tekstove-apikey', apiKey);
-            // }
-
-            // headers: {'tekstove-apikey': apiKey}
+            data: {
+                'tekstove-apikey': apiKey
+            }
         });
     {% endif %}
 
