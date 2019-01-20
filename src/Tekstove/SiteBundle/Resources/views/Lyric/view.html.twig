@@ -148,7 +148,7 @@
                 </div>
             </div>
         </div>
-{% if (lyric.getTextBg) %}
+        {% if (lyric.getTextBg) %}
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -156,6 +156,22 @@
                 </div>
             </div>
         </div>
-{% endif %}
+        {% else %}
+            {% for artist in lyric.artists %}
+                <a href="{{ path('artistBrowse', {id: artist.id}) }}">научи повече за {{ artist.name }}</a>
+
+                {% if artist.facebookPageId %}
+                    <br><br>
+                    <a href="https://fb.com/{{ artist.facebookPageId }}">
+                        <img src="{{ asset('bundles/site/images/fb/f-ogo_RGB_HEX-58.png') }}" alt="facebook logo" />
+                        Следвай {{ artist.Name }} в facebook
+                    </a>
+                {% endif %}
+
+                {% if not loop.last %}
+                <hr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
