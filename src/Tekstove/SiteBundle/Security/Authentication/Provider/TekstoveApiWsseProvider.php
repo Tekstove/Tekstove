@@ -10,7 +10,6 @@ use Tekstove\SiteBundle\Security\Authentication\Token\TekstoveApiUserToken;
 
 class TekstoveApiWsseProvider implements AuthenticationProviderInterface
 {
-    
     /**
      * @var UserProviderInterface
      */

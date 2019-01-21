@@ -16,6 +16,11 @@ class ApiGateway extends UserGateway
         return '/users/';
     }
 
+    protected function getListRelativeUrlV4()
+    {
+        return '/v4' . $this->getListRelativeUrl();
+    }
+
     public function getUserByUsernameAndPassword($username, $password)
     {
         $client = $this->getClient();
@@ -49,7 +54,7 @@ class ApiGateway extends UserGateway
         $client = $this->getClient();
         $client->setApikey($apiKey);
         $response = $client->get(
-            $this->getListRelativeUrl() . 'login'
+            $this->getListRelativeUrlV4() . 'login'
         );
         
         $body = (string)$response->getBody();

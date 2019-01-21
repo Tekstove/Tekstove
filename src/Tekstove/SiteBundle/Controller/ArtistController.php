@@ -87,7 +87,7 @@ class ArtistController extends Controller
      */
     public function listAction($letter, Request $request)
     {
-        $artistGateway = $this->get("tekstove.gateway.artist");
+        $artistGateway = $this->get("tekstove.gateway.v4.artist");
         /* @var $artistGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway */
         $artistGateway->setGroups([AbstractGateway::GROUP_LIST]);
         $artistGateway->addFilter('name', "{$letter}%", AbstractGateway::FILTER_LIKE);

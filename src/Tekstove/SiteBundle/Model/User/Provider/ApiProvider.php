@@ -51,7 +51,7 @@ class ApiProvider implements UserProviderInterface
         $refreshedUser = $this->gateway->loadUserByApiKey(
             $user->getApiKey()
         );
-        
+
         return $refreshedUser;
     }
 
