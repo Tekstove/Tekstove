@@ -17,6 +17,7 @@ class Artist
     private $name;
     private $id;
     private $about;
+    private $aboutHtml;
     private $facebookPageId;
     
     private $albums;
@@ -29,6 +30,7 @@ class Artist
             'id',
             'name',
             'about',
+            'aboutHtml',
             'acl',
             'facebookPageId',
         ];
@@ -81,6 +83,14 @@ class Artist
     public function getAbout()
     {
         return $this->about;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAboutHtml(): ?string
+    {
+        return $this->aboutHtml;
     }
 
     public function setAbout($about)

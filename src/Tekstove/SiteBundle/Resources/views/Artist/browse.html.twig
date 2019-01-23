@@ -35,7 +35,7 @@
         </div>
 
         <div class="t-artist-info">
-            {{ artist.about|e|nl2br }}
+            {{ artist.aboutHtml|raw }}
         </div>
     {% endif %}
 
