@@ -2,6 +2,7 @@
 
 namespace Tekstove\SiteBundle\Model\Lyric;
 
+use Tekstove\SiteBundle\Model\Publisher\Publisher;
 use Tekstove\SiteBundle\Model\User\User;
 use Tekstove\SiteBundle\Model\Artist\Artist;
 use Tekstove\SiteBundle\Model\Language;
@@ -57,7 +58,15 @@ class Lyric
     
     private $videoYoutube;
     private $videoVbox7;
-    
+
+    /**
+     * @var Publisher[]
+     */
+    private $publishers = [];
+
+    /**
+     * @var Language
+     */
     private $languages = [];
 
     /**
@@ -123,6 +132,13 @@ class Lyric
             } elseif (is_array($data['sendBy'])) {
                 $this->setSendByUser(new User($data['sendBy']));
                 $this->sendBy = $this->getSendByUser()->getId();
+            }
+        }
+
+        if (isset($data['publishers'])) {
+            foreach ($data['publishers'] as $publisherData) {
+                $publisher = new Publisher($publisherData);
+                $this->addPublisher($publisher);
             }
         }
 
@@ -273,7 +289,20 @@ class Lyric
 
         return false;
     }
-    
+
+    public function addPublisher(Publisher $publisher)
+    {
+        $this->publishers[] = $publisher;
+    }
+
+    /**
+     * @return Publisher[]
+     */
+    public function getPublishers(): array
+    {
+        return $this->publishers;
+    }
+
     /**
      * @return Language[]
      */
