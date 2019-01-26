@@ -196,3 +196,10 @@ tekstove.feed.forum.topic:
     path: /feed/forum/topic.xml
     defaults: { _controller: SiteBundle:Feed\Forum:Topic, _format:xml }
     methods: [GET]
+
+app.publisher.view:
+    path: /publisher/{id}
+    defaults: { _controller: SiteBundle:Publisher:view }
+    requirements:
+        id: \d+
+    methods: [GET]

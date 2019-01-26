@@ -116,7 +116,7 @@
         <div class="row">
             издатели:
             {% for publisher in lyric.publishers %}
-                {{ publisher.name }}
+                <a href="{{ path('app.publisher.view', {id:publisher.id}) }}">{{ publisher.name }}</a>
                 {% if not loop.last %}
                     ,
                 {% endif %}
