@@ -8,6 +8,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Cl
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway;
 
 /**
  * Description of GatewayFactory
@@ -152,6 +153,13 @@ class GatewayFactory
     {
         return $this->createTekstoveDefaultGateway(
             \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumCredentialsGateway::class
+        );
+    }
+
+    public function createTekstovePublisherGateway()
+    {
+        return $this->createTekstoveDefaultGateway(
+            PublisherGateway::class
         );
     }
     

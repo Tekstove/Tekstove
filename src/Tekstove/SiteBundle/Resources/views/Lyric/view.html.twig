@@ -100,17 +100,29 @@
         {% endif %}
     </div>
 
-    <div class="row">
-        {% if lyric.languages is not empty %}
-            езици:
-            {% for language in lyric.languages %}
-                {{ language.name }}
+    {% if lyric.languages is not empty %}
+        <div class="row">
+                езици:
+                {% for language in lyric.languages %}
+                    {{ language.name }}
+                    {% if not loop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if lyric.publishers is not empty %}
+        <div class="row">
+            издатели:
+            {% for publisher in lyric.publishers %}
+                <a href="{{ path('app.publisher.view', {id:publisher.id}) }}">{{ publisher.name }}</a>
                 {% if not loop.last %}
                     ,
                 {% endif %}
             {% endfor %}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     {% if lyric.extraInfoHtml is not empty %}
         <div class="panel panel-default">

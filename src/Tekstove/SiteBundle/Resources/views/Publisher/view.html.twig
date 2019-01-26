@@ -1,0 +1,25 @@
+{% extends 'SiteBundle::main.html.twig' %}
+
+{% block title %}
+    {{ publisher.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>
+            {{ publisher.name }}
+        </h1>
+
+        <h2>Текстове</h2>
+
+        {% for lyric in lyrics %}
+            <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.cacheTitleShort }}</a>
+            <br/>
+        {% endfor %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(lyrics) }}
+        </div>
+
+    </div>
+{% endblock %}
