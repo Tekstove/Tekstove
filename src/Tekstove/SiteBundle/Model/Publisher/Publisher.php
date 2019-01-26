@@ -2,7 +2,6 @@
 
 namespace Tekstove\SiteBundle\Model\Publisher;
 
-
 class Publisher
 {
     private $id;
