@@ -6,12 +6,14 @@ class Publisher
 {
     private $id;
     private $name;
+    private $facebookPageId;
 
     public function __construct($data = [])
     {
         $fields = [
             'id',
             'name',
+            'facebookPageId',
         ];
 
         foreach ($fields as $field) {
@@ -37,4 +39,21 @@ class Publisher
     {
         return $this->name;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getFacebookPageId(): ?string
+    {
+        return $this->facebookPageId;
+    }
+
+    /**
+     * @param mixed $facebookPageId
+     */
+    public function setFacebookPageId(string $facebookPageId = null)
+    {
+        $this->facebookPageId = $facebookPageId;
+    }
+
 }

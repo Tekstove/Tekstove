@@ -184,6 +184,16 @@
                 <hr>
                 {% endif %}
             {% endfor %}
+
+            {% if lyric.publishers is not empty %}
+                <hr>
+                {% for publisher in lyric.publishers %}
+                    <a href="{{ path('app.publisher.view', {id: publisher.id}) }}">научи повече за {{ publisher.name }}</a>
+                    {% if not loop.last %}
+                    <hr>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
