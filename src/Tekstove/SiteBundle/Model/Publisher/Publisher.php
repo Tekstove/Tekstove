@@ -55,5 +55,4 @@ class Publisher
     {
         $this->facebookPageId = $facebookPageId;
     }
-
 }
