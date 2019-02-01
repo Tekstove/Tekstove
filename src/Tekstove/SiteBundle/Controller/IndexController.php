@@ -59,6 +59,7 @@ class IndexController extends Controller
             $popularGateway = $this->get('tesktove.gateway.v4.lyric');
             $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $popularGateway->addOrder('popularity', 'DESC');
+            $popularGateway->setLimit(19);
             $popularData = $popularGateway->find();
             $popular = $popularData['items'];
             $cachePopularLyric->set($popular);
@@ -73,6 +74,7 @@ class IndexController extends Controller
             $viewedGateway = $this->get('tesktove.gateway.v4.lyric');
             $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $viewedGateway->addOrder('views', 'DESC');
+            $viewedGateway->setLimit(19);
             $viewedData = $viewedGateway->find();
             $mostViewed= $viewedData['items'];
             $cacheMostViewedLyric->set($mostViewed);
