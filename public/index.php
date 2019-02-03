@@ -13,7 +13,7 @@ if ($_SERVER['APP_DEBUG']) {
 }
 
 // see https://github.com/Tekstove/Tekstove/issues/80
-Request::setTrustedHeaderName(Request::HEADER_FORWARDED, null);
+//Request::setTrustedHeaderName(Request::HEADER_FORWARDED, null);
 Request::setTrustedProxies(
     [
         '127.0.0.1',

@@ -18,7 +18,7 @@ RUN a2enmod actions fastcgi rewrite
 
 RUN wget "https://getcomposer.org/download/1.6.5/composer.phar" -q -O /bin/composer && chmod +x /bin/composer
 
-RUN a2enmod proxy_http ssl suexec
+RUN a2enmod ssl suexec
 COPY tekstove-site-ssl.conf /etc/apache2/sites-available/tekstove-site-ssl.conf
 COPY tekstove-site.conf /etc/apache2/sites-available/tekstove-site.conf
 RUN  a2dissite 000-default && a2ensite tekstove-site && a2ensite tekstove-site-ssl
