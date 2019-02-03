@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    tekstove.api_url: 'http://172.18.0.5/'
+    tekstove.api_url: '%env(APP_API_URL)%/'
 
 services:
     # default configuration for services in *this* file
