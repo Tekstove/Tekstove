@@ -1,0 +1,100 @@
+{% extends '@Site/main.html.twig' %}
+
+{% block htmlBody %}
+    <div id="fb-root"></div>
+    <!-- Load Facebook SDK for JavaScript -->
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ artist.name|e }} | изпълнител
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {{ artist.name }}
+    </h1>
+
+    {% if artist.isEditAllowed %}
+        <a class="btn btn-warning" href="{{ path('artistEdit', {id:artist.id}) }}">Промени</a>
+    {% endif %}
+
+    {% if artist.about %}
+        <div class="t-artist-info-legend">
+            Информация:
+        </div>
+
+        <div class="t-artist-info">
+            {{ artist.aboutHtml|raw }}
+        </div>
+    {% endif %}
+
+    {% if albums %}
+        <div class="container t-artist-albums">
+            <h2>Албуми</h2>
+            <div class="clearfix"></div>
+            <div class="t-artist-albums-container">
+                {% for album in albums %}
+                    <div class="col-md-3">
+                        <a href="{{ path('tekstove_site_album_view', {id: album.id}) }}">
+                            {% if album.year %}
+                                ({{ album.year }})
+                                <br/>
+                            {% endif %}
+                            {{ album.name|e }}
+                            <img src="{{ album.image|e }}" alt="Обложка на албума" />
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+        </div>
+    {% endif %}
+
+    <br/>
+    <br/> <br/>
+
+    <div class="container">
+        <div class="col-md-6">
+            <h2>Песни</h2>
+            {% for lyric in lyrics %}
+                <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.title|e }}</a>
+                <br/>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-6">
+            {% if artist.facebookPageId %}
+                <a href="https://fb.com/{{ artist.facebookPageId }}">
+                    <img src="{{ asset('bundles/site/images/fb/f-ogo_RGB_HEX-58.png') }}" alt="facebook logo" /> Следвай {{ artist.Name }}
+                </a>
+
+                <br><br>
+
+                <div class="fb-page" data-href="https://www.facebook.com/{{ artist.facebookPageId }}/"
+                     data-tabs="timeline"
+                     data-small-header="true"
+                     data-hide-cover="true"
+                     data-adapt-container-width="true"
+                     data-show-facepile="false">
+                    <blockquote cite="https://www.facebook.com/{{ artist.facebookPageId }}/" class="fb-xfbml-parse-ignore">
+                        <a href="https://www.facebook.com/{{ artist.facebookPageId }}/">текстове.инфо</a>
+                    </blockquote>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(lyrics) }}
+    </div>
+{% endblock %}

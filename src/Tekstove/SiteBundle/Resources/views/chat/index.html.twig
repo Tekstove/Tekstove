@@ -1,0 +1,745 @@
+{% extends '@Site/main/html.html.twig' %}
+{% block htmlBody %}
+
+<style type="text/css">
+    .message {
+        border-width: 1px 0 0 0;
+        border-style: dotted;
+        border-color: cornflowerblue;
+        padding: 1px;
+        margin: 0 0 0 0;
+        width: 95%;
+        vertical-align: text-top;
+    }
+
+    .message_text {
+        word-wrap: break-word;
+        max-width: 660px;
+        overflow: auto;
+        display: table-cell;
+        vertical-align: top;
+        line-height: normal;
+    }
+
+    .message_text img {
+        max-width: 600px;
+        max-height: 600px;
+    }
+
+    .message_date {
+        font-size: 80%;
+        padding-right: 5px;
+        color: darkgray;
+        font-weight: normal;
+    }
+
+    .message_data_and_username {
+        color: #656565;
+        font-weight: bold;
+    }
+
+    div.message_avatar {
+        display: table-cell;
+        padding-right: 4px;
+        width: 60px;
+        height: 67px;
+    }
+
+    div.message_avatar img{
+        max-width: 60px;
+        max-height: 62px;
+    }
+
+    img.chat_avatar_big_limit {
+        max-width:350px;
+        max-height:300px;
+
+        display: block;
+        position: absolute;
+        z-index: 100;
+
+    }
+
+    #chat_messages {
+
+        word-wrap:break-word;
+        font-size: 120%;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+
+    }
+
+    .dialogRelative {
+        position: relative;
+        top: 0 !important;
+        position: fixed;
+
+    }
+
+    .online_list_dialog {
+        position: relative;
+        top: 0 !important;
+        right:0 !important;
+        left:auto !important;
+        position: fixed;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="row" style="position: fixed; width: 100%;">
+        <nav>
+            <div class="row t-menu-horizontal">
+                <div class="col-xs-8">
+                    <a href="{{ path('index') }}">Начало</a>&nbsp;
+                    <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>&nbsp;
+                    <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>&nbsp;
+                </div>
+
+                <div class="col-xs-4">
+                    {% if app.user %}
+                        <a href="{{ path('userView', {id: app.user.id}) }}">{{ app.user.username|e }}</a>
+                        <a href="{{ path('logout') }}">изход</a>
+                    {% else %}
+                        <a href="{{ path('login') }}">Вх.</a>
+                        <a href="{{ path('register') }}">Рег.</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="chat_messages"></div>
+
+    <br/><br/>
+
+    <div class="container" style="border-top: 1px solid black;">
+        <textarea class=""
+                  rows="1"
+                  style="width: 100%; height: auto;"
+                  id="chat_text"
+                  ></textarea>
+        <br class="clearfix" />
+
+        <button class="btn btn-default" style="font-weight: bold;" onclick="chat_send();" >изпрати</button>
+        <button class="btn btn-sm btn-default" onclick="$('#chat_options').toggle(); $('html, body').scrollTop($(document).height());">опции</button>
+
+        <div id="chat_options" style="display: none;">
+            <input type="checkbox" checked id="chat_autoscroll">
+            <label for="chat_autoscroll" style="font-size: 10px;">авто скролиране</label>
+
+            <br>
+            размер на буквите
+            <select onchange="$('#chat_messages').css('font-size', this.value + '%');">
+                <option value="60">60%
+                <option value="80">80%
+                <option value="100">100%
+                <option selected value="120">120%
+                <option value="140">140%
+                <option value="160">160%
+                <option value="200">200%
+            </select>
+
+            <br>
+
+            шрифт:
+            <select onchange="$('#chat_messages').css('font-family', this.value);">
+                <option value="Georgia, serif">Georgia, serif
+                <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino Linotype, Book Antiqua, Palatino, serif
+                <option value='"Times New Roman", Times, serif'>Times New Roman", Times, serif
+                <option value='Arial, Helvetica, sans-serif'>Arial, Helvetica, sans-serif
+                <option value='Arial Black, Gadget, sans-serif'>Arial Black, Gadget, sans-serif
+                <option value='"Comic Sans MS", cursive, sans-serif'>Comic Sans MS, cursive, sans-serif
+                <option value='Impact, Charcoal, sans-serif'>Impact, Charcoal, sans-serif
+                <option value='"Lucida Sans Unicode", "Lucida Grande", sans-serif'>Lucida Sans Unicode, Lucida Grande, sans-serif
+                <option value='Tahoma, Geneva, sans-serif'>Tahoma, Geneva, sans-serif
+                <option value='"Trebuchet MS", Helvetica, sans-serif'>Trebuchet MS, Helvetica, sans-serif
+                <option value='Verdana, Geneva, sans-serif'>Verdana, Geneva, sans-serif
+                <option value='"Courier New", Courier, monospace'>Courier New, Courier, monospace
+                <option value='"Lucida Console", Monaco, monospace'>Lucida Console, Monaco, monospace
+            </select>
+            <br>
+            <input type="checkbox" checked id="chat_option_enterSend">
+            <label for="chat_option_enterSend">изпращане на съобщение с enter</label>
+
+            <div id="dialog-message" title="Mood" style="display: none;">
+                Mood се добавя след името Ви, в скоби
+            </div>
+        </div>
+
+        <a href="{{ path('tekstove.site.forum.topic.view', {id: 568}) }}" target="_BLANK" style="color: red;">правила</a>
+
+        <button class="btn btn-default" onclick="$('#buttons').toggle();">бутони</button>
+        
+    </div>
+
+    <div id="online_list"><!-- online users list --></div>
+    <a name="page_bottom" />
+
+</div>
+
+<div id="buttons" style="
+     display: none;
+     position: fixed; min-width: 30%;
+     left: 0; bottom: 0; right: 0;
+     margin-right: auto; margin-left: auto;
+     text-align: center;
+     border: 1px solid black;
+     background-color: white;">
+    <button class="btn btn-warning" onclick="$('#buttons').toggle();">затвори</button>
+    <br/>
+    <button class="btn btn-default" onclick="bbcode(3);"><b>удебелен</b></button>
+    <button class="btn btn-default" onclick="bbcode(4);"><u>подчертан</u></button>
+    <button class="btn btn-default" onclick="bbcode(5);"><i>наклонен</i></button>
+    <br/>
+    <button class="btn btn-default" onclick="bbcode(2);">link</button>
+    <button class="btn btn-default" onclick="bbcode(1);">картинка</button>
+    <button class="btn btn-default" onclick="bbcode(6);">youtube</button>
+    <br/>
+    <button class="btn btn-warning" onclick="$('#buttons').toggle();">затвори</button>
+</div>
+
+<script>
+    var message_id_start = 0;
+    var chat_update_interval = 5000;
+
+    var apiKey= null;
+
+    {% if app.user %}
+        apiKey = '{{ app.user.apiKey }}';
+        $.ajaxSetup({
+            data: {
+                'tekstove-apikey': apiKey
+            }
+        });
+    {% endif %}
+
+    // this code is BAD and must be rewritten!
+    function bbcode(number) {
+        var bba = null;
+        var bbb = null;
+
+        var returnData = '';
+
+        switch (number) {
+            case 1:
+                bba = prompt('линк към картинката');
+                if (bba) {
+                    returnData = '[img]' + bba + '[/img]';
+                }
+                break;
+
+            case 2:
+                bba = prompt('Линк','http://');
+                if (bba) {
+                    bbb = prompt('Текст към линка');
+                }
+                if (bbb) {
+                    returnData = '[url=' + bba + ']' + bbb + '[/url]';
+                }
+                break;
+
+            case 3:
+                returnData = '[b][/b]';
+                break;
+
+            case 4:
+                returnData = '[u][/u]';
+                break;
+
+            case 5:
+                returnData = '[i][/i]';
+                break;
+
+            case 6:
+                bba = prompt('линк към видеото');
+                if (bba) {
+                    returnData = '[youtube]' + bba + '[/youtube]';
+                }
+                break;
+            /*
+            case 6:
+                smart_bbcode('[color=' + $('#bb_code_color').val() + ']','[/color]');
+                break;
+            case 7:
+                var ytube = prompt('линк на видеото');
+                if(ytube)
+                {
+                    emot_icons('[youtube]'+ytube+'[/youtube]');
+                }
+                break;
+            case 8:
+                smart_bbcode('[quote]','[/quote]');
+                break;
+            default:
+                emot_icons(number);
+                break;
+            */
+        };
+
+        var oldInput = $('#chat_text').val();
+        var newInput = (oldInput + returnData).trim();
+        $('#chat_text').val(newInput);
+        $('#buttons').hide();
+        $('#chat_text').focus();
+    };
+
+
+    function User(data) {
+        if (data) {
+            this.id = data.id;
+            this.username = data.username;
+            this.avatar = data.avatar;
+        } else {
+            this.id = null;
+            this.username = "Гост";
+            this.avatar = null;
+        }
+
+        var self = this;
+
+        this.getProfileLinkHtml = function() {
+            var html = '';
+
+            if (self.id) {
+                html += '<a href="/user/view/' + self.id + '">';
+                html += _.escape(self.username);
+                html += '</a>';
+            } else {
+                html += _.escape(self.username);
+            }
+            
+            return html;
+        };
+    };
+
+    function get_message_id_start() {
+        return message_id_start;
+    }
+
+    function set_message_id_start(id) {
+        message_id_start = id;
+        return true;
+    }
+
+    function isBanAllowed(message) {
+        return message._meta.ban;
+    }
+
+    function getBanLinkHtml(message) {
+        if (!isBanAllowed(message)) {
+            return '';
+        }
+
+        return '<button onclick="ban(' + message.id + ');">ban</button>';
+    }
+
+    function ban(messageId) {
+
+        var minutes = prompt("Минути", 2);
+
+        $.ajax({
+            method: "POST",
+            url: '{{ apiUrl|e('js') }}chat/messages/ban',
+            data: ({
+                id : messageId,
+                minutes: minutes
+            }),
+            success: function(data) {},
+            error: function(jqXHR, textStatus, error) {
+                if (jqXHR.status === 400) {
+                    var responseJson = jqXHR.responseJSON;
+                    var firstError = responseJson[0];
+                    switch (firstError.element) {
+                        case 'maxMinutes':
+                            alert('полето "maxMinutes": ' + firstError.message);
+                            break;
+
+                        default:
+                            alert(firstError.element + ' ' + firstError.message);
+                            break;
+                    }
+                    return;
+                };
+                alert(error);
+            }
+        });
+    };
+
+    function censore(messageId) {
+        $.ajax({
+            method: "POST",
+            url: '{{ apiUrl|e('js') }}chat/messages/censore',
+            data: ({
+                id : messageId
+            }),
+
+            success: function(data) {},
+            error: function(jqXHR, textStatus, error) {
+                alert(error);
+            }
+        });
+    };
+
+    $('#chat_text').keyup(function(e) {
+        if ($('#chat_option_enterSend').is(":checked") === false) {
+            return;
+        }
+        var keynum = 0;
+
+        if (window.event) { // IE
+            keynum = e.keyCode;
+        }
+        else if (e.which) { // Netscape/Firefox/Opera
+            keynum = e.which;
+        }
+
+        if (keynum === 13) {
+            chat_send();
+        }
+    });
+                        
+    function chat_send() {
+        var input_text = $('#chat_text').val();
+        $('#chat_text').val('');
+        $('#chat_text').focus();
+        input_text = jQuery.trim(input_text);
+        $.ajax({
+            method: "POST",
+            url: "{{ apiUrl|e('js') }}chat/messages?tekstove-apikey=" + (apiKey ? apiKey : ''),
+            dataType: 'json',
+
+            // see http://stackoverflow.com/questions/17532018/submitting-jquery-ajax-data-with-string-containing-it-changes-value-to-jq
+            jsonp: false,
+
+            data: JSON.stringify({
+                message : input_text
+            }),
+            error: function(xhr) {
+                if (xhr.status === 400) {
+                    var responseJson = xhr.responseJSON;
+                    var firstError = responseJson[0];
+                    switch (firstError.element) {
+                        case 'message':
+                            alert('полето "съобщение": ' + firstError.message);
+                            break;
+
+                        default:
+                            alert(firstError.element + ' ' + firstError.message);
+                            break;
+                    }
+                    return;
+                } else if (xhr.status === 403) {
+                    alert('Временно не можеш да пишеш :/');
+                    return;
+                }
+                alert('Възника грешка докато изпращам ссъобщението :(');
+            },
+            success: function(data) {
+                chat_update();
+            }
+        });
+    }
+    
+    function chat_update() {
+        $.ajax({
+            method: "GET",
+            url: "{{ apiUrl|e('js') }}chat/messages",
+            data: ({
+                groups: [
+                    'Details'
+                ],
+                filters: [
+                    {
+                        value: message_id_start,
+                        operator: '>',
+                        field: 'id'
+                    }
+                ]
+            }),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                var messagesData = data.items;
+                if (!messagesData) {
+                    if (chat_update_interval < 30000) {
+                        chat_update_interval += 250;
+                    }
+                    return true;
+                }
+                          
+                chat_update_interval = 2000;
+                $.each(messagesData, function(jsonKey, message) {
+                    chat_parse(message);
+                });
+                
+                
+            }
+        });
+    }
+
+    function generateAvatar(userId, canvas)
+    {
+        var ctx = canvas.getContext('2d');
+
+        var idAsNumber = 2;
+
+        var i = 0;
+        for (i = 0; i <= userId.length; i++) {
+            idAsNumber *= userId.charCodeAt(i);
+            if (idAsNumber > 1000 * 1000) {
+                break;
+            }
+        }
+
+        while(idAsNumber < 1000 * 1000) {
+            idAsNumber++;
+            idAsNumber *= 2;
+        }
+
+        var idAsString = idAsNumber.toString();
+
+        var redColor = (idAsString[0] * idAsString[1] % 16).toString(16);
+        var greenColor = (idAsString[2] * idAsString[3] % 16).toString(16);
+        var blueColor = (idAsString[4] * idAsString[5] % 16).toString(16);
+
+        ctx.save();
+        ctx.fillStyle = '#' + redColor + greenColor + blueColor;
+        var rotateAngle = idAsString[0] * idAsString[1] * idAsString[2];
+        ctx.rotate(Math.PI * rotateAngle / 180);
+        ctx.fillRect(10, 10, 40, 40);
+
+        ctx.restore();
+    }
+
+    function chatGetOnlineList() {
+        $.ajax({
+            method: "GET",
+            dataType: 'json',
+            url: "{{ apiUrl|e('js') }}chat/online",
+            data: {
+                groups: ['List']
+            },
+            cache: false,
+            success: function (data) {
+                var userOnlineCount = 0;
+                var guestsOnlineCount = 0;
+                var html = '';
+
+                $.each(data.items, function(jsonKey, userData) {
+                    userOnlineCount++;
+
+                    if (userData.id) {
+                        var user = new User(userData);
+                        html += user.getProfileLinkHtml();
+                        html += '<br/>';
+                    } else {
+                        guestsOnlineCount++;
+                    }
+                });
+
+                if (guestsOnlineCount > 0) {
+                    html += guestsOnlineCount + ' гости <br/>';
+                }
+
+                if ($('#online_list:visible').length > 0) {
+                    $('#online_list').html(html);
+                    $('#online_list').dialog({title:'Online (' + userOnlineCount + ')'});
+                }
+            }
+        });
+    }
+
+    function chatMarkMeOnline()
+    {
+         $.ajax({
+            method: "POST",
+            dataType: 'json',
+            url: "{{ apiUrl|e('js') }}chat/online"
+        });
+    }
+
+    function chat_parse(data) {
+        // update start id
+        if (data.id > get_message_id_start() ) {
+            message_id_start = data.id;
+        }
+
+        if (data.idOverride) {
+            $('#message_' + data.idOverride + ' .message_text').html(data.messageHtml);
+            return true;
+        }
+
+        var user = new User(
+            data.user
+        );
+
+        var messageHtml = data.messageHtml;
+                                                            
+        var html_data = '<div id="message_' + data.id + '" class="message">';
+        
+        html_data += '<div class="message_avatar">';
+        if (user.avatar) {
+            html_data += '<img src="' + _.escape(user.avatar) + '" />';
+        } else if (!data.user) {
+           var canvasId = _.uniqueId('avatar_canvas');
+           html_data += '<canvas id="' + canvasId + '" width="60" height="60">';
+           setTimeout(
+                function() {
+                    var canvas = document.getElementById(canvasId);
+                    generateAvatar(data.username, canvas);
+                },
+                1000
+            );
+        }
+
+        html_data += '</div>';
+
+        html_data += '<div style="display: table-cell;vertical-align: top;">';
+
+        html_data += '<div class="message_data_and_username">';
+        var messageTimestamp = data.date;
+        var date = new Date(messageTimestamp * 1000);
+        html_data += '<span class="message_date">' +  ('0' + date.getHours()).slice(-2) + ':' + ( '0' + date.getMinutes()).slice(-2) + ' от </span>';
+
+        html_data += user.getProfileLinkHtml();
+
+        html_data += ' <span class="message_date">#';
+        html_data += data.id;
+        if (data.ip) {
+            html_data += ', ip: ' + _.escape(data.ip);
+        }
+        html_data += '</span>';
+
+        if (data._meta.censore) {
+            html_data += '<span>';
+            html_data += '<button onclick="censore(' + data.id + ')">censore</button>';
+            html_data += '</span>';
+        }
+        
+        html_data += getBanLinkHtml(data);
+
+        html_data += '</div>';
+        html_data += '<div class="message_text">' + messageHtml + '</div>';
+        html_data += '</div>';
+
+        // append new text, insted of createing new msg
+        if ($('#message_' + data.id).length > 0) {
+            // message already shown
+            // probably delay in connection
+            return true;
+        } else {
+            $('#chat_messages').append(html_data);
+        }
+
+        if ($('#chat_autoscroll').is(":checked")) {
+
+            $('html, body').scrollTop($(document).height());
+        }
+        if (!windowIsFocused) {
+            thereIsUnreadedMessage = true;
+
+            if ('Notification' in window) {
+                // browser notification
+                var notificationOption = {
+                    body: data.message
+                };
+
+                if (user && user.avatar) {
+                    notificationOption.icon = user.avatar;
+                }
+
+                var notification = new Notification(
+                    user.username,
+                    notificationOption
+                );
+
+                notification.onshow = function() {
+                    setTimeout(
+                        function () {
+                            notification.close();
+                        },
+                        3000);
+                };
+            }
+        }
+    }
+
+    if ('Notification' in window) {
+        Notification.requestPermission(function (permission){});
+    }
+    
+    function chat_auto_update() {
+        chat_update();
+        setTimeout("chat_auto_update()", chat_update_interval);
+    }
+
+    var windowIsFocused = true;
+    var defaultTitle = document.title;
+    var thereIsUnreadedMessage = false;
+                                                
+    $(function() {
+        $('#online_list').dialog({
+            autoOpen: true,
+            show: "blind",
+            hide: "fade",
+            closeText: null,
+            closeOnEscape: false,
+            draggable: false,
+            resizable: false,
+            position: ['right', 'top'],
+            width: 200,
+            title: 'Online',
+            dialogClass: 'online_list_dialog'
+        });
+
+        chat_auto_update();
+
+        $('#chat_messages').on('mouseover', '.chat_avatar_limit', function() {
+            $(this).addClass('chat_avatar_big_limit');
+        });
+        $('#chat_messages').on('mouseout', '.chat_avatar_limit', function() {
+            $(this).removeClass('chat_avatar_big_limit');
+        });
+
+        $([window, document]).focusin(function() {
+            windowIsFocused = true;
+            thereIsUnreadedMessage = false;
+            document.title = defaultTitle;
+        }).focusout(function(){
+            windowIsFocused = false;
+            thereIsUnreadedMessage = false;
+        });
+
+        chatMarkMeOnline();
+        setInterval('chatMarkMeOnline()', 1 * 60 * 1000);
+        chatGetOnlineList();
+        setInterval('chatGetOnlineList()', 10 * 1000);
+
+        setInterval(function() {
+            if (!windowIsFocused && thereIsUnreadedMessage) {
+                var charToAnimate = Math.floor(Math.random() * 10);
+                var symbol = '!';
+                switch (charToAnimate) {
+                    case 0:
+                        symbol = '#';
+                        break;
+                    case 1:
+                        symbol = '|';
+                        break;
+                    case 2:
+                        symbol = ':';
+                        break;
+                    case 3:
+                        symbol = '+';
+                        break;
+                    default:
+                        symbol = '!';
+                        break;
+                }
+                document.title = symbol + ' Ново съобщение ' + symbol;
+            }
+        }, 1000);
+    });
+                                                                                    
+</script>
+{% endblock %}

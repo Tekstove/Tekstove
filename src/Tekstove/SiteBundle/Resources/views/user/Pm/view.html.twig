@@ -1,0 +1,36 @@
+{% extends '@Site/main.html.twig' %}
+{% block content %}
+    изпратено от {{ pm.userFrom.username|e }}
+    <hr/>
+    заглавие: {{ pm.title|e }}
+    <hr/>
+    {{ pm.text|e|nl2br }}
+    
+    <div class="clearfix"></div>
+    
+    <br/>
+    
+    <a href="{{ path('tekstove_site.user.pm.send', {toUserId: pm.userFrom.id, title: "Re: "~pm.title}) }}" class="btn btn-success">
+        Отговори
+    </a>
+
+    <a href="{{ path('userPmList') }}" class="btn btn-default">
+        Обратно към списък ЛС
+    </a>
+
+    <hr>
+    <h2>
+        История на кореспонденцията
+    </h2>
+    <br/>
+
+    {% for previousPm in pmHistory %}
+        <div>
+            заглавие: <b>{{ previousPm.title|e }}</b>, от {{ previousPm.userFrom.username }}
+            <br/>
+            {{ previousPm.text|e|nl2br }}
+        </div>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

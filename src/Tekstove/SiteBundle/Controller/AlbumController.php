@@ -71,7 +71,7 @@ class AlbumController extends Controller
             }
         }
         return $this->render(
-            'SiteBundle::Album/edit.html.twig',
+            '@Site/album/edit.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -113,7 +113,7 @@ class AlbumController extends Controller
             }
         }
         return $this->render(
-            'SiteBundle::Album/edit.html.twig',
+            '@Site/album/edit.html.twig',
             [
                 'form' => $form->createView(),
             ]
