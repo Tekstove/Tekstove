@@ -11,9 +11,17 @@ RUN echo "deb http://ftp.bg.debian.org/debian/ jessie main contrib non-free" >> 
 RUN echo "deb-src http://ftp.bg.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get update
 
-RUN apt-get install -y php7.1-cgi php7.1-xml php7.1-mysql php7.1-mbstring \
-                       git unzip curl \
-                       apache2 libapache2-mod-fastcgi apache2-mpm-worker apache2-suexec libapache2-mod-fcgid
+RUN apt-get update && \
+    apt-get install -y \
+                php7.1-cgi \
+                php7.1-xml \
+                php7.1-mysql \
+                php7.1-mbstring \
+                php7.1-zip \
+                php7.1-curl \
+                git unzip curl \
+                apache2 libapache2-mod-fastcgi apache2-mpm-worker apache2-suexec libapache2-mod-fcgid
+
 RUN a2enmod actions fastcgi rewrite
 
 RUN wget "https://getcomposer.org/download/1.6.5/composer.phar" -q -O /bin/composer && chmod +x /bin/composer
@@ -33,6 +41,8 @@ RUN mkdir -p /var/www/php-fcgi-scripts/tekstove_www
 COPY fcgi-starter /var/www/php-fcgi-scripts/tekstove_www/php-fcgi-starter
 RUN chown -R site_tekstove_www:site_tekstove_www /var/www/php-fcgi-scripts/tekstove_www
 RUN chmod 755 /var/www/php-fcgi-scripts/tekstove_www/php-fcgi-starter
+
+WORKDIR /var/www/tekstove-site
 
 CMD if [ ! -d "/var/www/tekstove-site/var/cache" ] ; \
     then composer install -d /var/www/tekstove-site ; \

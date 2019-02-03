@@ -43,6 +43,7 @@ services:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: ["@tekstove.gateway.factory", createLyricGateway]
         shared: false
+        public: true
 
     tesktove.gateway.v4.lyric:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
