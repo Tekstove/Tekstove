@@ -1,0 +1,37 @@
+{% extends '@Site/main.html.twig' %}
+{% block content %}
+    <div class="row t-forum-breadcrumb">
+        <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a>
+        -&gt;
+        Нови мнения
+    </div>
+    <table class="t-forum table table-striped table-hover">
+        <tr>
+        </tr>
+{% for post in postPagination %}
+        <tr>
+            <td class="t-forum-main-td">
+                {{ post.user.username|e }}
+            </td>
+            <td>
+                <b>
+                    <a href="{{ path('tekstove.site.forum.topic.view', {id: post.topic.id}) }}">{{ post.topic.name|e }}</a>,
+                </b>
+                {{ post.datetime|date }}
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+            </td>
+            <td>
+                {{ post.text|e|nl2br }}
+            </td>
+        </tr>
+{% endfor %}
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(postPagination) }}
+    </div>
+{% endblock %}

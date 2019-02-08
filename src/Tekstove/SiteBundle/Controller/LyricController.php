@@ -56,9 +56,6 @@ class LyricController extends Controller
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
 
-        $mobileDetector = $this->get('mobile_detect.mobile_detector');
-        /* @var $mobileDetector \Detection\MobileDetect */
-
         if ($this->getUser()) {
             $ads = \Tekstove\SiteBundle\Ads\Ads::NOT_ALLOWED;
         } elseif ($lyric->isCensor()) {
@@ -70,7 +67,6 @@ class LyricController extends Controller
         return [
             'lyric' => $lyric,
             'ads' => $ads,
-            'mobileDetector' => $mobileDetector,
             'apiUrl' => $this->getParameter('tekstove.api_url'),
         ];
     }
@@ -107,7 +103,7 @@ class LyricController extends Controller
             }
         }
         return $this->render(
-            'SiteBundle::Lyric/edit.html.twig',
+            '@Site/lyric/edit.html.twig',
             [
                 'form' => $form->createView(),
             ]

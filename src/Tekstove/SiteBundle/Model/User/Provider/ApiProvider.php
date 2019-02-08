@@ -7,12 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
-use Tekstove\SiteBundle\Model\User\Provider\ApiGateway;
-use Tekstove\SiteBundle\Model\User\Provider\User;
-
 /**
- * Description of ApiProvider
- *
  * @author po_taka <angel.koilov@gmail.com>
  */
 class ApiProvider implements UserProviderInterface

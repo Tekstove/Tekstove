@@ -1,6 +1,7 @@
 /.web-server-pid
 
 /composer.lock
+/symfony.lock
 
 /vendor
 
@@ -17,3 +18,14 @@
 /app/scripts/migrations/phinx.yml
 
 /node_modules
+
+/.env
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###

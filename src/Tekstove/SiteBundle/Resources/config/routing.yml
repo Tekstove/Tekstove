@@ -194,7 +194,7 @@ chat:
 
 tekstove.feed.forum.topic:
     path: /feed/forum/topic.xml
-    defaults: { _controller: SiteBundle:Feed\Forum:Topic, _format:xml }
+    defaults: { _controller: SiteBundle:Feed\Forum:Topic, _format: xml }
     methods: [GET]
 
 app.publisher.view:

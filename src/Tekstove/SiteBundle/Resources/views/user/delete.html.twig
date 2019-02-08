@@ -1,0 +1,17 @@
+{% extends '@Site/main.html.twig' %}
+{% block content %}
+
+    {{ form_start(form) }}
+
+    <h1>
+        Изтриване на потребителски профил
+    </h1>
+
+    <div class="alert alert-danger" role="alert">
+        Изпращането на формата няма връщане.<br/>
+        Изтрит профил не може да бъде възстановен!
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

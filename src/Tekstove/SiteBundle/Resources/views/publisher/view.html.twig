@@ -1,0 +1,66 @@
+{% extends '@Site/main.html.twig' %}
+
+{% block htmlBody %}
+    <div id="fb-root"></div>
+    <!-- Load Facebook SDK for JavaScript -->
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ publisher.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>
+            {{ publisher.name }}
+        </h1>
+
+        <h2>Текстове</h2>
+
+        <div class="col-md-6">
+            {% for lyric in lyrics %}
+                <a href="{{ path('lyricView', {id:lyric.id}) }}">{{ lyric.cacheTitleShort }}</a>
+                <br/>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-6">
+            {% if publisher.facebookPageId %}
+                <a href="https://fb.com/{{ publisher.facebookPageId }}">
+                    <img src="{{ asset('bundles/site/images/fb/f-ogo_RGB_HEX-58.png') }}" alt="facebook logo" /> Следвай {{ publisher.Name }}
+                </a>
+
+                <br><br>
+
+                <div class="fb-page" data-href="https://www.facebook.com/{{ publisher.facebookPageId }}/"
+                     data-tabs="timeline"
+                     data-small-header="true"
+                     data-hide-cover="true"
+                     data-adapt-container-width="true"
+                     data-show-facepile="false">
+                    <blockquote cite="https://www.facebook.com/{{ publisher.facebookPageId }}/" class="fb-xfbml-parse-ignore">
+                        <a href="https://www.facebook.com/{{ publisher.facebookPageId }}/">{{ publisher.name }}</a>
+                    </blockquote>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="clear-fix"></div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(lyrics) }}
+        </div>
+
+    </div>
+{% endblock %}

@@ -7,13 +7,10 @@ php:
 
 before_script:
   - phpenv rehash
-  - mv app/config/parameters_travis.yml app/config/parameters.yml
-  - mysql -e 'create database tekstove_lyric;'
 
 script:
     - composer install -d Test/codeSniffer/ --prefer-dist --no-dev
     - Test/codeSniffer/vendor/bin/phpcs --standard=Test/codeSniffer/phpcs.xml src/
-    - cp app/config/parameters.yml.dist app/config/parameters.yml
     - composer install --prefer-dist
     - vendor/bin/phpunit -c Test/phpUnit/phpunit.xml --no-coverage
 

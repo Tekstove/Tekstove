@@ -1,4 +1,4 @@
-{% extends 'SiteBundle::Main/html.html.twig' %}
+{% extends '@Site/main/html.html.twig' %}
 {% block htmlBody %}
     {% for messageBag in app.flashes %}
         <div class="flash-message">
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        {% include '@TekstoveSite/Main/Menu/horizontal.html.twig' %}
+        {% include '@Site/main/menu/horizontal.html.twig' %}
 
         <div class="row hidden-xs">
             <div class="t-top-letters-above"></div>
@@ -70,7 +70,7 @@
                 {% if app.user %}
                     <div class="panel panel-default hidden-xs">
                         <div class="panel-body">
-                            {% include '@TekstoveSite/Main/userMenu.html.twig' %}
+                            {% include '@Site/main/userMenu.html.twig' %}
                         </div>
                     </div>
                 {% endif %}
@@ -122,7 +122,7 @@
             </div>
 
             <div class="col-md-2">
-                {% include '@TekstoveSite/Main/rightPart.html.twig' %}
+                {% include '@Site/main/rightPart.html.twig' %}
             </div>
         </div>
         <div class="container-fluid">
