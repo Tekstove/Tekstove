@@ -68,17 +68,17 @@ tekstove.site.terms:
 
 userPmList:
     path: /user/pm/list
-    defaults: { _controller: SiteBundle:User\Pm:list }
+    defaults: { _controller: App\Controller\User\PmController::listAction }
     methods: [GET]
 
 tekstove_site.user.pm.send:
     path: /user/message/{toUserId}/{title}
-    defaults: { _controller: SiteBundle:User\Pm:add, title: '' }
+    defaults: { _controller: App\Controller\User\PmController:addAction, title: '' }
     methods: [GET, POST]
 
 tekstove.site.user.pm.view:
     path: /user/pm/view/{id}
-    defaults: { _controller: SiteBundle:User\Pm:view }
+    defaults: { _controller: App\Controller\User\PmController::viewAction }
     methods: [GET]
 
 lyricView:
