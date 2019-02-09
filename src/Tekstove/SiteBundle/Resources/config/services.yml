@@ -3,12 +3,12 @@ services:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiProvider
         arguments: ["@tekstove.gateway.userProvider"]
         public: true
-            
+
     tekstove.gateway.factory:
         class: Tekstove\SiteBundle\Model\Gateway\GatewayFactory
         arguments: ["%tekstove.api_url%", "@security.token_storage", "@request_stack"]
         public: true
-            
+
     tekstove.gateway.userProvider:
         class: Tekstove\SiteBundle\Model\User\Provider\ApiGateway
         factory: ["@tekstove.gateway.factory", createUserProviderGateway]
@@ -26,13 +26,13 @@ services:
         factory: ["@tekstove.gateway.factory", createTekstovePublisherGateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.user.pm:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway
         factory: ["@tekstove.gateway.factory", createUserPmGateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.user.register:
         class: Tekstove\SiteBundle\Model\Gateway\User\UserGateway
         factory: ["@tekstove.gateway.factory", createUserRegisterGateway]
@@ -50,14 +50,14 @@ services:
         factory: ["@tekstove.gateway.factory", createLyricV4Gateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: ["@tekstove.gateway.factory", createLyricCredentialsGateway]
         arguments: ["@security.token_storage"]
         shared: false
         public: true
-        
+
     tekstove.gateway.lyric.popularity.history:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricPopularHistoryGateway
         factory: ["@tekstove.gateway.factory", createLyricPopularityHistoryGateway]
@@ -76,13 +76,13 @@ services:
         factory: ["@tekstove.gateway.factory", createArtistV4Gateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.artist.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Artist\ArtistGateway
         factory: ["@tekstove.gateway.factory", createArtistCredentialsGateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.album:
         class: Tekstove\SiteBundle\Model\Gateway\Album\AlbumGateway
         factory: ["@tekstove.gateway.factory", createAlbumGateway]
@@ -100,7 +100,7 @@ services:
         factory: ["@tekstove.gateway.factory", createForumCategoryGateway]
         shared: false
         public: true
-        
+
     tekstove.gateway.forum.topic:
         class: Tekstove\SiteBundle\Model\Gateway\Forum\TopicGateway
         factory: ["@tekstove.gateway.factory", createForumTopicGateway]
@@ -112,7 +112,7 @@ services:
         factory: ["@tekstove.gateway.factory", createForumPostGateway]
         shared: false
         public: true
-    
+
     tekstove.gateway.language:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Language\LanguageGateway
         factory: ["@tekstove.gateway.factory", createLanguageGateway]
@@ -148,7 +148,7 @@ services:
           - 'wsse'
           - '@security.authentication.success_handler'
           - '@security.authentication.failure_handler'
-          - []
+          - { require_previous_session: false }
           - '@logger'
           - ~
         public: false
