@@ -33,6 +33,8 @@ services:
         shared: false
         public: true
 
+    Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway: '@tekstove.gateway.user.pm'
+
     tekstove.gateway.user.register:
         class: Tekstove\SiteBundle\Model\Gateway\User\UserGateway
         factory: ["@tekstove.gateway.factory", createUserRegisterGateway]

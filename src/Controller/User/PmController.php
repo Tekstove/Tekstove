@@ -1,8 +1,10 @@
 <?php
 
-namespace Tekstove\SiteBundle\Controller\User;
+namespace App\Controller\User;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Knp\Component\Pager\PaginatorInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway;
@@ -15,24 +17,18 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
 use Tekstove\SiteBundle\Form\ErrorPopulator\ArrayErrorPopulator;
 
 /**
- * Description of PmController
- *
  * @author potaka
  */
-class PmController extends Controller
+class PmController extends AbstractController
 {
     /**
      * @Template()
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, PmGateway $pmGateway, PaginatorInterface $paginator)
     {
-        $pmGateway = $this->get('tekstove.gateway.user.pm');
-        /* @var $pmGateway PmGateway */
         $pmGateway->addFilter('userTo', $this->getUser()->getId());
         
         $pmGateway->setGroups(['List']);
-        $paginator = $this->get('knp_paginator');
-        /* @var $paginator \Knp\Component\Pager\Paginator */
         $pagination = $paginator->paginate(
             $pmGateway,
             $request->query->getInt('page', 1),
@@ -50,10 +46,8 @@ class PmController extends Controller
      *
      * @Template()
      */
-    public function viewAction($id)
+    public function viewAction($id, LoggerInterface $logger, PmGateway $pmGateway, PmGateway $pmGatewayMarkread, PmGateway $pmHistoryGateway)
     {
-        $pmGateway = $this->get('tekstove.gateway.user.pm');
-        /* @var $pmGateway PmGateway */
         $pmGateway->setGroups([PmGateway::GROUP_DETAILS]);
         $pmData = $pmGateway->get($id);
         $pm = $pmData['item'];
@@ -62,18 +56,13 @@ class PmController extends Controller
         // mark pm as read
         try {
             if (!$pm->getRead()) {
-                $pmGatewayMarkread = $this->get('tekstove.gateway.user.pm');
-                /* @var $pmGatewayMarkread PmGateway */
                 $pm->setRead(true);
                 $pmGatewayMarkread->save($pm);
             }
         } catch (RequestException $e) {
-            $logger = $this->get('logger');
             $logger->critical('Can\'t mark pm as read', ['exception' => $e]);
         }
 
-        $pmHistoryGateway = $this->get('tekstove.gateway.user.pm');
-        /* @var $pmHistoryGateway PmGateway */
         $pmHistoryGateway->setGroups([PmGateway::GROUP_DETAILS]);
 
         $compositeFilter = new \Tekstove\SiteBundle\Model\Gateway\Tekstove\CompositeFilter(PmGateway::FILER_OR);
@@ -103,7 +92,7 @@ class PmController extends Controller
     /**
      * @Template()
      */
-    public function addAction(Request $request, $toUserId, $title)
+    public function addAction(Request $request, $toUserId, $title, PmGateway $pmGateway)
     {
         // @TODO user must be logged.
         // Anyway, api will not validate request....
@@ -116,8 +105,6 @@ class PmController extends Controller
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $pmGateway = $this->get('tekstove.gateway.user.pm');
-            /* @var $pmGateway PmGateway */
             try {
                 $pmGateway->save($pm);
                 return $this->redirectToRoute('userPmList');
