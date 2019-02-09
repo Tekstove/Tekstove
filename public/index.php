@@ -36,7 +36,7 @@ Request::setTrustedProxies(
         '198.41.128.0/17',
         '199.27.128.0/21',
     ],
-    Request::HEADER_X_FORWARDED_FOR
+    Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_PROTO
 );
 
 if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false) {
