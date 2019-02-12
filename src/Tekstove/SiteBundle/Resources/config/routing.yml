@@ -1,6 +1,6 @@
 index:
     path:     /
-    defaults: { _controller: SiteBundle:Index:index }
+    defaults: { _controller: App\Controller\IndexController::indexAction }
     methods: [GET]
 
 contacts:

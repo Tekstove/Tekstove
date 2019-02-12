@@ -42,10 +42,12 @@ services:
         public: true
 
     tesktove.gateway.lyric:
-        class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
+        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway
         factory: ["@tekstove.gateway.factory", createLyricGateway]
         shared: false
         public: true
+
+    Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway: '@tesktove.gateway.lyric'
 
     tesktove.gateway.v4.lyric:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
@@ -86,10 +88,12 @@ services:
         public: true
 
     tekstove.gateway.album:
-        class: Tekstove\SiteBundle\Model\Gateway\Album\AlbumGateway
+        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway
         factory: ["@tekstove.gateway.factory", createAlbumGateway]
         shared: false
         public: true
+
+    Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway: '@tekstove.gateway.album'
 
     tekstove.gateway.album.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumCredentialsGateway
