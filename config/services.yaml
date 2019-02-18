@@ -213,7 +213,7 @@ services:
             - { name: form.type }
 
     tekstove.site.gateway_pagination:
-        class: Tekstove\SiteBundle\Subscriber\TekstoveGatewayPaginationSubscriber
+        class: App\Subscriber\TekstoveGatewayPaginationSubscriber
         arguments: ['@request_stack']
         tags:
             - { name: knp_paginator.subscriber }
