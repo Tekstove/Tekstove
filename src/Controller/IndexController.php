@@ -15,14 +15,7 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway;
  */
 class IndexController extends AbstractController
 {
-    public function indexAction(
-        CacheItemPoolInterface $cache,
-        LyricGatewayV4 $lyricGateway,
-        LyricGatewayV4 $popularGateway,
-        LyricGatewayV4 $lyricLastTranslatedGateway,
-        LyricGatewayV4 $viewedGateway,
-        AlbumGateway $albumGateway
-    )
+    public function indexAction(CacheItemPoolInterface $cache, LyricGatewayV4 $lyricGateway, LyricGatewayV4 $popularGateway, LyricGatewayV4 $lyricLastTranslatedGateway, LyricGatewayV4 $viewedGateway, AlbumGateway $albumGateway)
     {
         $defaultCacheInterval = new \DateInterval('PT5M');
 
