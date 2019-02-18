@@ -6,7 +6,6 @@ use App\Gateway\Tekstove\V4\Lyric\LyricGateway;
 use Psr\Cache\CacheItemPoolInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway;
 
 /**
@@ -24,7 +23,7 @@ class IndexController extends AbstractController
             $lastLyrics = $cacheLatestLyric->get();
         } else {
             $cacheLatestLyric->expiresAfter($defaultCacheInterval);
-            $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
             /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
             $lyricGateway->addOrder('id', 'DESC');
 
@@ -40,8 +39,8 @@ class IndexController extends AbstractController
             $lastTranslated = $cacheLatestTranslatedLyric->get();
         } else {
             $cacheLatestTranslatedLyric->expiresAfter($defaultCacheInterval);
-            $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
-            $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
+            $lyricLastTranslatedGateway->setGroups([LyricGateway::GROUP_LIST]);
+            $lyricLastTranslatedGateway->addFilter('textBg', 1, LyricGateway::FILTER_NOT_NULL);
             $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
             $lastTranslatedResult = $lyricLastTranslatedGateway->find();
             $lastTranslated = $lastTranslatedResult['items'];
@@ -54,7 +53,7 @@ class IndexController extends AbstractController
             $popular = $cachePopularLyric->get();
         } else {
             $cachePopularLyric->expiresAfter($defaultCacheInterval);
-            $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $popularGateway->setGroups([LyricGateway::GROUP_LIST]);
             $popularGateway->addOrder('popularity', 'DESC');
             $popularGateway->setLimit(19);
             $popularData = $popularGateway->find();
@@ -68,7 +67,7 @@ class IndexController extends AbstractController
             $mostViewed = $cacheMostViewedLyric->get();
         } else {
             $cacheMostViewedLyric->expiresAfter($defaultCacheInterval);
-            $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $viewedGateway->setGroups([LyricGateway::GROUP_LIST]);
             $viewedGateway->addOrder('views', 'DESC');
             $viewedGateway->setLimit(19);
             $viewedData = $viewedGateway->find();
@@ -82,7 +81,7 @@ class IndexController extends AbstractController
             $lastAlbums = $cacheAlbums->get();
         } else {
             $cacheAlbums->expiresAfter($defaultCacheInterval);
-            $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
+            $albumGateway->setGroups([AlbumGateway::GROUP_LIST]);
             $albumGateway->addOrder('id', 'DESC');
             $albumGateway->setLimit(6);
             $albumsData = $albumGateway->find();

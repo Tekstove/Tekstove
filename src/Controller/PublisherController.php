@@ -16,8 +16,6 @@ class PublisherController extends AbstractController
      */
     public function viewAction($id, Request $request, PublisherGateway $gateway, LyricGateway $lyricGateway, PaginatorInterface $paginator)
     {
-        // this toV4 should be removed when we are fully migrated to v4
-        $lyricGateway->setRelativeUrlToV4();
         $gateway->setGroups([PublisherGateway::GROUP_DETAILS]);
         $data = $gateway->get($id);
         $publisher = $data['item'];
