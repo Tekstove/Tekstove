@@ -1,22 +1,29 @@
 <?php
 
-namespace Tekstove\SiteBundle\Controller;
+namespace App\Controller;
 
+use Psr\Cache\CacheItemPoolInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway;
+use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 
 /**
  * @Template()
  * @author po_taka <angel.koilov@gmail.com>
  */
-class IndexController extends Controller
+class IndexController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction(
+        CacheItemPoolInterface $cache,
+        LyricGateway $lyricGateway,
+        LyricGateway $popularGateway,
+        LyricGateway $lyricLastTranslatedGateway,
+        LyricGateway $viewedGateway,
+        AlbumGateway $albumGateway
+    )
     {
-        $cache = $this->get('cache.app');
-        /* @var $cache \Psr\Cache\CacheItemPoolInterface */
-        
         $defaultCacheInterval = new \DateInterval('PT5M');
 
         $cacheLatestLyric = $cache->getItem('index.lyric.latest10');
@@ -24,7 +31,6 @@ class IndexController extends Controller
             $lastLyrics = $cacheLatestLyric->get();
         } else {
             $cacheLatestLyric->expiresAfter($defaultCacheInterval);
-            $lyricGateway = $this->get('tesktove.gateway.v4.lyric');
             $lyricGateway->setGroups([AbstractGateway::GROUP_LIST]);
             /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
             $lyricGateway->addOrder('id', 'DESC');
@@ -41,7 +47,6 @@ class IndexController extends Controller
             $lastTranslated = $cacheLatestTranslatedLyric->get();
         } else {
             $cacheLatestTranslatedLyric->expiresAfter($defaultCacheInterval);
-            $lyricLastTranslatedGateway = $this->get('tesktove.gateway.v4.lyric');
             $lyricLastTranslatedGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $lyricLastTranslatedGateway->addFilter('textBg', 1, AbstractGateway::FILTER_NOT_NULL);
             $lyricLastTranslatedGateway->addOrder('textBgAdded', 'DESC');
@@ -56,7 +61,6 @@ class IndexController extends Controller
             $popular = $cachePopularLyric->get();
         } else {
             $cachePopularLyric->expiresAfter($defaultCacheInterval);
-            $popularGateway = $this->get('tesktove.gateway.v4.lyric');
             $popularGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $popularGateway->addOrder('popularity', 'DESC');
             $popularGateway->setLimit(19);
@@ -71,7 +75,6 @@ class IndexController extends Controller
             $mostViewed = $cacheMostViewedLyric->get();
         } else {
             $cacheMostViewedLyric->expiresAfter($defaultCacheInterval);
-            $viewedGateway = $this->get('tesktove.gateway.v4.lyric');
             $viewedGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $viewedGateway->addOrder('views', 'DESC');
             $viewedGateway->setLimit(19);
@@ -86,8 +89,6 @@ class IndexController extends Controller
             $lastAlbums = $cacheAlbums->get();
         } else {
             $cacheAlbums->expiresAfter($defaultCacheInterval);
-            $albumGateway = $this->get('tekstove.gateway.album');
-            /* @var $albumGateway \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway */
             $albumGateway->setGroups([AbstractGateway::GROUP_LIST]);
             $albumGateway->addOrder('id', 'DESC');
             $albumGateway->setLimit(6);
