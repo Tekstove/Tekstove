@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher;
+namespace App\Gateway\Tekstove\V4\Publisher;
 
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Publisher\Publisher;

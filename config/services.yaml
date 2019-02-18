@@ -54,13 +54,9 @@ services:
         shared: false
         public: true
 
-    app.gateway.v4.publisher:
-        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway
+    App\Gateway\Tekstove\V4\Publisher\PublisherGateway:
         factory: ["@tekstove.gateway.factory", createTekstovePublisherGateway]
         shared: false
-        public: true
-
-    Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway: '@app.gateway.v4.publisher'
 
     tekstove.gateway.user.pm:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway
@@ -93,6 +89,8 @@ services:
     App\Gateway\Tekstove\Lyric\LyricGatewayV4:
         factory: ["@tekstove.gateway.factory", createLyricV4Gateway]
         shared: false
+
+    App\Gateway\Tekstove\V4\Lyric\LyricGateway: '@App\Gateway\Tekstove\Lyric\LyricGatewayV4'
 
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
