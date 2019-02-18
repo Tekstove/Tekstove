@@ -90,6 +90,10 @@ services:
         shared: false
         public: true
 
+    App\Gateway\Tekstove\Lyric\LyricGatewayV4:
+        factory: ["@tekstove.gateway.factory", createLyricV4Gateway]
+        shared: false
+
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
         factory: ["@tekstove.gateway.factory", createLyricCredentialsGateway]

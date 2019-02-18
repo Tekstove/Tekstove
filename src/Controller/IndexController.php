@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
+use App\Gateway\Tekstove\Lyric\LyricGatewayV4;
 use Psr\Cache\CacheItemPoolInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\AbstractGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Lyric\LyricGateway;
 
 /**
  * @Template()
@@ -17,10 +17,10 @@ class IndexController extends AbstractController
 {
     public function indexAction(
         CacheItemPoolInterface $cache,
-        LyricGateway $lyricGateway,
-        LyricGateway $popularGateway,
-        LyricGateway $lyricLastTranslatedGateway,
-        LyricGateway $viewedGateway,
+        LyricGatewayV4 $lyricGateway,
+        LyricGatewayV4 $popularGateway,
+        LyricGatewayV4 $lyricLastTranslatedGateway,
+        LyricGatewayV4 $viewedGateway,
         AlbumGateway $albumGateway
     )
     {

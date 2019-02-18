@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Gateway\Tekstove\Lyric\LyricGatewayV4;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ class PublisherController extends AbstractController
     /**
      * @Template()
      */
-    public function viewAction($id, Request $request, PublisherGateway $gateway, LyricGateway $lyricGateway, PaginatorInterface $paginator)
+    public function viewAction($id, Request $request, PublisherGateway $gateway, LyricGatewayV4 $lyricGateway, PaginatorInterface $paginator)
     {
         // this toV4 should be removed when we are fully migrated to v4
         $lyricGateway->setRelativeUrlToV4();

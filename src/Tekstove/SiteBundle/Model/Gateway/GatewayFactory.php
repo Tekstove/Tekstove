@@ -2,6 +2,7 @@
 
 namespace Tekstove\SiteBundle\Model\Gateway;
 
+use App\Gateway\Tekstove\Lyric\LyricGatewayV4;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Client;
 
@@ -43,10 +44,9 @@ class GatewayFactory
 
     public function createLyricV4Gateway()
     {
-        $gateway = $this->createLyricGateway();
-        $gateway->setRelativeUrlToV4();
-
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(
+            LyricGatewayV4::class
+        );
     }
 
     public function createLyricCredentialsGateway()
