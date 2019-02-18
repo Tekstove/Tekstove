@@ -41,9 +41,6 @@ class PmController extends AbstractController
     }
 
     /**
-     *
-     * @param int $id
-     *
      * @Template()
      */
     public function viewAction($id, LoggerInterface $logger, PmGateway $pmGateway, PmGateway $pmGatewayMarkread, PmGateway $pmHistoryGateway)
