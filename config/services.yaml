@@ -60,6 +60,8 @@ services:
         shared: false
         public: true
 
+    Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway: '@app.gateway.v4.publisher'
+
     tekstove.gateway.user.pm:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway
         factory: ["@tekstove.gateway.factory", createUserPmGateway]

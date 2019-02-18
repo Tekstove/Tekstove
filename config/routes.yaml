@@ -199,7 +199,7 @@ tekstove.feed.forum.topic:
 
 app.publisher.view:
   path: /publisher/{id}
-  defaults: { _controller: SiteBundle:Publisher:view }
+  defaults: { _controller: App\Controller\PublisherController::viewAction }
   requirements:
     id: \d+
   methods: [GET]
