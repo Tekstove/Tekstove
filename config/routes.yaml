@@ -189,7 +189,7 @@ tekstove.site.forum.post.newest:
 
 chat:
   path: /chat
-  defaults: { _controller: SiteBundle:Chat:index }
+  defaults: { _controller: App\Controller\ChatController::indexAction }
   methods: [GET]
 
 tekstove.feed.forum.topic:

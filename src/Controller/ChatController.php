@@ -1,11 +1,11 @@
 <?php
 
-namespace Tekstove\SiteBundle\Controller;
+namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class ChatController extends Controller
+class ChatController extends AbstractController
 {
     /**
      * @Template()
