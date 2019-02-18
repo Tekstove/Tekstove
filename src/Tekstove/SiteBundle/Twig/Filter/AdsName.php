@@ -2,7 +2,7 @@
 
 namespace Tekstove\SiteBundle\Twig\Filter;
 
-use Tekstove\SiteBundle\Ads\Ads;
+use App\Ads\Ads;
 
 class AdsName extends \Twig_Extension
 {

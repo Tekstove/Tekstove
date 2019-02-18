@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\SiteBundle\Ads;
+namespace App\Ads;
 
 class Ads
 {

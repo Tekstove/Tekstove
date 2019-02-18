@@ -240,5 +240,5 @@ services:
             - { name: twig.extension }
 
     tekstove.site.ads:
-        class: Tekstove\SiteBundle\Ads\Ads
+        class: App\Ads\Ads
         public: true
