@@ -54,11 +54,9 @@ services:
         shared: false
         public: true
 
-    app.gateway.v4.publisher:
-        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway
+    App\Gateway\Tekstove\V4\Publisher\PublisherGateway:
         factory: ["@tekstove.gateway.factory", createTekstovePublisherGateway]
         shared: false
-        public: true
 
     tekstove.gateway.user.pm:
         class: Tekstove\SiteBundle\Model\Gateway\Tekstove\User\PmGateway
@@ -87,6 +85,12 @@ services:
         factory: ["@tekstove.gateway.factory", createLyricV4Gateway]
         shared: false
         public: true
+
+    App\Gateway\Tekstove\Lyric\LyricGatewayV4:
+        factory: ["@tekstove.gateway.factory", createLyricV4Gateway]
+        shared: false
+
+    App\Gateway\Tekstove\V4\Lyric\LyricGateway: '@App\Gateway\Tekstove\Lyric\LyricGatewayV4'
 
     tekstove.gateway.lyric.credentials:
         class: Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway
@@ -213,32 +217,14 @@ services:
             - { name: form.type }
 
     tekstove.site.gateway_pagination:
-        class: Tekstove\SiteBundle\Subscriber\TekstoveGatewayPaginationSubscriber
+        class: App\Subscriber\TekstoveGatewayPaginationSubscriber
         arguments: ['@request_stack']
         tags:
             - { name: knp_paginator.subscriber }
         public: true
-
-    tekstove.site.twig.filter.loggedOnly:
-        class: Tekstove\SiteBundle\Twig\Filter\LoggedOnlyLink
-        arguments: ["@security.token_storage", "@router"]
-        public: false
-        tags:
-            - { name: twig.extension }
 
     tekstove.site.twig.extension.text:
         class: Twig_Extensions_Extension_Text
         public: false
         tags:
             - { name: twig.extension }
-
-    tekstove.site.twig.extension.ads_name:
-        class: Tekstove\SiteBundle\Twig\Filter\AdsName
-        public: false
-        arguments: ["@tekstove.site.ads"]
-        tags:
-            - { name: twig.extension }
-
-    tekstove.site.ads:
-        class: Tekstove\SiteBundle\Ads\Ads
-        public: true

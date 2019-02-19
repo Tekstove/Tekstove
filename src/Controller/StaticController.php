@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\SiteBundle\Controller;
+namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 

@@ -5,7 +5,7 @@ index:
 
 contacts:
   path: /contacts
-  defaults: { _controller: SiteBundle:Contacts:contacts }
+  defaults: { _controller: App\Controller\ContactsController::contactsAction }
   methods: [GET]
 
 login:
@@ -63,7 +63,7 @@ tekstove.site.user.delete:
 
 tekstove.site.terms:
   path: /terms
-  defaults: { _controller: SiteBundle:Static:terms }
+  defaults: { _controller: App\Controller\StaticController::termsAction }
   methods: [GET]
 
 userPmList:
@@ -199,7 +199,7 @@ tekstove.feed.forum.topic:
 
 app.publisher.view:
   path: /publisher/{id}
-  defaults: { _controller: SiteBundle:Publisher:view }
+  defaults: { _controller: App\Controller\PublisherController::viewAction }
   requirements:
     id: \d+
   methods: [GET]

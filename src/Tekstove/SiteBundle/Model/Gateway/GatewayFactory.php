@@ -2,13 +2,14 @@
 
 namespace Tekstove\SiteBundle\Model\Gateway;
 
+use App\Gateway\Tekstove\V4\Lyric\LyricGateway as LyricGatewayV4;
+use App\Gateway\Tekstove\V4\Publisher\PublisherGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Artist\ArtistGateway;
 use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Guzzle\GuzzleAdapter as Client;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Tekstove\SiteBundle\Model\Gateway\Tekstove\Publisher\PublisherGateway;
 
 /**
  * Description of GatewayFactory
@@ -43,10 +44,9 @@ class GatewayFactory
 
     public function createLyricV4Gateway()
     {
-        $gateway = $this->createLyricGateway();
-        $gateway->setRelativeUrlToV4();
-
-        return $gateway;
+        return $this->createTekstoveDefaultGateway(
+            LyricGatewayV4::class
+        );
     }
 
     public function createLyricCredentialsGateway()

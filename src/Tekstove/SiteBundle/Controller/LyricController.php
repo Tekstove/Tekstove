@@ -57,11 +57,11 @@ class LyricController extends Controller
         /* @var $lyric Lyric */
 
         if ($this->getUser()) {
-            $ads = \Tekstove\SiteBundle\Ads\Ads::NOT_ALLOWED;
+            $ads = \App\Ads\Ads::NOT_ALLOWED;
         } elseif ($lyric->isCensor()) {
-            $ads = \Tekstove\SiteBundle\Ads\Ads::ALLOWED_ONLY_NOT_SAFE;
+            $ads = \App\Ads\Ads::ALLOWED_ONLY_NOT_SAFE;
         } else {
-            $ads = \Tekstove\SiteBundle\Ads\Ads::ALLOWED;
+            $ads = \App\Ads\Ads::ALLOWED;
         }
 
         return [

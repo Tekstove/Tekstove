@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\SiteBundle\Subscriber;
+namespace App\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

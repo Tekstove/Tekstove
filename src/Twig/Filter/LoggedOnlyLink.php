@@ -1,6 +1,6 @@
 <?php
 
-namespace Tekstove\SiteBundle\Twig\Filter;
+namespace App\Twig\Filter;
 
 use \Twig_Extension;
 use Twig_SimpleFilter;
