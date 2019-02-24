@@ -518,7 +518,7 @@
         $.ajax({
             method: "GET",
             dataType: 'json',
-            url: "{{ apiUrl|e('js') }}chat/online",
+            url: "{{ apiUrl|e('js') }}v4/chat/online",
             data: {
                 groups: ['List']
             },
@@ -557,7 +557,7 @@
          $.ajax({
             method: "POST",
             dataType: 'json',
-            url: "{{ apiUrl|e('js') }}chat/online"
+            url: "{{ apiUrl|e('js') }}v4/chat/online"
         });
     }
 
