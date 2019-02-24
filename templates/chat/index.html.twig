@@ -441,20 +441,23 @@
     }
     
     function chat_update() {
+        var filters = [];
+        if (message_id_start > 0) {
+            filters.push({
+                value: message_id_start,
+                operator: '>',
+                field: 'id'
+            });
+        }
+
         $.ajax({
             method: "GET",
-            url: "{{ apiUrl|e('js') }}chat/messages",
+            url: "{{ apiUrl|e('js') }}v4/chat/messages",
             data: ({
                 groups: [
                     'Details'
                 ],
-                filters: [
-                    {
-                        value: message_id_start,
-                        operator: '>',
-                        field: 'id'
-                    }
-                ]
+                filters: filters
             }),
             dataType: 'json',
             cache: false,
