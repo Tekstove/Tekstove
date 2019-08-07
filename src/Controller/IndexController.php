@@ -24,7 +24,7 @@ class IndexController extends AbstractController
         } else {
             $cacheLatestLyric->expiresAfter($defaultCacheInterval);
             $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
-            /* @var $lyricGateway \Tekstove\SiteBundle\Model\Gateway\Lyric\LyricGateway */
+            $lyricGateway->addFilter('onlyAuthorized', 1);
             $lyricGateway->addOrder('id', 'DESC');
 
             $lastLyricsResult = $lyricGateway->find();
@@ -54,6 +54,7 @@ class IndexController extends AbstractController
         } else {
             $cachePopularLyric->expiresAfter($defaultCacheInterval);
             $popularGateway->setGroups([LyricGateway::GROUP_LIST]);
+            $popularGateway->addFilter('onlyAuthorized', 1);
             $popularGateway->addOrder('popularity', 'DESC');
             $popularGateway->setLimit(19);
             $popularData = $popularGateway->find();
@@ -68,6 +69,7 @@ class IndexController extends AbstractController
         } else {
             $cacheMostViewedLyric->expiresAfter($defaultCacheInterval);
             $viewedGateway->setGroups([LyricGateway::GROUP_LIST]);
+            $viewedGateway->addFilter('onlyAuthorized', 1);
             $viewedGateway->addOrder('views', 'DESC');
             $viewedGateway->setLimit(19);
             $viewedData = $viewedGateway->find();
