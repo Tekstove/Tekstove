@@ -61,7 +61,7 @@
                 ]
             };
             $.ajax({
-                url: "{{ tekstove_api_url }}lyrics/",
+                url: "{{ tekstove_api_url }}v4/lyrics/",
                 data: options
             }).done(function(data) {
                 var items = data.items;
