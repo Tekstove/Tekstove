@@ -1,8 +1,5 @@
 /.web-server-pid
 
-/composer.lock
-/symfony.lock
-
 /vendor
 
 /app/cache/*
