@@ -119,7 +119,6 @@
                 <a href="{{ path('app.publisher.view', {id:publisher.id}) }}">{{ publisher.name }}</a>
                 {% if not loop.last %}
                     ,
-            {% include '@Site/ads/page.mobile.html.twig' %}
             {% endif %}
             {% endfor %}
         </div>
