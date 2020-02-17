@@ -56,17 +56,8 @@ class LyricController extends Controller
         $lyric = $lyricData['item'];
         /* @var $lyric Lyric */
 
-        if ($this->getUser()) {
-            $ads = \App\Ads\Ads::NOT_ALLOWED;
-        } elseif ($lyric->isCensor()) {
-            $ads = \App\Ads\Ads::ALLOWED_ONLY_NOT_SAFE;
-        } else {
-            $ads = \App\Ads\Ads::ALLOWED;
-        }
-
         return [
             'lyric' => $lyric,
-            'ads' => $ads,
             'apiUrl' => $this->getParameter('tekstove.api_url'),
         ];
     }
