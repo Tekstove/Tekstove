@@ -4,8 +4,6 @@
         |
         <a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a>
         |
-        <a href="{{ path("chat") }}">Чат</a>
-        |
         {% if not app.user %}
             <a href="{{ path('login') }}">Вход</a>
         {% else %}
@@ -28,7 +26,6 @@
             {#                        <a href="#"><del>Албуми</del></a>&nbsp;#}
                     <li><a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a></li>
                     <li><a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a></li>
-                    <li><a href="{{ path("chat") }}">Чат</a></li>
                 </ul>
             </li>
 
