@@ -31,26 +31,17 @@
                 <div class="t-top-menu-container">
                     <span class="top_menu_gore_dqsno">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">Начало</a><br/>
-                        {#&nbsp;&nbsp;<a href="#" rel="search"><del>Разгледай</del></a><br/>#}
-                        {#<a href="#"><del>Албуми</del></a><br/><br/>#}
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-2 hidden-sm hidden-xs">
-
-                <div class="t-top-menu-container">
-                    <span class="top_menu_gore_dqsno">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a><br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a><br/>
-                        &nbsp;&nbsp;&nbsp;<a href="{{ path("chat") }}">Чат</a>
+                        &nbsp;&nbsp;&nbsp;<a href="{{ path('tekstove_site.lyric.search') }}" rel="search">Търсачка</a><br/>
+                        <a href="{{ path('tekstove.site.forum.category.list') }}">Форум</a><br/>
                     </span>
                 </div>
             </div>
             <div class="col-md-2 hidden-sm hidden-xs">
                 <div class="t-top-menu-container">
                     <span class="top_menu_gore_dqsno">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Изпрати Tекст</a>&nbsp;<br/>
-                        {#&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><del>Изпрати Албум</del></a>#}
+                        <br/>
+                        &nbsp;&nbsp;<a href="{{ path('lyricAdd') }}">Изпрати Tекст</a>
+                        <br/>
                     </span>
                 </div>
             </div>
