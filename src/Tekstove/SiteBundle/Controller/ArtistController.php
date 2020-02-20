@@ -26,7 +26,6 @@ class ArtistController extends Controller
         $artistGateway->setGroups(
             [
                 ArtistGateway::GROUP_DETAILS,
-                ArtistGateway::GROUP_ALBUMS,
                 ArtistGateway::GROUP_ACL,
             ]
         );
@@ -49,17 +48,6 @@ class ArtistController extends Controller
             $this->get('logger')->error('Artist version 4 not found', ['ex' => $e]);
         }
 
-        $albums = $artist->getAlbums();
-
-        // sort albums by year
-        usort($albums, function (\Tekstove\SiteBundle\Model\Album\Album $a, \Tekstove\SiteBundle\Model\Album\Album $b) {
-            if ($a->getYear() === $b->getYear()) {
-                return $a->getName() > $b->getName();
-            }
-
-            return $a->getYear() > $b->getYear();
-        });
-
         $lyricGateway = $this->get("tesktove.gateway.v4.lyric");
         /* @var $lyricGateway LyricGateway */
         $lyricGateway->setGroups([LyricGateway::GROUP_LIST]);
@@ -78,7 +66,6 @@ class ArtistController extends Controller
         return [
             'artist' => $artist,
             'lyrics' => $lyrics,
-            'albums' => $albums,
         ];
     }
 

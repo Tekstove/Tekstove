@@ -116,26 +116,4 @@
         </div>
     </div>
 
-    <div class="clearfix"></div>
-
-    <div class="row t-index-albums-container">
-        <div class="row">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i><b>най-нови албуми</b></i><br>
-        </div>
-
-        <div class="row">
-{% for album in albums %}
-                <div class="col-md-2 text-center t-index-album">
-                    <a href="{{ path('tekstove_site_album_view', { id:album.id }) }}" title="{{ album.name }}">
-                        {{ album.name }}
-                        <br/>
-                        <i>({{ album.year }})</i>
-                        <br/>
-                        <img src="{{ album.image }}" style="max-width: 100%; height: auto;" alt="Обложка" />
-                    </a>
-                </div>
-{% endfor %}
-        </div>
-    </div>
-
 {% endblock %}

@@ -142,20 +142,6 @@ class GatewayFactory
         return $this->createTekstoveDefaultGateway(Tekstove\Forum\PostGateway::class);
     }
     
-    public function createAlbumGateway()
-    {
-        return $this->createTekstoveDefaultGateway(
-            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway::class
-        );
-    }
-
-    public function createAlbumCredentialsGateway()
-    {
-        return $this->createTekstoveDefaultGateway(
-            \Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumCredentialsGateway::class
-        );
-    }
-
     public function createTekstovePublisherGateway()
     {
         return $this->createTekstoveDefaultGateway(

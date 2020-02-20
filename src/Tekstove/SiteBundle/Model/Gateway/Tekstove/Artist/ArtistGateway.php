@@ -12,7 +12,6 @@ use Tekstove\SiteBundle\Model\Gateway\Tekstove\Client\Exception\TekstoveValidati
  */
 class ArtistGateway extends AbstractGateway
 {
-    const GROUP_ALBUMS = 'Albums';
     const GROUP_ACL = 'Artist.Acl';
 
     private $relativeUrl = '/artists/';

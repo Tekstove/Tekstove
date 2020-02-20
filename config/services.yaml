@@ -124,20 +124,6 @@ services:
         shared: false
         public: true
 
-    tekstove.gateway.album:
-        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway
-        factory: ["@tekstove.gateway.factory", createAlbumGateway]
-        shared: false
-        public: true
-
-    Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumGateway: '@tekstove.gateway.album'
-
-    tekstove.gateway.album.credentials:
-        class: Tekstove\SiteBundle\Model\Gateway\Tekstove\Album\AlbumCredentialsGateway
-        factory: ["@tekstove.gateway.factory", createAlbumCredentialsGateway]
-        shared: false
-        public: true
-
     tekstove.gateway.forum.category:
         class: Tekstove\SiteBundle\Model\Gateway\Forum\CategoryGateway
         factory: ["@tekstove.gateway.factory", createForumCategoryGateway]
@@ -209,12 +195,6 @@ services:
         tags:
             - { name: form.type }
         public: true
-
-    tekstove.form.album:
-        class: Tekstove\SiteBundle\Form\Type\Album\AlbumType
-        arguments: ['@request_stack', '@tekstove.gateway.artist', '@tekstove.gateway.language']
-        tags:
-            - { name: form.type }
 
     tekstove.site.gateway_pagination:
         class: App\Subscriber\TekstoveGatewayPaginationSubscriber

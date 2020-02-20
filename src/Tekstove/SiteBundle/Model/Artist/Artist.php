@@ -2,7 +2,6 @@
 
 namespace Tekstove\SiteBundle\Model\Artist;
 
-use Tekstove\SiteBundle\Model\Album\Album;
 use Tekstove\SiteBundle\Model\Artist\Exception\ArtistException as Exception;
 
 /**
@@ -20,8 +19,6 @@ class Artist
     private $aboutHtml;
     private $facebookPageId;
     
-    private $albums;
-
     private $acl;
 
     public function __construct($data = [])
@@ -40,13 +37,6 @@ class Artist
                 continue;
             }
             $this->{$field} = $data[$field];
-        }
-        
-        if (isset($data['albums'])) {
-            $this->albums = [];
-            foreach ($data['albums'] as $albumData) {
-                $this->albums[] = new Album($albumData);
-            }
         }
     }
 
@@ -72,14 +62,6 @@ class Artist
         $this->name = $name;
     }
     
-    public function getAlbums()
-    {
-        if ($this->albums === null) {
-            throw new Exception("Albums not set");
-        }
-        return $this->albums;
-    }
-
     public function getAbout()
     {
         return $this->about;

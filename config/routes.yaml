@@ -132,23 +132,6 @@ artistEdit:
   defaults: { _controller: SiteBundle:Artist:edit }
   methods: [GET, POST]
 
-tekstove_site_album_view:
-  path: /album/view/{id}
-  defaults: { _controller: SiteBundle:Album:view }
-  requirements:
-    id: \d+
-  methods: [GET]
-
-tekstove_site_album_new:
-  path: /album/add
-  defaults: { _controller: SiteBundle:Album:add }
-  methods: [GET, POST]
-
-tekstove_site_album_edit:
-  path: /album/edit/{id}
-  defaults: { _controller: SiteBundle:Album:edit }
-  methods: [GET, POST]
-
 tekstove.site.forum.category.list:
   path: /forum/category/list
   defaults: { _controller: SiteBundle:Forum\Category:list }
