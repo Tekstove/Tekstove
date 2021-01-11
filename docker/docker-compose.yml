@@ -8,3 +8,7 @@ services:
     restart: unless-stopped
     environment:
       - WEB_UID=${WEB_UID}
+networks:
+  default:
+    external:
+      name: ${PROJECT_NAME}
