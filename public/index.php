@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1 style="text-align: center; margin-top: 80px;">
-    С голямо съжаление обявяваме, че проекта tekstove.info се закрива :(
+    С голямо съжаление обявяваме, че проектът tekstove.info се закрива :(
 </h1>
 
 <div style="text-align: center; margin-top:80pt;">
