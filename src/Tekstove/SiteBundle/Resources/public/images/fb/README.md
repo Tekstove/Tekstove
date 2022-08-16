@@ -1,1 +1,0 @@
-Resource here are public available on https://en.facebookbrand.com/

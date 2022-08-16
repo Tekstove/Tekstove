@@ -1,6 +1,0 @@
-{% for artist in artists %}
-    <a href="{{ path('artistBrowse', {id: artist.id}) }}">{{ artist.name }}</a>
-    {% if not loop.last %}
-        и
-    {% endif %}
-{% endfor %}

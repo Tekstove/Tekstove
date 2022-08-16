@@ -4,36 +4,9 @@
     "license": "MIT",
     "description": "Tekstove.info website",
     "require": {
-        "php": ">=7.1.3",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
-        "guzzlehttp/guzzle": "^6.3.3",
-        "knplabs/knp-paginator-bundle": "^2.8.0",
-        "sensio/framework-extra-bundle": "^5.1",
-        "symfony/asset": "4.2.*",
-        "symfony/console": "4.2.*",
-        "symfony/dotenv": "4.2.*",
-        "symfony/expression-language": "4.2.*",
-        "symfony/flex": "^1.1",
-        "symfony/form": "4.2.*",
-        "symfony/framework-bundle": "4.2.*",
-        "symfony/monolog-bundle": "^3.2.0",
-        "symfony/process": "4.2.*",
-        "symfony/security-bundle": "4.2.*",
-        "symfony/serializer-pack": "*",
-        "symfony/swiftmailer-bundle": "^3.1",
-        "symfony/translation": "4.2.*",
-        "symfony/twig-bundle": "4.2.*",
-        "symfony/validator": "4.2.*",
-        "symfony/web-link": "4.2.*",
-        "symfony/yaml": "4.2.*",
-        "twig/extensions": "^1.5.1"
+        "php": ">=7.1.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.6",
-        "symfony/debug-pack": "*",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
     },
     "config": {
         "preferred-install": {
@@ -61,16 +34,6 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
     },
     "conflict": {
         "symfony/symfony": "*"
